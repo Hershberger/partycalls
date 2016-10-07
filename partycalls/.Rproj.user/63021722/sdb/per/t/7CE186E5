@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "^.*\\.Rproj$\n^\\.Rproj\\.user$\n^dev\n^package\n",
+    "created" : 1475850728867.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "797466732",
+    "id" : "7CE186E5",
+    "lastKnownWriteTime" : 1475850746,
+    "last_content_update" : 1475850746437,
+    "path" : "~/partycalls/.Rbuildignore",
+    "project_path" : ".Rbuildignore",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "text"
+}
