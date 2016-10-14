@@ -1,0 +1,399 @@
+mc,icpsrLegis,congress,variable,new_value,reason
+DRYDON (R NJ),2736,NA,mc,DRYDEN (R NJ),misspelling in mc
+MILLIKEN (R CO),6525,NA,mc,MILLIKIN (R CO),misspelling in mc
+WILLS (R IN),10205,NA,mc,WILLIS (R IN),misspelling in mc
+DAMATO (R NY),14900,NA,mc,D'AMATO (R NY),misspelling in mc
+VAN (D IN),9626,NA,mc,VAN NUYS (D IN),misspelling in mc
+VANNUYS (D IN),9626,NA,mc,VAN NUYS (D IN),misspelling in mc
+ROBBINSON (R IN),7972,NA,mc,ROBINSON (R IN),misspelling in mc
+AUARLES (R WI),7665,NA,mc,QUARLES (R WI),misspelling in mc
+TALIAFERO (D FL),9166,NA,mc,TALIAFERRO (D FL),misspelling in mc
+VANWYCK (R NE),9643,NA,mc,VAN WYCK (R NE),misspelling in mc
+VAN (R NE),9643,NA,mc,VAN WYCK (R NE),misspelling in mc
+TILLMANN (D SC),9386,NA,mc,TILLMAN (D SC),misspelling in mc
+HICKENLOOPE (R IA),4382,NA,mc,HICKENLOOPER (R IA),misspelling in mc
+STEWART (NA NV),8948,NA,mc,STEWART (Silver Republican NV),mislabelled mc
+JONES (NA NV),5046,NA,mc,JONES (Silver Republican NV),mislabelled mc
+POINDEXTER (Progressive  WA),7502,NA,mc,POINDEXTER (Progressive WA),mislabelled mc
+LAFOLLETTE (Progressive  WI),5402,NA,mc,LAFOLLETTE (Progressive WI),mislabelled mc
+VAN (Unconditional Unionist WV),9642,NA,mc,VAN WINKLE (Unconditional Unionist WV),misspelling in mc
+VANWINKLE (R WV),9642,NA,mc,VAN WINKLE (R WV),misspelling in mc
+STEWART (Silver Republican NV),8948,NA,party,Silver Republican,mislabelled party
+JONES (Silver Republican NV),5046,NA,party,Silver Republican,mislabelled party
+LIEBERMAN (D CT),15704,110,party,Independent Democrat,mislabelled party
+LIEBERMAN (D CT),15704,110,mc,LIEBERMAN (Independent Democrat CT),mislabelled mc
+
+FRELINGHUYS (R NJ),3362,NA,mc,FRELINGHUYS (R NJ) 3362,shared last name and party
+FRELINGHUYS (R NJ),3363,NA,mc,FRELINGHUYS (R NJ) 3363,shared last name and party
+SAULSBURY (D DE),8222,NA,mc,SAULSBURY (D DE) 8222,shared last name and party
+SAULSBURY (D DE),8223,NA,mc,SAULSBURY (D DE) 8223,shared last name and party
+SAULSBURY (D DE),8224,NA,mc,SAULSBURY (D DE) 8224,shared last name and party
+BAYARD (D DE),528,NA,mc,BAYARD (D DE) 528,shared last name and party
+BAYARD (D DE),525,NA,mc,BAYARD (D DE) 525,shared last name and party
+BAYARD (D DE),528,NA,mc,BAYARD (D DE) 528,shared last name and party
+BAYARD (D DE),529,NA,mc,BAYARD (D DE) 529,shared last name and party
+CAMERON (R PA),1437,NA,mc,CAMERON (R PA) 1437,shared last name and party
+CAMERON (R PA),1435,NA,mc,CAMERON (R PA) 1435,shared last name and party
+MILLER (D GA),6484,NA,mc,MILLER (D GA) 6484,shared last name and party
+MILLER (D GA),49904,NA,mc,MILLER (D GA) 49904,shared last name and party
+SCOTT (R PA),8304,NA,mc,SCOTT (R PA) 8304,shared last name and party
+SCOTT (R PA),8301,NA,mc,SCOTT (R PA) 8301,shared last name and party
+HALE (R ME),3917,NA,mc,HALE (R ME) 3917,shared last name and party
+HALE (R ME),3919,NA,mc,HALE (R ME) 3919,shared last name and party
+WILSON (R IA),10234,NA,mc,WILSON (R IA) 10234,shared last name and party
+WILSON (R IA),10221,NA,mc,WILSON (R IA) 10221,shared last name and party
+CAREY (R WY),1502,NA,mc,CAREY (R WY) 1502,shared last name and party
+CAREY (R WY),1503,NA,mc,CAREY (R WY) 1503,shared last name and party
+LODGE (R MA),5738,NA,mc,LODGE (R MA) 5738,shared last name and party
+LODGE (R MA),5739,NA,mc,LODGE (R MA) 5739,shared last name and party
+ELKINS (R WV),2899,NA,mc,ELKINS (R WV) 2899,shared last name and party
+ELKINS (R WV),2898,NA,mc,ELKINS (R WV) 2898,shared last name and party
+NELSON (R MN),6870,NA,mc,NELSON (R MN) 6870,shared last name and party
+NELSON (R MN),6862,NA,mc,NELSON (R MN) 6862,shared last name and party
+KEAN (R NJ),5108,NA,mc,KEAN (R NJ) 5108,shared last name and party
+KEAN (R NJ),5106,NA,mc,KEAN (R NJ) 5106,shared last name and party
+DUPONT (R DE),2781,NA,mc,DUPONT (R DE) 2781,shared last name and party
+DUPONT (R DE),2782,NA,mc,DUPONT (R DE) 2782,shared last name and party
+LAFOLLETTE (R WI),5401,NA,mc,LAFOLLETTE (R WI) 5401,shared last name and party
+LAFOLLETTE (R WI),5402,NA,mc,LAFOLLETTE (R WI) 5402,shared last name and party
+BANKHEAD (D AL),403,NA,mc,BANKHEAD (D AL) 403,shared last name and party
+BANKHEAD (D AL),404,NA,mc,BANKHEAD (D AL) 404,shared last name and party
+BRYAN (D FL),1178,NA,mc,BRYAN (D FL) 1178,shared last name and party
+BRYAN (D FL),1177,NA,mc,BRYAN (D FL) 1177,shared last name and party
+BURTON (R OH),1322,NA,mc,BURTON (R OH) 1322,shared last name and party
+BURTON (R OH),1317,NA,mc,BURTON (R OH) 1317,shared last name and party
+GOFF (R WV),3646,NA,mc,GOFF (R WV) 3646,shared last name and party
+GOFF (R WV),3645,NA,mc,GOFF (R WV) 3645,shared last name and party
+WEEKS (R MA),9911,NA,mc,WEEKS (R MA) 9911,shared last name and party
+WEEKS (R MA),9913,NA,mc,WEEKS (R MA) 9913,shared last name and party
+BROUSSARD (D LA),1092,NA,mc,BROUSSARD (D LA) 1092,shared last name and party
+BROUSSARD (D LA),1091,NA,mc,BROUSSARD (D LA) 1091,shared last name and party
+JOHNSON (D SD),4950,NA,mc,JOHNSON (D SD) 4950,shared last name and party
+JOHNSON (D SD),15425,NA,mc,JOHNSON (D SD) 15425,shared last name and party
+BAIRD (R NJ),354,NA,mc,BAIRD (R NJ) 354,shared last name and party
+BAIRD (R NJ),355,NA,mc,BAIRD (R NJ) 355,shared last name and party
+HEFLIN (D AL),4280,NA,mc,HEFLIN (D AL) 4280,shared last name and party
+HEFLIN (D AL),14705,NA,mc,HEFLIN (D AL) 14705,shared last name and party
+CARAWAY (D AR),1498,NA,mc,CARAWAY (D AR) 1498,shared last name and party
+CARAWAY (D AR),1497,NA,mc,CARAWAY (D AR) 1497,shared last name and party
+TYDINGS (D MD),9538,NA,mc,TYDINGS (D MD) 9538,shared last name and party
+TYDINGS (D MD),10824,NA,mc,TYDINGS (D MD) 10824,shared last name and party
+LONG (D LA),5758,NA,mc,LONG (D LA) 5758,shared last name and party
+LONG (D LA),5767,NA,mc,LONG (D LA) 5767,shared last name and party
+BYRD (D VA),1365,NA,mc,BYRD (D VA) 1365,shared last name and party
+BYRD (D VA),10802,NA,mc,BYRD (D VA) 10802,shared last name and party
+TAFT (R OH),9152,NA,mc,TAFT (R OH) 9152,shared last name and party
+TAFT (R OH),10630,NA,mc,TAFT (R OH) 10630,shared last name and party
+BENNETT (R UT),645,NA,mc,BENNETT (R UT) 645,shared last name and party
+BENNETT (R UT),49307,NA,mc,BENNETT (R UT) 49307,shared last name and party
+BEALL (R MD),546,NA,mc,BEALL (R MD) 546,shared last name and party
+BEALL (R MD),12002,NA,mc,BEALL (R MD) 12002,shared last name and party
+GORE (D TN),3704,NA,mc,GORE (D TN) 3704,shared last name and party
+GORE (D TN),14423,NA,mc,GORE (D TN) 14423,shared last name and party
+KENNEDY (D MA),5180,NA,mc,KENNEDY (D MA) 5180,shared last name and party
+KENNEDY (D MA),10808,NA,mc,KENNEDY (D MA) 10808,shared last name and party
+NEUBERGER (D OR),6882,NA,mc,NEUBERGER (D OR) 6882,shared last name and party
+NEUBERGER (D OR),6881,NA,mc,NEUBERGER (D OR) 6881,shared last name and party
+DODD (D CT),2636,NA,mc,DODD (D CT) 2636,shared last name and party
+DODD (D CT),14213,NA,mc,DODD (D CT) 14213,shared last name and party
+BAYH (D IN),10800,NA,mc,BAYH (D IN) 10800,shared last name and party
+BAYH (D IN),49901,NA,mc,BAYH (D IN) 49901,shared last name and party
+SIMPSON (R WY),10820,NA,mc,SIMPSON (R WY) 10820,shared last name and party
+SIMPSON (R WY),14710,NA,mc,SIMPSON (R WY) 14710,shared last name and party
+CHAFEE (R RI),14500,NA,mc,CHAFEE (R RI) 14500,shared last name and party
+CHAFEE (R RI),49905,NA,mc,CHAFEE (R RI) 49905,shared last name and party
+PRYOR (D AR),10791,NA,mc,PRYOR (D AR) 10791,shared last name and party
+PRYOR (D AR),40301,NA,mc,PRYOR (D AR) 40301,shared last name and party
+MURKOWSKI (R AK),14907,NA,mc,MURKOWSKI (R AK) 14907,shared last name and party
+MURKOWSKI (R AK),40300,NA,mc,MURKOWSKI (R AK) 40300,shared last name and party
+COTTON (R NH),2087,NA,mc,COTTON (R NH) 1st time in senate,discontinuous terms
+COTTON (R NH) 1st time in senate,2087,NA,icpsrLegis,102087,discontinuous terms
+COTTON (R NH) 1st time in senate,102087,94,mc,COTTON (R NH) 2nd time in senate,discontinuous terms
+COTTON (R NH) 2nd time in senate,102087,94,icpsrLegis,202087,discontinuous terms
+EASTLAND (D MS),2822,NA,mc,EASTLAND (D MS) 1st time in senate,discontinuous terms
+EASTLAND (D MS) 1st time in senate,2822,NA,icpsrLegis,102822,discontinuous terms
+EASTLAND (D MS) 1st time in senate,102822,78,mc,EASTLAND (D MS) 2nd time in senate,discontinuous terms
+EASTLAND (D MS) 2nd time in senate,102822,78,icpsrLegis,202822,discontinuous terms
+GOLDWATER (R AZ),3658,NA,mc,GOLDWATER (R AZ) 1st time in senate,discontinuous terms
+GOLDWATER (R AZ) 1st time in senate,3658,NA,icpsrLegis,103658,discontinuous terms
+GOLDWATER (R AZ) 1st time in senate,103658,91,mc,GOLDWATER (R AZ) 2nd time in senate,discontinuous terms
+GOLDWATER (R AZ) 2nd time in senate,103658,91,icpsrLegis,203658,discontinuous terms
+HUMPHREY (D MN),4728,NA,mc,HUMPHREY (D MN) 1st time in senate,discontinuous terms
+HUMPHREY (D MN) 1st time in senate,4728,NA,icpsrLegis,104728,discontinuous terms
+HUMPHREY (D MN) 1st time in senate,104728,92,mc,HUMPHREY (D MN) 2nd time in senate,discontinuous terms
+HUMPHREY (D MN) 2nd time in senate,104728,92,icpsrLegis,204728,discontinuous terms
+METZENBAUM (D OH),14073,NA,mc,METZENBAUM (D OH) 1st time in senate,discontinuous terms
+METZENBAUM (D OH) 1st time in senate,14073,NA,icpsrLegis,114073,discontinuous terms
+METZENBAUM (D OH) 1st time in senate,114073,95,mc,METZENBAUM (D OH) 2nd time in senate,discontinuous terms
+METZENBAUM (D OH) 2nd time in senate,114073,95,icpsrLegis,214073,discontinuous terms
+COATS (R IN),14806,NA,mc,COATS (R IN) 1st time in senate,discontinuous terms
+COATS (R IN) 1st time in senate,14806,NA,icpsrLegis,114806,discontinuous terms
+COATS (R IN) 1st time in senate,114806,112,mc,COATS (R IN) 2nd time in senate,discontinuous terms
+COATS (R IN) 2nd time in senate,114806,112,icpsrLegis,214806,discontinuous terms
+GORTON (R WA),14904,NA,mc,GORTON (R WA) 1st time in senate,discontinuous terms
+GORTON (R WA) 1st time in senate,14904,NA,icpsrLegis,114904,discontinuous terms
+GORTON (R WA) 1st time in senate,114904,101,mc,GORTON (R WA) 2nd time in senate,discontinuous terms
+GORTON (R WA) 2nd time in senate,114904,101,icpsrLegis,214904,discontinuous terms
+LAUTENBERG (D NJ),14914,NA,mc,LAUTENBERG (D NJ) 1st time in senate,discontinuous terms
+LAUTENBERG (D NJ) 1st time in senate,114914,108,mc,LAUTENBERG (D NJ) 2nd time in senate,discontinuous terms
+LAUTENBERG (D NJ) 2nd time in senate,114914,108,icpsrLegis,214914,discontinuous terms
+CONRAD (D ND),15502,NA,mc,CONRAD (D ND) 1st time in senate,discontinuous terms
+CONRAD (D ND) 1st time in senate,15502,NA,icpsrLegis,115502,discontinuous terms
+CONRAD (D ND) 1st time in senate,115502,103,mc,CONRAD (D ND) 2nd time in senate,discontinuous terms
+CONRAD (D ND) 2nd time in senate,115502,103,icpsrLegis,215502,discontinuous terms
+MAHONE (R VA),5926,NA,icpsrLegis,95926,party switch
+RIDDLEBERGE (R VA),7894,NA,icpsrLegis,97894,party switch
+CANNON (Silver Republican UT),1480,NA,icpsrLegis,91480,party switch
+DUBOIS (D ID),2738,NA,icpsrLegis,92738,party switch
+MANTLE (Silver Republican MT),5970,NA,icpsrLegis,95970,party switch
+PETTIGREW (Silver Republican SD),7379,NA,icpsrLegis,97379,party switch
+HEITFELD (D ID),4288,NA,icpsrLegis,94288,party switch
+LAFOLLETTE (Progressive  WI),5402,NA,icpsrLegis,95402,party switch
+NORRIS (Indep NE),6960,NA,icpsrLegis,96960,party switch
+SHIPSTEAD (R MN),8476,NA,icpsrLegis,98476,party switch
+BYRD (Indep VA),10802,NA,icpsrLegis,90802,party switch
+LIEBERMAN (D CT),15704,110,icpsrLegis,95704,party switch
+JONES (R NV),5046,NA,mc,JONES (R NV) first time as Republican,two time party switcher
+JONES (Silver Republican NV),5046,NA,icpsrLegis,85046,two time party switcher
+JONES (R NV) first time as Republican,5046,57,mc,JONES (R NV) second time as Republican,two time party switcher
+JONES (R NV) second time as Republican,5046,NA,icpsrLegis,95046,two time party switcher
+TELLER (Silver Republican CO),9246,NA,icpsrLegis,89246,two time party switcher
+TELLER (D CO),9246,NA,icpsrLegis,99246,two time party switcher
+POINDEXTER (R WA),7502,NA,mc,POINDEXTER (R WA) first time as Republican,two time party switcher
+POINDEXTER (Progressive WA),7502,NA,icpsrLegis,87502,two time party switcher
+POINDEXTER (R WA) first time as Republican,7502,64,mc,POINDEXTER (R WA) second time as Republican,two time party switcher
+POINDEXTER (R WA) second time as Republican,7502,NA,icpsrLegis,97502,two time party switcher
+MORSE (D OR),6738,NA,icpsrLegis,86738,two time party switcher
+
+POINDEXTER (Progressive WA),87502,NA,party,Progressive,party switch
+LIEBERMAN (Independent Democrat CT),95704,NA,party,Independent Democrat,party switch
+BOOTH (R CA),854,NA,icpsrLegis,90854,party switch
+FENTON (Liberal Republican NY),3107,NA,icpsrLegis,93107,party switch
+FOWLER (R TN),3326,NA,icpsrLegis,93326,party switch
+NORTON (D MN),6965,NA,icpsrLegis,96965,party switch
+PATTERSON (D TN),7237,NA,icpsrLegis,97237,party switch
+SCHURZ (Liberal Republican MO),8279,NA,icpsrLegis,98279,party switch
+SPRAGUE (Liberal Republican RI),8806,NA,icpsrLegis,98806,party switch
+SUMNER (Liberal Republican MA),9083,NA,icpsrLegis,99083,party switch
+TIPTON (Liberal Republican NE),9398,NA,icpsrLegis,99398,party switch
+TURNER (D WA),9515,NA,icpsrLegis,99515,party switch
+VAN WINKLE (R WV),9642,NA,icpsrLegis,99642,party switch
+FERRY (R CT),3122,NA,mc,FERRY (R CT) first time as Republican,two time party switcher
+FERRY (Liberal Republican CT),3122,NA,icpsrLegis,83122,two time party switcher
+FERRY (R CT) first time as Republican,3122,44,icpsrLegis,93122,two time party switcher
+FERRY (R CT) first time as Republican,93122,44,mc,FERRY (R CT) second time as Republican,two time party switcher
+HAMILTON (R TX),3995,NA,mc,HAMILTON (R TX) first time as Republican,two time party switcher
+HAMILTON (Liberal Republican TX),3995,NA,icpsrLegis,83995,two time party switcher
+HAMILTON (R TX) first time as Republican,3995,44,icpsrLegis,93995,two time party switcher
+HAMILTON (R TX) first time as Republican,93995,NA,mc,HAMILTON (R TX) second time as Republican,two time party switcher
+
+
+STEWART (R NV),8948,NA,mc,STEWART (R NV) first time as Republican,two time party switcher
+STEWART (Silver Republican NV),8948,NA,icpsrLegis,88948,two time party switcher
+STEWART (R NV) first time as Republican,8948,57,mc,STEWART (R NV) second time as Republican,two time party switcher
+STEWART (R NV) second time as Republican,8948,NA,icpsrLegis,98948,two time party switcher
+
+ADAMS (D CO),22,NA,mc,ADAMS (D CO) 1st time in senate,discontinuous terms
+ADAMS (D CO) 1st time in senate,22,NA,icpsrLegis,100022,discontinuous terms
+ADAMS (D CO) 1st time in senate,100022,73,mc,ADAMS (D CO) 2nd time in senate,discontinuous terms
+ADAMS (D CO) 2nd time in senate,100022,73,icpsrLegis,200022,discontinuous terms
+BALL (R DE),395,NA,mc,BALL (R DE) 1st time in senate,discontinuous terms
+BALL (R DE) 1st time in senate,395,NA,icpsrLegis,100395,discontinuous terms
+BALL (R DE) 1st time in senate,100395,66,mc,BALL (R DE) 2nd time in senate,discontinuous terms
+BALL (R DE) 2nd time in senate,100395,66,icpsrLegis,200395,discontinuous terms
+BARBOUR (R NJ),425,NA,mc,BARBOUR (R NJ) 1st time in senate,discontinuous terms
+BARBOUR (R NJ) 1st time in senate,425,NA,icpsrLegis,100425,discontinuous terms
+BARBOUR (R NJ) 1st time in senate,100425,76,mc,BARBOUR (R NJ) 2nd time in senate,discontinuous terms
+BARBOUR (R NJ) 2nd time in senate,100425,76,icpsrLegis,200425,discontinuous terms
+BARKLEY (D KY),437,NA,mc,BARKLEY (D KY) 1st time in senate,discontinuous terms
+BARKLEY (D KY) 1st time in senate,437,NA,icpsrLegis,100437,discontinuous terms
+BARKLEY (D KY) 1st time in senate,100437,84,mc,BARKLEY (D KY) 2nd time in senate,discontinuous terms
+BARKLEY (D KY) 2nd time in senate,100437,84,icpsrLegis,200437,discontinuous terms
+BLACKBURN (D KY),751,NA,mc,BLACKBURN (D KY) 1st time in senate,discontinuous terms
+BLACKBURN (D KY) 1st time in senate,751,NA,icpsrLegis,100751,discontinuous terms
+BLACKBURN (D KY) 1st time in senate,100751,57,mc,BLACKBURN (D KY) 2nd time in senate,discontinuous terms
+BLACKBURN (D KY) 2nd time in senate,100751,57,icpsrLegis,200751,discontinuous terms
+BLAKLEY (D TX),777,NA,mc,BLAKLEY (D TX) 1st time in senate,discontinuous terms
+BLAKLEY (D TX) 1st time in senate,777,NA,icpsrLegis,100777,discontinuous terms
+BLAKLEY (D TX) 1st time in senate,100777,87,mc,BLAKLEY (D TX) 2nd time in senate,discontinuous terms
+BLAKLEY (D TX) 2nd time in senate,100777,87,icpsrLegis,200777,discontinuous terms
+BURTON (R OH) 1322,1322,NA,mc,BURTON (R OH) 1322 1st time in senate,discontinuous terms
+BURTON (R OH) 1322 1st time in senate,1322,NA,icpsrLegis,101322,discontinuous terms
+BURTON (R OH) 1322 1st time in senate,101322,70,mc,BURTON (R OH) 1322 2nd time in senate,discontinuous terms
+BURTON (R OH) 1322 2nd time in senate,101322,70,icpsrLegis,201322,discontinuous terms
+CAMDEN (D WV),1432,NA,mc,CAMDEN (D WV) 1st time in senate,discontinuous terms
+CAMDEN (D WV) 1st time in senate,1432,NA,icpsrLegis,101432,discontinuous terms
+CAMDEN (D WV) 1st time in senate,101432,52,mc,CAMDEN (D WV) 2nd time in senate,discontinuous terms
+CAMDEN (D WV) 2nd time in senate,101432,52,icpsrLegis,201432,discontinuous terms
+CARPENTER (R WI),1524,NA,mc,CARPENTER (R WI) 1st time in senate,discontinuous terms
+CARPENTER (R WI) 1st time in senate,1524,NA,icpsrLegis,101524,discontinuous terms
+CARPENTER (R WI) 1st time in senate,101524,46,mc,CARPENTER (R WI) 2nd time in senate,discontinuous terms
+CARPENTER (R WI) 2nd time in senate,101524,46,icpsrLegis,201524,discontinuous terms
+CARTER (R MT),1550,NA,mc,CARTER (R MT) 1st time in senate,discontinuous terms
+CARTER (R MT) 1st time in senate,1550,NA,icpsrLegis,101550,discontinuous terms
+CARTER (R MT) 1st time in senate,101550,59,mc,CARTER (R MT) 2nd time in senate,discontinuous terms
+CARTER (R MT) 2nd time in senate,101550,59,icpsrLegis,201550,discontinuous terms
+CHILTON (D TX),1694,NA,mc,CHILTON (D TX) 1st time in senate,discontinuous terms
+CHILTON (D TX) 1st time in senate,1694,NA,icpsrLegis,101694,discontinuous terms
+CHILTON (D TX) 1st time in senate,101694,54,mc,CHILTON (D TX) 2nd time in senate,discontinuous terms
+CHILTON (D TX) 2nd time in senate,101694,54,icpsrLegis,201694,discontinuous terms
+COOPER (R KY),2052,NA,mc,COOPER (R KY) 1st time in senate,discontinuous terms
+COOPER (R KY) 1st time in senate,2052,NA,icpsrLegis,102052,discontinuous terms
+COOPER (R KY) 1st time in senate,102052,83,mc,COOPER (R KY) 2nd time in senate,discontinuous terms
+COOPER (R KY) 1st time in senate,102052,85,mc,COOPER (R KY) 2nd time in senate,discontinuous terms
+COOPER (R KY) 2nd time in senate,102052,83,icpsrLegis,202052,discontinuous terms
+COOPER (R KY) 2nd time in senate,102052,85,icpsrLegis,202052,discontinuous terms
+CURTIS (R KS),2269,NA,mc,CURTIS (R KS) 1st time in senate,discontinuous terms
+CURTIS (R KS) 1st time in senate,2269,NA,icpsrLegis,102269,discontinuous terms
+CURTIS (R KS) 1st time in senate,102269,64,mc,CURTIS (R KS) 2nd time in senate,discontinuous terms
+CURTIS (R KS) 2nd time in senate,102269,64,icpsrLegis,202269,discontinuous terms
+DUPONT (R DE) 2782,2782,NA,mc,DUPONT (R DE) 2782 1st time in senate,discontinuous terms
+DUPONT (R DE) 2782 1st time in senate,2782,NA,icpsrLegis,102782,discontinuous terms
+DUPONT (R DE) 2782 1st time in senate,102782,69,mc,DUPONT (R DE) 2782 2nd time in senate,discontinuous terms
+DUPONT (R DE) 2782 2nd time in senate,102782,69,icpsrLegis,202782,discontinuous terms
+EUSTIS (D LA),3000,NA,mc,EUSTIS (D LA) 1st time in senate,discontinuous terms
+EUSTIS (D LA) 1st time in senate,3000,NA,icpsrLegis,103000,discontinuous terms
+EUSTIS (D LA) 1st time in senate,103000,49,mc,EUSTIS (D LA) 2nd time in senate,discontinuous terms
+EUSTIS (D LA) 2nd time in senate,103000,49,icpsrLegis,203000,discontinuous terms
+FRELINGHUYS (R NJ) 3362,3362,NA,mc,FRELINGHUYS (R NJ) 3362 1st time in senate,discontinuous terms
+FRELINGHUYS (R NJ) 3362 1st time in senate,3362,NA,icpsrLegis,103362,discontinuous terms
+FRELINGHUYS (R NJ) 3362 1st time in senate,103362,42,mc,FRELINGHUYS (R NJ) 3362 2nd time in senate,discontinuous terms
+FRELINGHUYS (R NJ) 3362 2nd time in senate,103362,42,icpsrLegis,203362,discontinuous terms
+GERRY (D RI),3544,NA,mc,GERRY (D RI) 1st time in senate,discontinuous terms
+GERRY (D RI) 1st time in senate,3544,NA,icpsrLegis,103544,discontinuous terms
+GERRY (D RI) 1st time in senate,103544,74,mc,GERRY (D RI) 2nd time in senate,discontinuous terms
+GERRY (D RI) 2nd time in senate,103544,74,icpsrLegis,203544,discontinuous terms
+GILLETTE (D IA),3603,NA,mc,GILLETTE (D IA) 1st time in senate,discontinuous terms
+GILLETTE (D IA) 1st time in senate,3603,NA,icpsrLegis,103603,discontinuous terms
+GILLETTE (D IA) 1st time in senate,103603,81,mc,GILLETTE (D IA) 2nd time in senate,discontinuous terms
+GILLETTE (D IA) 2nd time in senate,103603,81,icpsrLegis,203603,discontinuous terms
+GORDON (D GA),3697,NA,mc,GORDON (D GA) 1st time in senate,discontinuous terms
+GORDON (D GA) 1st time in senate,3697,NA,icpsrLegis,103697,discontinuous terms
+GORDON (D GA) 1st time in senate,103697,52,mc,GORDON (D GA) 2nd time in senate,discontinuous terms
+GORDON (D GA) 2nd time in senate,103697,52,icpsrLegis,203697,discontinuous terms
+GORE (D OK),3706,NA,mc,GORE (D OK) 1st time in senate,discontinuous terms
+GORE (D OK) 1st time in senate,3706,NA,icpsrLegis,103706,discontinuous terms
+GORE (D OK) 1st time in senate,103706,72,mc,GORE (D OK) 2nd time in senate,discontinuous terms
+GORE (D OK) 2nd time in senate,103706,72,icpsrLegis,203706,discontinuous terms
+GORMAN (D MD),3709,NA,mc,GORMAN (D MD) 1st time in senate,discontinuous terms
+GORMAN (D MD) 1st time in senate,3709,NA,icpsrLegis,103709,discontinuous terms
+GORMAN (D MD) 1st time in senate,103709,58,mc,GORMAN (D MD) 2nd time in senate,discontinuous terms
+GORMAN (D MD) 2nd time in senate,103709,58,icpsrLegis,203709,discontinuous terms
+JENNER (R IN),4922,NA,mc,JENNER (R IN) 1st time in senate,discontinuous terms
+JENNER (R IN) 1st time in senate,4922,NA,icpsrLegis,104922,discontinuous terms
+JENNER (R IN) 1st time in senate,104922,80,mc,JENNER (R IN) 2nd time in senate,discontinuous terms
+JENNER (R IN) 2nd time in senate,104922,80,icpsrLegis,204922,discontinuous terms
+KELLOGG (R LA),5147,NA,mc,KELLOGG (R LA) 1st time in senate,discontinuous terms
+KELLOGG (R LA) 1st time in senate,5147,NA,icpsrLegis,105147,discontinuous terms
+KELLOGG (R LA) 1st time in senate,105147,45,mc,KELLOGG (R LA) 2nd time in senate,discontinuous terms
+KELLOGG (R LA) 2nd time in senate,105147,45,icpsrLegis,205147,discontinuous terms
+KIRKWOOD (R IA),5299,NA,mc,KIRKWOOD (R IA) 1st time in senate,discontinuous terms
+KIRKWOOD (R IA) 1st time in senate,5299,NA,icpsrLegis,105299,discontinuous terms
+KIRKWOOD (R IA) 1st time in senate,105299,45,mc,KIRKWOOD (R IA) 2nd time in senate,discontinuous terms
+KIRKWOOD (R IA) 2nd time in senate,105299,45,icpsrLegis,205299,discontinuous terms
+KNOX (R PA),5347,NA,mc,KNOX (R PA) 1st time in senate,discontinuous terms
+KNOX (R PA) 1st time in senate,5347,NA,icpsrLegis,105347,discontinuous terms
+KNOX (R PA) 1st time in senate,105347,65,mc,KNOX (R PA) 2nd time in senate,discontinuous terms
+KNOX (R PA) 2nd time in senate,105347,65,icpsrLegis,205347,discontinuous terms
+LEWIS (D IL),5641,NA,mc,LEWIS (D IL) 1st time in senate,discontinuous terms
+LEWIS (D IL) 1st time in senate,5641,NA,icpsrLegis,105641,discontinuous terms
+LEWIS (D IL) 1st time in senate,105641,72,mc,LEWIS (D IL) 2nd time in senate,discontinuous terms
+LEWIS (D IL) 2nd time in senate,105641,72,icpsrLegis,205641,discontinuous terms
+LODGE (R MA) 5739,5739,NA,mc,LODGE (R MA) 5739 1st time in senate,discontinuous terms
+LODGE (R MA) 5739 1st time in senate,5739,NA,icpsrLegis,105739,discontinuous terms
+LODGE (R MA) 5739 1st time in senate,105739,80,mc,LODGE (R MA) 5739 2nd time in senate,discontinuous terms
+LODGE (R MA) 5739 2nd time in senate,105739,80,icpsrLegis,205739,discontinuous terms
+LOGAN (R IL),5746,NA,mc,LOGAN (R IL) 1st time in senate,discontinuous terms
+LOGAN (R IL) 1st time in senate,5746,NA,icpsrLegis,105746,discontinuous terms
+LOGAN (R IL) 1st time in senate,105746,46,mc,LOGAN (R IL) 2nd time in senate,discontinuous terms
+LOGAN (R IL) 2nd time in senate,105746,46,icpsrLegis,205746,discontinuous terms
+MCCREERY (D KY),6197,NA,mc,MCCREERY (D KY) 1st time in senate,discontinuous terms
+MCCREERY (D KY) 1st time in senate,6197,NA,icpsrLegis,106197,discontinuous terms
+MCCREERY (D KY) 1st time in senate,106197,43,mc,MCCREERY (D KY) 2nd time in senate,discontinuous terms
+MCCREERY (D KY) 2nd time in senate,106197,43,icpsrLegis,206197,discontinuous terms
+MCLAURIN (D MS),6330,NA,mc,MCLAURIN (D MS) 1st time in senate,discontinuous terms
+MCLAURIN (D MS) 1st time in senate,6330,NA,icpsrLegis,106330,discontinuous terms
+MCLAURIN (D MS) 1st time in senate,106330,57,mc,MCLAURIN (D MS) 2nd time in senate,discontinuous terms
+MCLAURIN (D MS) 2nd time in senate,106330,57,icpsrLegis,206330,discontinuous terms
+MITCHELL (R OR),6565,NA,mc,MITCHELL (R OR) 1st time in senate,discontinuous terms
+MITCHELL (R OR) 1st time in senate,6565,NA,icpsrLegis,106565,discontinuous terms
+MITCHELL (R OR) 1st time in senate,106565,49,mc,MITCHELL (R OR) 2nd time in senate,discontinuous terms
+MITCHELL (R OR) 1st time in senate,106565,57,mc,MITCHELL (R OR) 2nd time in senate,discontinuous terms
+MITCHELL (R OR) 2nd time in senate,106565,49,icpsrLegis,206565,discontinuous terms
+MITCHELL (R OR) 2nd time in senate,106565,57,icpsrLegis,206565,discontinuous terms
+NEELY (D WV),6856,NA,mc,NEELY (D WV) 1st time in senate,discontinuous terms
+NEELY (D WV) 1st time in senate,6856,NA,icpsrLegis,106856,discontinuous terms
+NEELY (D WV) 1st time in senate,106856,72,mc,NEELY (D WV) 2nd time in senate,discontinuous terms
+NEELY (D WV) 1st time in senate,106856,81,mc,NEELY (D WV) 2nd time in senate,discontinuous terms
+NEELY (D WV) 2nd time in senate,106856,72,icpsrLegis,206856,discontinuous terms
+NEELY (D WV) 2nd time in senate,106856,81,icpsrLegis,206856,discontinuous terms
+PADDOCK (R NE),7148,NA,mc,PADDOCK (R NE) 1st time in senate,discontinuous terms
+PADDOCK (R NE) 1st time in senate,7148,NA,icpsrLegis,107148,discontinuous terms
+PADDOCK (R NE) 1st time in senate,107148,50,mc,PADDOCK (R NE) 2nd time in senate,discontinuous terms
+PADDOCK (R NE) 2nd time in senate,107148,50,icpsrLegis,207148,discontinuous terms
+PLATT (R NY),7483,NA,mc,PLATT (R NY) 1st time in senate,discontinuous terms
+PLATT (R NY) 1st time in senate,7483,NA,icpsrLegis,107483,discontinuous terms
+PLATT (R NY) 1st time in senate,107483,55,mc,PLATT (R NY) 2nd time in senate,discontinuous terms
+PLATT (R NY) 2nd time in senate,107483,55,icpsrLegis,207483,discontinuous terms
+REVERCOMB (R WV),7826,NA,mc,REVERCOMB (R WV) 1st time in senate,discontinuous terms
+REVERCOMB (R WV) 1st time in senate,7826,NA,icpsrLegis,107826,discontinuous terms
+REVERCOMB (R WV) 1st time in senate,107826,85,mc,REVERCOMB (R WV) 2nd time in senate,discontinuous terms
+REVERCOMB (R WV) 2nd time in senate,107826,85,icpsrLegis,207826,discontinuous terms
+SEWELL (R NJ),8379,NA,mc,SEWELL (R NJ) 1st time in senate,discontinuous terms
+SEWELL (R NJ) 1st time in senate,8379,NA,icpsrLegis,108379,discontinuous terms
+SEWELL (R NJ) 1st time in senate,108379,54,mc,SEWELL (R NJ) 2nd time in senate,discontinuous terms
+SEWELL (R NJ) 2nd time in senate,108379,54,icpsrLegis,208379,discontinuous terms
+SHERMAN (R OH),8454,NA,mc,SHERMAN (R OH) 1st time in senate,discontinuous terms
+SHERMAN (R OH) 1st time in senate,8454,NA,icpsrLegis,108454,discontinuous terms
+SHERMAN (R OH) 1st time in senate,108454,47,mc,SHERMAN (R OH) 2nd time in senate,discontinuous terms
+SHERMAN (R OH) 2nd time in senate,108454,47,icpsrLegis,208454,discontinuous terms
+SPOONER (R WI),8800,NA,mc,SPOONER (R WI) 1st time in senate,discontinuous terms
+SPOONER (R WI) 1st time in senate,8800,NA,icpsrLegis,108800,discontinuous terms
+SPOONER (R WI) 1st time in senate,108800,55,mc,SPOONER (R WI) 2nd time in senate,discontinuous terms
+SPOONER (R WI) 2nd time in senate,108800,55,icpsrLegis,208800,discontinuous terms
+STOCKTON (D NJ),8962,NA,mc,STOCKTON (D NJ) 1st time in senate,discontinuous terms
+STOCKTON (D NJ) 1st time in senate,8962,NA,icpsrLegis,108962,discontinuous terms
+STOCKTON (D NJ) 1st time in senate,108962,41,mc,STOCKTON (D NJ) 2nd time in senate,discontinuous terms
+STOCKTON (D NJ) 2nd time in senate,108962,41,icpsrLegis,208962,discontinuous terms
+TELLER (R CO),9246,NA,mc,TELLER (R CO) 1st time in senate,discontinuous terms
+TELLER (R CO) 1st time in senate,9246,NA,icpsrLegis,109246,discontinuous terms
+TELLER (R CO) 1st time in senate,109246,49,mc,TELLER (R CO) 2nd time in senate,discontinuous terms
+TELLER (R CO) 2nd time in senate,109246,49,icpsrLegis,209246,discontinuous terms
+THOMAS (R ID),9298,NA,mc,THOMAS (R ID) 1st time in senate,discontinuous terms
+THOMAS (R ID) 1st time in senate,9298,NA,icpsrLegis,109298,discontinuous terms
+THOMAS (R ID) 1st time in senate,109298,76,mc,THOMAS (R ID) 2nd time in senate,discontinuous terms
+THOMAS (R ID) 2nd time in senate,109298,76,icpsrLegis,209298,discontinuous terms
+WARREN (R WY),9842,NA,mc,WARREN (R WY) 1st time in senate,discontinuous terms
+WARREN (R WY) 1st time in senate,9842,NA,icpsrLegis,109842,discontinuous terms
+WARREN (R WY) 1st time in senate,109842,54,mc,WARREN (R WY) 2nd time in senate,discontinuous terms
+WARREN (R WY) 2nd time in senate,109842,54,icpsrLegis,209842,discontinuous terms
+WHYTE (D MD),10082,NA,mc,WHYTE (D MD) 1st time in senate,discontinuous terms
+WHYTE (D MD) 1st time in senate,10082,NA,icpsrLegis,110082,discontinuous terms
+WHYTE (D MD) 1st time in senate,110082,44,mc,WHYTE (D MD) 2nd time in senate,discontinuous terms
+WHYTE (D MD) 1st time in senate,110082,59,mc,WHYTE (D MD) 2nd time in senate,discontinuous terms
+WHYTE (D MD) 2nd time in senate,110082,44,icpsrLegis,210082,discontinuous terms
+WHYTE (D MD) 2nd time in senate,110082,59,icpsrLegis,210082,discontinuous terms
+COOPER (R KY),2052,NA,mc,COOPER (R KY) 1st time in senate,discontinuous terms
+COOPER (R KY) 1st time in senate,2052,NA,icpsrLegis,102052,discontinuous terms
+COOPER (R KY) 1st time in senate,102052,83,mc,COOPER (R KY) 2nd time in senate,discontinuous terms
+COOPER (R KY) 2nd time in senate,102052,83,icpsrLegis,202052,discontinuous terms
+COOPER (R KY) 2nd time in senate,202052,85,mc,COOPER (R KY) 3rd time in senate,discontinuous terms
+COOPER (R KY) 3rd time in senate,202052,85,icpsrLegis,302052,discontinuous terms
+MITCHELL (R OR),6565,NA,mc,MITCHELL (R OR) 1st time in senate,discontinuous terms
+MITCHELL (R OR) 1st time in senate,6565,NA,icpsrLegis,106565,discontinuous terms
+MITCHELL (R OR) 1st time in senate,106565,49,mc,MITCHELL (R OR) 2nd time in senate,discontinuous terms
+MITCHELL (R OR) 2nd time in senate,106565,49,icpsrLegis,206565,discontinuous terms
+MITCHELL (R OR) 2nd time in senate,206565,57,mc,MITCHELL (R OR) 3rd time in senate,discontinuous terms
+MITCHELL (R OR) 3rd time in senate,206565,57,icpsrLegis,306565,discontinuous terms
+NEELY (D WV),6856,NA,mc,NEELY (D WV) 1st time in senate,discontinuous terms
+NEELY (D WV) 1st time in senate,6856,NA,icpsrLegis,106856,discontinuous terms
+NEELY (D WV) 1st time in senate,106856,72,mc,NEELY (D WV) 2nd time in senate,discontinuous terms
+NEELY (D WV) 2nd time in senate,106856,72,icpsrLegis,206856,discontinuous terms
+NEELY (D WV) 2nd time in senate,206856,81,mc,NEELY (D WV) 3rd time in senate,discontinuous terms
+NEELY (D WV) 3rd time in senate,206856,81,icpsrLegis,306856,discontinuous terms
+WHYTE (D MD),10082,NA,mc,WHYTE (D MD) 1st time in senate,discontinuous terms
+WHYTE (D MD) 1st time in senate,10082,NA,icpsrLegis,110082,discontinuous terms
+WHYTE (D MD) 1st time in senate,110082,44,mc,WHYTE (D MD) 2nd time in senate,discontinuous terms
+WHYTE (D MD) 2nd time in senate,110082,44,icpsrLegis,210082,discontinuous terms
+WHYTE (D MD) 2nd time in senate,210082,59,mc,WHYTE (D MD) 3rd time in senate,discontinuous terms
+WHYTE (D MD) 3rd time in senate,210082,59,icpsrLegis,310082,discontinuous terms
