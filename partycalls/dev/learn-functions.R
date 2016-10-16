@@ -23,3 +23,6 @@ noncall_test <- subset(DT_test, yea_perc < 0.65 & yea_perc > 0.35, select = vt)
 noncall_test <- c(unique(noncall_test$vt))
 noncall_test <-
   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncall_test)))
+
+rc_test_SD <- data.table(party = c("D", "D", "R", "D", "R"), y = c(1, 0, 1, 0, 1))
+length(unique(rc_test_SD[!is.na(y) & party %in% c("D", "R"), y]))
