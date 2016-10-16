@@ -71,13 +71,37 @@ code_party_calls_1step <- function(rc, DT, noncalls)
 #' Use the iterative algorithm that (1) predicts ideal points based on last
 #' iteration's non-party calls, (2) runs regressions of roll call vote on
 #' ideal points and party, (3) classify new iteration of non-party calls as
-#' votes for which the p value on party is > .05.
+#' votes for which the p value on party is greater than a user specified value,
+#' preset at 0.01.
 #' @param rc a rollcall object
+#' @param pval_threshold the p-value required to code a vote as a party call.
+#' Its default setting is 0.01
+#' @param count_min The minimum count of iterations for the algorithm to run
+#' before returning a result. The default setting is 15.
+#' @param count_max The maximum count of iterations for the algorithm to run
+#' before returning a result. The default setting is 150.
+#' @param match_count_min The minimum number of iterations which fall below the
+#' acceptable switched vote threshold. The default setting is 10.
+#' @param sim_annealing If set to TRUE, runs a simulated annealing process to
+#' avoid the algorithm from staying at local maxima. The default value is TRUE.
+#' @param random_seed If set to TRUE, randomly draws votes from the rc object to
+#' use as the initial classification for party calls. If set to false, the
+#' initial classification of party calls will be lopsided votes as defined by
+#' the user. The default value is TRUE.
+#' @param lopside_thresh The threshold for classification of lopsided votes if
+#' the option to randomly seed initial calls is set to FALSE. The default
+#' setting is 0.65
+#' @param vote_switch_percent The maximum percent of votes allowed to switch in
+#' an iteration of the algorithm while contributing to the match counter. When
+#' this threshold is exceeded the counter resets to 0. The default setting is
+#' 0.01.
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
 #' @export
-code_party_calls <- function(rc)
+code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
+  count_max = 150, match_count_min = 10, sim_annealing = TRUE,
+  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01)
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   rc <- emIRT::convertRC(rc, type = "binIRT")
@@ -86,22 +110,37 @@ code_party_calls <- function(rc)
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
   DT[y == -1, y:= 0]
-  noncalls <- sample(rc$m, floor(.5 * rc$m))
+  if (random_seed == TRUE) {
+    noncalls <- sample(rc$m, floor(.5 * rc$m))
+  } else {
+    noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
+    noncalls_DT <-
+      subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
+        select = vt)
+    noncalls_DT <- c(unique(noncall_DT$vt))
+    noncalls <-
+      as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
+  }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0
   counter <- 0
   record_of_coding <- list()
   record_of_pvals <- list()
-  while (counter <= 15 | (counter < 150 & match_counter < 10)) {
+  while (counter <= count_min |
+      (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
     pvals <- code_party_calls_1step(rc, DT, noncalls)
     record_of_pvals[[counter]] <- pvals
-    noncalls <- which(pvals > .05)
+    noncalls <- which(pvals > pval_threshold)
     calls <- setdiff(seq_len(rc$m), old_noncalls)
-    n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
+    if (sim_annealing == TRUE) {
+      n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
+    } else {
+      n_random_switches <- 0
+    }
     if (n_random_switches > 0) {
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
@@ -111,7 +150,7 @@ code_party_calls <- function(rc)
       noncalls <- c(noncalls_to_keep, calls_to_switch)
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
-    if (length(switched_votes) <= 5) {
+    if (length(switched_votes) <= vote_switch_percent * rc$m) {
       match_counter <- match_counter + 1
     } else {
       match_counter <- 0

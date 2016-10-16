@@ -4,10 +4,41 @@
 \alias{code_party_calls}
 \title{Run the party calls classifier}
 \usage{
-code_party_calls(rc)
+code_party_calls(rc, pval_threshold = 0.01, count_min = 15,
+  count_max = 150, match_count_min = 10, sim_annealing = TRUE,
+  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01)
 }
 \arguments{
 \item{rc}{a rollcall object}
+
+\item{pval_threshold}{the p-value required to code a vote as a party call.
+Its default setting is 0.01}
+
+\item{count_min}{The minimum count of iterations for the algorithm to run
+before returning a result. The default setting is 15.}
+
+\item{count_max}{The maximum count of iterations for the algorithm to run
+before returning a result. The default setting is 150.}
+
+\item{match_count_min}{The minimum number of iterations which fall below the
+acceptable switched vote threshold. The default setting is 10.}
+
+\item{sim_annealing}{If set to TRUE, runs a simulated annealing process to
+avoid the algorithm from staying at local maxima. The default value is TRUE.}
+
+\item{random_seed}{If set to TRUE, randomly draws votes from the rc object to
+use as the initial classification for party calls. If set to false, the
+initial classification of party calls will be lopsided votes as defined by
+the user. The default value is TRUE.}
+
+\item{lopside_thresh}{The threshold for classification of lopsided votes if
+the option to randomly seed initial calls is set to FALSE. The default
+setting is 0.65}
+
+\item{vote_switch_percent}{The maximum percent of votes allowed to switch in
+an iteration of the algorithm while contributing to the match counter. When
+this threshold is exceeded the counter resets to 0. The default setting is
+0.01.}
 }
 \value{
 rollcall object with record of classification algorithm and
@@ -17,6 +48,7 @@ list of classified party calls
 Use the iterative algorithm that (1) predicts ideal points based on last
 iteration's non-party calls, (2) runs regressions of roll call vote on
 ideal points and party, (3) classify new iteration of non-party calls as
-votes for which the p value on party is > .05.
+votes for which the p value on party is greater than a user specified value,
+preset at 0.01.
 }
 
