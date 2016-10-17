@@ -19,9 +19,12 @@ symdiff <- function(x, y)
 #' coefficient on party
 test_rollcall <- function(.SD)
 {
-  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1) |
+  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
       length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
     list(b = 0, se = 0, t = Inf, p = NA_real_)
+  } else if (length(unique(.SD[!is.na(y) & party %in% c("D"), y])) |
+      (length(unique(.SD[!is.na(y) & party %in% c("R"), y])))) {
+    list(b = 0, se = 0, t = Inf, p = 0)
   } else {
     m <- lm(y ~ party + x, data = .SD)
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
