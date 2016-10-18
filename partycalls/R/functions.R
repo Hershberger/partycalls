@@ -181,7 +181,7 @@ get_gray_votes <- function(record_of_coding)
   gray_votes <- setdiff(all_votes_ever_classied_as_calls,
     all_votes_always_classied_as_calls)
   paste("Vote", gray_votes)
-  # }
+  }
 }
 
 
