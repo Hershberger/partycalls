@@ -17,19 +17,23 @@ symdiff <- function(x, y)
 #' labels
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
-test_rollcall <- function(.SD)
+test_rollcall <- function(.SD, spiders = FALSE)
 {
   if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
       length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
     list(b = 0, se = 0, t = Inf, p = NA_real_)
-  } else if (length(unique(.SD[!is.na(y) & party %in% c("D"), y])) |
-      (length(unique(.SD[!is.na(y) & party %in% c("R"), y])))) {
-    list(b = 0, se = 0, t = Inf, p = 0)
   } else {
+    if (mean(.SD[!is.na(y) & party %in% c("R"), y]) == 1 |
+        (mean(.SD[!is.na(y) & party %in% c("D"), y])) == 1 |
+        (mean(.SD[!is.na(y) & party %in% c("R"), y])) == 0 |
+        (mean(.SD[!is.na(y) & party %in% c("D"), y])) == 0) {
+      list(b = 1, se = 0, t = Inf, p = 0)
+    } else {
     m <- lm(y ~ party + x, data = .SD)
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
     list(b = summ["Estimate"], se = summ["Std. Error"],
       t = summ["t value"], p = summ["Pr(>|t|)"])
+    }
   }
 }
 
@@ -65,7 +69,7 @@ code_party_calls_1step <- function(rc, DT, noncalls)
   pvals <- regs$p
   pvals[is.na(pvals)] <- 1
   pvals
-  ok <- pvals > .01
+  ok <- pvals > .05
   which(ok)
 }
 

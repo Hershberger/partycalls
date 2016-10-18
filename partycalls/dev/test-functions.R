@@ -3,6 +3,7 @@ options(stringsAsFactors = FALSE)
 library(partycalls)
 library(pscl)
 library(emIRT)
+library(data.table)
 load("inst/extdata/houKHfiles001-111.rdata")
 
 
@@ -14,12 +15,9 @@ symdiff <- function(x, y)
 
 test_rollcall <- function(.SD)
 {
-  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
-      length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
-    list(b = 0, se = 0, t = Inf, p = NA_real_)
-  } else if (length(unique(.SD[!is.na(y) & party %in% c("D"), y])) |
-      (length(unique(.SD[!is.na(y) & party %in% c("R"), y])))) {
-    list(b = 0, se = 0, t = Inf, p = 0)
+if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
+    length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
+      list(b = 0, se = 0, t = Inf, p = NA_real_)
   } else {
     m <- lm(y ~ party + x, data = .SD)
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
@@ -63,8 +61,7 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   rc <- emIRT::convertRC(rc, type = "binIRT")
-  DT <- data.table::CJ(vt = colnames(rc$votes),
-    mc = rownames(rc$votes), sorted = FALSE)
+  DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
   DT$y <- as.vector(rc$votes)
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
@@ -76,7 +73,7 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
     noncalls_DT <-
       subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
         select = vt)
-    noncalls_DT <- c(unique(noncalls_DT$vt))
+    noncalls_DT <- c(unique(noncall_DT$vt))
     noncalls <-
       as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
   }
@@ -124,5 +121,4 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
 }
 
 # test functions with data
-code_party_calls(rc = h093, count_min = 1, count_max = 10, match_count_min = 2,
-  pval_threshold = 0.05, sim_annealing = FALSE, random_seed = FALSE)
+code_party_calls(rc = h093)

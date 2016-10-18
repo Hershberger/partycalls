@@ -4,7 +4,7 @@
 \alias{test_rollcall}
 \title{Regress a single roll call on party indicator and ideal points}
 \usage{
-test_rollcall(.SD)
+test_rollcall(.SD, spiders = FALSE)
 }
 \arguments{
 \item{.SD}{subset of a data.table of roll call votes, with a column for party

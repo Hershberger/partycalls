@@ -1,10 +1,8 @@
 library(partycalls)
-library(parallelsugar)
-library(pscl)
 options(stringsAsFactors = FALSE)
 
 load("inst/extdata/houKHfiles001-111.rdata")
-h112 <- readKH("inst/extdata/hou112kh.ord")
+h112 <- pscl::readKH("inst/extdata/hou112kh.ord")
 
 set.seed(1584882915)
 code_party_calls_by_congress_number <- function(congress_number)
