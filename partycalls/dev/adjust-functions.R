@@ -46,8 +46,8 @@ code_party_calls_1step <- function(rc, DT, noncalls)
   pvals <- regs$p
   pvals[is.na(pvals)] <- 1
   pvals
-  # ok <- pvals > .01
-  # which(ok)
+  ok <- pvals > .01
+  which(ok)
 }
 
 code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
@@ -87,11 +87,11 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
     record_of_pvals[[counter]] <- pvals
     noncalls <- which(pvals > pval_threshold)
     calls <- setdiff(seq_len(rc$m), old_noncalls)
-    if (sim_annealing = TRUE) {
+    # if (sim_annealing = TRUE) {
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
-    } else {
-      n_random_switches <- 0
-    }
+    # } else {
+      # n_random_switches <- 0
+    # }
     if (n_random_switches > 0) {
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)

@@ -116,13 +116,13 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
   if (random_seed == TRUE) {
     noncalls <- sample(rc$m, floor(.5 * rc$m))
   } else {
-    noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
-    noncalls_DT <-
-      subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
-        select = vt)
-    noncalls_DT <- c(unique(noncall_DT$vt))
-    noncalls <-
-      as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
+  noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
+  noncalls_DT <-
+  subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
+  select = vt)
+  noncalls_DT <- c(unique(noncall_DT$vt))
+  noncalls <-
+  as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
   }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0
@@ -167,13 +167,14 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
   rc
 }
 
+
 get_gray_votes <- function(record_of_coding)
 {
   tail_diff <- symdiff(tail(record_of_coding, 2)[[2]],
     tail(record_of_coding, 2)[[1]])
-  # if (length(tail_diff) == 0L) {
-  #   gray_votes <- NULL
-  # } else {
+  if (length(tail_diff) == 0L) {
+    gray_votes <- NULL
+  } else {
   record_of_coding <- tail(record_of_coding, 10)
   all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
   all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
