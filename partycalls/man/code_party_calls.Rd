@@ -6,7 +6,8 @@
 \usage{
 code_party_calls(rc, pval_threshold = 0.01, count_min = 15,
   count_max = 150, match_count_min = 10, sim_annealing = TRUE,
-  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01)
+  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
+  drop_very_lopsided_votes = TRUE)
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -39,6 +40,9 @@ setting is 0.65}
 an iteration of the algorithm while contributing to the match counter. When
 this threshold is exceeded the counter resets to 0. The default setting is
 0.01.}
+
+\item{drop_very_lopsided_votes}{logical for whether to drop all votes
+with fewer than 5 yeas or fewer than 5 nays}
 }
 \value{
 rollcall object with record of classification algorithm and

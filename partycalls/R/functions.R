@@ -20,10 +20,10 @@ symdiff <- function(x, y)
 test_rollcall <- function(.SD, spiders = FALSE) #spiders?
 {
   vote_breakdown <- .SD[, .N, .(party, y)]
-  n_yea_reps <- .SD[, sum(y == 1 & party == "R")]
-  n_nay_reps <- .SD[, sum(y == 0 & party == "R")]
-  n_yea_dems <- .SD[, sum(y == 1 & party == "D")]
-  n_nay_dems <- .SD[, sum(y == 0 & party == "D")]
+  n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
+  n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
+  n_yea_dems <- .SD[, sum(y == 1 & party == "D", na.rm = TRUE)]
+  n_nay_dems <- .SD[, sum(y == 0 & party == "D", na.rm = TRUE)]
   party_line_vote <-
     (n_yea_reps == 0 & n_nay_reps >  0 & n_yea_dems >  0 & n_nay_dems == 0) |
     (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
@@ -70,10 +70,10 @@ code_party_calls_1step <- function(rc, DT, noncalls)
   DT$x <- l$means$x
   regs <- DT[party %in% c("D", "R"), test_rollcall(.SD), .(vt)]
   pvals <- regs$p
-  pvals[is.na(pvals)] <- 1
+  pvals[is.na(pvals)] <- 1 # is this already taking care of party line votes?
   pvals
-  ok <- pvals > .05
-  which(ok)
+  # ok <- pvals > .05
+  # which(ok)
 }
 
 #' Run the party calls classifier
@@ -152,7 +152,7 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
     #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
     # but actually, we just want to know which votes are lopsided. so we should
     # use "which"
-    which(noncalls_DT[,
+    noncalls <- which(noncalls_DT[,
       yea_perc < lopside_thresh | yea_perc > 1 - lopside_thresh])
   }
   switched_votes <- seq_len(rc$m)
@@ -169,7 +169,7 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
     pvals <- code_party_calls_1step(rc, DT, noncalls)
     record_of_pvals[[counter]] <- pvals
     noncalls <- which(pvals > pval_threshold)
-    calls <- setdiff(seq_len(rc$m), old_noncalls)
+    calls <- setdiff(seq_len(rc$m), old_noncalls) # this codes all noncalls as calls
     if (sim_annealing == TRUE) {
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
     } else {
@@ -199,14 +199,14 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
 }
 
 
-get_gray_votes <- function(record_of_coding)
+get_gray_votes <- function(record_of_coding, n_iterations = 2)
 {
   tail_diff <- symdiff(tail(record_of_coding, 2)[[2]],
     tail(record_of_coding, 2)[[1]])
   if (length(tail_diff) == 0L) {
     gray_votes <- NULL
   } else {
-  record_of_coding <- tail(record_of_coding, 10)
+  record_of_coding <- tail(record_of_coding, n_iterations)
   all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
   all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
   gray_votes <- setdiff(all_votes_ever_classied_as_calls,
