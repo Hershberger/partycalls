@@ -19,21 +19,23 @@ symdiff <- function(x, y)
 #' coefficient on party
 test_rollcall <- function(.SD, spiders = FALSE)
 {
+  n_yea_republicans <- nrow(.SD[y == 1 & party == "R"])
+  n_nay_republicans <- nrow(.SD[y == 0 & party == "R"])
+  n_yea_democrats <- nrow(.SD[y == 1 & party == "D"])
+  n_nay_democrats <- nrow(.SD[y == 0 & party == "D"])
+  party_line_vote <-
+    (n_yea_republicans == 0 & n_nay_democrats == 0) |
+    (n_nay_republicans == 0 & n_yea_democrats == 0)
   if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
       length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
     list(b = 0, se = 0, t = Inf, p = NA_real_)
-  } else {
-    if (mean(.SD[!is.na(y) & party %in% c("R"), y]) == 1 |
-        (mean(.SD[!is.na(y) & party %in% c("D"), y])) == 1 |
-        (mean(.SD[!is.na(y) & party %in% c("R"), y])) == 0 |
-        (mean(.SD[!is.na(y) & party %in% c("D"), y])) == 0) {
+  } else if (party_line_vote) {
       list(b = 1, se = 0, t = Inf, p = 0)
-    } else {
+  } else {
     m <- lm(y ~ party + x, data = .SD)
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
     list(b = summ["Estimate"], se = summ["Std. Error"],
       t = summ["t value"], p = summ["Pr(>|t|)"])
-    }
   }
 }
 
