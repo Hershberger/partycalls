@@ -44,19 +44,19 @@ gray_votes_DT[, congress := c(93:112)]
 
 old_gray <- data.frame(table(votedata$congress, is.na(votedata$partycall)))
 old_gray <- old_gray[19:36,]
+old_gray$Var1 <- as.numeric(93:110)
 
 
-par(mfrow = c(1:2))
+par(mfrow = c(1, 2))
 
 plot(gray_votes_DT$congress, gray_votes_DT$new_gray_votes,
   type = "l", ylim = range(0:400), xlim = range(93:112),
   xlab = "Congress", ylab = "Number Gray Votes",
   main = "New Gray Vote Counts")
 
-plot(old_gray$Freq, old_gray$Freq,
-  type = "l", ylim = range(0:400), xlim = range(93:112),
-  xlab = "Congress", ylab = "Number Gray Votes",
+plot(old_gray$Var1, old_gray$Freq,
+  type = "l", xlab = "Congress", ylab = "Number Gray Votes",
   main = "Old Gray Vote Counts")
 
-par(mfrow = c(1:1))
+par(mfrow = c(1, 1))
 
