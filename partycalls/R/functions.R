@@ -123,13 +123,31 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
   if (random_seed == TRUE) {
     noncalls <- sample(rc$m, floor(.5 * rc$m))
   } else {
-  noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
-  noncalls_DT <-
-  subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
-  select = vt)
-  noncalls_DT <- c(unique(noncall_DT$vt))
-  noncalls <-
-  as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
+    # noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
+    # you don't want to mix "<-" with ":=" (the point of the latter is to avoid
+    # the former). so do this instead:
+    noncalls_DT <- DT[, .(yea_perc = mean(y, na.rm = TRUE)), by = vt]
+
+    # noncalls_DT <-
+    #   subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
+    #     select = vt)
+    # you can use data.table do this; as here:
+    # noncalls_DT <- DT[yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
+    #   vt]
+    #   (I think this will rule out all votes, since none have both
+    #   yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh
+    #   so you want a "|" instead of a "&"; am I right about that?)
+
+    # noncalls_DT <- c(unique(noncall_DT$vt))
+    # noncalls <-
+    #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
+    # noncalls_DT <- c(unique(noncall_DT$vt))
+    # noncalls <-
+    #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
+    # but actually, we just want to know which votes are lopsided. so we should
+    # use "which"
+    which(noncalls_DT[,
+      yea_perc < lopside_thresh | yea_perc > 1 - lopside_thresh])
   }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0
