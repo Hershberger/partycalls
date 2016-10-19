@@ -17,20 +17,21 @@ symdiff <- function(x, y)
 #' labels
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
-test_rollcall <- function(.SD, spiders = FALSE)
+test_rollcall <- function(.SD, spiders = FALSE) #spiders?
 {
-  n_yea_republicans <- nrow(.SD[y == 1 & party == "R"])
-  n_nay_republicans <- nrow(.SD[y == 0 & party == "R"])
-  n_yea_democrats <- nrow(.SD[y == 1 & party == "D"])
-  n_nay_democrats <- nrow(.SD[y == 0 & party == "D"])
+  vote_breakdown <- .SD[, .N, .(party, y)]
+  n_yea_reps <- .SD[, sum(y == 1 & party == "R")]
+  n_nay_reps <- .SD[, sum(y == 0 & party == "R")]
+  n_yea_dems <- .SD[, sum(y == 1 & party == "D")]
+  n_nay_dems <- .SD[, sum(y == 0 & party == "D")]
   party_line_vote <-
-    (n_yea_republicans == 0 & n_nay_democrats == 0) |
-    (n_nay_republicans == 0 & n_yea_democrats == 0)
+    (n_yea_reps == 0 & n_nay_reps >  0 & n_yea_dems >  0 & n_nay_dems == 0) |
+    (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
   if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
       length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
     list(b = 0, se = 0, t = Inf, p = NA_real_)
   } else if (party_line_vote) {
-      list(b = 1, se = 0, t = Inf, p = 0)
+    list(b = 1, se = 0, t = Inf, p = 0)
   } else {
     m <- lm(y ~ party + x, data = .SD)
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
