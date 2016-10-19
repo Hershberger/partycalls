@@ -105,15 +105,21 @@ code_party_calls_1step <- function(rc, DT, noncalls)
 #' an iteration of the algorithm while contributing to the match counter. When
 #' this threshold is exceeded the counter resets to 0. The default setting is
 #' 0.01.
+#' @param drop_very_lopsided_votes logical for whether to drop all votes
+#' with fewer than 5 yeas or fewer than 5 nays
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
 #' @export
 code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
   count_max = 150, match_count_min = 10, sim_annealing = TRUE,
-  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01)
+  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
+  drop_very_lopsided_votes = TRUE)
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
+  if (drop_very_lopsided_votes) {
+    rc <- pscl::dropRollCall(rc, dropList = alist(lop = 4))
+  }
   rc <- emIRT::convertRC(rc, type = "binIRT")
   DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
   DT$y <- as.vector(rc$votes)
