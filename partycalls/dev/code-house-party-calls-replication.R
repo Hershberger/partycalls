@@ -11,7 +11,7 @@ code_party_calls_by_congress_number <- function(congress_number)
   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
   rc <- code_party_calls(rc, tval_threshold = 2.32,
     count_min = 10,
-    count_max = 50, match_count_min = 6, sim_annealing = FALSE,
+    count_max = 50, match_count_min = 5, sim_annealing = FALSE,
     random_seed = FALSE, lopside_thresh = 0.65,
     drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
     n_iterations_for_coding = 5, use_new_match_check = FALSE)

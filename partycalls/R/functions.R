@@ -15,12 +15,12 @@ symdiff <- function(x, y)
 #' To be used inside a call to code_party_calls_1step
 #' @param .SD subset of a data.table of roll call votes, with a column for party
 #' labels
+#' @param use_brglm logical for whether to use the bias-reduced glm logit
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
-test_rollcall <- function(.SD, spiders = FALSE) #spiders?
+test_rollcall <- function(.SD, use_brglm = TRUE, spiders = FALSE) #spiders?
 {
   .SD <- .SD[party %in% c("D", "R")]
-  vote_breakdown <- .SD[, .N, .(party, y)]
   n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
   n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
   n_yea_dems <- .SD[, sum(y == 1 & party == "D", na.rm = TRUE)]
@@ -34,10 +34,14 @@ test_rollcall <- function(.SD, spiders = FALSE) #spiders?
   } else if (party_line_vote) {
     list(b = 1, se = 0, t = Inf, p = 0)
   } else {
-    m <- lm(y ~ party + x, data = .SD)
+    if (use_brglm) {
+      m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
+    } else {
+      m <- glm(y ~ party + x, data = .SD, family = binomial)
+    }
     suppressWarnings(summ <- summary(m)$coef["partyR", ])
     list(b = summ["Estimate"], se = summ["Std. Error"],
-      t = summ["t value"], p = summ["Pr(>|t|)"])
+      t = summ["z value"], p = summ["Pr(>|z|)"])
   }
 }
 
@@ -220,7 +224,8 @@ code_party_calls <- function(rc,
         match_counter <- 0
       }
     } else {
-      if (length(switched_votes) > length(old_switched_votes)) {
+      if (length(switched_votes) > length(old_switched_votes) &
+          counter > count_min) {
         match_switch <- TRUE
       }
     }
