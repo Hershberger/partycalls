@@ -19,6 +19,7 @@ symdiff <- function(x, y)
 #' coefficient on party
 test_rollcall <- function(.SD, spiders = FALSE) #spiders?
 {
+  .SD <- .SD[party %in% c("D", "R")]
   vote_breakdown <- .SD[, .N, .(party, y)]
   n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
   n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
@@ -46,8 +47,9 @@ test_rollcall <- function(.SD, spiders = FALSE) #spiders?
 #' @param rc a rollcall object
 #' @param DT data.table with votes and party indicators
 #' @param noncalls indices for non-party calls from last run
+#' @param return_pvals logical for whether to return pvals or tvals
 #' @return vector of indices for non-party calls
-code_party_calls_1step <- function(rc, DT, noncalls)
+code_party_calls_1step <- function(rc, DT, noncalls, return_pvals)
 {
   rc1 <- rc
   rc2 <- rc
@@ -55,25 +57,30 @@ code_party_calls_1step <- function(rc, DT, noncalls)
   rc2$votes <- rc$votes[, -noncalls]
   rc1$m <- ncol(rc1$votes)
   rc2$m <- ncol(rc2$votes)
-  p <- makePriors(rc1$n, rc1$m, 1)
-  s <- getStarts(rc1$n, rc1$m, 1)
+  p <- emIRT::makePriors(rc1$n, rc1$m, 1)
+  s <- emIRT::getStarts(rc1$n, rc1$m, 1)
   sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
     "NUL"
   } else {
     "/dev/null"
   }
   sink(sink_target)
-  l <- binIRT(.rc = rc1, .starts = s, .priors = p,
+  l <- emIRT::binIRT(.rc = rc1, .starts = s, .priors = p,
     .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
   sink()
   unlink(sink_target)
   DT$x <- l$means$x
   regs <- DT[party %in% c("D", "R"), test_rollcall(.SD), .(vt)]
-  pvals <- regs$p
-  pvals[is.na(pvals)] <- 1 # is this already taking care of party line votes?
-  pvals
-  # ok <- pvals > .05
-  # which(ok)
+  if (return_pvals) {
+    pvals <- regs$p
+    pvals[is.na(pvals)] <- 1 # is this already taking care of party line votes?
+    out <- pvals
+  } else {
+    tvals <- regs$t
+    tvals[is.na(tvals)] <- Inf # is this already taking care of party line votes?
+    out <- tvals
+  }
+  out
 }
 
 #' Run the party calls classifier
@@ -86,6 +93,7 @@ code_party_calls_1step <- function(rc, DT, noncalls)
 #' @param rc a rollcall object
 #' @param pval_threshold the p-value required to code a vote as a party call.
 #' Its default setting is 0.01
+#' @param tval_threshold the t-value required to code a vote as a party call.
 #' @param count_min The minimum count of iterations for the algorithm to run
 #' before returning a result. The default setting is 15.
 #' @param count_max The maximum count of iterations for the algorithm to run
@@ -107,14 +115,20 @@ code_party_calls_1step <- function(rc, DT, noncalls)
 #' 0.01.
 #' @param drop_very_lopsided_votes logical for whether to drop all votes
 #' with fewer than 5 yeas or fewer than 5 nays
+#' @param n_iterations_for_coding number of iterations from the end of the
+#' process to use to code party calls, noncalls, and gray votes
+#' @param use_new_match_check logical for whether to use new procedure
+#' to check for matches between iterations
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
 #' @export
-code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
-  count_max = 150, match_count_min = 10, sim_annealing = TRUE,
-  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
-  drop_very_lopsided_votes = TRUE)
+code_party_calls <- function(rc,
+  pval_threshold = 0.01, tval_threshold = 2.32, count_min = 10,
+  count_max = 150, match_count_min = 150, sim_annealing = TRUE,
+  random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
+  drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
+  n_iterations_for_coding = 5, use_new_match_check = TRUE)
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
@@ -126,9 +140,13 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
   DT[y == -1, y:= 0]
+
   if (random_seed == TRUE) {
     noncalls <- sample(rc$m, floor(.5 * rc$m))
   } else {
+    stopifnot(lopside_thresh > 0 & lopside_thresh < 1 & lopside_thresh != .5)
+    LB <- min(1 - lopside_thresh, lopside_thresh)
+    UB <- max(1 - lopside_thresh, lopside_thresh)
     # noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
     # you don't want to mix "<-" with ":=" (the point of the latter is to avoid
     # the former). so do this instead:
@@ -152,23 +170,34 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
     #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
     # but actually, we just want to know which votes are lopsided. so we should
     # use "which"
-    noncalls <- which(noncalls_DT[,
-      yea_perc < lopside_thresh | yea_perc > 1 - lopside_thresh])
+    noncalls <- which(noncalls_DT[, yea_perc <= LB | UB <= yea_perc])
   }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0
   counter <- 0
   record_of_coding <- list()
-  record_of_pvals <- list()
+  match_switch <- FALSE # for old match checking procedure
+
+  if (return_pvals) {
+    record_of_pvals <- list()
+  } else {
+    record_of_tvals <- list()
+  }
   while (counter <= count_min |
       (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
-    pvals <- code_party_calls_1step(rc, DT, noncalls)
-    record_of_pvals[[counter]] <- pvals
-    noncalls <- which(pvals > pval_threshold)
+    if (return_pvals) {
+      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals)
+      record_of_pvals[[counter]] <- pvals
+      noncalls <- which(pvals > pval_threshold)
+    } else {
+      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals)
+      record_of_tvals[[counter]] <- tvals
+      noncalls <- which(abs(tvals) < tval_threshold)
+    }
     calls <- setdiff(seq_len(rc$m), old_noncalls) # this codes all noncalls as calls
     if (sim_annealing == TRUE) {
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
@@ -184,35 +213,80 @@ code_party_calls <- function(rc, pval_threshold = 0.01, count_min = 15,
       noncalls <- c(noncalls_to_keep, calls_to_switch)
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
-    if (length(switched_votes) <= vote_switch_percent * rc$m) {
-      match_counter <- match_counter + 1
+    if (use_new_match_check) {
+      if (length(switched_votes) <= vote_switch_percent * rc$m) {
+        match_counter <- match_counter + 1
+      } else {
+        match_counter <- 0
+      }
     } else {
-      match_counter <- 0
+      if (length(switched_votes) > length(old_switched_votes)) {
+        match_switch <- TRUE
+      }
+    }
+    if (match_switch) {
+      match_counter <- match_counter + 1
     }
     cat("Iteration", counter, "had", length(switched_votes), "out of", rc$m,
       "switched votes\n")
   }
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding
-  rc$record_of_pvals <- record_of_pvals
+  if (return_pvals) {
+    rc$record_of_pvals <- record_of_pvals
+  } else {
+    rc$record_of_tvals <- record_of_tvals
+  }
+  rc$party_call_coding <- get_party_call_coding(rc, n_iterations_for_coding)
   rc
 }
 
 
-get_gray_votes <- function(record_of_coding, n_iterations = 2)
+#' @export
+get_party_call_coding <- function(rc, n_iterations)
 {
-  tail_diff <- symdiff(tail(record_of_coding, 2)[[2]],
-    tail(record_of_coding, 2)[[1]])
-  if (length(tail_diff) == 0L) {
-    gray_votes <- NULL
-  } else {
-  record_of_coding <- tail(record_of_coding, n_iterations)
+  record_of_coding <- tail(rc$record_of_coding, n_iterations)
+  all_votes_always_classied_as_noncalls <- Reduce(intersect, record_of_coding)
+  all_votes_ever_classied_as_noncalls <- Reduce(union, record_of_coding)
+  gray_votes <- setdiff(all_votes_ever_classied_as_noncalls,
+    all_votes_always_classied_as_noncalls)
+  partycalls <- setdiff(seq_len(rc$m), all_votes_ever_classied_as_noncalls)
+  noncalls <- all_votes_always_classied_as_noncalls
+  voteno <- colnames(rc$votes)
+  coding <- rep(NA, length(voteno))
+  coding[gray_votes] <- "gray"
+  coding[partycalls] <- "party call"
+  coding[noncalls] <- "noncall"
+  data.table(voteno, coding)
+}
+
+
+#' @export
+get_party_calls <- function(rc, n_iterations = 5)
+{
+  record_of_coding <- tail(rc$record_of_coding, n_iterations)
+  all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
+  paste("Vote", all_votes_always_classied_as_calls)
+}
+
+#' @export
+get_noncalls <- function(rc, n_iterations = 5)
+{
+  record_of_coding <- tail(rc$record_of_coding, n_iterations)
+  all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
+  noncalls <- setdiff(colnames(rc$votes), all_votes_ever_classied_as_calls)
+  paste("Vote", noncalls)
+}
+
+#' @export
+get_gray_votes <- function(rc, n_iterations = 5)
+{
+  record_of_coding <- tail(rc$record_of_coding, n_iterations)
   all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
   all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
   gray_votes <- setdiff(all_votes_ever_classied_as_calls,
     all_votes_always_classied_as_calls)
   paste("Vote", gray_votes)
-  }
 }
 
 

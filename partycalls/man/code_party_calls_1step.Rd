@@ -4,7 +4,7 @@
 \alias{code_party_calls_1step}
 \title{Run one step of the party calls algorithm}
 \usage{
-code_party_calls_1step(rc, DT, noncalls)
+code_party_calls_1step(rc, DT, noncalls, return_pvals)
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -12,6 +12,8 @@ code_party_calls_1step(rc, DT, noncalls)
 \item{DT}{data.table with votes and party indicators}
 
 \item{noncalls}{indices for non-party calls from last run}
+
+\item{return_pvals}{logical for whether to return pvals or tvals}
 }
 \value{
 vector of indices for non-party calls

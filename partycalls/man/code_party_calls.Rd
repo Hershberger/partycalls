@@ -4,16 +4,19 @@
 \alias{code_party_calls}
 \title{Run the party calls classifier}
 \usage{
-code_party_calls(rc, pval_threshold = 0.01, count_min = 15,
-  count_max = 150, match_count_min = 10, sim_annealing = TRUE,
-  random_seed = TRUE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
-  drop_very_lopsided_votes = TRUE)
+code_party_calls(rc, pval_threshold = 0.01, tval_threshold = 2.32,
+  count_min = 10, count_max = 150, match_count_min = 150,
+  sim_annealing = TRUE, random_seed = FALSE, lopside_thresh = 0.65,
+  vote_switch_percent = 0.01, drop_very_lopsided_votes = TRUE,
+  return_pvals = FALSE, n_iterations_for_coding = 5)
 }
 \arguments{
 \item{rc}{a rollcall object}
 
 \item{pval_threshold}{the p-value required to code a vote as a party call.
 Its default setting is 0.01}
+
+\item{tval_threshold}{the t-value required to code a vote as a party call.}
 
 \item{count_min}{The minimum count of iterations for the algorithm to run
 before returning a result. The default setting is 15.}
@@ -43,6 +46,9 @@ this threshold is exceeded the counter resets to 0. The default setting is
 
 \item{drop_very_lopsided_votes}{logical for whether to drop all votes
 with fewer than 5 yeas or fewer than 5 nays}
+
+\item{n_iterations_for_coding}{number of iterations from the end of the
+process to use to code party calls, noncalls, and gray votes}
 }
 \value{
 rollcall object with record of classification algorithm and
