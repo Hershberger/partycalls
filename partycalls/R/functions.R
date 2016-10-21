@@ -270,7 +270,8 @@ get_party_call_coding <- function(rc, n_iterations)
 get_party_calls <- function(rc, n_iterations = 5)
 {
   record_of_coding <- tail(rc$record_of_coding, n_iterations)
-  party_calls <- Reduce(intersect, record_of_coding)
+  all_votes_ever_classied_as_noncalls <- Reduce(union, record_of_coding)
+  party_calls <- setdiff(seq_len(rc$m), all_votes_ever_classied_as_noncalls)
   paste("Vote", party_calls)
   colnames(rc$votes)[party_calls]
 }
@@ -279,8 +280,8 @@ get_party_calls <- function(rc, n_iterations = 5)
 get_noncalls <- function(rc, n_iterations = 5)
 {
   record_of_coding <- tail(rc$record_of_coding, n_iterations)
-  all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
-  noncalls <- setdiff(seq_len(rc$m), all_votes_ever_classied_as_calls)
+  all_votes_always_classied_as_noncalls <- Reduce(intersect, record_of_coding)
+  noncalls <- all_votes_always_classied_as_noncalls
   colnames(rc$votes)[noncalls]
 }
 
@@ -311,6 +312,7 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
+
   votes <- rc$votes
   votes <- melt(votes)
   setDT(votes)
@@ -320,21 +322,41 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   party_calls <- get_party_calls(rc)
   noncalls <- get_noncalls(rc)
   votes[, gray := as.numeric(vote_id %in% gray_votes)]
+  votes[, party_call := as.numeric(vote_id %in% party_calls)]
+  votes[, noncall := as.numeric(vote_id %in% noncalls)]
+
   votes[, party_yea_rate := sum(vote == 1) / sum(vote %in% c(1, -1)),
     .(vote_id, party)]
   votes[, party_pos :=
       as.numeric(party_yea_rate > .5) - as.numeric(party_yea_rate < .5)]
-  votes[, party_call := as.numeric(vote_id %in% party_calls)]
-  votes[, noncall := as.numeric(vote_id %in% noncalls)]
-  member_year_data <- votes[vote %in% c(1, -1) & party_pos != 0,
+
+
+  new_member_year_data <- votes[vote %in% c(1, -1) & party_pos != 0,
     .(
       responsiveness_party_calls =
         mean(vote[party_call == 1] == party_pos[party_call == 1]),
       responsiveness_noncalls =
         mean(vote[noncall == 1] == party_pos[noncall == 1]),
       n_party_calls = sum(party_call == 1),
-      n_noncalls = sum(noncall == 0)
+      n_noncalls = sum(noncall == 1)
     ), mc]
+
+  old_member_year_data <- votes[vote %in% c(1, -1) & party_pos != 0,
+    .(
+      n_match_party_position_party_calls =
+        sum(vote[party_call == 1] == party_pos[party_call == 1]),
+      n_match_party_position_noncalls =
+        sum(vote[noncall == 1] == party_pos[noncall == 1]),
+      n_party_calls = sum(party_call == 1),
+      n_noncalls = sum(noncall == 1)
+    ), mc]
+
+  member_year_data <- copy(old_member_year_data)
+  member_year_data[, responsiveness_party_calls :=
+      n_match_party_position_party_calls / n_party_calls]
+  member_year_data[, responsiveness_noncalls :=
+      n_match_party_position_noncalls / n_noncalls]
+
   member_year_data <- merge(member_year_data, ld, by = "mc")
   rc_noncalls <- rc
   votes_to_keep <- which(colnames(rc_noncalls$votes) %in% noncalls)
@@ -363,15 +385,15 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   if (!is_orientation_correct) {
     member_year_data[, pf_ideal := -pf_ideal]
   }
-  member_year_data[, pf_ideal := 5 + pf_ideal - mean(pf_ideal)]
   member_year_data[, pf_ideal := pf_ideal / sd(pf_ideal)]
+  member_year_data[, pf_ideal := 5 + pf_ideal - mean(pf_ideal)]
   member_year_data[,
     dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
   member_year_data[party == "D",
     dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
   member_year_data[party == "R",
     dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
-  member_year_data[, ideological_extremism := abs(pf_ideal - 5)]
-  member_year_data[party == "D", ideological_extremism := -pf_ideal]
+  member_year_data[, ideological_extremism := -pf_ideal]
+  member_year_data[party == "R", ideological_extremism := pf_ideal]
   list(member_year_data = member_year_data, fitted_emIRT = fitted_emIRT)
 }
