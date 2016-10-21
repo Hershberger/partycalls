@@ -50,3 +50,22 @@ merged_votes[congress == 103, table(old_coding, new_coding)]
 merged_votes[congress == 109, table(old_coding, new_coding)]
 merged_votes[congress == 96, table(old_coding, new_coding)]
 merged_votes[congress == 98, table(old_coding, new_coding)]
+
+
+new_ideal_points <- rbindlist(lapply(c(93:103, 104:109), function(congress) {
+  cat(congress, " ")
+  rc <- make_member_year_data(congress, house_party_calls)
+  DATA <- rc$member_year_data
+  DATA[, .(congress, icpsr = icpsrLegis, new_ideal_point = pf_ideal)]
+}))
+
+whoheeds13 <- readstata13::read.dta13(
+  "inst/extdata/who-heeds-replication-archive.dta")
+setDT(whoheeds13)
+old_ideal_points <- whoheeds13[,
+  .(congress, icpsr, old_ideal_point = ideal_partyfree)]
+
+merged_ideal_points <- merge(old_ideal_points, new_ideal_points,
+  by = c("congress", "icpsr"), all = TRUE)
+merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p")]
+merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p"), congress]

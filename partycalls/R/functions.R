@@ -270,8 +270,9 @@ get_party_call_coding <- function(rc, n_iterations)
 get_party_calls <- function(rc, n_iterations = 5)
 {
   record_of_coding <- tail(rc$record_of_coding, n_iterations)
-  all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
-  paste("Vote", all_votes_always_classied_as_calls)
+  party_calls <- Reduce(intersect, record_of_coding)
+  paste("Vote", party_calls)
+  colnames(rc$votes)[party_calls]
 }
 
 #' @export
@@ -279,8 +280,8 @@ get_noncalls <- function(rc, n_iterations = 5)
 {
   record_of_coding <- tail(rc$record_of_coding, n_iterations)
   all_votes_ever_classied_as_calls <- Reduce(union, record_of_coding)
-  noncalls <- setdiff(colnames(rc$votes), all_votes_ever_classied_as_calls)
-  paste("Vote", noncalls)
+  noncalls <- setdiff(seq_len(rc$m), all_votes_ever_classied_as_calls)
+  colnames(rc$votes)[noncalls]
 }
 
 #' @export
@@ -291,7 +292,7 @@ get_gray_votes <- function(rc, n_iterations = 5)
   all_votes_always_classied_as_calls <- Reduce(intersect, record_of_coding)
   gray_votes <- setdiff(all_votes_ever_classied_as_calls,
     all_votes_always_classied_as_calls)
-  paste("Vote", gray_votes)
+  colnames(rc$votes)[gray_votes]
 }
 
 
@@ -315,17 +316,16 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   setDT(votes)
   setnames(votes, c("mc", "vote_id", "vote"))
   votes <- merge(votes, ld, by = "mc")
-  gray_vote_ids <- get_gray_votes(rc$record_of_coding)
-  party_call_vote_ids <- setdiff(paste("Vote", rc$party_calls), gray_vote_ids)
-  noncall_vote_ids <- setdiff(paste("Vote", setdiff(1:rc$m, rc$party_calls)),
-    gray_vote_ids)
-  votes[, gray := as.numeric(vote_id %in% gray_vote_ids)]
+  gray_votes <- get_gray_votes(rc)
+  party_calls <- get_party_calls(rc)
+  noncalls <- get_noncalls(rc)
+  votes[, gray := as.numeric(vote_id %in% gray_votes)]
   votes[, party_yea_rate := sum(vote == 1) / sum(vote %in% c(1, -1)),
     .(vote_id, party)]
   votes[, party_pos :=
       as.numeric(party_yea_rate > .5) - as.numeric(party_yea_rate < .5)]
-  votes[, party_call := as.numeric(vote_id %in% party_call_vote_ids)]
-  votes[, noncall := as.numeric(vote_id %in% noncall_vote_ids)]
+  votes[, party_call := as.numeric(vote_id %in% party_calls)]
+  votes[, noncall := as.numeric(vote_id %in% noncalls)]
   member_year_data <- votes[vote %in% c(1, -1) & party_pos != 0,
     .(
       responsiveness_party_calls =
@@ -337,17 +337,18 @@ make_member_year_data <- function(congress, roll_calls_object_list)
     ), mc]
   member_year_data <- merge(member_year_data, ld, by = "mc")
   rc_noncalls <- rc
-  rc_noncalls$votes <- rc_noncalls$votes[, noncall_vote_ids]
+  votes_to_keep <- which(colnames(rc_noncalls$votes) %in% noncalls)
+  rc_noncalls$votes <- rc_noncalls$votes[, votes_to_keep]
   rc_noncalls$m <- ncol(rc_noncalls$votes)
-  p <- makePriors(rc_noncalls$n, rc_noncalls$m, 1)
-  s <- getStarts(rc_noncalls$n, rc_noncalls$m, 1)
+  p <- emIRT::makePriors(rc_noncalls$n, rc_noncalls$m, 1)
+  s <- emIRT::getStarts(rc_noncalls$n, rc_noncalls$m, 1)
   sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
     "NUL"
   } else {
     "/dev/null"
   }
   sink(sink_target)
-  fitted_emIRT <- binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
+  fitted_emIRT <- emIRT::binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
     .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
   sink()
   unlink(sink_target)
@@ -364,9 +365,12 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   }
   member_year_data[, pf_ideal := 5 + pf_ideal - mean(pf_ideal)]
   member_year_data[, pf_ideal := pf_ideal / sd(pf_ideal)]
-  member_year_data[, dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
-  member_year_data[party == "D", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
-  member_year_data[party == "R", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
+  member_year_data[,
+    dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
+  member_year_data[party == "D",
+    dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
+  member_year_data[party == "R",
+    dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
   member_year_data[, ideological_extremism := abs(pf_ideal - 5)]
   member_year_data[party == "D", ideological_extremism := -pf_ideal]
   list(member_year_data = member_year_data, fitted_emIRT = fitted_emIRT)
