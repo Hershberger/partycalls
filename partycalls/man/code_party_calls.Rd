@@ -8,7 +8,8 @@ code_party_calls(rc, pval_threshold = 0.01, tval_threshold = 2.32,
   count_min = 10, count_max = 150, match_count_min = 150,
   sim_annealing = TRUE, random_seed = FALSE, lopside_thresh = 0.65,
   vote_switch_percent = 0.01, drop_very_lopsided_votes = TRUE,
-  return_pvals = FALSE, n_iterations_for_coding = 5)
+  return_pvals = FALSE, n_iterations_for_coding = 5,
+  use_new_match_check = TRUE, use_brglm = TRUE)
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -49,6 +50,11 @@ with fewer than 5 yeas or fewer than 5 nays}
 
 \item{n_iterations_for_coding}{number of iterations from the end of the
 process to use to code party calls, noncalls, and gray votes}
+
+\item{use_new_match_check}{logical for whether to use new procedure
+to check for matches between iterations}
+
+\item{use_brglm}{logical for whether to use the bias reduced logit}
 }
 \value{
 rollcall object with record of classification algorithm and

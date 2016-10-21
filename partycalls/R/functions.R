@@ -18,7 +18,7 @@ symdiff <- function(x, y)
 #' @param use_brglm logical for whether to use the bias-reduced glm logit
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
-test_rollcall <- function(.SD, use_brglm = TRUE, spiders = FALSE) #spiders?
+test_rollcall <- function(.SD, use_brglm)
 {
   .SD <- .SD[party %in% c("D", "R")]
   n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
@@ -52,8 +52,9 @@ test_rollcall <- function(.SD, use_brglm = TRUE, spiders = FALSE) #spiders?
 #' @param DT data.table with votes and party indicators
 #' @param noncalls indices for non-party calls from last run
 #' @param return_pvals logical for whether to return pvals or tvals
+#' @param use_brglm logical for whether to use the bias reduced logit
 #' @return vector of indices for non-party calls
-code_party_calls_1step <- function(rc, DT, noncalls, return_pvals)
+code_party_calls_1step <- function(rc, DT, noncalls, return_pvals, use_brglm)
 {
   rc1 <- rc
   rc2 <- rc
@@ -74,7 +75,7 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals)
   sink()
   unlink(sink_target)
   DT$x <- l$means$x
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD), .(vt)]
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, use_brglm), .(vt)]
   if (return_pvals) {
     pvals <- regs$p
     pvals[is.na(pvals)] <- 1 # is this already taking care of party line votes?
@@ -123,6 +124,7 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals)
 #' process to use to code party calls, noncalls, and gray votes
 #' @param use_new_match_check logical for whether to use new procedure
 #' to check for matches between iterations
+#' @param use_brglm logical for whether to use the bias reduced logit
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
@@ -132,7 +134,7 @@ code_party_calls <- function(rc,
   count_max = 150, match_count_min = 150, sim_annealing = TRUE,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
   drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
-  n_iterations_for_coding = 5, use_new_match_check = TRUE)
+  n_iterations_for_coding = 5, use_new_match_check = TRUE, use_brglm = TRUE)
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
@@ -194,11 +196,11 @@ code_party_calls <- function(rc,
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
     if (return_pvals) {
-      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals)
+      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
       record_of_pvals[[counter]] <- pvals
       noncalls <- which(pvals > pval_threshold)
     } else {
-      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals)
+      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
       record_of_tvals[[counter]] <- tvals
       noncalls <- which(abs(tvals) < tval_threshold)
     }

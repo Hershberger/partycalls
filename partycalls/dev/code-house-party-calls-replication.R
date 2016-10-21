@@ -18,8 +18,9 @@ load("inst/extdata/houKHfiles001-111.rdata")
 # }
 # house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
 # names(house_party_calls) <- paste0("hou", 93:109)
-# save(house_party_calls, file = "inst/extdata/house_party_calls.RData")
-load("inst/extdata/house_party_calls.RData")
+# save(house_party_calls,
+#   file = "inst/extdata/house_party_calls_replication.RData")
+load("inst/extdata/house_party_calls_replication.RData")
 
 new_partycalls <- rbindlist(lapply(house_party_calls, function(x) data.table(
     congress = gsub("[A-Za-z:/\\.]", "", x$source),
@@ -87,7 +88,9 @@ new_responsiveness <- rbindlist(lapply(93:109, function(congress) {
 new_whoheeds13 <- merge(whoheeds13, new_responsiveness,
   by = c("congress", "icpsr"), all = TRUE)
 
-
+# check responsiveness scores
+ggplot(new_whoheeds13, aes(pirate100, new_pirate100)) + geom_point(alpha = .1) +
+  coord_equal() + facet_wrap(~ congress)
 
 ## copy/pasted code from 2013 paper is below (with changed out dataset name
 ## and variable names)
