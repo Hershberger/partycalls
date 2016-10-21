@@ -12,7 +12,17 @@ symdiff <- function(x, y)
 
 #' Regress a single roll call on party indicator and ideal points
 #'
-#' To be used inside a call to code_party_calls_1step
+#' To be used inside a call to code_party_calls_1step. This function is used to
+#' perform a number of tasks in the purpose of determining the influence of the
+#' party on a given vote. This is accomplished by regressing votes on members'
+#' party affiliation and ideology. Before this happens, however, all votes which
+#' either received only `yeas' and `nays' are assigned non-values in place of
+#' estimates. Further, votes which strictly follow party lines are assigned
+#' estimates which guarantee they will be coded as party calls under any model
+#' specification to avoid separation in the model. Finally, the votes left are
+#' either put through a bias-reduced logit or ordinary least squares model as
+#' per user selected parameters. The default setting of the function is to use
+#' the bias-reduced logit.
 #' @param .SD subset of a data.table of roll call votes, with a column for party
 #' labels
 #' @param use_brglm logical for whether to use the bias-reduced glm logit
