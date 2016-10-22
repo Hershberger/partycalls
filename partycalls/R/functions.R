@@ -46,12 +46,15 @@ test_rollcall <- function(.SD, use_brglm)
   } else {
     if (use_brglm) {
       m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["z value"], p = summ["Pr(>|z|)"])
     } else {
-      m <- glm(y ~ party + x, data = .SD, family = binomial)
+      m <- lm(y ~ party + x, data = .SD)
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["t value"], p = summ["Pr(>|t|)"])
     }
-    suppressWarnings(summ <- summary(m)$coef["partyR", ])
-    list(b = summ["Estimate"], se = summ["Std. Error"],
-      t = summ["z value"], p = summ["Pr(>|z|)"])
   }
 }
 
@@ -199,6 +202,7 @@ code_party_calls <- function(rc,
   } else {
     record_of_tvals <- list()
   }
+  countdown_started <- FALSE
   while (counter <= count_min |
       (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
@@ -214,13 +218,18 @@ code_party_calls <- function(rc,
       record_of_tvals[[counter]] <- tvals
       noncalls <- which(abs(tvals) < tval_threshold)
     }
-    calls <- setdiff(seq_len(rc$m), old_noncalls) # this codes all noncalls as calls
-    if (sim_annealing == TRUE) {
+    calls <- setdiff(seq_len(rc$m), noncalls)
+    if (sim_annealing) {
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
-    } else {
-      n_random_switches <- 0
-    }
-    if (n_random_switches > 0) {
+      if (return_pvals) {
+        probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
+        probs[is.na(probs)] <- min(probs, na.rm = TRUE)
+        probs <- probs / sum(probs)
+      } else {
+        probs <- abs(log(tvals) - log(tval_threshold)) ^ -.2
+        probs[is.na(probs)] <- min(probs, na.rm = TRUE)
+        probs <- probs / sum(probs)
+      }
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
       calls_to_keep <- setdiff(calls, calls_to_switch)
@@ -229,23 +238,34 @@ code_party_calls <- function(rc,
       noncalls <- c(noncalls_to_keep, calls_to_switch)
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
-    if (use_new_match_check) {
+    countdown <- ""
+    if (use_new_match_check & counter > count_min) {
       if (length(switched_votes) <= vote_switch_percent * rc$m) {
         match_counter <- match_counter + 1
+        countdown_started <- TRUE
+        countdown <- paste0("(", match_count_min -  match_counter,
+          " iterations left)")
+      } else if (countdown_started) {
+        match_counter <- 0
+        countdown_started <- FALSE
+        countdown <- "(countdown started over)"
       } else {
         match_counter <- 0
       }
     } else {
-      if (length(switched_votes) > length(old_switched_votes) &
+      if ((length(switched_votes) > length(old_switched_votes) |
+          length(switched_votes) == 0) &
           counter > count_min) {
         match_switch <- TRUE
       }
     }
     if (match_switch) {
       match_counter <- match_counter + 1
+      countdown <- paste0("(", match_count_min -  match_counter,
+        " iterations left)")
     }
     cat("Iteration", counter, "had", length(switched_votes), "out of", rc$m,
-      "switched votes\n")
+      "switched votes", countdown, "\n")
   }
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding

@@ -52,7 +52,6 @@ merged_votes[congress == 109, table(old_coding, new_coding)]
 merged_votes[congress == 96, table(old_coding, new_coding)]
 merged_votes[congress == 98, table(old_coding, new_coding)]
 
-
 new_ideal_points <- rbindlist(lapply(c(93:103, 104:109), function(congress) {
   cat(congress, " ")
   rc <- make_member_year_data(congress, house_party_calls)
