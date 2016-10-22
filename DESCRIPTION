@@ -1,10 +1,11 @@
 Package: partycalls
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Replication package for "Who Heeds the Call of the Party in the U.S. Senate"
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Ethan Hershberger, William Minozzi
+Maintainer: Ethan Hershberger <hershberger.107@osu.edu>
+Description: Replication package for "Who Heeds the Call of the Party in the U.S. Senate"
+License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Depends: R (>= 3.1.1), data.table, emIRT
