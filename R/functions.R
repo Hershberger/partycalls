@@ -25,10 +25,13 @@ symdiff <- function(x, y)
 #' the bias-reduced logit.
 #' @param .SD subset of a data.table of roll call votes, with a column for party
 #' labels
-#' @param use_brglm logical for whether to use the bias-reduced glm logit
+#' @param type character string, one of brglm, glm, or lm; which function
+#' to use for roll call-by-roll call regression
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
-test_rollcall <- function(.SD, use_brglm)
+#' @export
+#' @importFrom brglm brglm
+test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
 {
   .SD <- .SD[party %in% c("D", "R")]
   n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
@@ -44,8 +47,13 @@ test_rollcall <- function(.SD, use_brglm)
   } else if (party_line_vote) {
     list(b = 1, se = 0, t = Inf, p = 0)
   } else {
-    if (use_brglm) {
+    if (type == "brglm") {
       m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["z value"], p = summ["Pr(>|z|)"])
+    } else if (type == "glm") {
+      suppressWarnings(m <- glm(y ~ party + x, data = .SD, family = binomial))
       suppressWarnings(summ <- summary(m)$coef["partyR", ])
       list(b = summ["Estimate"], se = summ["Std. Error"],
         t = summ["z value"], p = summ["Pr(>|z|)"])
@@ -65,9 +73,13 @@ test_rollcall <- function(.SD, use_brglm)
 #' @param DT data.table with votes and party indicators
 #' @param noncalls indices for non-party calls from last run
 #' @param return_pvals logical for whether to return pvals or tvals
-#' @param use_brglm logical for whether to use the bias reduced logit
+#' @param type character string, one of brglm, glm, or lm; which function
+#' to use for roll call-by-roll call regression
 #' @return vector of indices for non-party calls
-code_party_calls_1step <- function(rc, DT, noncalls, return_pvals, use_brglm)
+#' @export
+#' @importFrom emIRT binIRT makePriors getStarts
+code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
+  type = c("brglm", "lm", "glm"))
 {
   rc1 <- rc
   rc2 <- rc
@@ -88,14 +100,14 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals, use_brglm)
   sink()
   unlink(sink_target)
   DT$x <- l$means$x
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, use_brglm), .(vt)]
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
   if (return_pvals) {
     pvals <- regs$p
-    pvals[is.na(pvals)] <- 1 # is this already taking care of party line votes?
+    pvals[is.na(pvals)] <- 1
     out <- pvals
   } else {
     tvals <- regs$t
-    tvals[is.na(tvals)] <- Inf # is this already taking care of party line votes?
+    tvals[is.na(tvals)] <- Inf
     out <- tvals
   }
   out
@@ -137,7 +149,8 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals, use_brglm)
 #' process to use to code party calls, noncalls, and gray votes
 #' @param use_new_match_check logical for whether to use new procedure
 #' to check for matches between iterations
-#' @param use_brglm logical for whether to use the bias reduced logit
+#' @param type character string, one of brglm, glm, or lm; which function
+#' to use for roll call-by-roll call regression
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
@@ -147,8 +160,10 @@ code_party_calls <- function(rc,
   count_max = 150, match_count_min = 150, sim_annealing = TRUE,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
   drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
-  n_iterations_for_coding = 5, use_new_match_check = TRUE, use_brglm = TRUE)
+  n_iterations_for_coding = 5, use_new_match_check = TRUE,
+  type = c("brglm", "lm", "glm"))
 {
+  stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
     rc <- pscl::dropRollCall(rc, dropList = alist(lop = 4))
@@ -159,36 +174,13 @@ code_party_calls <- function(rc,
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
   DT[y == -1, y:= 0]
-
   if (random_seed == TRUE) {
     noncalls <- sample(rc$m, floor(.5 * rc$m))
   } else {
     stopifnot(lopside_thresh > 0 & lopside_thresh < 1 & lopside_thresh != .5)
     LB <- min(1 - lopside_thresh, lopside_thresh)
     UB <- max(1 - lopside_thresh, lopside_thresh)
-    # noncalls_DT <- DT[, yea_perc := mean(y, na.rm = TRUE), by = vt]
-    # you don't want to mix "<-" with ":=" (the point of the latter is to avoid
-    # the former). so do this instead:
     noncalls_DT <- DT[, .(yea_perc = mean(y, na.rm = TRUE)), by = vt]
-
-    # noncalls_DT <-
-    #   subset(DT, yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
-    #     select = vt)
-    # you can use data.table do this; as here:
-    # noncalls_DT <- DT[yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh,
-    #   vt]
-    #   (I think this will rule out all votes, since none have both
-    #   yea_perc < lopside_thresh & yea_perc > 1 - lopside_thresh
-    #   so you want a "|" instead of a "&"; am I right about that?)
-
-    # noncalls_DT <- c(unique(noncall_DT$vt))
-    # noncalls <-
-    #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
-    # noncalls_DT <- c(unique(noncall_DT$vt))
-    # noncalls <-
-    #   as.numeric(c(gsub(pattern = "Vote ", replacement = "", noncalls_DT)))
-    # but actually, we just want to know which votes are lopsided. so we should
-    # use "which"
     noncalls <- which(noncalls_DT[, yea_perc <= LB | UB <= yea_perc])
   }
   switched_votes <- seq_len(rc$m)
@@ -196,7 +188,6 @@ code_party_calls <- function(rc,
   counter <- 0
   record_of_coding <- list()
   match_switch <- FALSE # for old match checking procedure
-
   if (return_pvals) {
     record_of_pvals <- list()
   } else {
@@ -204,17 +195,17 @@ code_party_calls <- function(rc,
   }
   countdown_started <- FALSE
   while (counter <= count_min |
-      (counter < count_max & match_counter < match_count_min)) {
+         (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
     if (return_pvals) {
-      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
+      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
       record_of_pvals[[counter]] <- pvals
       noncalls <- which(pvals > pval_threshold)
     } else {
-      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
+      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
       record_of_tvals[[counter]] <- tvals
       noncalls <- which(abs(tvals) < tval_threshold)
     }
@@ -278,7 +269,15 @@ code_party_calls <- function(rc,
   rc
 }
 
-
+#' Code party calls
+#'
+#' Examines the last n_iterations of classifier iterations and codes any
+#' vote that was always a party call as a party call, any vote that was always
+#' a noncall as a noncall, and the remainder as gray votes.
+#' @param rc rollcall object, includes record_of_coding
+#' @param n_iterations number of classifier iterations to include in coding
+#' of roll call votes
+#' @return data.table with two columns, voteno and coding
 #' @export
 get_party_call_coding <- function(rc, n_iterations)
 {
@@ -297,7 +296,14 @@ get_party_call_coding <- function(rc, n_iterations)
   data.table(voteno, coding)
 }
 
-
+#' Code party calls
+#'
+#' Examines the last n_iterations of classifier iterations and codes any
+#' vote that was always a party call as a party call
+#' @param rc rollcall object, includes record_of_coding
+#' @param n_iterations number of classifier iterations to include in coding
+#' of roll call votes
+#' @return character string of vote IDs, based on KH Data index
 #' @export
 get_party_calls <- function(rc, n_iterations = 5)
 {
@@ -308,6 +314,14 @@ get_party_calls <- function(rc, n_iterations = 5)
   colnames(rc$votes)[party_calls]
 }
 
+#' Code noncalls
+#'
+#' Examines the last n_iterations of classifier iterations and codes any
+#' vote that was always a noncall as a noncall.
+#' @param rc rollcall object, includes record_of_coding
+#' @param n_iterations number of classifier iterations to include in coding
+#' of roll call votes
+#' @return character string of vote IDs, based on KH Data index
 #' @export
 get_noncalls <- function(rc, n_iterations = 5)
 {
@@ -317,6 +331,14 @@ get_noncalls <- function(rc, n_iterations = 5)
   colnames(rc$votes)[noncalls]
 }
 
+#' Code gray votes
+#'
+#' Examines the last n_iterations of classifier iterations and codes any
+#' vote that wasn't always a party call or always a noncall as a gray vote.
+#' @param rc rollcall object, includes record_of_coding
+#' @param n_iterations number of classifier iterations to include in coding
+#' of roll call votes
+#' @return character string of vote IDs, based on KH Data index
 #' @export
 get_gray_votes <- function(rc, n_iterations = 5)
 {
@@ -344,7 +366,6 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
-
   votes <- rc$votes
   votes <- melt(votes)
   setDT(votes)
@@ -356,13 +377,10 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   votes[, gray := as.numeric(vote_id %in% gray_votes)]
   votes[, party_call := as.numeric(vote_id %in% party_calls)]
   votes[, noncall := as.numeric(vote_id %in% noncalls)]
-
   votes[, party_yea_rate := sum(vote == 1) / sum(vote %in% c(1, -1)),
     .(vote_id, party)]
   votes[, party_pos :=
       as.numeric(party_yea_rate > .5) - as.numeric(party_yea_rate < .5)]
-
-
   new_member_year_data <- votes[vote %in% c(1, -1) & party_pos != 0,
     .(
       responsiveness_party_calls =

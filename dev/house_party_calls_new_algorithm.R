@@ -16,32 +16,32 @@ load("inst/extdata/houKHfiles001-111.rdata")
 # 1. change initial vote seeding to random_seed = TRUE
 # 3. add simulated annealing with  sim_annealing = TRUE
 # 5. change gray vote classification with an increase in n_iterations_for_coding
-
-set.seed(1975242355)
-code_party_calls_by_congress_number <- function(congress_number)
-{
-  cat("**** working on house", congress_number, "\n")
-  rc <- get(paste0("h", sprintf("%03.f", congress_number)))
-  rc <- code_party_calls(
-    rc,
-    pval_threshold =  0.01,
-    tval_threshold = 2.32,
-    count_min = 10,
-    count_max = 50,
-    match_count_min = 5,
-    sim_annealing = FALSE,
-    random_seed = FALSE,
-    lopside_thresh = 0.65,
-    drop_very_lopsided_votes = TRUE,
-    return_pvals = TRUE,
-    n_iterations_for_coding = 5,
-    use_new_match_check = FALSE,
-    use_brglm = FALSE)
-}
-house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
-names(house_party_calls) <- paste0("hou", 93:109)
-save(house_party_calls,
-  file = "inst/extdata/house_party_calls_new_stopping_rule.RData")
+#
+# set.seed(1975242355)
+# code_party_calls_by_congress_number <- function(congress_number)
+# {
+#   cat("**** working on house", congress_number, "\n")
+#   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
+#   rc <- code_party_calls(
+#     rc,
+#     pval_threshold =  0.01,
+#     tval_threshold = 2.32,
+#     count_min = 10,
+#     count_max = 50,
+#     match_count_min = 5,
+#     sim_annealing = FALSE,
+#     random_seed = FALSE,
+#     lopside_thresh = 0.65,
+#     drop_very_lopsided_votes = TRUE,
+#     return_pvals = TRUE,
+#     n_iterations_for_coding = 5,
+#     use_new_match_check = FALSE,
+#     type = "brglm")
+# }
+# house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
+# names(house_party_calls) <- paste0("hou", 93:109)
+# save(house_party_calls,
+#   file = "inst/extdata/house_party_calls_new_stopping_rule.RData")
 
 # try to get as close a match as possible using only the 93rd
 load("inst/extdata/votedata-partycalls.RData")
@@ -71,7 +71,7 @@ replication_93 <- code_party_calls(
   return_pvals = FALSE,
   n_iterations_for_coding = 5,
   use_new_match_check = FALSE,
-  use_brglm = TRUE)
+  type = "brglm")
 replicate_partycalls <- data.table(
   congress = gsub("[A-Za-z:/\\.]", "", replication_93$source),
   voteno = replication_93$party_call_coding$voteno,
@@ -96,8 +96,8 @@ coding_01 <- code_party_calls(
   drop_very_lopsided_votes = TRUE,
   return_pvals = FALSE,
   n_iterations_for_coding = 5,
-  use_new_match_check = FALSE,
-  use_brglm = FALSE)
+  use_new_match_check = TRUE,
+  type = "glm")
 partycalls_01 <- data.table(
   congress = gsub("[A-Za-z:/\\.]", "", coding_01$source),
   voteno = coding_01$party_call_coding$voteno,
@@ -113,22 +113,22 @@ ggplot(X, aes(replicate_tvals, new_tvals,
   xlim(-15, 15) + ylim(-15, 15)
 
 
-# increase tval threshold
+# switch away from brglm
 coding_02 <- code_party_calls(
   rc,
   pval_threshold =  0.01,
-  tval_threshold = 2.334951,
+  tval_threshold = 2.32,
   count_min = 10,
   count_max = 50,
   match_count_min = 5,
   sim_annealing = FALSE,
-  random_seed = FALSE,
+  random_seed = TRUE,
   lopside_thresh = 0.65,
   drop_very_lopsided_votes = TRUE,
   return_pvals = FALSE,
   n_iterations_for_coding = 5,
-  use_new_match_check = FALSE,
-  use_brglm = FALSE)
+  use_new_match_check = TRUE,
+  type = "brglm")
 partycalls_02 <- data.table(
   congress = gsub("[A-Za-z:/\\.]", "", coding_02$source),
   voteno = coding_02$party_call_coding$voteno,

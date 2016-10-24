@@ -9,7 +9,7 @@ code_party_calls(rc, pval_threshold = 0.01, tval_threshold = 2.32,
   sim_annealing = TRUE, random_seed = FALSE, lopside_thresh = 0.65,
   vote_switch_percent = 0.01, drop_very_lopsided_votes = TRUE,
   return_pvals = FALSE, n_iterations_for_coding = 5,
-  use_new_match_check = TRUE, use_brglm = TRUE)
+  use_new_match_check = TRUE, type = c("brglm", "lm", "glm"))
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -54,7 +54,8 @@ process to use to code party calls, noncalls, and gray votes}
 \item{use_new_match_check}{logical for whether to use new procedure
 to check for matches between iterations}
 
-\item{use_brglm}{logical for whether to use the bias reduced logit}
+\item{type}{character string, one of brglm, glm, or lm; which function
+to use for roll call-by-roll call regression}
 }
 \value{
 rollcall object with record of classification algorithm and

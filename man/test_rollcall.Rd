@@ -4,13 +4,14 @@
 \alias{test_rollcall}
 \title{Regress a single roll call on party indicator and ideal points}
 \usage{
-test_rollcall(.SD, use_brglm)
+test_rollcall(.SD, type = c("brglm", "lm", "glm"))
 }
 \arguments{
 \item{.SD}{subset of a data.table of roll call votes, with a column for party
 labels}
 
-\item{use_brglm}{logical for whether to use the bias-reduced glm logit}
+\item{type}{character string, one of brglm, glm, or lm; which function
+to use for roll call-by-roll call regression}
 }
 \value{
 list of coefficient, standard error, t value, and p value for the

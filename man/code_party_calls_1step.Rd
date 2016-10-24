@@ -4,7 +4,8 @@
 \alias{code_party_calls_1step}
 \title{Run one step of the party calls algorithm}
 \usage{
-code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
+code_party_calls_1step(rc, DT, noncalls, return_pvals, type = c("brglm", "lm",
+  "glm"))
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -15,7 +16,8 @@ code_party_calls_1step(rc, DT, noncalls, return_pvals, use_brglm)
 
 \item{return_pvals}{logical for whether to return pvals or tvals}
 
-\item{use_brglm}{logical for whether to use the bias reduced logit}
+\item{type}{character string, one of brglm, glm, or lm; which function
+to use for roll call-by-roll call regression}
 }
 \value{
 vector of indices for non-party calls
