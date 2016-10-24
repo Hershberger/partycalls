@@ -1,3 +1,39 @@
+
+
+#' TITLE
+#'
+#' DETAIL
+#' @param rc xxx
+#' @param DT xxx
+#' @param tvals xxx
+#' @param type xxx
+#' @export
+#' @return xxx
+test_classification <- function(rc, DT, noncalls, tvals, type)
+{
+  rc_noncalls <- rc
+  rc_noncalls$votes <- rc$votes[, noncalls]
+  rc_noncalls$m <- ncol(rc_noncalls$votes)
+  p <- emIRT::makePriors(rc_noncalls$n, rc_noncalls$m, 1)
+  s <- emIRT::getStarts(rc_noncalls$n, rc_noncalls$m, 1)
+  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
+    "NUL"
+  } else {
+    "/dev/null"
+  }
+  sink(sink_target)
+  l <- emIRT::binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
+    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
+  sink()
+  unlink(sink_target)
+  DT <- merge(DT, data.table(mc = rownames(l$means$x), x = l$means$x[, "d1"]),
+    by = "mc")
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  classification_distance <- sum(abs(tvals - regs$t), na.rm = TRUE)
+  list(regs = regs, classification_distance = classification_distance)
+}
+
+
 #' Find symmetric difference
 #'
 #' The symmetric difference is defined as the set difference between the
@@ -151,6 +187,8 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
 #' to check for matches between iterations
 #' @param type character string, one of brglm, glm, or lm; which function
 #' to use for roll call-by-roll call regression
+#' @param use_classification_distance logical for whether to calc
+#' classification distance
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
@@ -161,7 +199,7 @@ code_party_calls <- function(rc,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
   drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
   n_iterations_for_coding = 5, use_new_match_check = TRUE,
-  type = c("brglm", "lm", "glm"))
+  type = c("brglm", "lm", "glm"), use_classification_distance = FALSE)
 {
   stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
@@ -194,20 +232,32 @@ code_party_calls <- function(rc,
     record_of_tvals <- list()
   }
   countdown_started <- FALSE
+  tvals <- rep(0, rc$m)
   while (counter <= count_min |
          (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
-    if (return_pvals) {
-      pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-      record_of_pvals[[counter]] <- pvals
-      noncalls <- which(pvals > pval_threshold)
-    } else {
-      tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
+    if (use_classification_distance) {
+      results <- test_classification(rc, DT, noncalls, tvals, type)
+      tvals <- results$regs$t
+      classification_distance <- results$classification_distance
+      classification_distance_message <- paste("Classification distance: ",
+        sprintf("%.03f", classification_distance), "\n")
       record_of_tvals[[counter]] <- tvals
       noncalls <- which(abs(tvals) < tval_threshold)
+    } else {
+      classification_distance_message <- ""
+      if (return_pvals) {
+        pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
+        record_of_pvals[[counter]] <- pvals
+        noncalls <- which(pvals > pval_threshold)
+      } else {
+        tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
+        record_of_tvals[[counter]] <- tvals
+        noncalls <- which(abs(tvals) < tval_threshold)
+      }
     }
     calls <- setdiff(seq_len(rc$m), noncalls)
     if (sim_annealing) {
@@ -256,7 +306,7 @@ code_party_calls <- function(rc,
         " iterations left)")
     }
     cat("Iteration", counter, "had", length(switched_votes), "out of", rc$m,
-      "switched votes", countdown, "\n")
+      "switched votes", countdown, "\n", classification_distance_message)
   }
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding

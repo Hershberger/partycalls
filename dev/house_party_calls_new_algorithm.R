@@ -142,3 +142,22 @@ ggplot(X, aes(replicate_tvals, new_tvals,
   color = factor(new_coding == replicate_coding))) + geom_point(alpha = .25) +
   theme_bw() + theme(legend.position = "none") + coord_equal() +
   xlim(-15, 15) + ylim(-15, 15)
+
+
+
+# switch away from brglm
+coding_03 <- code_party_calls(
+  h102,
+  pval_threshold =  0.01,
+  tval_threshold = 2.32,
+  count_min = 10,
+  count_max = 50,
+  match_count_min = 5,
+  sim_annealing = TRUE,
+  random_seed = TRUE,
+  lopside_thresh = 0.65,
+  drop_very_lopsided_votes = TRUE,
+  return_pvals = FALSE,
+  n_iterations_for_coding = 5,
+  use_new_match_check = TRUE,
+  type = "brglm")
