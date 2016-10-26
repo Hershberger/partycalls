@@ -41,15 +41,18 @@ classifier <- function(classification)
   sum(classification != new_classification)
 }
 
-classifier(rbinom(n_votes, 1, .5))
+par <- rbinom(n_votes, 1, .5)
+classifier()
 
 library(parallel)
 cl <- makeCluster(4)
 clusterExport(cl, c("classifier", "rc", "DT"))
 clusterEvalQ(cl, library(partycalls))
 library(rgenoud)
-optimizer <- genoud(classifier, n_votes, pop.size = 16, max.generations = 10,
-  wait.generations = 0,
+optimizer <- genoud(classifier, n_votes, pop.size = 12, max.generations = 10,
+  wait.generations = 10,
   Domains = matrix(c(rep(0, n_votes), rep(1, n_votes)), n_votes),
-  data.type.int = TRUE, cluster = cl)
+  data.type.int = TRUE, #cluster = cl,
+  print.level = 1)
 optimizer$value
+classifier(very.best)

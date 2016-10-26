@@ -261,16 +261,17 @@ code_party_calls <- function(rc,
     }
     calls <- setdiff(seq_len(rc$m), noncalls)
     if (sim_annealing) {
+      temp_switched_votes <- symdiff(noncalls, old_noncalls)
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
-      if (return_pvals) {
-        probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
-        probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-        probs <- probs / sum(probs)
-      } else {
-        probs <- abs(log(tvals) - log(tval_threshold)) ^ -.2
-        probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-        probs <- probs / sum(probs)
-      }
+      # if (return_pvals) {
+      #   probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
+      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
+      #   probs <- probs / sum(probs)
+      # } else {
+      #   probs <- abs(log(tvals) - log(tval_threshold)) ^ -.2
+      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
+      #   probs <- probs / sum(probs)
+      # }
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
       calls_to_keep <- setdiff(calls, calls_to_switch)

@@ -24,7 +24,7 @@ load("inst/extdata/houKHfiles001-111.rdata")
 #   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
 #   rc <- code_party_calls(
 #     rc,
-#     pval_threshold =  0.01,
+#     pval_threshold = 0.01,
 #     tval_threshold = 2.32,
 #     count_min = 10,
 #     count_max = 50,
@@ -59,7 +59,7 @@ congress_number <- 93
 rc <- get(paste0("h", sprintf("%03.f", congress_number)))
 replication_93 <- code_party_calls(
   rc,
-  pval_threshold =  0.01,
+  pval_threshold = 0.01,
   tval_threshold = 2.32,
   count_min = 10,
   count_max = 50,

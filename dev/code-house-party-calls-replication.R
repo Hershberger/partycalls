@@ -9,23 +9,31 @@ load("inst/extdata/houKHfiles001-111.rdata")
 # {
 #   cat("**** working on house", congress_number, "\n")
 #   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
-#   rc <- code_party_calls(rc, tval_threshold = 2.32,
-#     count_min = 10,
-#     count_max = 50, match_count_min = 5, sim_annealing = FALSE,
-#     random_seed = FALSE, lopside_thresh = 0.65,
-#     drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
-#     n_iterations_for_coding = 5, use_new_match_check = FALSE)
+  # rc <- code_party_calls(rc,
+  #   tval_threshold = 2.32,
+  #   pval_threshold = 0.01,
+  #   count_min = 10,
+  #   count_max = 50,
+  #   match_count_min = 5,
+  #   sim_annealing = FALSE,
+  #   random_seed = FALSE,
+  #   lopside_thresh = 0.65,
+  #   drop_very_lopsided_votes = TRUE,
+  #   return_pvals = FALSE,
+  #   n_iterations_for_coding = 5,
+  #   use_new_match_check = FALSE,
+  #   type = "brglm")
 # }
 # house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
 # names(house_party_calls) <- paste0("hou", 93:109)
 # save(house_party_calls,
 #   file = "inst/extdata/house_party_calls_replication.RData")
 load("inst/extdata/house_party_calls_replication.RData")
-
 new_partycalls <- rbindlist(lapply(house_party_calls, function(x) data.table(
     congress = gsub("[A-Za-z:/\\.]", "", x$source),
     voteno = x$party_call_coding$voteno,
     new_coding = x$party_call_coding$coding)))
+
 load("inst/extdata/votedata-partycalls.RData")
 setDT(votedata)
 old_partycalls <- votedata[congress < 110, .(congress, voteno, partycall)]
@@ -44,13 +52,17 @@ chisq.test(tab1)
 chisq.test(tab2)
 merged_votes[, chisq.test(table(old_coding, new_coding))$stat, congress]
 diag_prop <- function(x) sum(diag(x)) / sum(x)
-merged_votes[congress != 104, diag_prop(table(old_coding, new_coding))]
-merged_votes[congress != 104, diag_prop(table(old_coding, new_coding)), congress]
+merged_votes[, diag_prop(table(old_coding, new_coding))]
+merged_votes[, diag_prop(table(old_coding, new_coding)), congress]
+
 merged_votes[congress == 102, table(old_coding, new_coding)]
 merged_votes[congress == 103, table(old_coding, new_coding)]
+merged_votes[congress == 104, table(old_coding, new_coding)]
 merged_votes[congress == 109, table(old_coding, new_coding)]
 merged_votes[congress == 96, table(old_coding, new_coding)]
 merged_votes[congress == 98, table(old_coding, new_coding)]
+
+merged_votes[, mean(new_coding == "gray"), congress]
 
 new_ideal_points <- rbindlist(lapply(c(93:103, 104:109), function(congress) {
   cat(congress, " ")
@@ -63,12 +75,14 @@ whoheeds13 <- readstata13::read.dta13(
   "inst/extdata/who-heeds-replication-archive.dta")
 setDT(whoheeds13)
 old_ideal_points <- whoheeds13[,
-  .(congress, icpsr, old_ideal_point = ideal_partyfree)]
+  .(congress, icpsr, dem, old_ideal_point = ideal_partyfree)]
 
 merged_ideal_points <- merge(old_ideal_points, new_ideal_points,
   by = c("congress", "icpsr"), all = TRUE)
 merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p")]
 merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p"), congress]
+merged_ideal_points[!is.na(dem),
+  cor(old_ideal_point, new_ideal_point, use = "p"), .(congress, dem)]
 
 library(ggplot2)
 ggplot(merged_ideal_points, aes(old_ideal_point, new_ideal_point)) +
