@@ -9,7 +9,8 @@ code_party_calls(rc, pval_threshold = 0.01, tval_threshold = 2.32,
   sim_annealing = TRUE, random_seed = FALSE, lopside_thresh = 0.65,
   vote_switch_percent = 0.01, drop_very_lopsided_votes = TRUE,
   return_pvals = FALSE, n_iterations_for_coding = 5,
-  use_new_match_check = TRUE, type = c("brglm", "lm", "glm"))
+  use_new_match_check = TRUE, type = c("brglm", "lm", "glm"),
+  use_classification_distance = FALSE)
 }
 \arguments{
 \item{rc}{a rollcall object}
@@ -56,6 +57,9 @@ to check for matches between iterations}
 
 \item{type}{character string, one of brglm, glm, or lm; which function
 to use for roll call-by-roll call regression}
+
+\item{use_classification_distance}{logical for whether to calc
+classification distance}
 }
 \value{
 rollcall object with record of classification algorithm and
