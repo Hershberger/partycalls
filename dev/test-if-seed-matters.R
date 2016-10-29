@@ -26,7 +26,7 @@ rc <- get(paste0("h", sprintf("%03.f", congress_number)))
 replication <- code_party_calls(
   rc,
   pval_threshold = 0.01,
-  count_min = 10,
+  count_min = 50,
   count_max = 50,
   match_count_min = 5,
   sim_annealing = FALSE,
@@ -78,7 +78,7 @@ rc <- get(paste0("h", sprintf("%03.f", congress_number)))
 replication <- code_party_calls(
   rc,
   pval_threshold = 0.01,
-  count_min = 10,
+  count_min = 50,
   count_max = 50,
   match_count_min = 5,
   sim_annealing = FALSE,

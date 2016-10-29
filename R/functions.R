@@ -260,7 +260,7 @@ code_party_calls <- function(rc,
       }
     }
     calls <- setdiff(seq_len(rc$m), noncalls)
-    if (sim_annealing) {
+    if (counter >= 5 & sim_annealing == TRUE) {
       temp_switched_votes <- symdiff(noncalls, old_noncalls)
       n_random_switches <- floor(rc$m * .2 * max(0, 1 - counter / 50) ^ 2)
       # if (return_pvals) {
