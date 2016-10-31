@@ -4,6 +4,7 @@ library(ggplot2)
 options(stringsAsFactors = FALSE)
 
 congress_number <- 109
+# congress_number <- 93
 
 load("inst/extdata/houKHfiles001-111.rdata")
 set.seed(1975242355)
@@ -56,6 +57,7 @@ library(ggplot2)
 options(stringsAsFactors = FALSE)
 
 congress_number <- 109
+# congress_number <- 93
 
 load("inst/extdata/houKHfiles001-111.rdata")
 set.seed(554242791)
