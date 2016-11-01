@@ -270,12 +270,15 @@ code_party_calls <- function(rc,
       #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
       #   probs <- probs / sum(probs)
       # }
+
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
-      calls_to_keep <- setdiff(calls, calls_to_switch)
-      noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
       grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
-      grays_to_make_noncalls <- setdiff(old_gray_votes, grays_to_make_calls)
+      grays_to_make_noncalls <- setdiff(old_switched_votes, grays_to_make_calls)
+      calls_to_keep <- setdiff(calls, calls_to_switch)
+      calls_to_keep <- seetdiff(calls_to_keep, grays_to_make_noncalls)
+      noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
+      noncalls_to_keep <- setdiff(noncalls_to_keep, grays_to_make_calls)
       calls <-
         c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
       noncalls <-
