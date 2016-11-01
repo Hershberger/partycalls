@@ -4,30 +4,31 @@ options(stringsAsFactors = FALSE)
 
 load("inst/extdata/houKHfiles001-111.rdata")
 
-# set.seed(1584882915)
-# code_party_calls_by_congress_number <- function(congress_number)
-# {
-#   cat("**** working on house", congress_number, "\n")
-#   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
-  # rc <- code_party_calls(rc,
-  #   tval_threshold = 2.32,
-  #   pval_threshold = 0.01,
-  #   count_min = 10,
-  #   count_max = 50,
-  #   match_count_min = 5,
-  #   sim_annealing = FALSE,
-  #   random_seed = FALSE,
-  #   lopside_thresh = 0.65,
-  #   drop_very_lopsided_votes = TRUE,
-  #   return_pvals = FALSE,
-  #   n_iterations_for_coding = 5,
-  #   use_new_match_check = FALSE,
-  #   type = "brglm")
-# }
-# house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
-# names(house_party_calls) <- paste0("hou", 93:109)
-# save(house_party_calls,
-#   file = "inst/extdata/house_party_calls_replication.RData")
+set.seed(1584882915)
+code_party_calls_by_congress_number <- function(congress_number)
+{
+  cat("**** working on house", congress_number, "\n")
+  rc <- get(paste0("h", sprintf("%03.f", congress_number)))
+rc <- code_party_calls(
+  rc,
+  pval_threshold = 0.01,
+  count_min = 60,
+  count_max = 150,
+  match_count_min = 5,
+  sim_annealing = TRUE,
+  random_seed = FALSE,
+  lopside_thresh = 0.65,
+  drop_very_lopsided_votes = TRUE,
+  return_pvals = TRUE,
+  n_iterations_for_coding = 5,
+  use_new_match_check = FALSE,
+  type = "brglm")
+}
+
+house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
+names(house_party_calls) <- paste0("hou", 93:109)
+save(house_party_calls,
+  file = "inst/extdata/house_party_calls_replication.RData")
 load("inst/extdata/house_party_calls_replication.RData")
 new_partycalls <- rbindlist(lapply(house_party_calls, function(x) data.table(
     congress = gsub("[A-Za-z:/\\.]", "", x$source),
