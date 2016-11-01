@@ -21,7 +21,7 @@ rc <- code_party_calls(
   drop_very_lopsided_votes = TRUE,
   return_pvals = TRUE,
   n_iterations_for_coding = 5,
-  use_new_match_check = FALSE,
+  use_new_match_check = TRUE,
   type = "brglm")
 }
 

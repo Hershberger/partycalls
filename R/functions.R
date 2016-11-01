@@ -1,5 +1,3 @@
-
-
 #' TITLE
 #'
 #' DETAIL
@@ -274,11 +272,14 @@ code_party_calls <- function(rc,
       # }
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
-      grays_to_make_calls <- sample(switched_votes, n_random_switches)
       calls_to_keep <- setdiff(calls, calls_to_switch)
       noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
-      calls <- c(calls_to_keep, noncalls_to_switch)
-      noncalls <- c(noncalls_to_keep, calls_to_switch)
+      grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
+      grays_to_make_noncalls <- setdiff(old_gray_votes, grays_to_make_calls)
+      calls <-
+        c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
+      noncalls <-
+        c(unique(noncalls_to_keep, calls_to_switch, grays_to_make_noncalls))
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
     countdown <- ""
@@ -297,6 +298,7 @@ code_party_calls <- function(rc,
       }
     } else {
       if ((length(switched_votes) > length(old_switched_votes) |
+     # if ((length(switched_votes) < length(old_switched_votes) |
           length(switched_votes) == 0) &
           counter > count_min) {
         match_switch <- TRUE
