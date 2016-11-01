@@ -260,7 +260,8 @@ code_party_calls <- function(rc,
     calls <- setdiff(seq_len(rc$m), noncalls)
     if (sim_annealing == TRUE) {
       temp_switched_votes <- symdiff(noncalls, old_noncalls)
-      n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter - 5) / 50))^2)
+      # n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter - 10) / 50))^2)
+      n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter) / 50))^2)
       # if (return_pvals) {
       #   probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
       #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
@@ -273,16 +274,16 @@ code_party_calls <- function(rc,
 
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
-      grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
-      grays_to_make_noncalls <- setdiff(old_switched_votes, grays_to_make_calls)
+      # grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
+      # grays_to_make_noncalls <- setdiff(old_switched_votes, grays_to_make_calls)
       calls_to_keep <- setdiff(calls, calls_to_switch)
-      calls_to_keep <- seetdiff(calls_to_keep, grays_to_make_noncalls)
+      # calls_to_keep <- setdiff(calls_to_keep, grays_to_make_noncalls)
       noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
-      noncalls_to_keep <- setdiff(noncalls_to_keep, grays_to_make_calls)
-      calls <-
-        c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
-      noncalls <-
-        c(unique(noncalls_to_keep, calls_to_switch, grays_to_make_noncalls))
+      # noncalls_to_keep <- setdiff(noncalls_to_keep, grays_to_make_calls)
+      calls <- c(unique(calls_to_keep, noncalls_to_switch))
+      # calls <- c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
+      noncalls <- c(unique(noncalls_to_keep, calls_to_switch))
+      # noncalls <- c(unique(noncalls_to_keep, calls_to_switch, grays_to_make_noncalls))
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
     countdown <- ""
