@@ -531,3 +531,14 @@ make_member_year_data <- function(congress, roll_calls_object_list)
   member_year_data[party == "R", ideological_extremism := pf_ideal]
   list(member_year_data = member_year_data, fitted_emIRT = fitted_emIRT)
 }
+
+
+calc_switch_rate <- function(rc)
+{
+  record_of_coding <- rc$record_of_coding
+  n_votes <- rc$m
+  n <- length(record_of_coding)
+  sapply(2:n, function(i)
+    length(symdiff(record_of_coding[[i - 1]], record_of_coding[[i]]))) /
+    n_votes
+}
