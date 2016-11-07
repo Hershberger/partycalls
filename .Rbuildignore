@@ -1,3 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^inst
+^dev
+^drafts
+^plots
+^test_data
+^tests
+^package
