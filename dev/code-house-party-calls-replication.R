@@ -25,15 +25,19 @@ rc <- code_party_calls(
   type = "brglm")
 }
 
-house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
-names(house_party_calls) <- paste0("hou", 93:109)
-save(house_party_calls,
-  file = "inst/extdata/house_party_calls_replication.RData")
+# house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
+# names(house_party_calls) <- paste0("hou", 93:109)
+# save(house_party_calls,
+#   file = "inst/extdata/house_party_calls_replication.RData")
 load("inst/extdata/house_party_calls_replication.RData")
 new_partycalls <- rbindlist(lapply(house_party_calls, function(x) data.table(
     congress = gsub("[A-Za-z:/\\.]", "", x$source),
     voteno = x$party_call_coding$voteno,
     new_coding = x$party_call_coding$coding)))
+
+# BELOW HERE IS CODE TO COPY/PASTE FOR THE REPLICATION OF MV13
+# FIND "RENAME" to change the filename of the picture.
+# make sure list of party call objects is named "new_partycalls"
 
 load("inst/extdata/votedata-partycalls.RData")
 setDT(votedata)
@@ -78,16 +82,16 @@ setDT(whoheeds13)
 old_ideal_points <- whoheeds13[,
   .(congress, icpsr, dem, old_ideal_point = ideal_partyfree)]
 
-merged_ideal_points <- merge(old_ideal_points, new_ideal_points,
-  by = c("congress", "icpsr"), all = TRUE)
-merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p")]
-merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p"), congress]
-merged_ideal_points[!is.na(dem),
-  cor(old_ideal_point, new_ideal_point, use = "p"), .(congress, dem)]
-
-library(ggplot2)
-ggplot(merged_ideal_points, aes(old_ideal_point, new_ideal_point)) +
-  geom_point(alpha = .1) + coord_equal() + facet_wrap(~congress)
+# merged_ideal_points <- merge(old_ideal_points, new_ideal_points,
+#   by = c("congress", "icpsr"), all = TRUE)
+# merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p")]
+# merged_ideal_points[, cor(old_ideal_point, new_ideal_point, use = "p"), congress]
+# merged_ideal_points[!is.na(dem),
+#   cor(old_ideal_point, new_ideal_point, use = "p"), .(congress, dem)]
+#
+# library(ggplot2)
+# ggplot(merged_ideal_points, aes(old_ideal_point, new_ideal_point)) +
+#   geom_point(alpha = .1) + coord_equal() + facet_wrap(~congress)
 
 new_responsiveness <- rbindlist(lapply(93:109, function(congress) {
   cat(congress, " ")
@@ -103,11 +107,11 @@ new_whoheeds13 <- merge(whoheeds13, new_responsiveness,
   by = c("congress", "icpsr"), all = TRUE)
 
 # check responsiveness scores
-ggplot(new_whoheeds13, aes(pirate100, new_pirate100)) + geom_point(alpha = .1) +
-  coord_equal() + facet_wrap(~ congress)
+# ggplot(new_whoheeds13, aes(pirate100, new_pirate100)) + geom_point(alpha = .1) +
+#   coord_equal() + facet_wrap(~ congress)
 
 ## copy/pasted code from 2013 paper is below (with changed out dataset name
-## and variable names)
+## and variable names).
 
 
 # Regression formulas and functions
@@ -155,7 +159,7 @@ SE$extremism.maj <- do.call(c, lapply(93:109, function(x)
 SE$extremism.min <- do.call(c, lapply(93:109, function(x)
   fm.extremism(x, 0)$coef[2, 2]))
 
-pdf(file="plots/replicate-who-heeds-figure2.pdf",
+pdf(file="plots/replicate-who-heeds-figure2.pdf", ## RENAME
   width=8, height = 8, family="Times")
 layout(matrix(1:4, 2, 2, byrow=TRUE))
 par(mar=c(2.5, 4, 2, 0.3) + 0.1, font.lab=2)
@@ -211,5 +215,7 @@ title(main="", cex.main=1.15, line=0.75, font.main=2)
 points(x, b, pch=19, col="black", cex=.8)
 segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
 segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
+
+# NAME FIGURE WITH CLASSIFICATION METHOD IN TEX CAPTION
 
 dev.off()
