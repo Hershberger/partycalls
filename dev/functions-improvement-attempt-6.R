@@ -135,12 +135,16 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
   sink()
   unlink(sink_target)
   DT$x <- l$means$x
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
-  regs$ideal <- l$means$x
-  if (mean(DT$x[party == "D"]) > mean(DT$x[party == "R"])){
+  if (mean(DT$x[DT$party %in% "D"]) > mean(DT$x[DT$party %in% "R"])){
     DT$x <- DT$x * -1
   }
   ideal <- DT$x
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  regs$ideal <- l$means$x
+  # if (mean(DT$x[party %in% "D"]) > mean(DT$x[party %in% "R"])){
+  #   DT$x <- DT$x * -1
+  # }
+  # ideal <- DT$x
 
   if (return_pvals) {
     pvals <- regs$p
