@@ -4,32 +4,34 @@ options(stringsAsFactors = FALSE)
 
 load("inst/extdata/houKHfiles001-111.rdata")
 
-set.seed(1584882915)
-code_party_calls_by_congress_number <- function(congress_number)
-{
-  cat("**** working on house", congress_number, "\n")
-  rc <- get(paste0("h", sprintf("%03.f", congress_number)))
-rc <- code_party_calls(
-  rc,
-  pval_threshold = 0.01,
-  count_min = 60,
-  count_max = 150,
-  match_count_min = 5,
-  sim_annealing = TRUE,
-  random_seed = FALSE,
-  lopside_thresh = 0.65,
-  drop_very_lopsided_votes = TRUE,
-  return_pvals = TRUE,
-  n_iterations_for_coding = 5,
-  use_new_match_check = TRUE,
-  type = "brglm")
-}
+# set.seed(1584882915)
+# code_party_calls_by_congress_number <- function(congress_number)
+# {
+#   cat("**** working on house", congress_number, "\n")
+#   rc <- get(paste0("h", sprintf("%03.f", congress_number)))
+# rc <- code_party_calls(
+#   rc,
+#   pval_threshold = 0.01,
+#   count_min = 60,
+#   count_max = 150,
+#   match_count_min = 5,
+#   sim_annealing = TRUE,
+#   random_seed = FALSE,
+#   lopside_thresh = 0.65,
+#   drop_very_lopsided_votes = TRUE,
+#   return_pvals = TRUE,
+#   n_iterations_for_coding = 5,
+#   use_new_match_check = TRUE,
+#   type = "brglm")
+# }
 
 # house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
 # names(house_party_calls) <- paste0("hou", 93:109)
 # save(house_party_calls,
 #   file = "inst/extdata/house_party_calls_replication.RData")
-load("inst/extdata/house_party_calls_replication.RData")
+# load("inst/extdata/house_party_calls_replication.RData")
+# load("test_data/house_party_calls_flipflop.RData")
+load("test_data/house_party_calls_hybrid_seed1.RData")
 new_partycalls <- rbindlist(lapply(house_party_calls, function(x) data.table(
     congress = gsub("[A-Za-z:/\\.]", "", x$source),
     voteno = x$party_call_coding$voteno,
@@ -159,7 +161,7 @@ SE$extremism.maj <- do.call(c, lapply(93:109, function(x)
 SE$extremism.min <- do.call(c, lapply(93:109, function(x)
   fm.extremism(x, 0)$coef[2, 2]))
 
-pdf(file="plots/replicate-who-heeds-figure2.pdf", ## RENAME
+pdf(file="plots/replicate-who-heeds-figure2_hybrid.pdf", ## RENAME
   width=8, height = 8, family="Times")
 layout(matrix(1:4, 2, 2, byrow=TRUE))
 par(mar=c(2.5, 4, 2, 0.3) + 0.1, font.lab=2)

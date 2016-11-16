@@ -137,14 +137,19 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
   DT$x <- l$means$x
   regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
   regs$ideal <- l$means$x
+  if (mean(DT$x[party == "D"]) > mean(DT$x[party == "R"])){
+    DT$x <- DT$x * -1
+  }
+  ideal <- DT$x
+
   if (return_pvals) {
     pvals <- regs$p
     pvals[is.na(pvals)] <- 1
-    out <- pvals
+    out <- list(pvals = pvals, ideal = ideal)
   } else {
     tvals <- regs$t
     tvals[is.na(tvals)] <- Inf
-    out <- tvals
+    out <- list(tvals = tvals, ideal = ideal)
   }
   out
 }
@@ -242,12 +247,20 @@ code_party_calls <- function(rc,
          (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
+    # make_member_year_data(congress_number, rc)
     # is_orientation_correct <- member_year_data[party == "R", mean(pf_ideal)] >
     #   member_year_data[party == "D", mean(pf_ideal)]
     # if (!is_orientation_correct) {
     #   member_year_data[, pf_ideal := -pf_ideal]
-    # }
-    record_of_ideals[[counter]] <- DT$x # add some code in a prior line to orient Democrats on the left (lower)
+  # }
+    # if (DT[party == "R", mean(DT$x)] >
+        # DT[party == "D", mean(DT$x)]){is_orientation_correct <- TRUE}
+  # if (is_orientation_correct){
+    # DT[, x := x]
+  # } else {
+    # DT[, x := -x]
+  # }
+    # record_of_ideals[[counter]] <- DT$x # add some code in a prior line to orient Democrats on the left (lower)
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
     if (use_classification_distance) {
@@ -263,12 +276,14 @@ code_party_calls <- function(rc,
     } else {
       classification_distance_message <- NULL
       if (return_pvals) {
-        pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-        record_of_pvals[[counter]] <- pvals
+        record <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
+        record_of_pvals[[counter]] <- record[1]
+        record_of_ideals[[counter]] <- record[2]
         noncalls <- which(pvals > pval_threshold)
       } else {
-        tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-        record_of_tvals[[counter]] <- tvals
+        record <- code_party_calls_1step(rc, DT, noncalls, return_tvals, type)
+        record_of_tvals[[counter]] <- record[1]
+        record_of_ideals[[counter]] <- record[2]
         noncalls <- which(abs(tvals) < tval_threshold)
       }
     }

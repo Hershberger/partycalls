@@ -18,13 +18,10 @@ old_ideal_points <- whoheeds13[,
   .(congress, icpsr, dem, old_ideal_point = ideal_partyfree)]
 
 
-set.seed(1975242355)
-code_party_calls_by_congress_number <- function(congress_number)
-{
-  cat("**** working on house", congress_number, "\n")
-  rc <- get(paste0("h", sprintf("%03.f", congress_number)))
-  rc <- code_party_calls(
-    rc,
+
+fix_ideals <- code_party_calls(
+    rc = h093,
+    # congress_number = 93,
     pval_threshold = 0.01,
     count_min = 15,
     count_max = 150,
@@ -39,13 +36,4 @@ code_party_calls_by_congress_number <- function(congress_number)
     type = "brglm",
     remove_flip_flop_votes_from_noncalls = FALSE,
     randomly_reassign_flip_flop_votes_from_noncalls = TRUE)
-}
-
-rc <- code_party_calls_by_congress_number(93)
-
-house_party_calls <- lapply(93:109, code_party_calls_by_congress_number)
-names(house_party_calls) <- paste0("hou", 93:109)
-save(house_party_calls,
-  file = "test_data/house_party_calls_flipflop.RData")
-
 
