@@ -1,161 +1,21 @@
 #' TITLE
 #'
 #' DETAIL
-#' @param rc xxx
-#' @param DT xxx
-#' @param tvals xxx
-#' @param type xxx
+#' @param congress_number integer values for the congress to analyze
+#' @param chamber character string, house or senate
+#' @param ... arguments to pass to \code{code_party_calls}
 #' @export
 #' @return xxx
-test_classification <- function(rc, DT, noncalls, tvals, type)
+code_party_calls_by_congress_number <- function(congress_number,
+  chamber = "house", ...)
 {
-  rc_noncalls <- rc
-  rc_noncalls$votes <- rc$votes[, noncalls]
-  rc_noncalls$m <- ncol(rc_noncalls$votes)
-  p <- emIRT::makePriors(rc_noncalls$n, rc_noncalls$m, 1)
-  s <- emIRT::getStarts(rc_noncalls$n, rc_noncalls$m, 1)
-  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
-    "NUL"
-  } else {
-    "/dev/null"
+  cat("**** working on congress", congress_number, "\n")
+  if (chamber == "house") {
+    rc <- get(paste0("h", sprintf("%03.f", congress_number)))
+  } else if (chamber == "senate") {
+    rc <- get(paste0("sen", congress_number))
   }
-  sink(sink_target)
-  l <- emIRT::binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
-    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
-  sink()
-  unlink(sink_target)
-  DT <- merge(DT, data.table(mc = rownames(l$means$x), x = l$means$x[, "d1"]),
-    by = "mc")
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
-  regs$ideal <- l$means$x
-  classification_distance <- sum(abs(tvals - regs$t), na.rm = TRUE)
-  list(regs = regs, classification_distance = classification_distance)
-}
-
-
-#' Find symmetric difference
-#'
-#' The symmetric difference is defined as the set difference between the
-#' union of two sets and the intersection of those sets.
-#' @param x vector
-#' @param y vector
-#' @return vector of elements in either x or y but not both
-symdiff <- function(x, y)
-{
-  sort(setdiff(base::union(x, y), base::intersect(x, y)))
-}
-
-#' Regress a single roll call on party indicator and ideal points
-#'
-#' To be used inside a call to code_party_calls_1step. This function is used to
-#' perform a number of tasks in the purpose of determining the influence of the
-#' party on a given vote. This is accomplished by regressing votes on members'
-#' party affiliation and ideology. Before this happens, however, all votes which
-#' either received only `yeas' and `nays' are assigned non-values in place of
-#' estimates. Further, votes which strictly follow party lines are assigned
-#' estimates which guarantee they will be coded as party calls under any model
-#' specification to avoid separation in the model. Finally, the votes left are
-#' either put through a bias-reduced logit or ordinary least squares model as
-#' per user selected parameters. The default setting of the function is to use
-#' the bias-reduced logit.
-#' @param .SD subset of a data.table of roll call votes, with a column for party
-#' labels
-#' @param type character string, one of brglm, glm, or lm; which function
-#' to use for roll call-by-roll call regression
-#' @return list of coefficient, standard error, t value, and p value for the
-#' coefficient on party
-#' @export
-#' @importFrom brglm brglm
-test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
-{
-  .SD <- .SD[party %in% c("D", "R")]
-  n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
-  n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
-  n_yea_dems <- .SD[, sum(y == 1 & party == "D", na.rm = TRUE)]
-  n_nay_dems <- .SD[, sum(y == 0 & party == "D", na.rm = TRUE)]
-  party_line_vote <-
-    (n_yea_reps == 0 & n_nay_reps >  0 & n_yea_dems >  0 & n_nay_dems == 0) |
-    (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
-  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
-      length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
-    list(b = 0, se = 0, t = Inf, p = NA_real_)
-  } else if (party_line_vote) {
-    list(b = 1, se = 0, t = Inf, p = 0)
-  } else {
-    if (type == "brglm") {
-      m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
-      suppressWarnings(summ <- summary(m)$coef["partyR", ])
-      list(b = summ["Estimate"], se = summ["Std. Error"],
-        t = summ["z value"], p = summ["Pr(>|z|)"])
-    } else if (type == "glm") {
-      suppressWarnings(m <- glm(y ~ party + x, data = .SD, family = binomial))
-      suppressWarnings(summ <- summary(m)$coef["partyR", ])
-      list(b = summ["Estimate"], se = summ["Std. Error"],
-        t = summ["z value"], p = summ["Pr(>|z|)"])
-    } else {
-      m <- lm(y ~ party + x, data = .SD)
-      suppressWarnings(summ <- summary(m)$coef["partyR", ])
-      list(b = summ["Estimate"], se = summ["Std. Error"],
-        t = summ["t value"], p = summ["Pr(>|t|)"])
-    }
-  }
-}
-
-#' Run one step of the party calls algorithm
-#'
-#' To be used inside a call to code_party_calls
-#' @param rc a rollcall object
-#' @param DT data.table with votes and party indicators
-#' @param noncalls indices for non-party calls from last run
-#' @param return_pvals logical for whether to return pvals or tvals
-#' @param type character string, one of brglm, glm, or lm; which function
-#' to use for roll call-by-roll call regression
-#' @return vector of indices for non-party calls
-#' @export
-#' @importFrom emIRT binIRT makePriors getStarts
-code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
-  type = c("brglm", "lm", "glm"))
-{
-  rc1 <- rc
-  rc2 <- rc
-  rc1$votes <- rc$votes[, noncalls]
-  rc2$votes <- rc$votes[, -noncalls]
-  rc1$m <- ncol(rc1$votes)
-  rc2$m <- ncol(rc2$votes)
-  p <- emIRT::makePriors(rc1$n, rc1$m, 1)
-  s <- emIRT::getStarts(rc1$n, rc1$m, 1)
-  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
-    "NUL"
-  } else {
-    "/dev/null"
-  }
-  sink(sink_target)
-  l <- emIRT::binIRT(.rc = rc1, .starts = s, .priors = p,
-    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
-  sink()
-  unlink(sink_target)
-  DT$x <- l$means$x
-  if (mean(DT$x[DT$party %in% "D"]) > mean(DT$x[DT$party %in% "R"])){
-    DT$x <- DT$x * -1
-  }
-  ideal <- DT$x
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
-  regs$ideal <- l$means$x
-  # if (mean(DT$x[party %in% "D"]) > mean(DT$x[party %in% "R"])){
-  #   DT$x <- DT$x * -1
-  # }
-  # ideal <- DT$x
-
-  if (return_pvals) {
-    pvals <- regs$p
-    pvals[is.na(pvals)] <- 1
-    out <- list(pvals = pvals, ideal = ideal)
-  } else {
-    tvals <- regs$t
-    tvals[is.na(tvals)] <- Inf
-    out <- list(tvals = tvals, ideal = ideal)
-  }
-  out
+  code_party_calls(rc, ...)
 }
 
 #' Run the party calls classifier
@@ -196,23 +56,27 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
 #' to check for matches between iterations
 #' @param type character string, one of brglm, glm, or lm; which function
 #' to use for roll call-by-roll call regression
-#' @param use_classification_distance logical for whether to calc
-#' classification distance
+# @param use_classification_distance logical for whether to calc
+# classification distance
+#' @param use_noncalls_for_ideal_point_estimation logical for whether
+#' to use all noncalls for ideal point estimation
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
 #' @export
 code_party_calls <- function(rc,
-  pval_threshold = 0.01, tval_threshold = 2.32, count_min = 10,
+  pval_threshold = 0.01, tval_threshold = qnorm(.99), count_min = 15,
   count_max = 150, match_count_min = 150, sim_annealing = TRUE,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
-  drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
+  drop_very_lopsided_votes = TRUE, return_pvals = TRUE,
   n_iterations_for_coding = 5, use_new_match_check = TRUE,
-  type = c("brglm", "lm", "glm"), use_classification_distance = FALSE,
+  type = "brglm",
+  # use_classification_distance = FALSE,
   temperature_function = function(counter, n_votes)
     floor(n_votes * .2 * max(0, 1 - (abs(counter - 10) / 50)) ^ 2),
-  remove_flip_flop_votes_from_noncalls = FALSE,
-  randomly_reassign_flip_flop_votes_from_noncalls = FALSE)
+  # remove_flip_flop_votes_from_noncalls = FALSE,
+  randomly_reassign_flip_flop_votes_from_noncalls = FALSE,
+  use_noncalls_for_ideal_point_estimation = TRUE)
 {
   stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
@@ -240,95 +104,66 @@ code_party_calls <- function(rc,
   record_of_coding <- list()
   record_of_ideals <- list()
   match_switch <- FALSE # for old match checking procedure
-  if (return_pvals) {
-    record_of_pvals <- list()
-  } else {
-    record_of_tvals <- list()
-  }
+  record_of_pvals <- list()
+  record_of_tvals <- list()
   countdown_started <- FALSE
   tvals <- rep(0, rc$m)
+  flip_flop_votes <- c()
   while (counter <= count_min |
          (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
-    # make_member_year_data(congress_number, rc)
-    # is_orientation_correct <- member_year_data[party == "R", mean(pf_ideal)] >
-    #   member_year_data[party == "D", mean(pf_ideal)]
-    # if (!is_orientation_correct) {
-    #   member_year_data[, pf_ideal := -pf_ideal]
-  # }
-    # if (DT[party == "R", mean(DT$x)] >
-        # DT[party == "D", mean(DT$x)]){is_orientation_correct <- TRUE}
-  # if (is_orientation_correct){
-    # DT[, x := x]
-  # } else {
-    # DT[, x := -x]
-  # }
-    # record_of_ideals[[counter]] <- DT$x # add some code in a prior line to orient Democrats on the left (lower)
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
-    if (use_classification_distance) {
-      results <- test_classification(rc, DT, noncalls, tvals, type)
-      tvals <- results$regs$t
-      ideals <- DT$x
-      classification_distance <- results$classification_distance
-      classification_distance_message <- paste("Classification distance: ",
-        sprintf("%.03f", classification_distance), "\n")
-      record_of_tvals[[counter]] <- tvals
-      record_of_ideals[[counter]] <- ideals
-      noncalls <- which(abs(tvals) < tval_threshold)
-    } else {
+    # if (use_classification_distance) {
+    #   results <- test_classification(rc, DT, noncalls, tvals, type)
+    #   tvals <- results$regs$t
+    #   ideals <- DT$x
+    #   classification_distance <- results$classification_distance
+    #   classification_distance_message <- paste("Classification distance: ",
+    #     sprintf("%.03f", classification_distance), "\n")
+    #   record_of_tvals[[counter]] <- tvals
+    #   record_of_ideals[[counter]] <- ideals
+    #   noncalls <- which(abs(tvals) < tval_threshold)
+    # } else { # use traditional pval or tval comparison for classification
       classification_distance_message <- NULL
-      if (return_pvals) {
+      if (use_noncalls_for_ideal_point_estimation) {
         record <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-        record_of_pvals[[counter]] <- record[1]
-        record_of_ideals[[counter]] <- record[2]
-        noncalls <- which(pvals > pval_threshold)
-      } else {
-        record <- code_party_calls_1step(rc, DT, noncalls, return_tvals, type)
-        record_of_tvals[[counter]] <- record[1]
-        record_of_ideals[[counter]] <- record[2]
-        noncalls <- which(abs(tvals) < tval_threshold)
+      } else { # use only noncalls - any flip flop votes
+        vote_for_ideal_points <- setdiff(noncalls, flip_flop_votes)
+        record <- code_party_calls_1step(rc, DT, vote_for_ideal_points,
+          return_pvals, type)
       }
-    }
+      record_of_ideals[[counter]] <- record$ideal
+      record_of_pvals[[counter]] <- record$pvals
+      record_of_tvals[[counter]] <- record$tvals
+      if (return_pvals) {
+        noncalls <- which(record$pvals > pval_threshold)
+      } else {
+        noncalls <- which(abs(record$tvals) < tval_threshold)
+      }
+    # }
     calls <- setdiff(seq_len(rc$m), noncalls)
     if (sim_annealing == TRUE) {
       temp_switched_votes <- symdiff(noncalls, old_noncalls)
-      # n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter - 10) / 50))^2)
       n_random_switches <- temperature_function(counter, rc$m)
-      # if (return_pvals) {
-      #   probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
-      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-      #   probs <- probs / sum(probs)
-      # } else {
-      #   probs <- abs(log(tvals) - log(tval_threshold)) ^ -.2
-      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-      #   probs <- probs / sum(probs)
-      # }
-
       calls_to_switch <- sample(calls, n_random_switches)
       noncalls_to_switch <- sample(noncalls, n_random_switches)
-      # grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
-      # grays_to_make_noncalls <- setdiff(old_switched_votes, grays_to_make_calls)
       calls_to_keep <- setdiff(calls, calls_to_switch)
-      # calls_to_keep <- setdiff(calls_to_keep, grays_to_make_noncalls)
       noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
-      # noncalls_to_keep <- setdiff(noncalls_to_keep, grays_to_make_calls)
       calls <- c(unique(calls_to_keep, noncalls_to_switch))
-      # calls <- c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
       noncalls <- c(unique(noncalls_to_keep, calls_to_switch))
-      # noncalls <- c(unique(noncalls_to_keep, calls_to_switch, grays_to_make_noncalls))
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
 
     # remove flip flop votes from noncalls list
-    if (remove_flip_flop_votes_from_noncalls == TRUE) {
-      flip_flop_votes <- intersect(switched_votes, old_switched_votes)
-      calls_to_keep <- setdiff(calls, flip_flop_votes)
-      noncalls_to_keep <- setdiff(noncalls, flip_flop_votes)
-      calls <- c(calls_to_keep, flip_flop_votes)
-      noncalls <- noncalls_to_keep
-    }
+    # if (remove_flip_flop_votes_from_noncalls == TRUE) {
+    #   flip_flop_votes <- intersect(switched_votes, old_switched_votes)
+    #   calls_to_keep <- setdiff(calls, flip_flop_votes)
+    #   noncalls_to_keep <- setdiff(noncalls, flip_flop_votes)
+    #   calls <- c(calls_to_keep, flip_flop_votes)
+    #   noncalls <- noncalls_to_keep
+    # }
 
     # randomly reassign flip flop votes from noncalls list
     if (randomly_reassign_flip_flop_votes_from_noncalls == TRUE) {
@@ -375,11 +210,8 @@ code_party_calls <- function(rc,
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding
   rc$record_of_ideals <- record_of_ideals
-  if (return_pvals) {
-    rc$record_of_pvals <- record_of_pvals
-  } else {
-    rc$record_of_tvals <- record_of_tvals
-  }
+  rc$record_of_pvals <- record_of_pvals
+  rc$record_of_tvals <- record_of_tvals
   rc$party_call_coding <- get_party_call_coding(rc, n_iterations_for_coding)
   rc
 }
@@ -564,6 +396,16 @@ make_member_year_data <- function(congress, roll_calls_object_list)
 }
 
 
+
+#' TITLE
+#'
+#' DETAIL
+#' @param rc xxx
+#' @param DT xxx
+#' @param tvals xxx
+#' @param type xxx
+#' @export
+#' @return xxx
 calc_switch_rate <- function(rc)
 {
   record_of_coding <- rc$record_of_coding
@@ -573,3 +415,174 @@ calc_switch_rate <- function(rc)
     length(symdiff(record_of_coding[[i - 1]], record_of_coding[[i]]))) /
     n_votes
 }
+
+
+
+#' TITLE
+#'
+#' Internal function for code_party_calls, only used if
+#' use_classification_distance is TRUE
+#' @param rc xxx
+#' @param DT xxx
+#' @param tvals xxx
+#' @param type xxx
+#' @export
+#' @return xxx
+test_classification <- function(rc, DT, noncalls, tvals, type)
+{
+  rc_noncalls <- rc
+  rc_noncalls$votes <- rc$votes[, noncalls]
+  rc_noncalls$m <- ncol(rc_noncalls$votes)
+  p <- emIRT::makePriors(rc_noncalls$n, rc_noncalls$m, 1)
+  s <- emIRT::getStarts(rc_noncalls$n, rc_noncalls$m, 1)
+  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
+    "NUL"
+  } else {
+    "/dev/null"
+  }
+  sink(sink_target)
+  l <- emIRT::binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
+    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
+  sink()
+  unlink(sink_target)
+  DT <- merge(DT, data.table(mc = rownames(l$means$x), x = l$means$x[, "d1"]),
+    by = "mc")
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  regs$ideal <- l$means$x
+  classification_distance <- sum(abs(tvals - regs$t), na.rm = TRUE)
+  list(regs = regs, classification_distance = classification_distance)
+}
+
+
+#' Find symmetric difference
+#'
+#' The symmetric difference is defined as the set difference between the
+#' union of two sets and the intersection of those sets.
+#' @param x vector
+#' @param y vector
+#' @return vector of elements in either x or y but not both
+symdiff <- function(x, y)
+{
+  sort(setdiff(base::union(x, y), base::intersect(x, y)))
+}
+
+#' Regress a single roll call on party indicator and ideal points
+#'
+#' To be used inside a call to code_party_calls_1step. This function is used to
+#' perform a number of tasks in the purpose of determining the influence of the
+#' party on a given vote. This is accomplished by regressing votes on members'
+#' party affiliation and ideology. Before this happens, however, all votes which
+#' either received only `yeas' and `nays' are assigned non-values in place of
+#' estimates. Further, votes which strictly follow party lines are assigned
+#' estimates which guarantee they will be coded as party calls under any model
+#' specification to avoid separation in the model. Finally, the votes left are
+#' either put through a bias-reduced logit or ordinary least squares model as
+#' per user selected parameters. The default setting of the function is to use
+#' the bias-reduced logit.
+#' Internal function for code_party_calls, only used if
+#' use_classification_distance is FALSE.
+#' @param .SD subset of a data.table of roll call votes, with a column for party
+#' labels
+#' @param type character string, one of brglm, glm, or lm; which function
+#' to use for roll call-by-roll call regression
+#' @return list of coefficient, standard error, t value, and p value for the
+#' coefficient on party
+#' @export
+#' @importFrom brglm brglm
+test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
+{
+  .SD <- .SD[party %in% c("D", "R")]
+  n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
+  n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
+  n_yea_dems <- .SD[, sum(y == 1 & party == "D", na.rm = TRUE)]
+  n_nay_dems <- .SD[, sum(y == 0 & party == "D", na.rm = TRUE)]
+  party_line_vote <-
+    (n_yea_reps == 0 & n_nay_reps >  0 & n_yea_dems >  0 & n_nay_dems == 0) |
+    (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
+  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
+      length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
+    list(b = 0, se = 0, t = Inf, p = NA_real_)
+  } else if (party_line_vote) {
+    list(b = 1, se = 0, t = Inf, p = 0)
+  } else {
+    if (type == "brglm") {
+      m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["z value"], p = summ["Pr(>|z|)"])
+    } else if (type == "glm") {
+      suppressWarnings(m <- glm(y ~ party + x, data = .SD, family = binomial))
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["z value"], p = summ["Pr(>|z|)"])
+    } else {
+      m <- lm(y ~ party + x, data = .SD)
+      suppressWarnings(summ <- summary(m)$coef["partyR", ])
+      list(b = summ["Estimate"], se = summ["Std. Error"],
+        t = summ["t value"], p = summ["Pr(>|t|)"])
+    }
+  }
+}
+
+#' Run one step of the party calls algorithm
+#'
+#' To be used inside a call to code_party_calls
+#' @param rc a rollcall object
+#' @param DT data.table with votes and party indicators
+#' @param votes_for_ideal_point_estimation indices for votes to use in ideal
+#' point estimation
+#' @param return_pvals logical for whether to return pvals or tvals
+#' @param type character string, one of brglm, glm, or lm; which function
+#' to use for roll call-by-roll call regression
+#' @return list of pvals or tvals and ideal points
+#' @export
+#' @importFrom emIRT binIRT makePriors getStarts
+code_party_calls_1step <- function(rc, DT, votes_for_ideal_point_estimation,
+  return_pvals, type = c("brglm", "lm", "glm"))
+{
+  rc1 <- rc
+  rc2 <- rc
+  rc1$votes <- rc$votes[, votes_for_ideal_point_estimation]
+  rc2$votes <- rc$votes[, -votes_for_ideal_point_estimation]
+  rc1$m <- ncol(rc1$votes)
+  rc2$m <- ncol(rc2$votes)
+  p <- emIRT::makePriors(rc1$n, rc1$m, 1)
+  s <- emIRT::getStarts(rc1$n, rc1$m, 1)
+  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
+    "NUL"
+  } else {
+    "/dev/null"
+  }
+  sink(sink_target)
+  l <- emIRT::binIRT(.rc = rc1, .starts = s, .priors = p,
+    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
+  sink()
+  unlink(sink_target)
+  DT$x <- l$means$x
+  ideal <- l$means$x
+  party <- rc1$legis.data$party
+  # orientation_correct <- DT[party == "D", mean(ideal)] < DT[party == "R", mean(x)]
+  orientation_correct <- mean(ideal[party == "D"]) < mean(ideal[party == "R"])
+  if (!orientation_correct) {
+    ideal <- -ideal
+  }
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  pvals <- regs$p
+  pvals[is.na(pvals)] <- 1
+  tvals <- regs$t
+  tvals[is.na(tvals)] <- Inf
+  list(pvals = pvals, tvals = tvals, ideal = ideal)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
