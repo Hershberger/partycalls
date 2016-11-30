@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1.25in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+
+In the last week I have continued to respecify model parameters with the goal of minimizing gray votes. This has been done using an addition to the algorithm which randomly reassigns votes which have been switched votes in the two most recent iterations. While this has greatly reduced gray votes in most sessions, the $103^{rd}$ House has stayed constantly near 20\% gray.
+
+With reassignment of gray votes, the percent of gray votes per session breakdown is can be found in the following graph and table.
+
+\begin{center}
+
+\includegraphics*[width=15cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/Flip_flop-grayvote_compare.png}
+
+\end{center}
+
+Adding simulated annealing to the mix with these leaves only 3 sessions above 10\%, and puts most lower than they are when we only reassign flip flop votes, but has the disadvantage of placing House session 109 up to gray vote values near 20\%. 
+
+It is my view that we need to decide what is an acceptable threshold of gray votes for determining what stays and goes in our analysis and work toward getting as many sessions as possible below that threshold. I am increasingly becoming convinced that House 103 will not be able to get below this threshold, since what worked to get House 109 down failed to work on it, and what gained modest traction in sorting it threw House 109 far off the point we have been able to get it down to. There is no clear pattern among other sessions which have more than 1\% gray votes of which specification is best at getting them closest to below this threshold.
+
+In watching the algorithm sort out party calls for session 103 when running tests, I noted that in iteration 10 it got down to only 27 switched votes only to quickly settle into a pattern of having over 100 switched votes in every iteration. For this reason, I have included histograms of the p-values in this session for iterations 9 through 12 below. In iteration 10 there are few votes immediately above the threshold, but in iterations 11 and 12 votes start entering this region, meaning that there is more potential for a few votes sorted differently to throw a larger number of votes across this threshold. From the fully zoomed out view, it appears that these are coming down from above the threshold rather than from down below it since there are more votes which fall below the threshold generally, not just near the threshold.
+
+\begin{table}
+
+\begin{tabular}[!hb]{lcc}
+	\hline
+  congress &  percent gray flip flop & percent gray flip flop and simulated annealing \\
+  \hline
+  \hline 
+      93 & 0.004140787 & 0.006211180 \\
+  
+      94 & 0.003552398 & 0.001776199 \\
+  
+      95 & 0.002272727 & 0.006060606 \\
+  
+      96 & 0.012400354 & 0.005314438 \\
+  
+      97 & 0.018258427 & 0.004213483 \\
+  
+      98 & 0.013496933 & 0.008588957 \\
+  
+      99 & 0.005037783 & 0.017632242 \\
+  
+      100 & 0.011221945 & 0.009975062 \\
+  
+      101 & 0.005148005 & 0.014157014 \\
+  
+      102 & 0.124378109 & 0.149253731 \\
+  
+      103 & 0.195740365 & 0.184584178 \\
+  
+      104 & 0.028997514 & 0.041425021 \\
+  
+      105 & 0.040444894 & 0.065722952 \\
+  
+      106 & 0.097430407 & 0.023554604 \\
+  
+      107 & 0.053445851 & 0.060478200 \\
+  
+      108 & 0.112244898 & 0.005668934 \\
+  
+      109 & 0.108602151 & 0.193548387 \\
+      
+      \hline
+  
+  \end{tabular}
+  
+\end{table}
+
+
+\includegraphics*[width=15cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/h103_flipflop-pvals.pdf}
+
+\includegraphics*[width=15cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/h103_flipflop-pvals2.pdf}
+
+\includegraphics*[width=15cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/h103_flipflop-pval3.pdf}
+
+	
+\end{document}
