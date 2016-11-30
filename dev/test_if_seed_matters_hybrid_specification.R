@@ -16,6 +16,12 @@ sim_annealing_seed1 <- rbindlist(lapply(house_party_calls, function(x) data.tabl
   voteno = x$party_call_coding$voteno,
   new_coding = x$party_call_coding$coding)))
 
+load("test_data/house_party_calls_annealing_seed2.RData")
+sim_annealing_seed2 <- rbindlist(lapply(house_party_calls, function(x) data.table(
+  congress = gsub("[A-Za-z:/\\.]", "", x$source),
+  voteno = x$party_call_coding$voteno,
+  new_coding = x$party_call_coding$coding)))
+
 X <- merge(hybrid_seed1, hybrid_seed2, by = c("congress", "voteno"))
 table_x <- X[, table(new_coding.x, new_coding.y)]
 table_x
@@ -26,9 +32,7 @@ table_y <- Y[, table(new_coding.x, new_coding.y)]
 table_y
 chisq.test(table_y)
 
-X93 <- subset(X, congress %in% 93)
-X93[, table(new_coding.x, new_coding.y)]
-
-X103 <- subset(X, congress %in% 103)
-X103[, table(new_coding.x, new_coding.y)]
-
+Z <- merge(hybrid_seed2, sim_annealing_seed2, by = c("congress", "voteno"))
+table_z <- Z[, table(new_coding.x, new_coding.y)]
+table_z
+chisq.test(table_z)
