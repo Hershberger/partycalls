@@ -6,4 +6,5 @@ library(partycalls)
 
 load("inst/extdata/senate93-112.RData")
 
-senate_party_calls <- code_party_calls(sen95, sim_annealing = TRUE)
+senate_party_calls <- code_party_calls(sen95, type = "brglm",
+  sim_annealing = TRUE)
