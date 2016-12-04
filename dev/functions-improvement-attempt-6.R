@@ -66,7 +66,7 @@ code_party_calls_by_congress_number <- function(congress_number,
 #' @export
 code_party_calls <- function(rc,
   pval_threshold = 0.01, tval_threshold = qnorm(.99), count_min = 15,
-  count_max = 150, match_count_min = 150, sim_annealing = TRUE,
+  count_max = 150, match_count_min = 15, sim_annealing = TRUE,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
   drop_very_lopsided_votes = TRUE, return_pvals = TRUE,
   n_iterations_for_coding = 5, use_new_match_check = TRUE,
