@@ -147,8 +147,9 @@ code_party_calls <- function(rc,
     if (sim_annealing == TRUE) {
       temp_switched_votes <- symdiff(noncalls, old_noncalls)
       n_random_switches <- temperature_function(counter, rc$m)
-      calls_to_switch <- sample(calls, n_random_switches)
-      noncalls_to_switch <- sample(noncalls, n_random_switches)
+      calls_to_switch <- sample(calls, min(length(calls), n_random_switches))
+      noncalls_to_switch <- sample(noncalls, min(length(noncalls),
+        n_random_switches))
       calls_to_keep <- setdiff(calls, calls_to_switch)
       noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
       calls <- c(unique(calls_to_keep, noncalls_to_switch))
