@@ -4,7 +4,7 @@
 \alias{make_member_year_data}
 \title{Make dataset at level of senator/year}
 \usage{
-make_member_year_data(congress, roll_calls_object_list)
+make_member_year_data(congress, roll_calls_object_list, chamber = "house")
 }
 \arguments{
 \item{congress}{congress ID number}

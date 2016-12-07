@@ -418,9 +418,15 @@ get_gray_votes <- function(rc, n_iterations = 5)
 #' @return data.table with party-free ideal points
 #' @import data.table emIRT pscl
 #' @export
-make_member_year_data <- function(congress, roll_calls_object_list)
+make_member_year_data <- function(congress, roll_calls_object_list,
+  chamber = "house")
 {
+  if (chamber == "house"){
   rc <- roll_calls_object_list[[paste0("hou", congress)]]
+  }
+  else if (chamber == "senate"){
+    rc <- roll_calls_object_list[[paste0("sen", congress)]]
+  }
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
