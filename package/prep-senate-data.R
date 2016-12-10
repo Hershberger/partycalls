@@ -9,13 +9,8 @@ load("inst/extdata/senate93-112.RData")
 # 2. make data for package
 # Code party calls; make responsiveness data
 set.seed(201375487)
-code_party_calls_by_congress_number <- function(congress_number)
-{
-  cat("**** working on senate", congress_number, "\n")
-  rc <- get(paste0("sen", congress_number))
-  code_party_calls(rc)
-}
-senate_party_calls <- lapply(93:112, code_party_calls_by_congress_number)
+senate_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
+  chamber = "senate")
 names(senate_party_calls) <- paste0("sen", 93:112)
 save(senate_party_calls, file = "inst/extdata/senate_party_calls.Rdata")
 load("inst/extdata/senate_party_calls.Rdata")
