@@ -1,3 +1,4 @@
+
 #' Find symmetric difference
 #'
 #' The symmetric difference is defined as the set difference between the

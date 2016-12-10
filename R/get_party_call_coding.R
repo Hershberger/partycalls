@@ -1,4 +1,5 @@
-#' Code party calls
+
+#' Get party call coding based on classifier results
 #'
 #' Examines the last n_iterations of classifier iterations and codes any
 #' vote that was always a party call as a party call, any vote that was always
@@ -25,7 +26,7 @@ get_party_call_coding <- function(rc, n_iterations)
   data.table(voteno, coding)
 }
 
-#' Code party calls
+#' Retrieve party calls
 #'
 #' Examines the last n_iterations of classifier iterations and codes any
 #' vote that was always a party call as a party call
@@ -43,7 +44,7 @@ get_party_calls <- function(rc, n_iterations = 5)
   colnames(rc$votes)[party_calls]
 }
 
-#' Code noncalls
+#' Retrieve noncalls
 #'
 #' Examines the last n_iterations of classifier iterations and codes any
 #' vote that was always a noncall as a noncall.
@@ -60,7 +61,7 @@ get_noncalls <- function(rc, n_iterations = 5)
   colnames(rc$votes)[noncalls]
 }
 
-#' Code gray votes
+#' Retrieve gray votes
 #'
 #' Examines the last n_iterations of classifier iterations and codes any
 #' vote that wasn't always a party call or always a noncall as a gray vote.

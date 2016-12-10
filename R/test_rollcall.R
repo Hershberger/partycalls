@@ -1,3 +1,4 @@
+
 #' Regress a single roll call on party indicator and ideal points
 #'
 #' To be used inside a call to code_party_calls_1step. This function is used to
@@ -11,6 +12,8 @@
 #' either put through a bias-reduced logit or ordinary least squares model as
 #' per user selected parameters. The default setting of the function is to use
 #' the bias-reduced logit.
+#' Internal function for code_party_calls, only used if
+#' use_classification_distance is FALSE.
 #' @param .SD subset of a data.table of roll call votes, with a column for party
 #' labels
 #' @param type character string, one of brglm, glm, or lm; which function

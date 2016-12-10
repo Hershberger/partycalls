@@ -36,19 +36,25 @@
 #' to check for matches between iterations
 #' @param type character string, one of brglm, glm, or lm; which function
 #' to use for roll call-by-roll call regression
-#' @param use_classification_distance logical for whether to calc
-#' classification distance
+# @param use_classification_distance logical for whether to calc
+# classification distance
+#' @param use_noncalls_for_ideal_point_estimation logical for whether
+#' to use all noncalls for ideal point estimation
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
 #' @import data.table emIRT pscl
 #' @export
 code_party_calls <- function(rc,
-  pval_threshold = 0.01, tval_threshold = 2.32, count_min = 10,
-  count_max = 150, match_count_min = 150, sim_annealing = TRUE,
+  pval_threshold = 0.01, tval_threshold = qnorm(.99), count_min = 15,
+  count_max = 150, match_count_min = 15, sim_annealing = TRUE,
   random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
-  drop_very_lopsided_votes = TRUE, return_pvals = FALSE,
+  drop_very_lopsided_votes = TRUE, return_pvals = TRUE,
   n_iterations_for_coding = 5, use_new_match_check = TRUE,
-  type = c("brglm", "lm", "glm"), use_classification_distance = FALSE)
+  type = "brglm", hybrid = FALSE,
+  temperature_function = function(counter, n_votes)
+    floor(n_votes * .2 * max(0, 1 - (abs(counter - 10) / 50)) ^ 2),
+  randomly_reassign_flip_flop_votes_from_noncalls = FALSE,
+  use_noncalls_for_ideal_point_estimation = TRUE)
 {
   stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
@@ -74,69 +80,60 @@ code_party_calls <- function(rc,
   match_counter <- 0
   counter <- 0
   record_of_coding <- list()
+  record_of_ideals <- list()
   match_switch <- FALSE # for old match checking procedure
-  if (return_pvals) {
-    record_of_pvals <- list()
-  } else {
-    record_of_tvals <- list()
-  }
+  record_of_pvals <- list()
+  record_of_tvals <- list()
   countdown_started <- FALSE
   tvals <- rep(0, rc$m)
+  flip_flop_votes <- c()
   while (counter <= count_min |
       (counter < count_max & match_counter < match_count_min)) {
     counter <- counter + 1
     record_of_coding[[counter]] <- noncalls
     old_noncalls <- noncalls
     old_switched_votes <- switched_votes
-    if (use_classification_distance) {
-      results <- test_classification(rc, DT, noncalls, tvals, type)
-      tvals <- results$regs$t
-      classification_distance <- results$classification_distance
-      classification_distance_message <- paste("Classification distance: ",
-        sprintf("%.03f", classification_distance), "\n")
-      record_of_tvals[[counter]] <- tvals
-      noncalls <- which(abs(tvals) < tval_threshold)
+    classification_distance_message <- NULL
+    if (use_noncalls_for_ideal_point_estimation) {
+      record <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
+    } else { # use only noncalls - any flip flop votes
+      vote_for_ideal_points <- setdiff(noncalls, flip_flop_votes)
+      record <- code_party_calls_1step(rc, DT, vote_for_ideal_points,
+        return_pvals, type)
+    }
+    record_of_ideals[[counter]] <- record$ideal
+    record_of_pvals[[counter]] <- record$pvals
+    record_of_tvals[[counter]] <- record$tvals
+    if (return_pvals) {
+      noncalls <- which(record$pvals > pval_threshold)
     } else {
-      classification_distance_message <- ""
-      if (return_pvals) {
-        pvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-        record_of_pvals[[counter]] <- pvals
-        noncalls <- which(pvals > pval_threshold)
-      } else {
-        tvals <- code_party_calls_1step(rc, DT, noncalls, return_pvals, type)
-        record_of_tvals[[counter]] <- tvals
-        noncalls <- which(abs(tvals) < tval_threshold)
-      }
+      noncalls <- which(abs(record$tvals) < tval_threshold)
     }
     calls <- setdiff(seq_len(rc$m), noncalls)
-    if (sim_annealing == TRUE) {
+    if (sim_annealing == TRUE | hybrid == TRUE) {
       temp_switched_votes <- symdiff(noncalls, old_noncalls)
-      # n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter - 10) / 50))^2)
-      n_random_switches <- floor(rc$m * .2 * max(0, 1 - (abs(counter) / 50))^2)
-      # if (return_pvals) {
-      #   probs <- abs(log(pvals) - log(pval_threshold)) ^ -.2
-      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-      #   probs <- probs / sum(probs)
-      # } else {
-      #   probs <- abs(log(tvals) - log(tval_threshold)) ^ -.2
-      #   probs[is.na(probs)] <- min(probs, na.rm = TRUE)
-      #   probs <- probs / sum(probs)
-      # }
-
-      calls_to_switch <- sample(calls, n_random_switches)
-      noncalls_to_switch <- sample(noncalls, n_random_switches)
-      # grays_to_make_calls <- sample(old_switched_votes, n_random_switches)
-      # grays_to_make_noncalls <- setdiff(old_switched_votes, grays_to_make_calls)
+      n_random_switches <- temperature_function(counter, rc$m)
+      calls_to_switch <- sample(calls, min(length(calls), n_random_switches))
+      noncalls_to_switch <- sample(noncalls, min(length(noncalls),
+        n_random_switches))
       calls_to_keep <- setdiff(calls, calls_to_switch)
-      # calls_to_keep <- setdiff(calls_to_keep, grays_to_make_noncalls)
       noncalls_to_keep <- setdiff(noncalls, noncalls_to_switch)
-      # noncalls_to_keep <- setdiff(noncalls_to_keep, grays_to_make_calls)
       calls <- c(unique(calls_to_keep, noncalls_to_switch))
-      # calls <- c(unique(calls_to_keep, noncalls_to_switch, grays_to_make_calls))
       noncalls <- c(unique(noncalls_to_keep, calls_to_switch))
-      # noncalls <- c(unique(noncalls_to_keep, calls_to_switch, grays_to_make_noncalls))
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
+    # randomly reassign flip flop votes from noncalls list
+    if (randomly_reassign_flip_flop_votes_from_noncalls == TRUE |
+        hybrid == TRUE & counter > 30) {
+      flip_flop_votes <- intersect(switched_votes, old_switched_votes)
+      calls_to_keep <- setdiff(calls, flip_flop_votes)
+      noncalls_to_keep <- setdiff(noncalls, flip_flop_votes)
+      flip_flop_calls <- sample(flip_flop_votes,
+        floor(length(flip_flop_votes) / 2))
+      flip_flop_noncalls <- setdiff(flip_flop_votes, flip_flop_calls)
+      calls <- c(calls_to_keep, flip_flop_calls)
+      noncalls <- c(noncalls_to_keep, flip_flop_noncalls)
+    }
     countdown <- ""
     if (use_new_match_check & counter > count_min) {
       if (length(switched_votes) <= vote_switch_percent * rc$m) {
@@ -153,8 +150,7 @@ code_party_calls <- function(rc,
       }
     } else {
       if ((length(switched_votes) > length(old_switched_votes) |
-          # if ((length(switched_votes) < length(old_switched_votes) |
-          length(switched_votes) == 0) &
+          length(switched_votes) <= 5) &
           counter > count_min) {
         match_switch <- TRUE
       }
@@ -169,11 +165,9 @@ code_party_calls <- function(rc,
   }
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding
-  if (return_pvals) {
-    rc$record_of_pvals <- record_of_pvals
-  } else {
-    rc$record_of_tvals <- record_of_tvals
-  }
+  rc$record_of_ideals <- record_of_ideals
+  rc$record_of_pvals <- record_of_pvals
+  rc$record_of_tvals <- record_of_tvals
   rc$party_call_coding <- get_party_call_coding(rc, n_iterations_for_coding)
   rc
 }

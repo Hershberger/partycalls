@@ -1,6 +1,9 @@
+
+
 #' TITLE
 #'
-#' DETAIL
+#' Internal function for code_party_calls, only used if
+#' use_classification_distance is TRUE
 #' @param rc xxx
 #' @param DT xxx
 #' @param tvals xxx
@@ -27,6 +30,7 @@ test_classification <- function(rc, DT, noncalls, tvals, type)
   DT <- merge(DT, data.table(mc = rownames(l$means$x), x = l$means$x[, "d1"]),
     by = "mc")
   regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  regs$ideal <- l$means$x
   classification_distance <- sum(abs(tvals - regs$t), na.rm = TRUE)
   list(regs = regs, classification_distance = classification_distance)
 }

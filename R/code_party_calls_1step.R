@@ -1,22 +1,24 @@
+
 #' Run one step of the party calls algorithm
 #'
 #' To be used inside a call to code_party_calls
 #' @param rc a rollcall object
 #' @param DT data.table with votes and party indicators
-#' @param noncalls indices for non-party calls from last run
+#' @param votes_for_ideal_point_estimation indices for votes to use in ideal
+#' point estimation
 #' @param return_pvals logical for whether to return pvals or tvals
 #' @param type character string, one of brglm, glm, or lm; which function
 #' to use for roll call-by-roll call regression
-#' @return vector of indices for non-party calls
+#' @return list of pvals or tvals and ideal points
 #' @export
 #' @importFrom emIRT binIRT makePriors getStarts
-code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
-  type = c("brglm", "lm", "glm"))
+code_party_calls_1step <- function(rc, DT, votes_for_ideal_point_estimation,
+  return_pvals, type = c("brglm", "lm", "glm"))
 {
   rc1 <- rc
   rc2 <- rc
-  rc1$votes <- rc$votes[, noncalls]
-  rc2$votes <- rc$votes[, -noncalls]
+  rc1$votes <- rc$votes[, votes_for_ideal_point_estimation]
+  rc2$votes <- rc$votes[, -votes_for_ideal_point_estimation]
   rc1$m <- ncol(rc1$votes)
   rc2$m <- ncol(rc2$votes)
   p <- emIRT::makePriors(rc1$n, rc1$m, 1)
@@ -32,15 +34,17 @@ code_party_calls_1step <- function(rc, DT, noncalls, return_pvals,
   sink()
   unlink(sink_target)
   DT$x <- l$means$x
-  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
-  if (return_pvals) {
-    pvals <- regs$p
-    pvals[is.na(pvals)] <- 1
-    out <- pvals
-  } else {
-    tvals <- regs$t
-    tvals[is.na(tvals)] <- Inf
-    out <- tvals
+  ideal <- l$means$x
+  party <- rc1$legis.data$party
+  # orientation_correct <- DT[party == "D", mean(ideal)] < DT[party == "R", mean(x)]
+  orientation_correct <- mean(ideal[party == "D"]) < mean(ideal[party == "R"])
+  if (!orientation_correct) {
+    ideal <- -ideal
   }
-  out
+  regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
+  pvals <- regs$p
+  pvals[is.na(pvals)] <- 1
+  tvals <- regs$t
+  tvals[is.na(tvals)] <- Inf
+  list(pvals = pvals, tvals = tvals, ideal = ideal)
 }
