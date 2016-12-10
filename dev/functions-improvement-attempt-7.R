@@ -70,7 +70,7 @@ code_party_calls <- function(rc,
                              random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
                              drop_very_lopsided_votes = TRUE, return_pvals = TRUE,
                              n_iterations_for_coding = 5, use_new_match_check = TRUE,
-                             type = "brglm", hybrid = TRUE,
+                             type = "brglm", hybrid = FALSE,
                              # use_classification_distance = FALSE,
                              temperature_function = function(counter, n_votes)
                                floor(n_votes * .2 * max(0, 1 - (abs(counter - 10) / 50)) ^ 2),
@@ -196,7 +196,7 @@ code_party_calls <- function(rc,
     } else {
       if ((length(switched_votes) > length(old_switched_votes) |
            # if ((length(switched_votes) < length(old_switched_votes) |
-           length(switched_votes) == 0) &
+           length(switched_votes) <= 5) &
           counter > count_min) {
         match_switch <- TRUE
       }
