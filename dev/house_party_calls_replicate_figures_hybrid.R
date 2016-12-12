@@ -59,56 +59,56 @@ SE$extremism.min <- do.call(c, lapply(93:109, function(x)
   fm.extremism(x, 0)$coef[2, 2]))
 
 pdf(file="plots/who-heeds-figure2-replication_hybrid.pdf", ## RENAME
-  width=8, height = 8, family="Times")
-layout(matrix(1:4, 2, 2, byrow=TRUE))
+  width=4, height = 8, family="Times")
+layout(matrix(1:2, 2, 1, byrow=TRUE))
 par(mar=c(2.5, 4, 2, 0.3) + 0.1, font.lab=2)
 
 x <- (93:109)[-12]
 x.ticks <- c(94, 99, 104, 109)
-y.ticks <- c(-12, 0, 12)
+y.ticks <- c(-12, 0, 12, 24)
 
-b <- B$meddist.maj[-12]
-se <- SE$meddist.maj[-12]
-plot(0, 0, type='n', ylim=c(-6, 18), xlim=c(93, 109),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
-axis(1, x.ticks, cex.axis=1.1, labels=FALSE, xpd=TRUE)
-axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
-abline(h=0, col="gray", xpd=FALSE)
-title(main="Distance from Floor Median", cex.main=1.15, line=0.75, font.main=2)
-points(x, b, pch=19, col="black", cex=.8)
-segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
-segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
+# b <- B$meddist.maj[-12]
+# se <- SE$meddist.maj[-12]
+# plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
+#   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
+# axis(1, x.ticks, cex.axis=1.1, labels=FALSE, xpd=TRUE)
+# axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
+# abline(h=0, col="gray", xpd=FALSE)
+# title(main="Distance from Floor Median", cex.main=1.15, line=0.75, font.main=2)
+# points(x, b, pch=19, col="black", cex=.8)
+# segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
+# segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism.maj[-12]
 se <- SE$extremism.maj[-12]
-plot(0, 0, type='n', ylim=c(-6, 18), xlim=c(93, 109),
+plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="")
-axis(1, x.ticks, cex.axis=1.1, labels=FALSE)
-axis(2, y.ticks, cex.axis=1.1, labels=FALSE)
+axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
+axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
 title(main="Ideological Extremism", cex.main=1.15, line=0.75, font.main=2)
 points(x, b, pch=19, col="black", cex=.8)
 segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
 segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
 
-b <- B$meddist.min[-12]
-se <- SE$meddist.min[-12]
-plot(0, 0, type='n', ylim=c(-6, 18), xlim=c(93, 109),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
-axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
-axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
-abline(h=0, col="gray", xpd=FALSE)
-title(main="", cex.main=1.15, line=0.75, font.main=2)
-points(x, b, pch=19, col="black", cex=.8)
-segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
-segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
+# b <- B$meddist.min[-12]
+# se <- SE$meddist.min[-12]
+# plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
+#   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
+# axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
+# axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
+# abline(h=0, col="gray", xpd=FALSE)
+# title(main="", cex.main=1.15, line=0.75, font.main=2)
+# points(x, b, pch=19, col="black", cex=.8)
+# segments(x, b-qnorm(.750)*se, x, b+qnorm(.750)*se, lwd=2)
+# segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism.min[-12]
 se <- SE$extremism.min[-12]
-plot(0, 0, type='n', ylim=c(-6, 18), xlim=c(93, 109),
+plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
-axis(2, y.ticks, cex.axis=1.1, labels=FALSE)
+axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
 title(main="", cex.main=1.15, line=0.75, font.main=2)
 points(x, b, pch=19, col="black", cex=.8)
