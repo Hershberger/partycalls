@@ -1,12 +1,11 @@
 library(partycalls)
 library(data.table)
 options(stringsAsFactors = FALSE)
-load("inst/extdata/senate93-112.RData")
 
 # load party calls data
 load("test_data/senate_party_calls_replication_randomly_reassign_flip_flop_votes.RData")
-
 names(senate_party_calls) <- paste0("sen", 93:112)
+
 
 # load legislative effectiveness data
 les_data <- read.csv("inst/extdata/93_113_senate_variables.csv")

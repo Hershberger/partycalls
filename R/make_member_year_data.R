@@ -1,5 +1,5 @@
 
-#' Make dataset at level of senator/year
+#' Make dataset at level of MC/year
 #'
 #' For a single congress, assemble data for analysis
 #' @param congress congress ID number
@@ -8,9 +8,14 @@
 #' @return data.table with party-free ideal points
 #' @import data.table emIRT pscl
 #' @export
-make_member_year_data <- function(congress, roll_calls_object_list)
+make_member_year_data <- function(congress, roll_calls_object_list,
+  chamber = "house")
 {
-  rc <- roll_calls_object_list[[paste0("hou", congress)]]
+  if (chamber == "house"){
+    rc <- roll_calls_object_list[[paste0("hou", congress)]]
+  } else if (chamber == "senate") {
+    rc <- roll_calls_object_list[[paste0("sen", congress)]]
+  }
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
