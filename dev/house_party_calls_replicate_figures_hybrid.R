@@ -65,7 +65,7 @@ par(mar=c(2.5, 4, 2, 0.3) + 0.1, font.lab=2)
 
 x <- (93:109)[-12]
 x.ticks <- c(94, 99, 104, 109)
-y.ticks <- c(-12, 0, 12, 24)
+y.ticks <- c(-12, 0, 12, 24, 36)
 
 # b <- B$meddist.maj[-12]
 # se <- SE$meddist.maj[-12]
@@ -81,7 +81,7 @@ y.ticks <- c(-12, 0, 12, 24)
 
 b <- B$extremism.maj[-12]
 se <- SE$extremism.maj[-12]
-plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
+plot(0, 0, type='n', ylim=c(-6, 42), xlim=c(93, 109),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -105,7 +105,7 @@ segments(x, b-qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism.min[-12]
 se <- SE$extremism.min[-12]
-plot(0, 0, type='n', ylim=c(-6, 36), xlim=c(93, 109),
+plot(0, 0, type='n', ylim=c(-6, 42), xlim=c(93, 109),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
