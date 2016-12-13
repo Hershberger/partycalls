@@ -3,7 +3,7 @@ library(data.table)
 options(stringsAsFactors = FALSE)
 
 # load data for analysis
-load("data/senator_year_data_hybrid.RData")
+load("data/senator_year_data_emIRT_only.RData")
 senator_year_data <- senator_year_data[senator_year_data$drop == 0]
 # whoheeds13 <- readstata13::read.dta13(
 #   "inst/extdata/who-heeds-replication-archive.dta")
@@ -59,7 +59,7 @@ SE$extremism.maj <- do.call(c, lapply(93:112, function(x)
 SE$extremism.min <- do.call(c, lapply(93:112, function(x)
   fm.extremism(x, 0)$coef[2, 2]))
 
-pdf(file="plots/who-heeds-figure2-senate_hybrid.pdf", ## RENAME
+pdf(file="plots/who-heeds-figure2-senate_emIRT_only.pdf", ## RENAME
   width=4, height = 8, family="Times")
 layout(matrix(1:2, 2, 1, byrow=TRUE))
 par(mar=c(2.5, 4, 2, 0.3) + 0.1, font.lab=2)

@@ -15,11 +15,343 @@
 		Update: 13 December 2016
 	\end{center}
 
+For this week, I got the Senate data compiled and used it to make figures and tables. I allow the figures to account for individual congresses and use the tables to show aggregate results for majority/minority and Democrat/Republican. These are Tables 1-6 and figures 1-3. I further added tables for the \verb|emIRT| only specification for the House. These are Tables 7 and 8. Additionally, I have restructured the House plots so that they will contain all coefficients and confidence intervals. The new plots for the House are Figures 4-6
+
+What I found when going over the Senate data is that for Democrats, ideological extremism in the \verb|emIRT| model ranges from approximately $-6.5$ to approximately $6.5$. The other model specifications have this as an entirely negative value. It's likely that this has to do with the bit of code we added to ensure that the ideological scores for Democrats were less than those for Republicans. For this reason, in the tables and figures which have random reassignment of ``flip flop'' votes or the ``hybrid'' model specification, ideological extremism is higher for Democrats in increasingly negative values and in increasingly positive values for Republicans. I would need to do far more digging into the data to express with utmost confidence how we ought to interpret Democrat ideological extremism in the \verb|emIRT| only model.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Democrat & Republican \\
+			\hline
+			ideological\_extremism        & $1.090^{***}$ & $4.682^{***}$ \\
+			& $(0.277)$     & $(0.413)$     \\
+			vote\_share:pres\_vote\_share & $-35.560$     & $60.472$      \\
+			& $(23.978)$    & $(35.042)$    \\
+			responsiveness\_noncalls      & $0.765^{***}$ & $0.869^{***}$ \\
+			& $(0.041)$     & $(0.040)$     \\
+			vote\_share                   & $5.991$       & $-20.610$     \\
+			& $(12.028)$    & $(20.857)$    \\
+			pres\_vote\_share             & $51.177^{**}$ & $-46.219^{*}$ \\
+			& $(15.516)$    & $(21.565)$    \\
+			chair                         & $0.847$       & $1.981^{*}$   \\
+			& $(0.711)$     & $(0.815)$     \\
+			south13                       & $-1.715^{**}$ & $1.441^{*}$   \\
+			& $(0.623)$     & $(0.639)$     \\
+			female                        & $1.978^{*}$   & $0.157$       \\
+			& $(0.923)$     & $(1.219)$     \\
+			afam                          & $3.366$       & $-11.453^{*}$ \\
+			& $(3.373)$     & $(4.706)$     \\
+			latino                        & $1.316$       & $2.806$       \\
+			& $(3.326)$     & $(4.000)$     \\
+			up\_for\_reelection           & $-0.743$      & $-1.509^{**}$ \\
+			& $(0.511)$     & $(0.578)$     \\
+			seniority                     & $-0.036$      & $0.245^{**}$  \\
+			& $(0.073)$     & $(0.090)$     \\
+			freshman                      & $-1.915^{**}$ & $2.875^{***}$ \\
+			& $(0.714)$     & $(0.848)$     \\
+			retiree                       & $-3.037$      & $0.656$       \\
+			& $(3.783)$     & $(4.000)$     \\
+			best\_committee               & $-0.059$      & $0.170$       \\
+			& $(0.159)$     & $(0.182)$     \\
+			leader                        & $2.932^{**}$  & $0.811$       \\
+			& $(0.889)$     & $(0.861)$     \\
+			power\_committee              & $-0.092$      & $1.396$       \\
+			& $(0.969)$     & $(1.040)$     \\
+			(Intercept)                   & $7.999$       & $-0.875$      \\
+			& $(9.166)$     & $(13.353)$    \\
+			\hline
+			R$^2$                         & 0.541         & 0.535         \\
+			Adj. R$^2$                    & 0.533         & 0.526         \\
+			Num. obs.                     & 981           & 902           \\
+			RMSE                          & 7.389         & 7.882         \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate emIRT Party Calls}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Majority Party & Minority Party \\
+			\hline
+			ideological\_extremism        & $1.090^{***}$ & $4.682^{***}$ \\
+			& $(0.277)$     & $(0.413)$     \\
+			vote\_share:pres\_vote\_share & $-35.560$     & $60.472$      \\
+			& $(23.978)$    & $(35.042)$    \\
+			responsiveness\_noncalls      & $0.765^{***}$ & $0.869^{***}$ \\
+			& $(0.041)$     & $(0.040)$     \\
+			vote\_share                   & $5.991$       & $-20.610$     \\
+			& $(12.028)$    & $(20.857)$    \\
+			pres\_vote\_share             & $51.177^{**}$ & $-46.219^{*}$ \\
+			& $(15.516)$    & $(21.565)$    \\
+			chair                         & $0.847$       & $1.981^{*}$   \\
+			& $(0.711)$     & $(0.815)$     \\
+			south13                       & $-1.715^{**}$ & $1.441^{*}$   \\
+			& $(0.623)$     & $(0.639)$     \\
+			female                        & $1.978^{*}$   & $0.157$       \\
+			& $(0.923)$     & $(1.219)$     \\
+			afam                          & $3.366$       & $-11.453^{*}$ \\
+			& $(3.373)$     & $(4.706)$     \\
+			latino                        & $1.316$       & $2.806$       \\
+			& $(3.326)$     & $(4.000)$     \\
+			up\_for\_reelection           & $-0.743$      & $-1.509^{**}$ \\
+			& $(0.511)$     & $(0.578)$     \\
+			seniority                     & $-0.036$      & $0.245^{**}$  \\
+			& $(0.073)$     & $(0.090)$     \\
+			freshman                      & $-1.915^{**}$ & $2.875^{***}$ \\
+			& $(0.714)$     & $(0.848)$     \\
+			retiree                       & $-3.037$      & $0.656$       \\
+			& $(3.783)$     & $(4.000)$     \\
+			best\_committee               & $-0.059$      & $0.170$       \\
+			& $(0.159)$     & $(0.182)$     \\
+			leader                        & $2.932^{**}$  & $0.811$       \\
+			& $(0.889)$     & $(0.861)$     \\
+			power\_committee              & $-0.092$      & $1.396$       \\
+			& $(0.969)$     & $(1.040)$     \\
+			(Intercept)                   & $7.999$       & $-0.875$      \\
+			& $(9.166)$     & $(13.353)$    \\
+			\hline
+			R$^2$                         & 0.541         & 0.535         \\
+			Adj. R$^2$                    & 0.533         & 0.526         \\
+			Num. obs.                     & 981           & 902           \\
+			RMSE                          & 7.389         & 7.882         \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate emIRT Party Calls}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Democrat & Republican \\
+			\hline
+			ideological\_extremism        & $-3.963^{***}$ & $1.047^{**}$   \\
+			& $(0.742)$      & $(0.339)$      \\
+			vote\_share:pres\_vote\_share & $-6.289$       & $-43.542$      \\
+			& $(23.066)$     & $(32.976)$     \\
+			responsiveness\_noncalls      & $0.833^{***}$  & $0.948^{***}$  \\
+			& $(0.037)$      & $(0.028)$      \\
+			vote\_share                   & $-0.814$       & $28.831$       \\
+			& $(11.574)$     & $(19.634)$     \\
+			pres\_vote\_share             & $34.210^{*}$   & $25.659$       \\
+			& $(14.987)$     & $(20.200)$     \\
+			chair                         & $-1.845^{**}$  & $-3.119^{***}$ \\
+			& $(0.699)$      & $(0.767)$      \\
+			south13                       & $-3.968^{***}$ & $-0.026$       \\
+			& $(0.662)$      & $(0.606)$      \\
+			female                        & $-0.389$       & $0.419$        \\
+			& $(0.895)$      & $(1.138)$      \\
+			afam                          & $4.232$        & $-8.500$       \\
+			& $(3.273)$      & $(4.405)$      \\
+			latino                        & $1.804$        & $-6.779$       \\
+			& $(3.238)$      & $(3.770)$      \\
+			up\_for\_reelection           & $-0.602$       & $-0.164$       \\
+			& $(0.496)$      & $(0.547)$      \\
+			seniority                     & $-0.015$       & $0.142$        \\
+			& $(0.071)$      & $(0.085)$      \\
+			freshman                      & $-0.679$       & $0.479$        \\
+			& $(0.697)$      & $(0.807)$      \\
+			retiree                       & $-2.201$       & $1.475$        \\
+			& $(3.661)$      & $(3.772)$      \\
+			best\_committee               & $-0.074$       & $0.273$        \\
+			& $(0.154)$      & $(0.171)$      \\
+			leader                        & $-1.444$       & $0.390$        \\
+			& $(0.867)$      & $(0.814)$      \\
+			power\_committee              & $0.388$        & $1.306$        \\
+			& $(0.940)$      & $(0.980)$      \\
+			(Intercept)                   & $-16.227$      & $-20.011$      \\
+			& $(9.423)$      & $(12.232)$     \\
+			\hline
+			R$^2$                         & 0.632          & 0.657          \\
+			Adj. R$^2$                    & 0.626          & 0.650          \\
+			Num. obs.                     & 980            & 902            \\
+			RMSE                          & 7.171          & 7.433          \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate Party Calls, Randomly Reassign Flip Flop Votes}
+	\end{center}
+\end{table}
+
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Majority Party & Minority Party \\
+			\hline
+			ideological\_extremism        & $-3.963^{***}$ & $1.047^{**}$   \\
+			& $(0.742)$      & $(0.339)$      \\
+			vote\_share:pres\_vote\_share & $-6.289$       & $-43.542$      \\
+			& $(23.066)$     & $(32.976)$     \\
+			responsiveness\_noncalls      & $0.833^{***}$  & $0.948^{***}$  \\
+			& $(0.037)$      & $(0.028)$      \\
+			vote\_share                   & $-0.814$       & $28.831$       \\
+			& $(11.574)$     & $(19.634)$     \\
+			pres\_vote\_share             & $34.210^{*}$   & $25.659$       \\
+			& $(14.987)$     & $(20.200)$     \\
+			chair                         & $-1.845^{**}$  & $-3.119^{***}$ \\
+			& $(0.699)$      & $(0.767)$      \\
+			south13                       & $-3.968^{***}$ & $-0.026$       \\
+			& $(0.662)$      & $(0.606)$      \\
+			female                        & $-0.389$       & $0.419$        \\
+			& $(0.895)$      & $(1.138)$      \\
+			afam                          & $4.232$        & $-8.500$       \\
+			& $(3.273)$      & $(4.405)$      \\
+			latino                        & $1.804$        & $-6.779$       \\
+			& $(3.238)$      & $(3.770)$      \\
+			up\_for\_reelection           & $-0.602$       & $-0.164$       \\
+			& $(0.496)$      & $(0.547)$      \\
+			seniority                     & $-0.015$       & $0.142$        \\
+			& $(0.071)$      & $(0.085)$      \\
+			freshman                      & $-0.679$       & $0.479$        \\
+			& $(0.697)$      & $(0.807)$      \\
+			retiree                       & $-2.201$       & $1.475$        \\
+			& $(3.661)$      & $(3.772)$      \\
+			best\_committee               & $-0.074$       & $0.273$        \\
+			& $(0.154)$      & $(0.171)$      \\
+			leader                        & $-1.444$       & $0.390$        \\
+			& $(0.867)$      & $(0.814)$      \\
+			power\_committee              & $0.388$        & $1.306$        \\
+			& $(0.940)$      & $(0.980)$      \\
+			(Intercept)                   & $-16.227$      & $-20.011$      \\
+			& $(9.423)$      & $(12.232)$     \\
+			\hline
+			R$^2$                         & 0.632          & 0.657          \\
+			Adj. R$^2$                    & 0.626          & 0.650          \\
+			Num. obs.                     & 980            & 902            \\
+			RMSE                          & 7.171          & 7.433          \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate Party Calls, Randomly Reassign Flip Flop Votes}
+	\end{center}
+\end{table}
+
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Democrat & Republican \\
+			\hline
+			ideological\_extremism        & $-3.954^{***}$ & $1.081^{**}$   \\
+			& $(0.743)$      & $(0.349)$      \\
+			vote\_share:pres\_vote\_share & $-7.781$       & $-39.437$      \\
+			& $(23.158)$     & $(33.943)$     \\
+			responsiveness\_noncalls      & $0.847^{***}$  & $0.949^{***}$  \\
+			& $(0.037)$      & $(0.029)$      \\
+			vote\_share                   & $0.341$        & $27.633$       \\
+			& $(11.620)$     & $(20.209)$     \\
+			pres\_vote\_share             & $35.232^{*}$   & $21.462$       \\
+			& $(15.046)$     & $(20.791)$     \\
+			chair                         & $-1.811^{*}$   & $-3.526^{***}$ \\
+			& $(0.702)$      & $(0.789)$      \\
+			south13                       & $-3.967^{***}$ & $0.090$        \\
+			& $(0.664)$      & $(0.623)$      \\
+			female                        & $-0.487$       & $0.973$        \\
+			& $(0.899)$      & $(1.171)$      \\
+			afam                          & $4.186$        & $-8.336$       \\
+			& $(3.286)$      & $(4.534)$      \\
+			latino                        & $1.450$        & $-6.362$       \\
+			& $(3.250)$      & $(3.880)$      \\
+			up\_for\_reelection           & $-0.585$       & $-0.164$       \\
+			& $(0.498)$      & $(0.563)$      \\
+			seniority                     & $-0.025$       & $0.194^{*}$    \\
+			& $(0.071)$      & $(0.087)$      \\
+			freshman                      & $-0.671$       & $0.824$        \\
+			& $(0.700)$      & $(0.831)$      \\
+			retiree                       & $-1.916$       & $1.002$        \\
+			& $(3.676)$      & $(3.883)$      \\
+			best\_committee               & $-0.080$       & $0.266$        \\
+			& $(0.155)$      & $(0.176)$      \\
+			leader                        & $-1.489$       & $0.322$        \\
+			& $(0.870)$      & $(0.838)$      \\
+			power\_committee              & $0.355$        & $1.463$        \\
+			& $(0.943)$      & $(1.008)$      \\
+			(Intercept)                   & $-18.053$      & $-19.064$      \\
+			& $(9.457)$      & $(12.591)$     \\
+			\hline
+			R$^2$                         & 0.636          & 0.645          \\
+			Adj. R$^2$                    & 0.629          & 0.638          \\
+			Num. obs.                     & 980            & 902            \\
+			RMSE                          & 7.200          & 7.651          \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate Party Calls, Hybrid}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{l c c }
+			\hline
+			& Majority Party & Minority Party \\
+			\hline
+			ideological\_extremism        & $-3.954^{***}$ & $1.081^{**}$   \\
+			& $(0.743)$      & $(0.349)$      \\
+			vote\_share:pres\_vote\_share & $-7.781$       & $-39.437$      \\
+			& $(23.158)$     & $(33.943)$     \\
+			responsiveness\_noncalls      & $0.847^{***}$  & $0.949^{***}$  \\
+			& $(0.037)$      & $(0.029)$      \\
+			vote\_share                   & $0.341$        & $27.633$       \\
+			& $(11.620)$     & $(20.209)$     \\
+			pres\_vote\_share             & $35.232^{*}$   & $21.462$       \\
+			& $(15.046)$     & $(20.791)$     \\
+			chair                         & $-1.811^{*}$   & $-3.526^{***}$ \\
+			& $(0.702)$      & $(0.789)$      \\
+			south13                       & $-3.967^{***}$ & $0.090$        \\
+			& $(0.664)$      & $(0.623)$      \\
+			female                        & $-0.487$       & $0.973$        \\
+			& $(0.899)$      & $(1.171)$      \\
+			afam                          & $4.186$        & $-8.336$       \\
+			& $(3.286)$      & $(4.534)$      \\
+			latino                        & $1.450$        & $-6.362$       \\
+			& $(3.250)$      & $(3.880)$      \\
+			up\_for\_reelection           & $-0.585$       & $-0.164$       \\
+			& $(0.498)$      & $(0.563)$      \\
+			seniority                     & $-0.025$       & $0.194^{*}$    \\
+			& $(0.071)$      & $(0.087)$      \\
+			freshman                      & $-0.671$       & $0.824$        \\
+			& $(0.700)$      & $(0.831)$      \\
+			retiree                       & $-1.916$       & $1.002$        \\
+			& $(3.676)$      & $(3.883)$      \\
+			best\_committee               & $-0.080$       & $0.266$        \\
+			& $(0.155)$      & $(0.176)$      \\
+			leader                        & $-1.489$       & $0.322$        \\
+			& $(0.870)$      & $(0.838)$      \\
+			power\_committee              & $0.355$        & $1.463$        \\
+			& $(0.943)$      & $(1.008)$      \\
+			(Intercept)                   & $-18.053$      & $-19.064$      \\
+			& $(9.457)$      & $(12.591)$     \\
+			\hline
+			R$^2$                         & 0.636          & 0.645          \\
+			Adj. R$^2$                    & 0.629          & 0.638          \\
+			Num. obs.                     & 980            & 902            \\
+			RMSE                          & 7.200          & 7.651          \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+		\caption{Senate Party Calls, Hybrid}
+	\end{center}
+\end{table}
+
+
+
 \begin{table}
 	\begin{center}
 		\begin{tabular}{l c c c c c c }
 			\hline
-			& Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 \\
+			& Dem 97 & Dem 102 & Dem 107 & Rep 97 & Rep 102 & Rep 107 \\
 			\hline
 			(Intercept)                 & $-4.94$       & $46.05^{*}$   & $68.98^{***}$ & $-26.09^{***}$ & $-50.72^{***}$ & $52.85^{***}$ \\
 			& $(5.46)$      & $(21.36)$     & $(6.70)$      & $(7.26)$       & $(11.86)$      & $(4.38)$      \\
@@ -69,7 +401,7 @@
 	\begin{center}
 		\begin{tabular}{l c c }
 			\hline
-			& Model 1 & Model 2 \\
+			& Democrat & Republican \\
 			\hline
 			(Intercept)                 & $16.10^{***}$ & $-4.42^{*}$   \\
 			& $(2.20)$      & $(2.19)$      \\
@@ -115,9 +447,46 @@
 	\end{center}
 \end{table}
 	
+\begin{figure}[h]
+	\caption{Figure 2 - Senate emIRT Only}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-senate_emIRT_only.pdf}
 	
+\end{figure}	
+
+\begin{figure}[h]
+	\caption{Figure 2 - Senate Randomly Reassign Flip Flop Votes}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-senate_randomly_reassign_flip_flop_votes.pdf}
 	
+\end{figure}	
 	
+\begin{figure}[h]
+	\caption{Figure 2 - Senate Hybrid}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-senate_hybrid.pdf}
 	
+\end{figure}
 	
+\begin{figure}[h]
+	\caption{Figure 2 - House emIRT Only}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_emIRT_only.pdf}
+	
+\end{figure}
+	
+\begin{figure}[h]
+	\caption{Figure 2 - House Randomly Reassign Flip Flop Votes}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_reassign_flip_flop_votes.pdf}
+	
+\end{figure}
+
+\begin{figure}[h]
+	\caption{Figure 2 - House Hybrid}
+	\centering
+	\includegraphics[]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_hybrid.pdf}
+	
+\end{figure}	
+
 \end{document}
