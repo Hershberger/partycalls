@@ -1,5 +1,3 @@
-library(data.table)
-
 # load senator year data
 load("data/senator_year_data_emIRT_only.RData")
 
