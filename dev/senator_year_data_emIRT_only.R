@@ -211,38 +211,38 @@ senator_data <- merge(senator_data, freshman_dt, by = "icpsrLegis")
 senator_year_data <- merge(senator_year_data, senator_data,
   by = c("icpsrLegis", "mc", "stabb"), all.x = TRUE)
 
-# # Populate party leader
-# leader_dt <- fread("inst/extdata/leader_DT.csv")
-# leader_dt <- merge(leader_dt,
-#   senator_year_data[, .N, .(mc, icpsrLegis)][, .(mc, icpsrLegis)],
-#   by = "mc")
-# leader_dt <- leader_dt[, .N, .(congress, icpsrLegis)][, .(congress, icpsrLegis)]
-# leader_dt[, leader := 1]
-# senator_year_data <- merge(senator_year_data, leader_dt,
-#   by = c("congress", "icpsrLegis"), all.x = TRUE)
-# senator_year_data[is.na(leader), leader := 0]
+# Populate party leader
+leader_dt <- fread("inst/extdata/leader_DT.csv")
+leader_dt <- merge(leader_dt,
+  senator_year_data[, .N, .(mc, icpsrLegis)][, .(mc, icpsrLegis)],
+  by = "mc")
+leader_dt <- leader_dt[, .N, .(congress, icpsrLegis)][, .(congress, icpsrLegis)]
+leader_dt[, leader := 1]
+senator_year_data <- merge(senator_year_data, leader_dt,
+  by = c("congress", "icpsrLegis"), all.x = TRUE)
+senator_year_data[is.na(leader), leader := 0]
 
-# # Populate committee chair
-# committees_93102 <- read.delim("inst/extdata/senate_assignments_80-102.txt",
-#   header = FALSE, sep = "\n")
-# committees_103112 <- gdata::read.xls("inst/extdata/senate_assignments_103-11.xls")
-# setDT(committees_93102)
-# setDT(committees_103112)
-# committees_93102[, icpsrLegis := as.numeric(substr(V1, 15, 19))]
-# committees_93102[, congress := as.numeric(substr(V1, 48, 50))]
-# committees_93102[, seniorParty := as.numeric(substr(V1, 57, 58))]
-# committees_93102 <- committees_93102[seniorParty %in% 11:19,
-#   .(congress, icpsrLegis)]
-# committees_103112 <- committees_103112[
-#   Senior.Party.Member %in% c(11, 12, 13, 14, 16),
-#   .(Congress, ID..)]
-# setnames(committees_103112, c("congress", "icpsrLegis"))
-# committees <- rbind(committees_93102, committees_103112)
-# chair_dt <- committees[, .N, .(congress, icpsrLegis)][, .(congress, icpsrLegis)]
-# chair_dt[, chair := 1]
-# senator_year_data <- merge(senator_year_data, chair_dt,
-#   by = c("congress", "icpsrLegis"), all.x = TRUE)
-# senator_year_data[is.na(chair), chair := 0]
+# Populate committee chair
+committees_93102 <- read.delim("inst/extdata/senate_assignments_80-102.txt",
+  header = FALSE, sep = "\n")
+committees_103112 <- gdata::read.xls("inst/extdata/senate_assignments_103-11.xls")
+setDT(committees_93102)
+setDT(committees_103112)
+committees_93102[, icpsrLegis := as.numeric(substr(V1, 15, 19))]
+committees_93102[, congress := as.numeric(substr(V1, 48, 50))]
+committees_93102[, seniorParty := as.numeric(substr(V1, 57, 58))]
+committees_93102 <- committees_93102[seniorParty %in% 11:19,
+  .(congress, icpsrLegis)]
+committees_103112 <- committees_103112[
+  Senior.Party.Member %in% c(11, 12, 13, 14, 16),
+  .(Congress, ID..)]
+setnames(committees_103112, c("congress", "icpsrLegis"))
+committees <- rbind(committees_93102, committees_103112)
+chair_dt <- committees[, .N, .(congress, icpsrLegis)][, .(congress, icpsrLegis)]
+chair_dt[, chair := 1]
+senator_year_data <- merge(senator_year_data, chair_dt,
+  by = c("congress", "icpsrLegis"), all.x = TRUE)
+senator_year_data[is.na(chair), chair := 0]
 
 # Populate up_for_reelction
 senator_year_data[, up_for_reelection := 0]
@@ -357,16 +357,21 @@ senator_year_data[icpsrLegis %in% gingrich_senators[, icpsrLegis],
 
 les_data <- read.csv("inst/extdata/93_113_senate_variables.csv")
 setDT(les_data)
-les_variables <- data.table(icpsrLegis = les_data$icpsr, year = les_data$year,
-  congress = les_data$congress, female = les_data$female, afam = les_data$afam,
-  latino = les_data$latino, votepct = les_data$votepct, dwnom1 = les_data$dwnom1,
-  chair = les_data$chair, majority = les_data$majority,
-  subchair = les_data$subchr, state_leg = les_data$state_leg,
-  maj_leader = les_data$maj_leader, min_leader = les_data$min_leader)
-les_variables[, leader := 0]
-les_variables[maj_leader == 1, leader := 1]
-les_variables[min_leader == 1, leader := 1]
-les_variables$majority <- as.numeric(les_data$majority)
+les_variables <- data.table(
+  icpsrLegis = les_data$icpsr,
+  # year = les_data$year,
+  congress = les_data$congress,
+  # female = les_data$female, afam = les_data$afam,
+  # latino = les_data$latino,
+  # dwnom1 = les_data$dwnom1,
+  # chair = les_data$chair, majority = les_data$majority,
+  # subchair = les_data$subchr, state_leg = les_data$state_leg,
+  # maj_leader = les_data$maj_leader, min_leader = les_data$min_leader,
+  votepct = les_data$votepct)
+# les_variables[, leader := 0]
+# les_variables[maj_leader == 1, leader := 1]
+# les_variables[min_leader == 1, leader := 1]
+# les_variables$majority <- as.numeric(les_data$majority)
 senator_year_data <- merge(senator_year_data, les_variables,
   by = c("congress", "icpsrLegis"))
 
@@ -375,6 +380,12 @@ senator_year_data <- merge(senator_year_data, les_variables,
 # senator_year_data[seniority == "2.5?", seniority := 2]
 # senator_year_data$seniority <- as.numeric(senator_year_data$seniority)
 
+# majority party if not using les data
+senator_year_data[, majority := 0]
+senator_year_data[caucus == "Democrat" & congress %in% c(93:96, 100:103, 110:112) |
+    caucus == "Republican" & congress %in% c(97:99, 104:106),
+  majority := 1]
+senator_year_data[congress == 107, majority := NA]
 
 ## END TIME-VARYING COVARIATES
 setnames(senator_year_data, "pf_ideal", "party_free_ideal_point")
@@ -382,27 +393,40 @@ senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, last_name, caucus, majority,
   responsiveness_party_calls, responsiveness_noncalls, party_free_ideal_point,
   dist_from_floor_median, dist_from_party_median, ideological_extremism,
-  pres_vote_share, vote_share, votepct, maj_leader, min_leader, leader, chair,
-  subchair, best_committee, power_committee, up_for_reelection, freshman,
+  pres_vote_share, vote_share, votepct,
+  # maj_leader, min_leader, subchair, state_leg,
+  leader, chair, power_committee, up_for_reelection, freshman,
   superfreshman, seniority, retiree, south11, south13, south17, afam, female,
-  latino, gingrich_senator, state_leg, drop)]
+  latino, gingrich_senator, drop)]
+
+# standardize variables
+senator_year_data$party_free_ideal_point <-
+  senator_year_data$party_free_ideal_point -
+  mean(senator_year_data$party_free_ideal_point)
+
+senator_year_data$party_free_ideal_point <-
+  senator_year_data$party_free_ideal_point /
+  sd(senator_year_data$party_free_ideal_point)
+
+senator_year_data[caucus == "Republican", ideological_extremism := party_free_ideal_point]
+senator_year_data[caucus == "Democrat", ideological_extremism := -1 * party_free_ideal_point]
 
 senator_year_data$responsiveness_noncalls <- 100 * senator_year_data$responsiveness_noncalls
 senator_year_data$responsiveness_party_calls <- 100 * senator_year_data$responsiveness_party_calls
 
-# fix covariates for second time in congress
-senator_year_data$female[senator_year_data$icpsr %in% c(14517, 49504)] <- 1
-senator_year_data$female[senator_year_data$icpsr %in% c(14713, 14515, 14911,
-  10574, 14871, 15407, 49904, 49905, 29373, 15633, 29534, 40914, 40915)] <- 0
-
-senator_year_data$latino[senator_year_data$icpsr %in% c(29373)] <- 1
-senator_year_data$latino[senator_year_data$icpsr %in% c(14517, 14713, 14515,
-  14911, 10574, 14871, 15407, 49504, 49904, 49905, 15633, 29534, 40914,
-  40915)] <- 0
-
-senator_year_data$afam[senator_year_data$icpsr %in% c(14517, 14713, 14515,
-  14911, 10574, 14871, 15407, 49504, 49904, 49905, 29373, 15633, 29534, 40914,
-  40915)] <- 0
+# # fix covariates for second time in congress if using les
+# senator_year_data$female[senator_year_data$icpsr %in% c(14517, 49504)] <- 1
+# senator_year_data$female[senator_year_data$icpsr %in% c(14713, 14515, 14911,
+#   10574, 14871, 15407, 49904, 49905, 29373, 15633, 29534, 40914, 40915)] <- 0
+#
+# senator_year_data$latino[senator_year_data$icpsr %in% c(29373)] <- 1
+# senator_year_data$latino[senator_year_data$icpsr %in% c(14517, 14713, 14515,
+#   14911, 10574, 14871, 15407, 49504, 49904, 49905, 15633, 29534, 40914,
+#   40915)] <- 0
+#
+# senator_year_data$afam[senator_year_data$icpsr %in% c(14517, 14713, 14515,
+#   14911, 10574, 14871, 15407, 49504, 49904, 49905, 29373, 15633, 29534, 40914,
+#   40915)] <- 0
 
 save(senator_year_data,
   file = "data/senator_year_data_emIRT_only.RData")
