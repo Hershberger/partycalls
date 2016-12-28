@@ -96,12 +96,12 @@ female_dt <- data.table(
     40303, 40700, 40906, 20735, 41106, 14905, 40102, 40701, 40907))
 senator_data[, female := ifelse(icpsrLegis %in% female_dt$icpsrLegis, 1, 0)]
 
-# # Populate latino
-# latino_dt <- data.table(
-#   "mc" = c("MONTOYA (D NM)", "SUNUNU (R NH)", "SALAZAR (D CO)",
-#     "MARTINEZ (R FL)", "MENENDEZ (D NJ)", "RUBIO (R FL)"),
-#   "icpsrLegis" = c(6611, 29740, 40500, 40501, 29373, 41102))
-# senator_data[, latino := ifelse(icpsrLegis %in% latino_dt$icpsrLegis, 1, 0)]
+# Populate latino
+latino_dt <- data.table(
+  "mc" = c("MONTOYA (D NM)", "SUNUNU (R NH)", "SALAZAR (D CO)",
+    "MARTINEZ (R FL)", "MENENDEZ (D NJ)", "RUBIO (R FL)"),
+  "icpsrLegis" = c(6611, 29740, 40500, 40501, 29373, 41102))
+senator_data[, latino := ifelse(icpsrLegis %in% latino_dt$icpsrLegis, 1, 0)]
 
 # Populate years of service
 source("package/get_bios.R")

@@ -1,4 +1,5 @@
 # library(senatePartyCalls)
+library(data.table)
 syd <- copy(senator_year_data)
 
 committees_93102 <- read.delim("inst/extdata/senate_assignments_80-102.txt",
