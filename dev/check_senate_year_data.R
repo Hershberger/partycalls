@@ -396,6 +396,29 @@ senator_year_data[caucus == "Republican", ideological_extremism := -1 * party_fr
 senator_year_data$responsiveness_noncalls <- 100 * senator_year_data$responsiveness_noncalls
 senator_year_data$responsiveness_party_calls <- 100 * senator_year_data$responsiveness_party_calls
 
+# fix covariates for second time in congress
+senator_year_data$female.y[senator_year_data$icpsrLegis %in% c(14517, 49504)] <- 1
+senator_year_data$female.y[senator_year_data$icpsrLegis %in% c(14713, 14515, 14911,
+  10574, 14871, 15407, 49904, 49905, 29373, 15633, 29534, 40914, 40915)] <- 0
+
+senator_year_data$latino.y[senator_year_data$icpsrLegis %in% c(29373)] <- 1
+senator_year_data$latino.y[senator_year_data$icpsrLegis %in% c(14517, 14713, 14515,
+  14911, 10574, 14871, 15407, 49504, 49904, 49905, 15633, 29534, 40914,
+  40915)] <- 0
+
+senator_year_data$afam.y[senator_year_data$icpsrLegis %in% c(14517, 14713, 14515,
+  14911, 10574, 14871, 15407, 49504, 49904, 49905, 29373, 15633, 29534, 40914,
+  40915)] <- 0
+
+
+# save so I can load it more easily later
+save(senator_year_data,
+  file = "test_data/check_senate_variables.RData")
+
+# reload data
+library(data.table)
+load("test_data/check_senate_variables.RData")
+
 # figure out what variables they differ on
 
 # 20 differences in female
@@ -412,4 +435,29 @@ table(senator_year_data$leader.x, senator_year_data$leader.y)
 
 # 60 differences in chair
 table(senator_year_data$chair.x, senator_year_data$chair.y)
+
+# create indicator variables for the differences
+senator_year_data[female.x == 1 & female.y == 0 | female.x == 0 & female.y == 1,
+  female_diff := 1]
+female_check <- subset(senator_year_data, female_diff == 1,
+  select = c(icpsrLegis, congress, years_of_service, superfreshman, mc,
+    female.x, female.y, drop))
+
+senator_year_data[latino.x == 1 & latino.y == 0 | latino.x == 0 & latino.y == 1,
+  latino_diff := 1]
+latino_check <- subset(senator_year_data, latino_diff == 1,
+  select = c(icpsrLegis, congress, years_of_service, superfreshman,
+    mc, latino.x, latino.y, drop))
+
+senator_year_data[leader.x == 1 & leader.y == 0 | leader.x == 0 & leader.y == 1,
+  leader_diff := 1]
+leader_check <- subset(senator_year_data, leader_diff == 1,
+  select = c(icpsrLegis, congress, years_of_service, superfreshman, mc,
+    leader.x, leader.y, drop))
+
+senator_year_data[chair.x == 1 & chair.y == 0 | chair.x == 0 & chair.y == 1,
+  chair_diff := 1]
+chair_check <- subset(senator_year_data, chair_diff == 1,
+  select = c(icpsrLegis, congress, years_of_service, superfreshman,
+    mc, chair.x, chair.y, drop))
 
