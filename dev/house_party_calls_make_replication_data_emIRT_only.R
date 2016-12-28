@@ -3,7 +3,7 @@ library(data.table)
 options(stringsAsFactors = FALSE)
 
 # load party calls data
-load("data/house_party_calls_replication_emIRT_only_v2.RData")
+load("test_data/house_party_calls_replication_emIRT_only_v2.RData")
 names(house_party_calls_replication_emIRT_only) <- paste0("hou", 93:109)
 
 
@@ -21,15 +21,29 @@ new_responsiveness <- rbindlist(lapply(93:109, function(congress) {
   cat(congress, " ")
   rc <- make_member_year_data(congress, house_party_calls_replication_emIRT_only)
   DATA <- rc$member_year_data
-  DATA[, .(congress, icpsr = icpsrLegis, new_ideal_point = pf_ideal,
-    new_pirate100 = 100 * responsiveness_party_calls,
-    new_pfrate100 = 100 * responsiveness_noncalls,
-    new_distance_from_floor_median = dist_from_floor_median,
-    new_ideological_extremism = ideological_extremism)]
+  DATA[, .(congress, icpsr = icpsrLegis, party_free_ideal_point = pf_ideal,
+    pirate100 = 100 * responsiveness_party_calls,
+    pfrate100 = 100 * responsiveness_noncalls,
+    distance_from_floor_median = dist_from_floor_median,
+    ideological_extremism = ideological_extremism)]
 }))
 
 new_whoheeds13 <- merge(les_data, new_responsiveness,
   by = c("congress", "icpsr"), all = TRUE)
+
+setDT(new_whoheeds13)
+
+# standardize variables
+new_whoheeds13$party_free_ideal_point <-
+  new_whoheeds13$party_free_ideal_point -
+  mean(new_whoheeds13$party_free_ideal_point)
+
+new_whoheeds13$party_free_ideal_point <-
+  new_whoheeds13$party_free_ideal_point /
+  sd(new_whoheeds13$party_free_ideal_point)
+
+new_whoheeds13[dem == 0, ideological_extremism := party_free_ideal_point]
+new_whoheeds13[dem == 1, ideological_extremism := -1 * party_free_ideal_point]
 
 save(new_whoheeds13,
   file = "data/house_party_calls_replication_emIRT_only.RData")
