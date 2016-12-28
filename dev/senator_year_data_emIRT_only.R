@@ -385,6 +385,8 @@ senator_year_data[, majority := 0]
 senator_year_data[caucus == "Democrat" & congress %in% c(93:96, 100:103, 110:112) |
     caucus == "Republican" & congress %in% c(97:99, 104:106),
   majority := 1]
+# senate 107 majority flips multiple times
+# probably best not to include it in analyses that involve majority party stuff
 senator_year_data[congress == 107, majority := NA]
 
 ## END TIME-VARYING COVARIATES
@@ -393,7 +395,7 @@ senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, last_name, caucus, majority,
   responsiveness_party_calls, responsiveness_noncalls, party_free_ideal_point,
   dist_from_floor_median, dist_from_party_median, ideological_extremism,
-  pres_vote_share, vote_share, votepct,
+  pres_vote_share, vote_share, votepct, best_committee,
   # maj_leader, min_leader, subchair, state_leg,
   leader, chair, power_committee, up_for_reelection, freshman,
   superfreshman, seniority, retiree, south11, south13, south17, afam, female,
