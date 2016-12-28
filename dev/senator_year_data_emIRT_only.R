@@ -14,8 +14,8 @@ syd_list <- lapply(93:112, make_senator_year_data, senate_party_calls)
 senator_year_data <- rbindlist(lapply(syd_list, function(x) x$senator_year_data))
 setnames(senator_year_data, "state", "stabb")
 
-# # Clean different mc's for D'Amato
-# senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
+# Clean different mc's for D'Amato
+senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
 
 # Create separate mc tags for parent-child pairs
 senator_year_data[mc == "CHAFEE (R RI)" & icpsrLegis == "49905",
@@ -74,26 +74,27 @@ senator_data <- merge(senator_data, legislators, by = "icpsrLegis")
 source("package/get_govtrack_legislators_yaml_data.R")
 senator_data <- merge(senator_data, legislators_yaml, by = "icpsrLegis")
 
-# # Populate afam
-# afr_am_dt <- data.table(
-#   "mc" = c("BROOKE (R MA)", "MOSELEY-BRA (D IL)", "OBAMA (D IL)",
-#     "OBAMA (D USA)", "BURRIS (D IL)"),
-#   "icpsrLegis" = c(11201, 49303, 40502, 99911, 40903))
-# senator_data[, afam := ifelse(icpsrLegis %in% afr_am_dt$icpsrLegis, 1, 0)]
-#
-# # Populate female
-# female_dt <- data.table(
-#   "mc" = c("ALLEN (D AL) 14517", "HUMPHREY (D MN) 14516", "KASSEBAUM (R KS)",
-#     "MIKULSKI (D MD)", "BURDICK2 (D ND)", "BOXER (D CA)", "FEINSTEIN (D CA)",
-#     "MOSELEY-BRA (D IL)", "HUTCHISON (R TX)", "MURRAY (D WA)", "FRAHM (R KS)",
-#     "SNOWE (R ME)", "LANDRIEU (D LA)", "COLLINS (R ME)", "LINCOLN (D AR)",
-#     "STABENOW (D MI)", "CLINTON (D NY)", "CANTWELL (D WA)", "MURKOWSKI (R AK)",
-#     "DOLE (R NC)", "KLOBUCHAR (D MN)", "SHAHEEN (D NH)", "GILLIBRAND (D NY)",
-#     "AYOTTE (R NH)"),
-#   "icpsrLegis" = c(14517, 14516, 14708, 14440, 49103, 15011, 49300,
-#     49303, 49306, 49308, 49504, 14661, 49702, 49703, 29305, 29732,
-#     40105, 39310, 40300, 40303, 40700, 40906, 20735, 41106))
-# senator_data[, female := ifelse(icpsrLegis %in% female_dt$icpsrLegis, 1, 0)]
+# Populate afam
+afr_am_dt <- data.table(
+  "mc" = c("BROOKE (R MA)", "MOSELEY-BRA (D IL)", "OBAMA (D IL)",
+    "OBAMA (D USA)", "BURRIS (D IL)"),
+  "icpsrLegis" = c(11201, 49303, 40502, 99911, 40903))
+senator_data[, afam := ifelse(icpsrLegis %in% afr_am_dt$icpsrLegis, 1, 0)]
+
+# Populate female
+female_dt <- data.table(
+  "mc" = c("ALLEN (D AL) 14517", "HUMPHREY (D MN) 14516", "KASSEBAUM (R KS)",
+    "MIKULSKI (D MD)", "BURDICK2 (D ND)", "BOXER (D CA)", "FEINSTEIN (D CA)",
+    "MOSELEY-BRA (D IL)", "HUTCHISON (R TX)", "MURRAY (D WA)", "FRAHM (R KS)",
+    "SNOWE (R ME)", "LANDRIEU (D LA)", "COLLINS (R ME)", "LINCOLN (D AR)",
+    "STABENOW (D MI)", "CLINTON (D NY)", "CANTWELL (D WA)", "MURKOWSKI (R AK)",
+    "DOLE (R NC)", "KLOBUCHAR (D MN)", "SHAHEEN (D NH)", "GILLIBRAND (D NY)",
+    "AYOTTE (R NH)", "HAWKINS (R FL)", "CARNAHAN (D MO)", "MCCASKILL (D MO)",
+    "HAGAN (D NC)"),
+  "icpsrLegis" = c(14517, 14516, 14708, 14440, 49103, 15011, 49300, 49303,
+    49306, 49308, 49504, 14661, 49702, 49703, 29305, 29732, 40105, 39310, 40300,
+    40303, 40700, 40906, 20735, 41106, 14905, 40102, 40701, 40907))
+senator_data[, female := ifelse(icpsrLegis %in% female_dt$icpsrLegis, 1, 0)]
 
 # # Populate latino
 # latino_dt <- data.table(
