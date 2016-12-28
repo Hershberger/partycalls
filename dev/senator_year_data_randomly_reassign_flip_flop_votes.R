@@ -32,5 +32,17 @@ senator_year_data[, c("party_free_ideal_point", "responsiveness_party_calls",
 senator_year_data <- merge(senator_year_data, new_responsiveness,
   by = c("icpsrLegis", "congress"))
 
+# standardize variables
+senator_year_data$party_free_ideal_point <-
+  senator_year_data$party_free_ideal_point -
+  mean(senator_year_data$party_free_ideal_point)
+
+senator_year_data$party_free_ideal_point <-
+  senator_year_data$party_free_ideal_point /
+  sd(senator_year_data$party_free_ideal_point)
+
+senator_year_data[caucus == "Republican", ideological_extremism := party_free_ideal_point]
+senator_year_data[caucus == "Democrat", ideological_extremism := -1 * party_free_ideal_point]
+
 save(senator_year_data,
   file = "data/senator_year_data_randomly_reassign_flip_flop_votes.RData")
