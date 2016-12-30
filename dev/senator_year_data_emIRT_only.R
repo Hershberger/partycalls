@@ -265,7 +265,6 @@ senator_year_data <- merge(senator_year_data, senate_seat_elections,
 # Populate party caucus
 senator_year_data[party == "D", caucus := "Democrat"]
 senator_year_data[party == "R", caucus := "Republican"]
-senator_year_data[party == "D", caucus := "Democrat"]
 senator_year_data[party == "Conservative", caucus := "Republican"]
 senator_year_data[icpsrLegis == 94240, caucus := "Democrat"]
 senator_year_data[icpsrLegis == 29147, caucus := "Democrat"]
@@ -400,15 +399,6 @@ senator_year_data <- senator_year_data[, .(
   leader, chair, power_committee, up_for_reelection, freshman,
   superfreshman, seniority, retiree, south11, south13, south17, afam, female,
   latino, gingrich_senator, drop)]
-
-# standardize variables
-senator_year_data$party_free_ideal_point <-
-  senator_year_data$party_free_ideal_point -
-  mean(senator_year_data$party_free_ideal_point)
-
-senator_year_data$party_free_ideal_point <-
-  senator_year_data$party_free_ideal_point /
-  sd(senator_year_data$party_free_ideal_point)
 
 senator_year_data[caucus == "Republican", ideological_extremism := party_free_ideal_point]
 senator_year_data[caucus == "Democrat", ideological_extremism := -1 * party_free_ideal_point]
