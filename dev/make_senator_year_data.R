@@ -2,9 +2,9 @@
 options(stringsAsFactors = FALSE)
 library(partycalls)
 library(yaml)
-states <- fread("inst/extdata/states.csv")
-states[, fips := sprintf("%02.f", fips)]
-load("inst/extdata/senate93-112.RData")
+# states <- fread("inst/extdata/states.csv")
+# states[, fips := sprintf("%02.f", fips)]
+# load("inst/extdata/senate93-112.RData")
 
 # 2. make data for package
 # Code party calls; make responsiveness data
