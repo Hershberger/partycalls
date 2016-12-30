@@ -16,7 +16,7 @@
 #' @param match_count_min The minimum number of iterations which fall below the
 #' acceptable switched vote threshold. The default setting is 10.
 #' @param sim_annealing If set to TRUE, runs a simulated annealing process to
-#' avoid the algorithm from staying at local maxima. The default value is TRUE.
+#' avoid the algorithm from staying at local maxima.
 #' @param random_seed If set to TRUE, randomly draws votes from the rc object to
 #' use as the initial classification for party calls. If set to false, the
 #' initial classification of party calls will be lopsided votes as defined by
@@ -45,15 +45,24 @@
 #' @import data.table emIRT pscl
 #' @export
 code_party_calls <- function(rc,
-  pval_threshold = 0.01, tval_threshold = qnorm(.99), count_min = 15,
-  count_max = 150, match_count_min = 15, sim_annealing = TRUE,
-  random_seed = FALSE, lopside_thresh = 0.65, vote_switch_percent = 0.01,
-  drop_very_lopsided_votes = TRUE, return_pvals = TRUE,
-  n_iterations_for_coding = 5, use_new_match_check = TRUE,
-  type = "brglm", hybrid = FALSE,
+  sim_annealing,
+  hybrid,
+  reassign_flip_flop,
+  use_new_match_check,
+  count_max = 100,
+  match_count_min = 15,
+  count_min = 15,
+  pval_threshold = 0.01,
+  tval_threshold = qnorm(.99),
+  vote_switch_percent = 0.01,
+  return_pvals = TRUE,
+  n_iterations_for_coding = 5,
+  random_seed = FALSE,
+  drop_very_lopsided_votes = TRUE,
+  type = "brglm",
   temperature_function = function(counter, n_votes)
     floor(n_votes * .2 * max(0, 1 - (abs(counter - 10) / 50)) ^ 2),
-  randomly_reassign_flip_flop_votes_from_noncalls = FALSE,
+  lopside_thresh = 0.65,
   use_noncalls_for_ideal_point_estimation = TRUE)
 {
   stopifnot(type %in% c("brglm", "lm", "glm"))
@@ -123,8 +132,7 @@ code_party_calls <- function(rc,
     }
     switched_votes <- symdiff(noncalls, old_noncalls)
     # randomly reassign flip flop votes from noncalls list
-    if (randomly_reassign_flip_flop_votes_from_noncalls == TRUE |
-        hybrid == TRUE & counter > 30) {
+    if (reassign_flip_flop == TRUE | (hybrid == TRUE & counter > 30)) {
       flip_flop_votes <- intersect(switched_votes, old_switched_votes)
       calls_to_keep <- setdiff(calls, flip_flop_votes)
       noncalls_to_keep <- setdiff(noncalls, flip_flop_votes)

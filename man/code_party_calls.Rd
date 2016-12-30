@@ -4,27 +4,24 @@
 \alias{code_party_calls}
 \title{Run the party calls classifier}
 \usage{
-code_party_calls(rc, pval_threshold = 0.01, tval_threshold = qnorm(0.99),
-  count_min = 15, count_max = 150, match_count_min = 15,
-  sim_annealing = TRUE, random_seed = FALSE, lopside_thresh = 0.65,
-  vote_switch_percent = 0.01, drop_very_lopsided_votes = TRUE,
-  return_pvals = TRUE, n_iterations_for_coding = 5,
-  use_new_match_check = TRUE, type = "brglm", hybrid = FALSE,
+code_party_calls(rc, sim_annealing, hybrid, reassign_flip_flop,
+  use_new_match_check, count_max = 100, match_count_min = 15,
+  count_min = 15, pval_threshold = 0.01, tval_threshold = qnorm(0.99),
+  vote_switch_percent = 0.01, return_pvals = TRUE,
+  n_iterations_for_coding = 5, random_seed = FALSE,
+  drop_very_lopsided_votes = TRUE, type = "brglm",
   temperature_function = function(counter, n_votes) floor(n_votes * 0.2 *
-  max(0, 1 - (abs(counter - 10)/50))^2),
-  randomly_reassign_flip_flop_votes_from_noncalls = FALSE,
+  max(0, 1 - (abs(counter - 10)/50))^2), lopside_thresh = 0.65,
   use_noncalls_for_ideal_point_estimation = TRUE)
 }
 \arguments{
 \item{rc}{a rollcall object}
 
-\item{pval_threshold}{the p-value required to code a vote as a party call.
-Its default setting is 0.01}
+\item{sim_annealing}{If set to TRUE, runs a simulated annealing process to
+avoid the algorithm from staying at local maxima.}
 
-\item{tval_threshold}{the t-value required to code a vote as a party call.}
-
-\item{count_min}{The minimum count of iterations for the algorithm to run
-before returning a result. The default setting is 15.}
+\item{use_new_match_check}{logical for whether to use new procedure
+to check for matches between iterations}
 
 \item{count_max}{The maximum count of iterations for the algorithm to run
 before returning a result. The default setting is 150.}
@@ -32,34 +29,36 @@ before returning a result. The default setting is 150.}
 \item{match_count_min}{The minimum number of iterations which fall below the
 acceptable switched vote threshold. The default setting is 10.}
 
-\item{sim_annealing}{If set to TRUE, runs a simulated annealing process to
-avoid the algorithm from staying at local maxima. The default value is TRUE.}
+\item{count_min}{The minimum count of iterations for the algorithm to run
+before returning a result. The default setting is 15.}
 
-\item{random_seed}{If set to TRUE, randomly draws votes from the rc object to
-use as the initial classification for party calls. If set to false, the
-initial classification of party calls will be lopsided votes as defined by
-the user. The default value is TRUE.}
+\item{pval_threshold}{the p-value required to code a vote as a party call.
+Its default setting is 0.01}
 
-\item{lopside_thresh}{The threshold for classification of lopsided votes if
-the option to randomly seed initial calls is set to FALSE. The default
-setting is 0.65}
+\item{tval_threshold}{the t-value required to code a vote as a party call.}
 
 \item{vote_switch_percent}{The maximum percent of votes allowed to switch in
 an iteration of the algorithm while contributing to the match counter. When
 this threshold is exceeded the counter resets to 0. The default setting is
 0.01.}
 
-\item{drop_very_lopsided_votes}{logical for whether to drop all votes
-with fewer than 5 yeas or fewer than 5 nays}
-
 \item{n_iterations_for_coding}{number of iterations from the end of the
 process to use to code party calls, noncalls, and gray votes}
 
-\item{use_new_match_check}{logical for whether to use new procedure
-to check for matches between iterations}
+\item{random_seed}{If set to TRUE, randomly draws votes from the rc object to
+use as the initial classification for party calls. If set to false, the
+initial classification of party calls will be lopsided votes as defined by
+the user. The default value is TRUE.}
+
+\item{drop_very_lopsided_votes}{logical for whether to drop all votes
+with fewer than 5 yeas or fewer than 5 nays}
 
 \item{type}{character string, one of brglm, glm, or lm; which function
 to use for roll call-by-roll call regression}
+
+\item{lopside_thresh}{The threshold for classification of lopsided votes if
+the option to randomly seed initial calls is set to FALSE. The default
+setting is 0.65}
 
 \item{use_noncalls_for_ideal_point_estimation}{logical for whether
 to use all noncalls for ideal point estimation}

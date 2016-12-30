@@ -8,17 +8,31 @@ load("inst/extdata/senate93-112.RData")
 
 # 2. make data for package
 # Code party calls; make responsiveness data
-set.seed(201375487)
-senate_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
-  chamber = "senate")
-names(senate_party_calls) <- paste0("sen", 93:112)
-save(senate_party_calls, file = "inst/extdata/senate_party_calls.Rdata")
-load("inst/extdata/senate_party_calls.Rdata")
+# set.seed(201375487)
+# senate_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
+#   chamber = "senate")
+# names(senate_party_calls) <- paste0("sen", 93:112)
+# save(senate_party_calls, file = "inst/extdata/senate_party_calls.Rdata")
+# load("inst/extdata/senate_party_calls.Rdata")
+#
+# # Generate senator year data (i.e., data for analysis)
+# syd_list <- lapply(93:112, make_senator_year_data, senate_party_calls)
+# senator_year_data <- rbindlist(lapply(syd_list, function(x) x$senator_year_data))
+# setnames(senator_year_data, "state", "stabb")
 
-# Generate senator year data (i.e., data for analysis)
-syd_list <- lapply(93:112, make_senator_year_data, senate_party_calls)
-senator_year_data <- rbindlist(lapply(syd_list, function(x) x$senator_year_data))
-setnames(senator_year_data, "state", "stabb")
+load("inst/extdata/senate93-112.RData")
+get_initial_senator_data <- function(congress) # like 93
+{
+  rc <- get(paste0("sen", congress))
+  ld <- rc$legis.data
+  ld$mc <- rownames(ld)
+  setDT(ld)
+  ld[state != "USA", .(mc, state, icpsrState, icpsrLegis, party, partyCode)]
+}
+
+syd_list <- lapply(93:112, get_initial_senator_data)
+senator_year_data2 <- rbindlist(syd_list)
+setnames(senator_year_data2, "state", "stabb")
 
 # Clean different mc's for D'Amato
 senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
