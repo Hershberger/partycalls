@@ -21,6 +21,6 @@ texreg::screenreg(list(lm(f.extremism, senator_year_data[majority == 1 & drop ==
 texreg::texreg(list(lm(f.extremism, senator_year_data[caucus == "Democrat" & drop == 0]),
   lm(f.extremism, senator_year_data[caucus == "Republican" & drop == 0])),
   reorder.coef = c(2, 17, 3:5, 16, 6:15, 1), digits = 3)
-texreg::texreg(list(lm(f.extremism, senator_year_data[caucus == "Democrat" & drop == 0]),
-  lm(f.extremism, senator_year_data[caucus == "Republican" & drop == 0])),
+texreg::texreg(list(lm(f.extremism, senator_year_data[majority == 1 & drop == 0]),
+  lm(f.extremism, senator_year_data[majority == 0 & drop == 0])),
   reorder.coef = c(2, 17, 3:5, 16, 6:15, 1), digits = 3)

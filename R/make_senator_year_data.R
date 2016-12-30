@@ -66,7 +66,7 @@ make_senator_year_data <- function(congress, roll_calls_object_list)
     senator_year_data[, pf_ideal := -pf_ideal]
   }
   senator_year_data[, pf_ideal := pf_ideal / sd(pf_ideal)]
-  senator_year_data[, pf_ideal := 5 + pf_ideal - mean(pf_ideal)]
+  senator_year_data[, pf_ideal := pf_ideal - mean(pf_ideal)]
   senator_year_data[, dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
   senator_year_data[party == "D", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
   senator_year_data[party == "R", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]

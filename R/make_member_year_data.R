@@ -89,7 +89,7 @@ make_member_year_data <- function(congress, roll_calls_object_list,
     member_year_data[, pf_ideal := -pf_ideal]
   }
   member_year_data[, pf_ideal := pf_ideal / sd(pf_ideal)]
-  member_year_data[, pf_ideal := 5 + pf_ideal - mean(pf_ideal)]
+  member_year_data[, pf_ideal := pf_ideal - mean(pf_ideal)]
   member_year_data[,
     dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
   member_year_data[party == "D",
