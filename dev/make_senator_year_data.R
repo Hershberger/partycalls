@@ -6,6 +6,20 @@ library(yaml)
 # states[, fips := sprintf("%02.f", fips)]
 # load("inst/extdata/senate93-112.RData")
 
+load("inst/extdata/senate93-112.RData")
+make_senator_year_data <- function(congress, partycalls) {
+  rc <- get(paste0("sen", congress))
+  ld <- rc$legis.data
+  ld$mc <- rownames(ld)
+  setDT(ld)
+  ld[state != "USA", .(mc, state, icpsrState, icpsrLegis, party, partyCode)]
+  syd_list <- lapply(congress, get_initial_senator_data)
+  senator_year_data2 <- rbindlist(syd_list)
+  setnames(senator_year_data2, "state", "stabb")
+  # clean mc names and icpsr numbers
+
+}
+
 # 2. make data for package
 # Code party calls; make responsiveness data
 # set.seed(201375487)

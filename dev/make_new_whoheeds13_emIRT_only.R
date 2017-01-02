@@ -3,7 +3,7 @@ set.seed(1634538933, kind = "L'Ecuyer")
 
 # load party calls data
 load("test_data/house_party_calls_emIRT_only.RData")
-names(house_party_calls_replication_emIRT_only) <- paste0("hou", 93:109)
+names(house_party_calls) <- paste0("hou", 93:109)
 
 # load legislative effectiveness data
 les_data <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
