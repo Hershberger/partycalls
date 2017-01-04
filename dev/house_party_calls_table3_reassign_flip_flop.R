@@ -4,7 +4,7 @@ library(partycalls)
 options(stringsAsFactors = FALSE)
 
 # load data for analysis
-load("test_data/new_whoheeds13_emIRT_only.RData")
+load("test_data/new_whoheeds13_reassign_flip_flop.RData")
 whoheeds13 <- readstata13::read.dta13(
   "inst/extdata/who-heeds-replication-archive.dta")
 setDT(whoheeds13)

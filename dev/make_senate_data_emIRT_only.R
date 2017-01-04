@@ -3,13 +3,13 @@ set.seed(1634538933, kind = "L'Ecuyer")
 
 # load party calls data
 load("test_data/senate_party_calls_emIRT_only.RData")
-names(senate_party_calls_replication_emIRT_only) <- paste0("sen", 93:109)
+names(senate_party_calls_replication_emIRT_only) <- paste0("sen", 93:112)
 
 # load senator_year_data here
 load("test_data/senator_year_data.RData")
 
 # get responsiveness rates
-responsiveness_data <- rbindlist(lapply(93:109, function(congress) {
+responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
   cat(congress, " ")
   rc <- make_member_year_data(congress, senate_party_calls)
   DATA <- rc$member_year_data

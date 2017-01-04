@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  3 JAN 2017 21:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  3 JAN 2017 23:45
 entering extended mode
 **update_04jan.tex
 (update_04jan.tex
@@ -385,15 +385,15 @@ LaTeX Info: Redefining \nameref on input line 12.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* h-part:(L,W,R)=(54.2025pt, 505.89pt, 54.2025pt)
+* v-part:(T,H,B)=(54.2025pt, 686.56499pt, 54.2025pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=0.0pt
+* \textwidth=505.89pt
+* \textheight=686.56499pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-18.06749pt
 * \headheight=0.0pt
 * \headsep=0.0pt
 * \topskip=12.0pt
@@ -411,30 +411,152 @@ LaTeX Info: Redefining \nameref on input line 12.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 39.
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 39.
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
+_emIRT_only.pdf, id=12, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
+ation_emIRT_only.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
+tion_emIRT_only.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
+eeds-figure2-replication_emIRT_only.pdf used on input line 349.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
+_reassign_flip_flop.pdf, id=13, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
+ation_reassign_flip_flop.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
+tion_reassign_flip_flop.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
+eeds-figure2-replication_reassign_flip_flop.pdf used on input line 356.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
+_hybrid.pdf, id=14, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
+ation_hybrid.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
+tion_hybrid.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
+eeds-figure2-replication_hybrid.pdf used on input line 363.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 389.
+[2] [3pdfTeX warning (ext4): destination with the same identifier (name{table.1
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [4pdfTeX warning (ext4): destination with the same identi
+fier (name{table.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [5pdfTeX warning (ext4): destination with the same identi
+fier (name{table.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [6pdfTeX warning (ext4): destination with the same identi
+fier (name{table.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [7pdfTeX warning (ext4): destination with the same identi
+fier (name{table.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [8pdfTeX warning (ext4): destination with the same identi
+fier (name{table.6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                    ] [9pdfTeX warning (ext4): destination with the same identi
+fier (name{figure.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heed
+s-figure2-replication_emIRT_only.pdf>] [10pdfTeX warning (ext4): destination wi
+th the same identifier (name{figure.2}) has been already used, duplicate ignore
+d
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heed
+s-figure2-replication_reassign_flip_flop.pdf>] [11pdfTeX warning (ext4): destin
+ation with the same identifier (name{figure.3}) has been already used, duplicat
+e ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.389 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heed
+s-figure2-replication_hybrid.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 389.
  (update_04jan.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 39.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 39.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 389.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 389.
 Package rerunfilecheck Info: File `update_04jan.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 39.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 389.
  ) 
 Here is how much of TeX's memory you used:
- 6983 strings out of 493698
- 98666 string characters out of 3144412
- 188292 words of memory out of 3000000
- 10243 multiletter control sequences out of 15000+200000
- 3938 words of font info for 15 fonts, out of 3000000 for 9000
+ 7100 strings out of 493698
+ 101193 string characters out of 3144412
+ 260306 words of memory out of 3000000
+ 10302 multiletter control sequences out of 15000+200000
+ 13389 words of font info for 50 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,4n,32p,249b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on update_04jan.pdf (1 page, 16588 bytes).
+ 29i,10n,32p,888b,328s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.p
+fb>
+Output written on update_04jan.pdf (11 pages, 126854 bytes).
 PDF statistics:
- 15 PDF objects out of 1000 (max. 8388607)
- 2 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 127 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

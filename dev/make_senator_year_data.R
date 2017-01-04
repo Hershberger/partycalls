@@ -4,7 +4,7 @@ library(partycalls)
 library(yaml)
 # states <- fread("inst/extdata/states.csv")
 # states[, fips := sprintf("%02.f", fips)]
-# load("inst/extdata/senate93-112.RData")
+load("inst/extdata/senate93-112.RData")
 
 get_initial_senator_data <- function(congress) {
   rc <- get(paste0("sen", congress))
