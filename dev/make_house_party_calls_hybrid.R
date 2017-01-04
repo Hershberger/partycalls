@@ -1,7 +1,7 @@
 library(partycalls)
 set.seed(1209003941, kind = "L'Ecuyer")
 
-house_party_calls <- lapply(93:109, code_party_calls_by_congress_number,
+house_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
   chamber = "house", sim_annealing = TRUE, use_new_match_check = TRUE,
   hybrid = TRUE, reassign_flip_flop = FALSE)
 
