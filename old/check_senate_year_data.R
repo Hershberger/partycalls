@@ -412,8 +412,8 @@ senator_year_data$afam.y[senator_year_data$icpsrLegis %in% c(14517, 14713, 14515
 
 
 # save so I can load it more easily later
-save(senator_year_data,
-  file = "test_data/check_senate_variables.RData")
+# save(senator_year_data,
+#   file = "test_data/check_senate_variables.RData")
 
 # reload data
 library(data.table)
