@@ -28,21 +28,71 @@ les_senate[, c("thomas_num", "thomas_name", "st_name", "votepct_sq", "meddist",
   "ss_aic", "ss_abc", "ss_pass", "ss_law", "s_bills", "s_aic", "s_abc",
   "s_pass", "s_law", "c_bills", "c_aic", "c_abc", "c_pass", "c_law",
   "all_bills", "all_aic", "all_abc", "all_pass", "all_law", "les",
-  "leslag") := NULL]
+  "leslag", "seniority", "sensq") := NULL]
 
-les_icpsr <- les_senate$icps
+les_icpsr <- les_senate$icpsr
 senator_year_data[, in_les_data := 1 * (icpsrLegis %in% les_icpsr)]
+# see if anyone is missing
 senator_year_data[in_les_data == 0, ]
 
-les_senate[, freshman_congress := floor(calc_congress(elected))]
-
+# merge in les variables
 senator_year_data <- merge(senator_year_data, les_senate,
   by.x = c("icpsrLegis", "congress"), by.y = c("icpsr", "congress"),
   all.x = TRUE)
+# see if party is miscoded for anyone
 senator_year_data[party == "D" & dem == 0, ]
 senator_year_data[party != "D" & dem == 1, ]
 
-# correct values in senate data
+# correct elected variable
+freshman_dt <- senator_year_data[, .(
+  elected_mean = mean(elected),
+  elected_mean_no_NA = mean(elected, na.rm = TRUE)
+), .(icpsrLegis)]
+senator_year_data <- merge(senator_year_data, freshman_dt, by = "icpsrLegis")
+freshman_congress_check <-
+  senator_year_data[elected != elected_mean, ]
+freshman_congress_check2 <-
+  senator_year_data[elected != elected_mean_no_NA]
+unique(freshman_congress_check$icpsrLegis)
+
+# fixing mcs with mistakes in year elected
+
+# MILTON YOUNG
+senator_year_data[icpsrLegis == 10450 & congress >= 78, elected := 1945]
+# ROBERT STAFFORD
+senator_year_data[icpsrLegis == 10562 & congress >= 92, elected := 1971]
+# BROCK ADAMS
+senator_year_data[icpsrLegis == 10700 & congress >= 100, elected := 1986]
+# HARRY BYRD, JR.
+senator_year_data[icpsrLegis == 10802 & congress >= 89, elected := 1965]
+# WALTER MONDALE
+senator_year_data[icpsrLegis == 10813 & congress >= 88, elected := 1964]
+# DEWEY BARTLETT
+senator_year_data[icpsrLegis == 14100 & congress >= 93, elected := 1972]
+# SAM NUNN
+senator_year_data[icpsrLegis == 14108 & congress >= 93, elected := 1972]
+# ORRIN HATCH
+senator_year_data[icpsrLegis == 14503 & congress >= 95, elected := 1976]
+# DICK LUGAR
+senator_year_data[icpsrLegis == 14506 & congress >= 95, elected := 1976]
+# DAN COATS
+senator_year_data[icpsrLegis == 14806 & congress >= 101 & congress <= 105,
+  elected := 1988]
+# BARBARA BOXER
+senator_year_data[icpsrLegis == 15011 & congress >= 103, elected := 1992]
+# DIANE FEINSTEIN
+senator_year_data[icpsrLegis == 49300 & congress >= 103, elected := 1992]
+# ROBERT BENNETT
+senator_year_data[icpsrLegis == 49307 & congress >= 103, elected := 1992]
+# EVAN BAYH
+senator_year_data[icpsrLegis == 49901 & congress >= 106, elected := 1998]
+
+# THOMAS GORTON is correct as is
+# FRANK LAUTENBERG is correct as is
+
+senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
+
+# correct more values in senate data
 
 # female
 
@@ -74,40 +124,22 @@ senator_year_data[icpsrLegis == 29740 & congress == 110, latino := 1]
 senator_year_data[icpsrLegis == 40500 & congress == 109, latino := 1]
 senator_year_data[icpsrLegis == 40500 & congress == 110, latino := 1]
 
-# TODO HERSHBERGER: CHECK YEAR ELECTED; BOXER (ICPSRLEGIS 15011) SEEMS WONKY
-freshman_dt <- senator_year_data[, .(
-  freshman_congress_mean = mean(freshman_congress),
-  elected_mean = mean(elected)
-), .(icpsrLegis)]
-senator_year_data <- merge(senator_year_data, freshman_dt, by = "icpsrLegis")
-freshman_congress_check <-
-  senator_year_data[freshman_congress != freshman_congress_mean, ]
-unique(freshman_congress_check$icpsrLegis)
+# CORRECT FRESHMAN CONGRESS FOR APPOINTEES
+syd_93 <- senator_year_data[congress == 93, ]
+les_93 <- les_senate[congress == 93, ]
+syd_93[, in_les := 1 * (icpsrLegis %in% les_93$icpsr)]
+syd_93[in_les == 0, ]
 
-# fixing mcs with mistakes in year elected
+# WILL NEED TO ADD AND CORRECT CLASS
+class_1 <- c(95, 98, 101, 104, 107, 110, 113)
+class_2 <- c(93, 96, 99, 102, 105, 108, 111)
+class_3 <- c(94, 97, 100, 103, 106, 109, 112)
 
-# MILTON YOUNG
-senator_year_data[icpsrLegis == 10450 & congress >= 78, elected := 1945,
-  freshman_congress := 78]
-# ROBERT STAFFORD
-senator_year_data[icpsrLegis == 10562 & congress >= 92, elected := 1971,
-  freshman_congress := 92]
-# BROCK ADAMS
-senator_year_data[icpsrLegis == 10700 & congress >= 100, elected := 1986,
-  freshman_congress := 100]
-# HARRY BYRD, JR.
-senator_year_data[icpsrLegis == 10802 & congress >= 89, elected := 1965,
-  freshman_congress := 89]
-# WALTER MONDALE
-senator_year_data[icpsrLegis == 10813 & congress >= 88, elected := 1964,
-  freshman_congress := 88]
-# DEWEY BARTLETT
-senator_year_data[icpsrLegis == 14100 & congress >= 93, elected := 1972,
-  freshman_congress := 93]
-# SAM NUNN
-senator_year_data[icpsrLegis == 14108 & congress >= 92, elected := 1972,
-  freshman_congress := 93]
+senator_year_data[freshman_congress %in% class_1, class := 1]
+senator_year_data[freshman_congress %in% class_2, class := 2]
+senator_year_data[freshman_congress %in% class_3, class := 3]
 
-
-# TODO HERSHBERGER: MAKE SURE FRESHMAN CONGRESS CALCULATED CORRECTLY
-# MIGHT BE ONE YEAR TOO LOW
+# TODO HERSHBERGER: MAKE SURE FRESHMAN CONGRESS IS CORRECT FOR SPECIAL ELECTIONS
+# ADD IN SUPERFRESHMAN VARIABLE ONCE THAT OTHER STUFF IS CORRECT
+# FIX SPECIAL ELECTIONS
+# MAKE SURE APPOINTEES DON'T HAVE votepct VALUES
