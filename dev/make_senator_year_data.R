@@ -2,50 +2,69 @@
 options(stringsAsFactors = FALSE)
 library(partycalls)
 library(yaml)
-# states <- fread("inst/extdata/states.csv")
-# states[, fips := sprintf("%02.f", fips)]
-load("inst/extdata/senate93-112.RData")
+states <- fread("inst/extdata/states.csv")
+states[, fips := sprintf("%02.f", fips)]
+# load("inst/extdata/senate93-112.RData")
+load("test_data/senate_party_calls_replication_emIRT_only.RData")
 
-get_initial_senator_data <- function(congress) {
+# get_initial_senator_data <- function(congress) {
+#   rc <- get(paste0("sen", congress))
+#   ld <- rc$legis.data
+#   ld$mc <- rownames(ld)
+#   setDT(ld)
+#   ld[, congress := congress]
+#   # remove presidents
+#   ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
+#     partyCode)]
+# }
+
+get_vote_counts_by_congress <- function(congress) {
   rc <- get(paste0("sen", congress))
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
-  ld[, congress := congress]
-  # remove presidents
+  vt <- rc$votes
+  vt[vt %in% 1:6] <- 1
+  vt[vt == 0 | vt %in% 7:9] <- 0
+  vt <- data.table(mc = rownames(vt), votes = rowSums(vt), congress = congress)
+  ld <- merge(ld, vt, by = "mc")
   ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
-    partyCode)]
+    partyCode, votes)]
 }
 
-make_senator_time_invariant_covariates <- function() {
-  syd_list <- lapply(93:112, get_initial_senator_data)
-  senator_year_data <- rbindlist(syd_list)
-  setnames(senator_year_data, "state", "stabb")
-  # clean mc tags
-  senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
-  senator_year_data[mc == "CHAFEE (R RI)" & icpsrLegis == "49905",
-    mc := "CHAFEE (R RI) 49905"]
-  senator_year_data[mc == "BAYH (D IN)" & icpsrLegis == "10800",
-    mc := "BAYH (D IN) 10800"]
-  senator_year_data[mc == "BAYH (D IN)" & icpsrLegis == "49901",
-    mc := "BAYH (D IN) 49901"]
-  senator_year_data[mc == "BENNETT (R UT)" & icpsrLegis == "645",
-    mc := "BENNETT (R UT) 645"]
-  senator_year_data[mc == "BENNETT (R UT)" & icpsrLegis == "49307",
-    mc := "BENNETT (R UT) 49307"]
-  senator_year_data[mc == "PRYOR (D AR)" & icpsrLegis == "10791",
-    mc := "PRYOR (D AR) 10791"]
-  senator_year_data[mc == "PRYOR (D AR)" & icpsrLegis == "40301",
-    mc := "PRYOR (D AR) 40301"]
-  senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "14907",
-    mc := "MURKOWSKI (R AK) 14907"]
-  senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "40300",
-    mc := "MURKOWSKI (R AK) 40300"]
+syd_list <- lapply(93:112, get_initial_senator_data)
+senator_year_data <- rbindlist(syd_list)
+setnames(senator_year_data, "state", "stabb")
 
-  # Make senator_data for functions that depend on it
-  senator_data <- senator_year_data[, .N, .(icpsrLegis, mc)]
+vtd_list <- lapply(93:112, get_vote_counts_by_congress)
+senator_vote_data <- rbindlist(vtd_list)
+setnames(senator_vote_data, "state", "stabb")
 
-  # populate south indicators
+# clean mc tags
+senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
+senator_year_data[mc == "CHAFEE (R RI)" & icpsrLegis == "49905",
+  mc := "CHAFEE (R RI) 49905"]
+senator_year_data[mc == "BAYH (D IN)" & icpsrLegis == "10800",
+  mc := "BAYH (D IN) 10800"]
+senator_year_data[mc == "BAYH (D IN)" & icpsrLegis == "49901",
+  mc := "BAYH (D IN) 49901"]
+senator_year_data[mc == "BENNETT (R UT)" & icpsrLegis == "645",
+  mc := "BENNETT (R UT) 645"]
+senator_year_data[mc == "BENNETT (R UT)" & icpsrLegis == "49307",
+  mc := "BENNETT (R UT) 49307"]
+senator_year_data[mc == "PRYOR (D AR)" & icpsrLegis == "10791",
+  mc := "PRYOR (D AR) 10791"]
+senator_year_data[mc == "PRYOR (D AR)" & icpsrLegis == "40301",
+  mc := "PRYOR (D AR) 40301"]
+senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "14907",
+  mc := "MURKOWSKI (R AK) 14907"]
+senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "40300",
+  mc := "MURKOWSKI (R AK) 40300"]
+
+# Make senator_data for functions that depend on it
+senator_data <- senator_year_data[, .N, .(icpsrLegis, mc)]
+
+# populate south indicators
   south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
   south13 <- c(south11, "OK", "KY")
   south17 <- c(south13, "DE", "WV", "MD", "MO")
@@ -258,9 +277,6 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
 senator_year_data[,
   year_of_most_recent_normal_election := calc_year_elected(congress, class)]
 
-#   senator_year_data
-# }
-
 # Populate on-cycle elections data
 source("package/senate_seat_elections.R")
 senator_year_data <- merge(senator_year_data, senate_seat_elections,
@@ -367,4 +383,4 @@ senator_year_data <- senator_year_data[, .(
 # devtools::build()
 # devtools::install()
 
-save(senator_year_data, file = "test_data/senator_year_data.RData")
+# save(senator_year_data, file = "test_data/senator_year_data.RData")

@@ -139,6 +139,13 @@ senator_year_data[freshman_congress %in% class_1, class := 1]
 senator_year_data[freshman_congress %in% class_2, class := 2]
 senator_year_data[freshman_congress %in% class_3, class := 3]
 
+# Populate up_for_reelction
+senator_year_data[, up_for_reelection := 0]
+senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
+    (class == 2 & congress %in% seq(2, 120, 3)) |
+    (class == 3 & congress %in% seq(3, 120, 3)),
+  up_for_reelection := 1]
+
 # TODO HERSHBERGER: MAKE SURE FRESHMAN CONGRESS IS CORRECT FOR SPECIAL ELECTIONS
 # ADD IN SUPERFRESHMAN VARIABLE ONCE THAT OTHER STUFF IS CORRECT
 # FIX SPECIAL ELECTIONS
