@@ -363,4 +363,4 @@ senator_year_data <- senator_year_data[, .(
   leader, chair, best_committee, power_committee, up_for_reelection, freshman,
   superfreshman, seniority, retiree, afam, female, latino, gingrich_senator)]
 
-save(senator_year_data, file = "data/senator_year_data.RData")
+save(senator_year_data, file = "test_data/senator_year_data.RData")

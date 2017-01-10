@@ -6,7 +6,7 @@ load("test_data/senate_party_calls_emIRT_only.RData")
 names(senate_party_calls) <- paste0("sen", 93:112)
 
 # load senator_year_data here
-load("data/senator_year_data.RData")
+load("test_data/senator_year_data.RData")
 
 # get responsiveness rates
 responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
