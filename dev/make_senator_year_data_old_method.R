@@ -1,45 +1,27 @@
-# 1. load packages and all external data
-options(stringsAsFactors = FALSE)
 library(partycalls)
+# library(data.table)
 library(yaml)
+options(stringsAsFactors = FALSE)
 states <- fread("inst/extdata/states.csv")
 states[, fips := sprintf("%02.f", fips)]
-# load("inst/extdata/senate93-112.RData")
+
+# load party calls data
 load("test_data/senate_party_calls_emIRT_only.RData")
+names(senate_party_calls) <- paste0("sen", 93:112)
 
-
-# get_initial_senator_data <- function(congress) {
-#   rc <- get(paste0("sen", congress))
-#   ld <- rc$legis.data
-#   ld$mc <- rownames(ld)
-#   setDT(ld)
-#   ld[, congress := congress]
-#   # remove presidents
-#   ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
-#     partyCode)]
-# }
-
-get_vote_counts_by_congress <- function(congress) {
-  rc <- get(paste0("sen", congress))
-  ld <- rc$legis.data
-  ld$mc <- rownames(ld)
-  setDT(ld)
-  vt <- rc$votes
-  vt[vt %in% 1:6] <- 1
-  vt[vt == 0 | vt %in% 7:9] <- 0
-  vt <- data.table(mc = rownames(vt), votes = rowSums(vt), congress = congress)
-  ld <- merge(ld, vt, by = "mc")
-  ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
-    partyCode, votes)]
-}
-
-syd_list <- lapply(93:112, get_initial_senator_data, senate_party_calls)
-senator_year_data <- rbindlist(lapply(syd_list, function(x) x$senator_year_data))
+senator_year_data <- rbindlist(lapply(93:112, function(congress) {
+  cat(congress, " ")
+  rc <- make_member_year_data(congress, senate_party_calls, chamber = "senate")
+  DATA <- rc$member_year_data
+  DATA[, .(congress,
+    icpsrLegis,
+    state, mc, party,
+    party_free_ideal_point = pf_ideal,
+    pirate100 = 100 * responsiveness_party_calls,
+    pfrate100 = 100 * responsiveness_noncalls,
+    ideological_extremism)]
+}))
 setnames(senator_year_data, "state", "stabb")
-
-vtd_list <- lapply(93:112, get_vote_counts_by_congress)
-senator_vote_data <- rbindlist(vtd_list)
-setnames(senator_vote_data, "state", "stabb")
 
 # Clean different mc's for D'Amato
 senator_year_data[mc == "DAMATO (R NY)", mc := "D'AMATO (R NY)"]
@@ -63,6 +45,9 @@ senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "14907",
   mc := "MURKOWSKI (R AK) 14907"]
 senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "40300",
   mc := "MURKOWSKI (R AK) 40300"]
+
+# to see who is lost
+senator_year_data2 <- senator_year_data
 
 ## BEGIN TIME INVARIANT COVARIATES
 
@@ -312,7 +297,7 @@ senator_year_data[caucus == "Republican",
 
 # For senators appointed to fill remaining terms, replace election returns
 # with data from special elections when available
-source("package/fix_special_elections.R")
+source("package/fix_special_elections_old.R")
 
 # here are the times when we use election results from a different
 # candidate's previous victory
@@ -416,19 +401,449 @@ senator_year_data[caucus == "Democrat" & congress %in% c(93:96, 100:103, 110:112
 senator_year_data[congress == 107, majority := NA]
 
 ## END TIME-VARYING COVARIATES
-setnames(senator_year_data, "pf_ideal", "party_free_ideal_point")
+# setnames(senator_year_data, "pf_ideal", "party_free_ideal_point")
 senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, last_name, caucus, majority,
-  responsiveness_party_calls, responsiveness_noncalls, party_free_ideal_point,
-  dist_from_floor_median, dist_from_party_median, ideological_extremism,
+  pfrate100, pirate100, party_free_ideal_point,
+  ideological_extremism,
   pres_vote_share, vote_share, votepct, best_committee,
   # maj_leader, min_leader, subchair, state_leg,
   leader, chair, power_committee, up_for_reelection, freshman,
   superfreshman, seniority, retiree, south11, south13, south17, afam, female,
   latino, gingrich_senator, drop)]
 
-senator_year_data[caucus == "Republican", ideological_extremism := party_free_ideal_point]
-senator_year_data[caucus == "Democrat", ideological_extremism := -1 * party_free_ideal_point]
 
-senator_year_data$responsiveness_noncalls <- 100 * senator_year_data$responsiveness_noncalls
-senator_year_data$responsiveness_party_calls <- 100 * senator_year_data$responsiveness_party_calls
+get_vote_counts_by_congress <- function(congress) {
+  rc <- get(paste0("sen", congress))
+  ld <- rc$legis.data
+  ld$mc <- rownames(ld)
+  setDT(ld)
+  vt <- rc$votes
+  vt[vt %in% 1:6] <- 1
+  vt[vt == 0 | vt %in% 7:9] <- 0
+  vt <- data.table(mc = rownames(vt), votes = rowSums(vt), congress = congress)
+  ld <- merge(ld, vt, by = "mc")
+  setnames(ld, "state", "stabb")
+  ld[stabb != "USA", .(mc, congress, stabb, icpsrState, icpsrLegis, party,
+    partyCode, votes)]
+}
+
+vte_list <- lapply(93:112, get_vote_counts_by_congress)
+vte_data <- rbindlist(vte_list)
+setDT(vte_data)
+
+sen_lep <- read.csv("inst/extdata/93_113_senate_variables.csv")
+setDT(sen_lep)
+
+# search for who is dropped in 93
+syd93_1 <- senator_year_data[congress == 93, ]
+syd93_2 <- senator_year_data2[congress == 93, ]
+syd93_2[, not_dropped := 1 * (icpsrLegis %in% syd93_1$icpsrLegis), ]
+syd93_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen93 obs elected
+sen_lep[thomas_name %like% "COTTON" & congress == 93, votepct]
+sen_lep[thomas_name %like% "EASTLAND" & congress == 93, votepct]
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 93, votepct]
+sen_lep[thomas_name %like% "HUMPHREY" & congress == 93, votepct]
+sen_lep[thomas_name %like% "LAXALT" & congress == 93, votepct] # NA
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 93, votepct] # NA
+
+# how many votes by missing sen93 obs
+vte_data[mc %like% "COTTON" & congress == 93, votes]
+vte_data[mc %like% "EASTLAND" & congress == 93, votes]
+vte_data[mc %like% "GOLDWATER" & congress == 93, votes]
+vte_data[mc %like% "HUMPHREY" & congress == 93, votes]
+vte_data[mc %like% "LAXALT" & congress == 93, votes] # 8
+vte_data[mc %like% "METZENBAUM" & congress == 93, votes]
+
+
+# search for who is dropped in 94
+syd94_1 <- senator_year_data[congress == 94, ]
+syd94_2 <- senator_year_data2[congress == 94, ]
+syd94_2[, not_dropped := 1 * (icpsrLegis %in% syd94_1$icpsrLegis), ]
+syd94_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen94 obs elected
+sen_lep[thomas_name %like% "COTTON" & congress == 94, votepct] # NA
+sen_lep[thomas_name %like% "EASTLAND" & congress == 94, votepct]
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 94, votepct]
+sen_lep[thomas_name %like% "HUMPHREY" & congress == 94, votepct]
+
+# how many votes by missing sen94 obs
+vte_data[mc %like% "COTTON" & congress == 94, votes] # 17
+vte_data[mc %like% "EASTLAND" & congress == 94, votes]
+vte_data[mc %like% "GOLDWATER" & congress == 94, votes]
+vte_data[mc %like% "HUMPHREY" & congress == 94, votes]
+
+
+# search for who is dropped in 95
+syd95_1 <- senator_year_data[congress == 95, ]
+syd95_2 <- senator_year_data2[congress == 95, ]
+syd95_2[, not_dropped := 1 * (icpsrLegis %in% syd95_1$icpsrLegis), ]
+syd95_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen95 obs elected
+sen_lep[thomas_name %like% "COTTON" & congress == 95, votepct] # NA
+sen_lep[thomas_name %like% "EASTLAND" & congress == 95, votepct]
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 95, votepct]
+sen_lep[thomas_name %like% "HUMPHREY" & congress == 95, votepct] # TWO OBS
+
+# how many votes by missing sen95 obs
+vte_data[mc %like% "COTTON" & congress == 95, votes] # NA
+vte_data[mc %like% "EASTLAND" & congress == 95, votes]
+vte_data[mc %like% "GOLDWATER" & congress == 95, votes]
+vte_data[mc %like% "HUMPHREY" & congress == 95, votes] # TWO  OBS
+
+
+# search for who is dropped in 96
+syd96_1 <- senator_year_data[congress == 96, ]
+syd96_2 <- senator_year_data2[congress == 96, ]
+syd96_2[, not_dropped := 1 * (icpsrLegis %in% syd96_1$icpsrLegis), ]
+syd96_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen96 obs elected
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 96, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 96, votepct]
+
+# how many votes by missing sen96 obs
+vte_data[mc %like% "GOLDWATER" & congress == 96, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 96, votes]
+
+
+# search for who is dropped in 97
+syd97_1 <- senator_year_data[congress == 97, ]
+syd97_2 <- senator_year_data2[congress == 97, ]
+syd97_2[, not_dropped := 1 * (icpsrLegis %in% syd97_1$icpsrLegis), ]
+syd97_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen97 obs elected
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 97, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 97, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 97, votepct]
+
+# how many votes by missing sen97 obs
+vte_data[mc %like% "GOLDWATER" & congress == 97, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 97, votes]
+vte_data[mc %like% "GORTON" & congress == 97, votes]
+
+
+# search for who is dropped in 98
+syd98_1 <- senator_year_data[congress == 98, ]
+syd98_2 <- senator_year_data2[congress == 98, ]
+syd98_2[, not_dropped := 1 * (icpsrLegis %in% syd98_1$icpsrLegis), ]
+syd98_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen98 obs elected
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 98, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 98, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 98, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 98, votepct]
+
+# how many votes by missing sen98 obs
+vte_data[mc %like% "GOLDWATER" & congress == 98, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 98, votes]
+vte_data[mc %like% "GORTON" & congress == 98, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 98, votes]
+
+
+# search for who is dropped in 99
+syd99_1 <- senator_year_data[congress == 99, ]
+syd99_2 <- senator_year_data2[congress == 99, ]
+syd99_2[, not_dropped := 1 * (icpsrLegis %in% syd99_1$icpsrLegis), ]
+syd99_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen99 obs elected
+sen_lep[thomas_name %like% "GOLDWATER" & congress == 99, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 99, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 99, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 99, votepct]
+
+# how many votes by missing sen99 obs
+vte_data[mc %like% "GOLDWATER" & congress == 99, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 99, votes]
+vte_data[mc %like% "GORTON" & congress == 99, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 99, votes]
+
+
+# search for who is dropped in 100
+syd100_1 <- senator_year_data[congress == 100, ]
+syd100_2 <- senator_year_data2[congress == 100, ]
+syd100_2[, not_dropped := 1 * (icpsrLegis %in% syd100_1$icpsrLegis), ]
+syd100_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen100 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 100, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 100, votepct]
+sen_lep[thomas_name %like% "ZORINSKY" & congress == 100, votepct] # NA
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 100, votepct]
+
+# how many votes by missing sen100 obs
+vte_data[mc %like% "CONRAD" & congress == 100, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 100, votes]
+vte_data[mc %like% "ZORINSKY" & congress == 100, votes] # 28
+vte_data[mc %like% "LAUTENBERG" & congress == 100, votes]
+
+
+# search for who is dropped in 101
+syd101_1 <- senator_year_data[congress == 101, ]
+syd101_2 <- senator_year_data2[congress == 101, ]
+syd101_2[, not_dropped := 1 * (icpsrLegis %in% syd101_1$icpsrLegis), ]
+syd101_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen101 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 101, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 101, votepct]
+sen_lep[thomas_name %like% "ZORINSKY" & congress == 101, votepct] # NA
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 101, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 101, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 101, votepct]
+
+# how many votes by missing sen101 obs
+vte_data[mc %like% "CONRAD" & congress == 101, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 101, votes]
+vte_data[mc %like% "ZORINSKY" & congress == 101, votes] # NA
+vte_data[mc %like% "LAUTENBERG" & congress == 101, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 101, votes]
+vte_data[mc %like% "GORTON" & congress == 101, votes]
+
+
+# search for who is dropped in 102
+syd102_1 <- senator_year_data[congress == 102, ]
+syd102_2 <- senator_year_data2[congress == 102, ]
+syd102_2[, not_dropped := 1 * (icpsrLegis %in% syd102_1$icpsrLegis), ]
+syd102_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen102 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 102, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 102, votepct]
+sen_lep[thomas_name %like% "COATS" & congress == 102, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 102, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 102, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 102, votepct]
+
+# how many votes by missing sen102 obs
+vte_data[mc %like% "CONRAD" & congress == 102, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 102, votes]
+vte_data[mc %like% "COATS" & congress == 102, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 102, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 102, votes]
+vte_data[mc %like% "GORTON" & congress == 102, votes]
+
+
+# search for who is dropped in 103
+syd103_1 <- senator_year_data[congress == 103, ]
+syd103_2 <- senator_year_data2[congress == 103, ]
+syd103_2[, not_dropped := 1 * (icpsrLegis %in% syd103_1$icpsrLegis), ]
+syd103_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen103 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 103, votepct]
+sen_lep[thomas_name %like% "METZENBAUM" & congress == 103, votepct]
+sen_lep[thomas_name %like% "COATS" & congress == 103, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 103, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 103, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 103, votepct]
+sen_lep[thomas_name %like% "INHOFE" & congress == 103, votepct] # NA
+
+# how many votes by missing sen103 obs
+vte_data[mc %like% "CONRAD" & congress == 103, votes]
+vte_data[mc %like% "METZENBAUM" & congress == 103, votes]
+vte_data[mc %like% "COATS" & congress == 103, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 103, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 103, votes]
+vte_data[mc %like% "GORTON" & congress == 103, votes]
+vte_data[mc %like% "INHOFE" & congress == 103, votes] # 2
+
+
+# search for who is dropped in 104
+syd104_1 <- senator_year_data[congress == 104, ]
+syd104_2 <- senator_year_data2[congress == 104, ]
+syd104_2[, not_dropped := 1 * (icpsrLegis %in% syd104_1$icpsrLegis), ]
+syd104_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen104 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 104, votepct]
+sen_lep[thomas_name %like% "CAMPBELL" & congress == 104, votepct] # TWO OBS
+sen_lep[thomas_name %like% "COATS" & congress == 104, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 104, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 104, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 104, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 104, votepct]
+
+# how many votes by missing sen104 obs
+vte_data[mc %like% "CONRAD" & congress == 104, votes]
+vte_data[mc %like% "CAMPBELL" & congress == 104, votes] # TWO OBS
+vte_data[mc %like% "COATS" & congress == 104, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 104, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 104, votes]
+vte_data[mc %like% "GORTON" & congress == 104, votes]
+vte_data[mc %like% "SHELBY" & congress == 104, votes]
+
+
+# search for who is dropped in 105
+syd105_1 <- senator_year_data[congress == 105, ]
+syd105_2 <- senator_year_data2[congress == 105, ]
+syd105_2[, not_dropped := 1 * (icpsrLegis %in% syd105_1$icpsrLegis), ]
+syd105_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen105 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 105, votepct]
+sen_lep[thomas_name %like% "CAMPBELL" & congress == 105, votepct]
+sen_lep[thomas_name %like% "COATS" & congress == 105, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 105, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 105, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 105, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 105, votepct]
+
+# how many votes by missing sen105 obs
+vte_data[mc %like% "CONRAD" & congress == 105, votes]
+vte_data[mc %like% "CAMPBELL" & congress == 105, votes]
+vte_data[mc %like% "COATS" & congress == 105, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 105, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 105, votes]
+vte_data[mc %like% "GORTON" & congress == 105, votes]
+vte_data[mc %like% "SHELBY" & congress == 105, votes]
+
+
+# search for who is dropped in 106
+syd106_1 <- senator_year_data[congress == 106, ]
+syd106_2 <- senator_year_data2[congress == 106, ]
+syd106_2[, not_dropped := 1 * (icpsrLegis %in% syd106_1$icpsrLegis), ]
+syd106_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen106 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 106, votepct]
+sen_lep[thomas_name %like% "CAMPBELL" & congress == 106, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 106, votepct]
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 106, votepct]
+sen_lep[thomas_name %like% "GORTON" & congress == 106, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 106, votepct]
+
+# how many votes by missing sen106 obs
+vte_data[mc %like% "CONRAD" & congress == 106, votes]
+vte_data[mc %like% "CAMPBELL" & congress == 106, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 106, votes]
+vte_data[mc %like% "JEFFORDS" & congress == 106, votes]
+vte_data[mc %like% "GORTON" & congress == 106, votes]
+vte_data[mc %like% "SHELBY" & congress == 106, votes]
+
+
+# search for who is dropped in 107
+syd107_1 <- senator_year_data[congress == 107, ]
+syd107_2 <- senator_year_data2[congress == 107, ]
+syd107_2[, not_dropped := 1 * (icpsrLegis %in% syd107_1$icpsrLegis), ]
+syd107_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen107 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 107, votepct]
+sen_lep[thomas_name %like% "CAMPBELL" & congress == 107, votepct]
+sen_lep[thomas_name %like% "BARKLEY" & congress == 107, votepct] # NA
+sen_lep[thomas_name %like% "JEFFORDS" & congress == 107, votepct] # TWO OBS
+sen_lep[thomas_name %like% "SHELBY" & congress == 107, votepct]
+
+# how many votes by missing sen107 obs
+vte_data[mc %like% "CONRAD" & congress == 107, votes]
+vte_data[mc %like% "CAMPBELL" & congress == 107, votes]
+vte_data[mc %like% "BARKLEY" & congress == 107, votes] # NA
+vte_data[mc %like% "JEFFORDS" & congress == 107, votes] # TWO OBS
+vte_data[mc %like% "SHELBY" & congress == 107, votes]
+
+
+# search for who is dropped in 108
+syd108_1 <- senator_year_data[congress == 108, ]
+syd108_2 <- senator_year_data2[congress == 108, ]
+syd108_2[, not_dropped := 1 * (icpsrLegis %in% syd108_1$icpsrLegis), ]
+syd108_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen108 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 108, votepct]
+sen_lep[thomas_name %like% "CAMPBELL" & congress == 108, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 108, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 108, votepct]
+
+# how many votes by missing sen108 obs
+vte_data[mc %like% "CONRAD" & congress == 108, votes]
+vte_data[mc %like% "CAMPBELL" & congress == 108, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 108, votes]
+vte_data[mc %like% "SHELBY" & congress == 108, votes]
+
+
+# search for who is dropped in 109
+syd109_1 <- senator_year_data[congress == 109, ]
+syd109_2 <- senator_year_data2[congress == 109, ]
+syd109_2[, not_dropped := 1 * (icpsrLegis %in% syd109_1$icpsrLegis), ]
+syd109_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen109 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 109, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 109, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 109, votepct]
+
+# how many votes by missing sen109 obs
+vte_data[mc %like% "CONRAD" & congress == 109, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 109, votes]
+vte_data[mc %like% "SHELBY" & congress == 109, votes]
+
+
+# search for who is dropped in 110
+syd110_1 <- senator_year_data[congress == 110, ]
+syd110_2 <- senator_year_data2[congress == 110, ]
+syd110_2[, not_dropped := 1 * (icpsrLegis %in% syd110_1$icpsrLegis), ]
+syd110_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen110 obs elected
+sen_lep[thomas_name %like% "CONRAD" & congress == 110, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 110, votepct]
+sen_lep[thomas_name %like% "SHELBY" & congress == 110, votepct]
+
+# how many votes by missing sen110 obs
+vte_data[mc %like% "CONRAD" & congress == 110, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 110, votes]
+vte_data[mc %like% "SHELBY" & congress == 110, votes]
+
+
+# search for who is dropped in 111
+syd111_1 <- senator_year_data[congress == 111, ]
+syd111_2 <- senator_year_data2[congress == 111, ]
+syd111_2[, not_dropped := 1 * (icpsrLegis %in% syd111_1$icpsrLegis), ]
+syd111_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen111 obs elected
+sen_lep[thomas_name %like% "BIDEN" & congress == 111, votepct] # NA
+sen_lep[thomas_name %like% "CLINTON" & congress == 111, votepct] # NA
+sen_lep[thomas_name %like% "CONRAD" & congress == 111, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 111, votepct]
+sen_lep[thomas_name %like% "SALAZAR" & congress == 111, votepct] # NA
+sen_lep[thomas_name %like% "SHELBY" & congress == 111, votepct]
+sen_lep[thomas_name %like% "SPECTER" & congress == 111, votepct] # TWO OBS
+
+# how many votes by missing sen111 obs
+vte_data[mc %like% "BIDEN" & congress == 111, votes] # 2
+vte_data[mc %like% "CLINTON" & congress == 111, votes] # 5
+vte_data[mc %like% "CONRAD" & congress == 111, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 111, votes]
+vte_data[mc %like% "SALAZAR" & congress == 111, votes] # 5
+vte_data[mc %like% "SHELBY" & congress == 111, votes]
+vte_data[mc %like% "SPECTER" & congress == 111, votes] # TWO OBS
+
+
+# search for who is dropped in 112
+syd112_1 <- senator_year_data[congress == 112, ]
+syd112_2 <- senator_year_data2[congress == 112, ]
+syd112_2[, not_dropped := 1 * (icpsrLegis %in% syd112_1$icpsrLegis), ]
+syd112_2[not_dropped == 0, icpsrLegis, mc]
+
+# were missing sen112 obs elected
+sen_lep[thomas_name %like% "COATS" & congress == 111, votepct] # NA
+sen_lep[thomas_name %like% "CONRAD" & congress == 111, votepct]
+sen_lep[thomas_name %like% "LAUTENBERG" & congress == 111, votepct]
+sen_lep[thomas_name %like% "SCHATZ" & congress == 111, votepct] # NA
+sen_lep[thomas_name %like% "SHELBY" & congress == 111, votepct]
+
+# how many votes by missing sen112 obs
+vte_data[mc %like% "COATS" & congress == 111, votes] # NA
+vte_data[mc %like% "CONRAD" & congress == 111, votes]
+vte_data[mc %like% "LAUTENBERG" & congress == 111, votes]
+vte_data[mc %like% "SCHATZ" & congress == 111, votes] # NA
+vte_data[mc %like% "SHELBY" & congress == 111, votes]
