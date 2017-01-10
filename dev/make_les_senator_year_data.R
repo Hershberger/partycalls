@@ -361,6 +361,7 @@ senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, last_name, caucus,
   pres_vote_share, pres_dem_votes, votepct, south, south11, south13, south17,
   leader, chair, best_committee, power_committee, up_for_reelection, freshman,
-  superfreshman, seniority, retiree, afam, female, latino, gingrich_senator)]
+  superfreshman, seniority, retiree, afam, female, latino, gingrich_senator,
+  caucus_majority)]
 
 save(senator_year_data, file = "test_data/senator_year_data.RData")

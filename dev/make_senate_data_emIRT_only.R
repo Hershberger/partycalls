@@ -21,6 +21,8 @@ responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
     ideological_extremism)]
 }))
 
+setnames(senator_year_data, "caucus_majority", "maj")
+
 senate_data <- merge(
   senator_year_data,
   responsiveness_data,
