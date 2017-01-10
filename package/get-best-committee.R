@@ -133,42 +133,42 @@ committees[code == 352, code := 330]
 committees[code == 354, code := 321]
 committees[code == 363, code := 362]
 committees[code == 374, code := 332]
-committees[icpsrLegis == 2087 & congress <= 93,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 2087 & congress >= 94,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 2822 & congress <= 77,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 2822 & congress >= 78,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 3658 & congress <= 88,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 3658 & congress >= 91,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 4728 & congress <= 88,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 4728 & congress >= 92,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 14073 & congress <= 93 ,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 14073 & congress >= 95,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 14806 & congress <= 105,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 14806 & congress >= 112,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 14904 & congress <= 100,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 14904 & congress >= 101,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 14914 & congress <= 107,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 14914 & congress >= 108,
-  icpsrLegis := 200000 + icpsrLegis]
-committees[icpsrLegis == 15502 & congress <= 102,
-  icpsrLegis := 100000 + icpsrLegis]
-committees[icpsrLegis == 15502 & congress >= 103,
-  icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 2087 & congress <= 93,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 2087 & congress >= 94,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 2822 & congress <= 77,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 2822 & congress >= 78,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 3658 & congress <= 88,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 3658 & congress >= 91,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 4728 & congress <= 88,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 4728 & congress >= 92,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 14073 & congress <= 93 ,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 14073 & congress >= 95,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 14806 & congress <= 105,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 14806 & congress >= 112,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 14904 & congress <= 100,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 14904 & congress >= 101,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 14914 & congress <= 107,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 14914 & congress >= 108,
+#   icpsrLegis := 200000 + icpsrLegis]
+# committees[icpsrLegis == 15502 & congress <= 102,
+#   icpsrLegis := 100000 + icpsrLegis]
+# committees[icpsrLegis == 15502 & congress >= 103,
+#   icpsrLegis := 200000 + icpsrLegis]
 
 
 committees <- rbind(

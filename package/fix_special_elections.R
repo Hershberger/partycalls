@@ -124,7 +124,7 @@ x <- sen_special_election_dt[candname_vote_rank_1 %like% "COATS",
   .(candname_vote_rank_1, election_date,
     vote_vote_rank_1, party_vote_rank_1, candname_vote_rank_2,
     vote_vote_rank_2, party_vote_rank_2)]
-senator_year_data[congress %in% 102 & icpsrLegis == 114806,
+senator_year_data[congress %in% 102 & icpsrLegis == 14806,
   c("candname_vote_rank_1", "election_date",
     "vote_vote_rank_1", "party_vote_rank_1", "candname_vote_rank_2",
     "vote_vote_rank_2", "party_vote_rank_2") := x]
@@ -151,7 +151,7 @@ x <- sen_special_election_dt[candname_vote_rank_1 %like% "CONRAD",
   .(candname_vote_rank_1, election_date,
     vote_vote_rank_1, party_vote_rank_1, candname_vote_rank_2,
     vote_vote_rank_2, party_vote_rank_2)]
-senator_year_data[congress %in% 103 & icpsrLegis == 215502,
+senator_year_data[congress %in% 103 & icpsrLegis == 15502,
   c("candname_vote_rank_1", "election_date",
     "vote_vote_rank_1", "party_vote_rank_1", "candname_vote_rank_2",
     "vote_vote_rank_2", "party_vote_rank_2") := x]
