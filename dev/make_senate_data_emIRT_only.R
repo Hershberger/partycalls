@@ -3,18 +3,18 @@ set.seed(1634538933, kind = "L'Ecuyer")
 
 # load party calls data
 load("test_data/senate_party_calls_emIRT_only.RData")
-names(senate_party_calls_replication_emIRT_only) <- paste0("sen", 93:112)
+names(senate_party_calls) <- paste0("sen", 93:112)
 
 # load senator_year_data here
-load("test_data/senator_year_data.RData")
+load("data/senator_year_data.RData")
 
 # get responsiveness rates
 responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
   cat(congress, " ")
-  rc <- make_member_year_data(congress, senate_party_calls)
+  rc <- make_member_year_data(congress, senate_party_calls, chamber = "senate")
   DATA <- rc$member_year_data
   DATA[, .(congress,
-    icpsr = icpsrLegis,
+    icpsrLegis = icpsrLegis,
     party_free_ideal_point = pf_ideal,
     pirate100 = 100 * responsiveness_party_calls,
     pfrate100 = 100 * responsiveness_noncalls,
@@ -24,7 +24,7 @@ responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
 senate_data <- merge(
   senator_year_data,
   responsiveness_data,
-  by = c("congress", "icpsr"), all = TRUE)
+  by = c("congress", "icpsrLegis"), all = TRUE)
 setDT(senate_data)
 
 save(senate_data,
