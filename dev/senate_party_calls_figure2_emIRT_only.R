@@ -5,12 +5,12 @@ options(stringsAsFactors = FALSE)
 
 # load data for analysis
 load("test_data/senate_data_emIRT_only.RData")
-senate_data <- senate_data[is.na(maj) == FALSE,]
-senate_data <- senate_data[is.na(votepct) == FALSE]
+senate_data[congress == 107, maj := 0]
+senate_data[congress == 107 & caucus == "Democrat", maj := 1]
 
 f_extremism <- pirate100 ~ ideological_extremism +
   pfrate100 + pres_vote_share + south + votepct +
-  female + afam + latino +
+  female + afam + latino + up_for_reelection +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
 fm_extremism <- function(i, j) {
@@ -36,11 +36,11 @@ par(mar = c(2.5, 4, 2, 0.3) + 0.1, font.lab = 2)
 
 x <- (93:112)[-15]
 x.ticks <- c(94, 99, 104, 109)
-y.ticks <- c(-12, 0, 12, 24, 36)
+y.ticks <- c(- 24, -12, 0, 12, 24, 36)
 
 b <- B$extremism_maj[-15]
 se <- SE$extremism_maj[-15]
-plot(0, 0, type='n', ylim=c(-6, 42), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-26, 42), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -52,7 +52,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_min[-15]
 se <- SE$extremism_min[-15]
-plot(0, 0, type='n', ylim=c(-6, 42), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-26, 42), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
