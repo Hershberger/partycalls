@@ -356,6 +356,9 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
     (class == 3 & congress %in% seq(3, 120, 3)),
   up_for_reelection := 1]
 
+# make votepct numeric
+senator_year_data[, votepct := as.numeric(votepct)]
+
 # drop unused variables
 senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, last_name, caucus,

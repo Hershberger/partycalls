@@ -5,16 +5,12 @@ options(stringsAsFactors = FALSE)
 
 # load data for analysis
 load("test_data/senate_data_emIRT_only.RData")
-# whoheeds13 <- readstata13::read.dta13(
-#   "inst/extdata/who-heeds-replication-archive.dta")
-# setDT(whoheeds13)
-# whoheeds13 <- whoheeds13[, .(
-  # congress, icpsr, maj, retiree, bestgrosswart, dpres
-# )]
-# new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
+senate_data <- senate_data[is.na(maj) == FALSE,]
+senate_data <- senate_data[is.na(votepct) == FALSE]
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + pres_vote_share + south + votepct + female + afam + latino +
+  pfrate100 + pres_vote_share + south + votepct +
+  female + afam + latino +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
 fm_extremism <- function(i, j) {
@@ -22,6 +18,7 @@ fm_extremism <- function(i, j) {
     data = subset(senate_data, congress == i & maj == j)),
     vcov = vcovHC(type = "HC1"))
 }
+
 B <- SE <- data.frame(row.names = 93:112)
 B$extremism_maj <- sapply(93:112, function(x)
   fm_extremism(x, 1)$coef["ideological_extremism", "Estimate"])
