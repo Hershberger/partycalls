@@ -14,3 +14,14 @@ senate_coding_record$gray_vote_count <- sapply(93:112, function(x)
 sum(senate_coding_record$party_call_count)
 sum(senate_coding_record$noncall_count)
 sum(senate_coding_record$gray_vote_count)
+
+# need to make a table 1 style thing
+
+# vote coding:    | party call | noncall | gray vote
+# --------------------------------------------------
+# lopsided votes: |            |         |
+# close votes:    |            |         |
+# majority dems:  |            |         |
+# majority reps:  |            |         |
+# --------------------------------------------------
+# substantive? procedural?
