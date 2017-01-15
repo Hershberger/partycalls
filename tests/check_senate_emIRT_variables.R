@@ -18,7 +18,30 @@ plot((senator_year_data$pres_vote_share * 100), senator_year_data$votepct)
 
 # figure out who the people with < 50% of the vote are
 votepct_to_check_1 <-
-  senator_year_data[votepct <= 50, .(congress, icpsrLegis, stabb, last_name, votepct)]
+  senator_year_data[votepct <= 50, .(congress, icpsrLegis, stabb, last_name,
+    votepct, vote_share)]
+votepct_to_check_2 <-
+  senator_year_data[vote_share <= .5, .(congress, icpsrLegis, stabb, last_name,
+    votepct, vote_share)]
+
+# there are some differences between vote percent and two party vote share
+plot(votepct_to_check_1$votepct, votepct_to_check_1$vote_share)
+plot(votepct_to_check_2$votepct, votepct_to_check_2$vote_share)
+
+# check highly partisan states for miscodings
+wyoming_vote_share <- senator_year_data[stabb == "WY", .(congress, icpsrLegis,
+  last_name, votepct, vote_share, pres_vote_share, caucus)]
+kansas_vote_share <- senator_year_data[stabb == "KS", .(congress, icpsrLegis,
+  last_name, votepct, vote_share, pres_vote_share, caucus)]
+hawaii_vote_share <- senator_year_data[stabb == "HI", .(congress, icpsrLegis,
+  last_name, votepct, vote_share, pres_vote_share, caucus)]
+
+plot(wyoming_vote_share$votepct, wyoming_vote_share$pres_vote_share)
+plot(wyoming_vote_share$vote_share, wyoming_vote_share$pres_vote_share)
+
+plot(kansas_vote_share$votepct, wyoming_vote_share$pres_vote_share)
+plot(kansas_vote_share$vote_share, wyoming_vote_share$pres_vote_share)
+
 
 # checking republican ideological extremism and party free ideal point
 senator_year_data[caucus == "Republican" &
@@ -42,3 +65,4 @@ senator_year_data[icpsrLegis == 7638 & congress > 100, ]
 senator_year_data[icpsrLegis == 14105 & congress > 107, ]
 senator_year_data[icpsrLegis == 15503 & congress > 108, ]
 senator_year_data[icpsrLegis == 15501 & congress > 111, ]
+
