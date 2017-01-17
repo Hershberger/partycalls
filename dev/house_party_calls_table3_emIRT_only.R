@@ -5,16 +5,16 @@ options(stringsAsFactors = FALSE)
 
 # load data for analysis
 load("test_data/new_whoheeds13_emIRT_only.RData")
-whoheeds13 <- readstata13::read.dta13(
-  "inst/extdata/who-heeds-replication-archive.dta")
-setDT(whoheeds13)
-whoheeds13 <- whoheeds13[, .(
-  congress, icpsr, maj, retiree, bestgrosswart, dpres
-)]
-new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
+# whoheeds13 <- readstata13::read.dta13(
+#   "inst/extdata/who-heeds-replication-archive.dta")
+# setDT(whoheeds13)
+# whoheeds13 <- whoheeds13[, .(
+#   congress, icpsr, maj, retiree, bestgrosswart, dpres
+# )]
+# new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + dpres + south + votepct + female + afam + latino +
+  pfrate100 + pres_votepct + south + votepct + female + afam + latino +
   seniority + freshman + retiree + bestgrosswart + leader +
   power + chair
 

@@ -28,6 +28,10 @@ sd(house_coding_record$noncall_count)
 sd(house_coding_record$gray_vote_count)
 
 # democrat table
+house_coding_record$congress <- c(93:112)
+setDT(house_coding_record)
+house_coding_record <- house_coding_record[, .(congress, party_call_count,
+  noncall_count, gray_vote_count)]
 dem_majority <- c(93:103, 110:111)
 dem_house_record <- house_coding_record[congress %in% dem_majority, ]
 xtable(dem_house_record)
@@ -126,7 +130,7 @@ setDT(hou_lop_coding)
 
 hou_coding <- list()
 for (i in 93:112) {
-  rc <- paste0("sen", i)
+  rc <- paste0("hou", i)
   hou_coding[[rc]] <- get_party_call_coding(house_party_calls[[rc]],
     n_iterations = 5)
   hou_coding[[rc]]$congress <- i

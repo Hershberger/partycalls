@@ -1,4 +1,5 @@
 library(partycalls)
+library(xtable)
 
 load("inst/extdata/senate_party_calls.RData")
 
