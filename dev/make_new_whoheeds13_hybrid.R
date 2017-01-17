@@ -19,8 +19,9 @@ stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
 les_data[, drop_stabb := 1 * (stabb %in% stabb_to_drop)]
 les_data <- les_data[drop_stabb == 0, ]
 les_data <- les_data[, .(congress, state_cd, icpsrLegis, dem, majority, elected,
-  female,  afam, latino, freshman, sophomore, south, chair, power, subchr, leader,
-  votepct, dpres_pct, les, deleg_size, afam_dem, south_dem, thomas_name, stabb)]
+  female, afam, latino, freshman, sophomore, seniority, south, chair, power,
+  subchr, leader, votepct, dpres_pct, les, deleg_size, afam_dem, south_dem,
+  thomas_name, stabb)]
 
 # load jacobson presidential vote data
 jacobson_pres <- gdata::read.xls("inst/extdata/HR4614.xls")
