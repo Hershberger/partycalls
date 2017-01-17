@@ -3,14 +3,17 @@ set.seed(1634538933, kind = "L'Ecuyer")
 
 # load party calls data
 load("test_data/house_party_calls_emIRT_only.RData")
-names(house_party_calls) <- paste0("hou", 93:109)
+names(house_party_calls) <- paste0("hou", 93:112)
 
 # load legislative effectiveness data
 les_data <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
 # drop Tim Ryan's first entry (shorter of two)
 les_data <- subset(les_data, !(congress == 108 & icpsr == 20343 &
     thomas_num == 7031))
-les_data <- subset(les_data, congress <= 109)
+les_data <- subset(les_data, congress <= 112)
+
+# load jacobson presidential vote data
+jacobson_pres <- gdata::read.xls("inst/extdata/HR4614.xls")
 
 # get responsiveness rates
 new_responsiveness <- rbindlist(lapply(93:109, function(congress) {

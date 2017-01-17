@@ -1,8 +1,10 @@
 library(partycalls)
+library(xtable)
 
 load("test_data/senate_party_calls_emIRT_only.RData")
 names(senate_party_calls) <- paste0("sen", 93:112)
 
+# table for all congresses
 senate_coding_record <- data.table(congress = 93:112)
 senate_coding_record[, party_call_count := sapply(93:112, function(x)
   length(get_party_calls(senate_party_calls[[paste0("sen", x)]])))]
@@ -11,33 +13,67 @@ senate_coding_record[, noncall_count := sapply(93:112, function(x)
 senate_coding_record[, gray_vote_count := sapply(93:112, function(x)
   length(get_gray_votes(senate_party_calls[[paste0("sen", x)]])))]
 
+xtable(senate_coding_record)
+
+# summary stats
 sum(senate_coding_record$party_call_count)
 sum(senate_coding_record$noncall_count)
 sum(senate_coding_record$gray_vote_count)
 
-# compare by majority party
+mean(senate_coding_record$party_call_count)
+mean(senate_coding_record$noncall_count)
+mean(senate_coding_record$gray_vote_count)
+
+sd(senate_coding_record$party_call_count)
+sd(senate_coding_record$noncall_count)
+sd(senate_coding_record$gray_vote_count)
+
+# democrat table
 dem_majority <- c(93:96, 100:103, 110:112)
-rep_majority <- c(97:99, 104:106, 108:109)
-
 dem_senate_record <- senate_coding_record[congress %in% dem_majority, ]
-rep_senate_record <- senate_coding_record[congress %in% rep_majority, ]
+xtable(dem_senate_record)
 
+
+# summary stats
 sum(dem_senate_record$party_call_count)
-sum(rep_senate_record$party_call_count)
-
 sum(dem_senate_record$noncall_count)
-sum(rep_senate_record$noncall_count)
-
 sum(dem_senate_record$gray_vote_count)
+
+mean(dem_senate_record$party_call_count)
+mean(dem_senate_record$noncall_count)
+mean(dem_senate_record$gray_vote_count)
+
+sd(dem_senate_record$party_call_count)
+sd(dem_senate_record$noncall_count)
+sd(dem_senate_record$gray_vote_count)
+
+# republican table
+rep_majority <- c(97:99, 104:106, 108:109)
+rep_senate_record <- senate_coding_record[congress %in% rep_majority, ]
+xtable(rep_senate_record)
+
+# summary stats
+sum(rep_senate_record$party_call_count)
+sum(rep_senate_record$noncall_count)
 sum(rep_senate_record$gray_vote_count)
+
+mean(rep_senate_record$party_call_count)
+mean(rep_senate_record$noncall_count)
+mean(rep_senate_record$gray_vote_count)
+
+sd(rep_senate_record$party_call_count)
+sd(rep_senate_record$noncall_count)
+sd(rep_senate_record$gray_vote_count)
 
 
 # for more in depth coding info
-get_vote_data <- function(chamber, congress_number, party_calls) {
+get_vote_data <- function(chamber, congress_number) {
   if (chamber == "house") {
     rc <- get(paste0("h", sprintf("%03.f", congress_number)))
+    party_calls <- house_party_calls
   } else if (chamber == "senate") {
     rc <- get(paste0("sen", congress_number))
+    party_calls <- senate_party_calls
   } else {
     stop("pick a chamber")
   }
@@ -65,35 +101,44 @@ get_vote_data <- function(chamber, congress_number, party_calls) {
 
   vote_data <- merge(lopside_DT, yea_DT, by = "vt")
   vote_data[, congress := congress_number]
+  setnames(vote_data, "vt", "voteno")
+
+  # if(chamber == "house") {
+  #   party_call_list <- get_party_calls(party_calls[[paste0("hou", congress_number)]],
+  #     n_iterations = 5)
+  #   noncall_list <- get_noncalls(party_calls[[paste0("hou", congress_number)]],
+  #     n_iterations = 5)
+  #   gray_vt_list <- get_gray_votes(party_calls[[paste0("hou", congress_number)]],
+  #     n_iterations = 5)
+  # } else if (chamber == "senate") {
+  #   party_call_list <- get_party_calls(senate_party_calls[[paste0("sen", congress_number)]],
+  #     n_iterations = 5)
+  #   noncall_list <- get_noncalls(senate_party_calls[[paste0("sen", congress_number)]],
+  #     n_iterations = 5)
+  #   gray_vt_list <- get_gray_votes(senate_party_calls[["sen", congress_number]],
+  #     n_iterations = 5)
+  # }
+  # vote_data[, party_call := 1 * (vt %in% party_call_list)]
+  # vote_data[, noncall := 1 * (vt %in% noncall_list)]
+  # vote_data[, gray := 1 * (vt %in% gray_vt_list)]
 }
 
-sen93_coding <- get_vote_data(chamber = "senate", congress_number = 93)
-sen93_party_call <- get_party_calls(senate_party_calls$sen93)
-sen93_noncall <- get_party_calls(senate_party_calls$sen93)
-sen93_gray <- get_gray_votes(senate_party_calls$sen93)
+sen_lop_coding <- lapply(93:112, get_vote_data, chamber = "senate")
+sen_lop_coding <- rbindlist(sen_lop_coding)
+setDT(sen_lop_coding)
 
-##############################################
-## TODO HERSHBERGER: GET THIS TO WORK RIGHT ##
-##############################################
+sen_coding <- list()
+for (i in 93:112) {
+  rc <- paste0("sen", i)
+  sen_coding[[rc]] <- get_party_call_coding(senate_party_calls[[rc]],
+    n_iterations = 5)
+  sen_coding[[rc]]$congress <- i
+}
+sen_coding <- rbindlist(sen_coding)
+setDT(sen_coding)
 
-sen93_coding[, gray := 0]
-sen93_coding[vt %in% sen93_gray, gray := 1]
-sen93_coding[, party_call := 0]
-sen93_coding[vt %in% sen93_party_call, party_call := 1]
-sen93_coding[, noncall := 0]
-sen93_coding[vt %in% sen93_noncall, noncall := 1]
-sen93_coding[, dropped := 1]
-sen93_coding[gray == 1, dropped := 0]
-sen93_coding[party_call == 1, dropped := 0]
-sen93_coding[noncall == 1, dropped := 0]
+sen_lop_coding <- merge(sen_lop_coding, sen_coding, by = c("congress", "voteno"))
 
-# need to make a table 1 style thing
 
-# vote coding:    | party call | noncall | gray vote
-# --------------------------------------------------
-# lopsided votes: |            |         |
-# close votes:    |            |         |
-# majority dems:  |            |         |
-# majority reps:  |            |         |
-# --------------------------------------------------
-# substantive? procedural?
+# get summary stats for lopsided votes
+table(sen_lop_coding$lopsided, sen_lop_coding$coding)
