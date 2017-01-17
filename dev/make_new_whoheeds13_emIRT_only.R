@@ -55,14 +55,15 @@ new_responsiveness <- rbindlist(lapply(93:112, function(congress) {
   cat(congress, " ")
   rc <- make_member_year_data(congress, house_party_calls)
   DATA <- rc$member_year_data
-  DATA[, .(congress, icpsrLegis,
+  DATA[, .(congress,
+    icpsrLegis,
     party_free_ideal_point = pf_ideal,
     pirate100 = 100 * responsiveness_party_calls,
     pfrate100 = 100 * responsiveness_noncalls,
     ideological_extremism)]
 }))
 
-new_whoheeds13 <- merge(les_data, new_responsiveness,
+new_whoheeds13 <- merge(member_year_data, new_responsiveness,
   by = c("congress", "icpsrLegis"), all = TRUE)
 setDT(new_whoheeds13)
 
