@@ -16,11 +16,12 @@ setnames(whoheeds13, "icpsr", "icpsrLegis")
 best_committee_old <- whoheeds13[, .(congress, icpsrLegis)]
 
 bestgrosswart_dt <- fread("inst/extdata/house_assignments_103-114-1.csv")
+# committee_values <- fread("inst/extdata/committee_values.csv")
 setnames(bestgrosswart_dt, "Congress", "congress")
 setnames(bestgrosswart_dt, "ID #", "icpsrLegis")
-bestgrosswart_dt <- bestgrosswart_dt[congress <= 112,
-  .(bestgrosswart = min(rank, na.rm = TRUE)),
-  .(congress, icpsrLegis, Name)]
+setnames(bestgrosswart_dt, "Committee code", "committee_code")
+bestgrosswart_dt <- bestgrosswart_dt[, .(congress, committee_code, icpsrLegis)]
+committee_values <- committee_values[, ]
 
 new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
 
