@@ -150,6 +150,28 @@ senator_year_data[icpsrLegis == 49901 & congress >= 106, elected := 1998]
 # THOMAS GORTON is correct as is
 # FRANK LAUTENBERG is correct as is
 
+# check JEFFORDS
+# jeffords_DT <- senator_year_data[mc %like% "JEFFORDS", ]
+
+# fix JEFFORDS' Congress 107
+senator_year_data[icpsrLegis == 94240 & congress == 107, elected := 1988]
+senator_year_data[icpsrLegis == 94240 & congress == 107, female := 0]
+senator_year_data[icpsrLegis == 94240 & congress == 107, afam := 0]
+senator_year_data[icpsrLegis == 94240 & congress == 107, latino := 0]
+senator_year_data[icpsrLegis == 94240 & congress == 107, votepct := "50"]
+senator_year_data[icpsrLegis == 94240 & congress == 107, state_leg := 1]
+
+
+
+
+# see who is missing class data
+class_NA <- senator_year_data[is.na(class) == TRUE]
+
+
+
+
+
+# get first congress in dataset
 senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
 
 # # Fix senators that served discontinuous terms
@@ -201,9 +223,11 @@ senator_year_data[congress == freshman_congress |
   congress == freshman_congress + 1 | congress == freshman_congress + 2,
   freshman := 1]
 
+
 # Make superfreshman
 senator_year_data[, superfreshman := 0]
-senator_year_data[mc %like% "2nd time in senate", superfreshman := 1]
+senator_year_data[mc %like% "2nd time in senate" & freshman == 1,
+  superfreshman := 1]
 
 # Calculate retiree
 senator_year_data[, retiree := 0]
@@ -266,6 +290,7 @@ senator_year_data[dem == 0, caucus := "Republican"]
 senator_year_data[dem == 112, caucus := "Republican"]
 senator_year_data[dem == 328, caucus := "Democrat"]
 
+
 # create caucus majority variable
 # senator_year_data[dem == 1 & majority == 1, unique(congress)]
 dem_majority <- c(93:96, 100:103, 110:112)
@@ -278,6 +303,12 @@ senator_year_data[caucus == "Republican" & congress %in% rep_majority,
   caucus_majority := 1]
 senator_year_data[caucus == "Republican" & congress %in% dem_majority,
   caucus_majority := 0]
+
+# add caucus majority for Congress 107
+senator_year_data[caucus == "Democrat" & congress == 107,
+  caucus_majority := 0.75]
+senator_year_data[caucus == "Republican" & congress == 107,
+  caucus_majority := 0.25]
 
 # Populate year of most recent normal (i.e., on-cycle) election
 senator_year_data[,
