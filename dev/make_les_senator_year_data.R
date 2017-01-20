@@ -48,11 +48,27 @@ senator_data <- senator_year_data[, .N, .(icpsrLegis, mc, stabb)]
 
 # Merge in govtrack covariates
 source("package/get_govtrack_legislators_csv.R")
-senator_data <- merge(senator_data, legislators, by = "icpsrLegis")
+senator_data <- merge(senator_data, legislators, by = "icpsrLegis",
+  all.x = TRUE)
+
+
+###############################################
+# FIGURE OUT WHO ISN'T GETTING GOVTRACK STUFF #
+###############################################
 
 # Populate class
 source("package/get_govtrack_legislators_yaml_data.R")
-senator_data <- merge(senator_data, legislators_yaml, by = "icpsrLegis")
+senator_data <- merge(senator_data, legislators_yaml, by = "icpsrLegis",
+  all.x = TRUE)
+
+
+##############################################
+# FIGURE OUT IF ANYONE ISN'T GETTING A CLASS #
+##############################################
+
+
+
+
 
 # Populate years of service
 source("package/get_bios.R")
@@ -66,21 +82,29 @@ senator_data[icpsrLegis == 10802, years_of_service := "1965-1983"]
 #   changed_party_affiliation, resigned, did_not_seek_reelection
 source("package/mine_bios.R")
 
-# Populate different south indicators
-south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
-south13 <- c(south11, "OK", "KY")
-south17 <- c(south13, "DE", "WV", "MD", "MO")
-senator_data[, south11 := 1 * (stabb %in% south11)]
-senator_data[, south13 := 1 * (stabb %in% south13)]
-senator_data[, south17 := 1 * (stabb %in% south17)]
+# # Populate different south indicators
+# south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
+# south13 <- c(south11, "OK", "KY")
+# south17 <- c(south13, "DE", "WV", "MD", "MO")
+# senator_data[, south11 := 1 * (stabb %in% south11)]
+# senator_data[, south13 := 1 * (stabb %in% south13)]
+# senator_data[, south17 := 1 * (stabb %in% south17)]
 
 # # END TIME INVARIANT COVARIATES
 
-# # BEGIN TIME VARYING COVARIATES
-
 # Merge TIME-INVARIANT COVARIATES into senator_year_data
 senator_year_data <- merge(senator_year_data, senator_data,
-  by = c("icpsrLegis", "mc", "stabb"), all.x = TRUE)
+    by = c("icpsrLegis", "mc", "stabb"), all.x = TRUE)
+
+# create south indicators
+south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
+south13 <- c(south11, "OK", "KY")
+south17 <- c(south13, "DE", "WV", "MD", "MO")
+senator_year_data[, south11 := 1 * (stabb %in% south11)]
+senator_year_data[, south13 := 1 * (stabb %in% south13)]
+senator_year_data[, south17 := 1 * (stabb %in% south17)]
+
+# # BEGIN TIME VARYING COVARIATES
 
 # load les data and make into a data.table
 les_senate <- fread("inst/extdata/93_113_senate_variables.csv")
@@ -160,14 +184,19 @@ senator_year_data[icpsrLegis == 94240 & congress == 107, afam := 0]
 senator_year_data[icpsrLegis == 94240 & congress == 107, latino := 0]
 senator_year_data[icpsrLegis == 94240 & congress == 107, votepct := "50"]
 senator_year_data[icpsrLegis == 94240 & congress == 107, state_leg := 1]
-
-
+senator_year_data[icpsrLegis == 14240 & congress == 107, elected := 1988]
+senator_year_data[icpsrLegis == 14240 & congress == 107, female := 0]
+senator_year_data[icpsrLegis == 14240 & congress == 107, afam := 0]
+senator_year_data[icpsrLegis == 14240 & congress == 107, latino := 0]
+senator_year_data[icpsrLegis == 14240 & congress == 107, votepct := "50"]
+senator_year_data[icpsrLegis == 14240 & congress == 107, state_leg := 1]
 
 
 # see who is missing class data
 class_NA <- senator_year_data[is.na(class) == TRUE]
 
-
+# correct missingness
+senator_year_data[, south11 := ]
 
 
 
