@@ -18,5 +18,5 @@ bios <- gsub("\\n", " ", bios)
 bios <- gsub("\\r", " ", bios)
 bios <- gsub("  +", " ", bios)
 bios <- trimws(bios)
-names(bios) <- senator_data$bioguide_id
+names(bios) <- unique(senator_data$bioguide_id)
 #save(bios, file = "inst/extdata/bios.RData")
