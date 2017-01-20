@@ -46,8 +46,19 @@ senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "40300",
 # Make senator_data
 senator_data <- senator_year_data[, .N, .(icpsrLegis, mc, stabb)]
 
-# Merge in govtrack covariates
+# get govtrack covariates
 source("package/get_govtrack_legislators_csv.R")
+
+# get entries for party changers
+party_changer_legislators <- c(94240, 14659, 14910, 15407)
+party_changer_DT <- legislators[icpsrLegis %in% party_changer_legislators, ]
+party_changer_DT[icpsrLegis == 94240, icpsrLegis := 14240]
+party_changer_DT[icpsrLegis == 14659, icpsrLegis := 94659]
+party_changer_DT[icpsrLegis == 14910, icpsrLegis := 94910]
+party_changer_DT[icpsrLegis == 15407, icpsrLegis := 95407]
+legislators <- rbind(legislators, party_changer_DT)
+
+# merge in govtrack covariates
 senator_data <- merge(senator_data, legislators, by = "icpsrLegis",
   all.x = TRUE)
 
@@ -58,6 +69,7 @@ senator_data <- merge(senator_data, legislators, by = "icpsrLegis",
 
 # Populate class
 source("package/get_govtrack_legislators_yaml_data.R")
+
 senator_data <- merge(senator_data, legislators_yaml, by = "icpsrLegis",
   all.x = TRUE)
 
