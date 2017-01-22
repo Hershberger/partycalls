@@ -99,8 +99,7 @@ senator_year_data <- merge(senator_year_data, senator_data,
 
 # load les data and make into a data.table
 les_senate <- fread("inst/extdata/93_113_senate_variables.csv")
-setDT(les_senate)
-# remove unused variables/congresses from les data
+# remove missing and unused variables/congresses from les data
 les_senate <- les_senate[congress != 113, ]
 les_senate[, c("thomas_num", "thomas_name", "st_name", "votepct_sq",
   "meddist", "majdist", "speaker", "power", "budget", "state_leg_prof",
@@ -109,29 +108,53 @@ les_senate[, c("thomas_num", "thomas_name", "st_name", "votepct_sq",
   "all_bills", "all_aic", "all_abc", "all_pass", "all_law", "les",
   "leslag", "seniority", "sensq") := NULL]
 
-# # see if anyone is missing
-# les_icpsr <- les_senate$icpsr
-# senator_year_data[, in_les_data := 1 * (icpsrLegis %in% les_icpsr)]
-# senator_year_data[in_les_data == 0, ]
-
 # merge in les variables
 senator_year_data <- merge(senator_year_data, les_senate,
   by.x = c("icpsrLegis", "congress"), by.y = c("icpsr", "congress"),
   all.x = TRUE)
 
-# # check year elected variable
-# freshman_dt <- senator_year_data[, .(
-#   elected_mean = mean(elected),
-#   elected_mean_no_NA = mean(elected, na.rm = TRUE)
-# ), .(icpsrLegis)]
-# senator_year_data <- merge(senator_year_data, freshman_dt, by = "icpsrLegis")
-# freshman_congress_check <-
-#   senator_year_data[elected != elected_mean, ]
-# freshman_congress_check2 <-
-#   senator_year_data[elected != elected_mean_no_NA]
-# unique(freshman_congress_check$icpsrLegis)
-
 # fixing mcs with mistakes in year elected
+# HUBERT HUMPHREY
+senator_year_data[icpsrLegis == 4728 & congress == 95, elected == 1970]
+# HENRY HEINZ
+senator_year_data[icpsrLegis == 13050 & congress == 102, elected := 1976]
+# EDWARD ZORINSKY
+senator_year_data[icpsrLegis == 14512 & congress == 100, elected := 1976]
+# RON WYDEN
+senator_year_data[icpsrLegis == 14871 & congress == 104, elected := 1996]
+# ARLEN SPECTER
+senator_year_data[icpsrLegis == 14910 & congress == 111, elected := 1980]
+# DANIEL EVANS
+senator_year_data[icpsrLegis == 14916 & congress == 98, elected := 1983]
+# BEN NIGHTHORSE CAMPBELL
+senator_year_data[icpsrLegis == 15407 & congress == 104, elected := 1992]
+# JAMES INHOFE
+senator_year_data[icpsrLegis == 15424 & congress == 103, elected := 1994]
+# CRAIG THOMAS
+senator_year_data[icpsrLegis == 15633 & congress == 110, elected := 1994]
+# MARK KIRK
+senator_year_data[icpsrLegis == 20115 & congress == 111, elected := 2010]
+# BOB MENENDEZ
+senator_year_data[icpsrLegis == 29373 & congress == 109, elected := 2006]
+# GEORGE MITCHELL
+senator_year_data[icpsrLegis == 14713 & congress == 96, elected := 1980]
+# DANIEL AKAKA
+senator_year_data[icpsrLegis == 14400 & congress == 101, elected := 1990]
+# PAUL LAXALT
+senator_year_data[icpsrLegis == 14077 & congress == 93, elected := 1974]
+# ROGER WICKER
+senator_year_data[icpsrLegis == 29534 & congress == 110, elected := 2007]
+# JOHN ENSIGN
+senator_year_data[icpsrLegis == 29537 & congress == 112, elected := 2000]
+# JOE MANCHIN
+senator_year_data[icpsrLegis == 40915 & congress == 111, elected := 2010]
+# CHRIS COONS
+senator_year_data[icpsrLegis == 40915 & congress == 111, elected := 2010]
+# ZELL MILLER
+senator_year_data[icpsrLegis == 49904 & congress == 106, elected := 2000]
+# LINCOLN CHAFEE
+senator_year_data[icpsrLegis == 49905 & congress == 106, elected := 1999]
+
 # MILTON YOUNG
 senator_year_data[icpsrLegis == 10450 & congress >= 78, elected := 1945]
 # ROBERT STAFFORD
@@ -164,9 +187,137 @@ senator_year_data[icpsrLegis == 49901 & congress >= 106, elected := 1998]
 
 # THOMAS GORTON is correct as is
 # FRANK LAUTENBERG is correct as is
+# JAMES BROYHILL is correct as is
+# HOWARD METZENBAUM is correct as is
+# JOE BIDEN is correct as is
+# ROBERT KRUEGER is correct as is
+# DAN QUAYLE is correct as is
+# KANEASTER HODGES is correct as is
+# PAUL HATFIELD is correct as is
+# MARYON ALLEN is correct as is
+# NICHOLAS BRADY is correct as is
+# HILLARY CLINTON is correct as is
+# DEAN BARKLEY is correct as is
+# KEN SALAZAR is correct as is
+# GEORGE LEMIEUX is correct as is
+# CARTE GOODWIN is correct as is
+# BRIAN SCHATZ is correct as is
+# JOCELYN BURDICK is correct as is
+# SHEILA FRAHM is correct as is
 
-# check JEFFORDS
-# jeffords_DT <- senator_year_data[mc %like% "JEFFORDS", ]
+# Populate year of most recent normal (i.e., on-cycle) election
+senator_year_data[,
+  year_of_most_recent_normal_election := calc_year_elected(congress, class)]
+
+# Populate on-cycle elections data
+source("package/senate_seat_elections.R")
+senator_year_data <- merge(senator_year_data, senate_seat_elections,
+  by.x = c("year_of_most_recent_normal_election", "stabb", "class"),
+  by.y = c("election_year", "stabb", "class"))
+
+# For senators appointed to fill remaining terms, replace election returns
+# with data from special elections when available
+source("package/fix_special_elections.R")
+
+# here are the times when we use election results from a different
+# candidate's previous victory
+# Mark these as "drop"
+senator_year_data[icpsrLegis == "29373", last_name := "Menendez"]
+check <- sapply(1:2041, function(i) {
+  !grepl(senator_year_data$last_name[i],
+    senator_year_data$candname_vote_rank_1[i], ignore.case = TRUE)
+})
+check <- senator_year_data[check, .(congress, stabb, icpsrLegis,
+  last_name, candname_vote_rank_1)]
+senator_year_data[, drop := 0]
+
+remove_from_check <-  c(10514, 3658, 10802, 10562, 4728, 14107, 14904,
+  49306, 15502, 29369, 14914)
+check[, remove := 0]
+check[icpsrLegis %in% remove_from_check, remove := 1]
+check[icpsrLegis == 14073 & congress >= 95, remove := 1]
+check <- check[remove == 0, ]
+check[, remove := NULL]
+
+for (i in 1:nrow(check)) {
+  iL <- check$icpsrLegis[i]
+  cong <- check$congress[i]
+  senator_year_data[icpsrLegis == iL & congress == cong,
+    drop := 1]
+}
+
+# Muriel Humphrey got covariates switched with Hubert, these need corrected
+# also, she needs to be dropped
+senator_year_data[icpsrLegis == 14516, female := 1]
+senator_year_data[icpsrLegis == 14516, drop := 1]
+senator_year_data[icpsrLegis == 14516, elected := NA]
+senator_year_data[icpsrLegis == 14516, subchr := 0]
+senator_year_data[icpsrLegis == 14516, votepct := NA]
+
+senator_year_data[icpsrLegis == 4728 & congress == 95, elected := 1970]
+senator_year_data[icpsrLegis == 4728 & congress == 95, votepct := "58"]
+senator_year_data[icpsrLegis == 4728 & congress == 95, subchr := 1]
+senator_year_data[icpsrLegis == 4728 & congress == 95, female := 0]
+senator_year_data[icpsrLegis == 4728 & congress == 95, afam := 0]
+senator_year_data[icpsrLegis == 4728 & congress == 95, latino := 0]
+senator_year_data[icpsrLegis == 4728 & congress == 95, upperyrs := 0]
+senator_year_data[icpsrLegis == 4728 & congress == 95, loweryrs := 0]
+
+# DAN QUAYLE has one observation beyond the time he was in congress
+senator_year_data[icpsrLegis == 14447 & congress == 101, drop := 1]
+
+# see who is missing votepct, some are true NAs
+# others are not and can be found in our data elsewhere
+# correct those we have data for, mark others as drop
+votepct_NA <- senator_year_data[is.na(votepct) == TRUE, ]
+vt_NA_2 <- senator_year_data[votepct == "", ]
+votepct_NA <- rbind(votepct_NA, vt_NA_2)
+vt_NA_3 <- senator_year_data[votepct == "N/A"]
+votepct_NA <- rbind(votepct_NA, vt_NA_3)
+# see if any were removed from check
+votepct_NA[icpsrLegis %in% remove_from_check, .(icpsrLegis, congress,
+  first_name, mc, votepct)]
+# select only those who have not been assigned drop
+votepct_NA <- votepct_NA[drop == 0,
+  .(icpsrLegis, first_name, mc, congress, votepct)]
+# correct those we have in the data
+# need to decide if we need to drop clinton's last term
+senator_year_data[icpsrLegis == 14512 & congress == 100, votepct := "67"]
+senator_year_data[icpsrLegis == 40105 & congress == 111, votepct := "67"] # HILLARY CLINTON
+senator_year_data[icpsrLegis == 13050 & congress == 102, votepct := "67"]
+senator_year_data[icpsrLegis == 15407 & congress == 104, votepct := "52"]
+senator_year_data[icpsrLegis == 14910 & congress == 111, votepct := "53"]
+senator_year_data[icpsrLegis == 29537 & congress == 112, votepct := "55"]
+
+# these will need other values corrected, too
+# EDWARD ZORINSKY
+senator_year_data[icpsrLegis == 14512 & congress == 100, dem := 1]
+senator_year_data[icpsrLegis == 14512 & congress == 100, female := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, afam := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, latino := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, south := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, south_dem := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, min_leader := 0]
+senator_year_data[icpsrLegis == 14512 & congress == 100, maj_leader := 0]
+# HILLARY CLINTON
+senator_year_data[icpsrLegis == 40105 & congress == 111, dem := 1]
+senator_year_data[icpsrLegis == 40105 & congress == 111, female := 1]
+senator_year_data[icpsrLegis == 40105 & congress == 111, afam := 0]
+senator_year_data[icpsrLegis == 40105 & congress == 111, latino := 0]
+senator_year_data[icpsrLegis == 40105 & congress == 111, south := 0]
+senator_year_data[icpsrLegis == 40105 & congress == 111, south_dem := 0]
+senator_year_data[icpsrLegis == 40105 & congress == 111, min_leader := 0]
+senator_year_data[icpsrLegis == 40105 & congress == 111, maj_leader := 0]
+
+# drop those whose votepct is a real NA or is still missing
+senator_year_data[icpsrLegis == 14101 & congress == 111, drop := 1] # JOE BIDEN
+senator_year_data[icpsrLegis == 14517 & congress == 95, drop := 1] # MARYON ALLEN
+senator_year_data[icpsrLegis == 49103 & congress == 102, drop := 1] # JOCELYN BURDICK
+senator_year_data[icpsrLegis == 49905 & congress == 106, drop := 1] # LINCOLN CHAFEE
+senator_year_data[icpsrLegis == 20115 & congress == 111, drop := 1] # MARK KIRK
+senator_year_data[icpsrLegis == 15633 & congress == 110, drop := 1] # CRAIG THOMAS
+senator_year_data[icpsrLegis == 40300 & congress == 108, drop := 1] # LISA MURKOWSKI
+senator_year_data[icpsrLegis == 40102 & congress == 107, drop := 1] # JEAN CARNAHAN
 
 # fix JEFFORDS' Congress 107
 senator_year_data[icpsrLegis == 94240 & congress == 107, elected := 1988]
@@ -182,16 +333,47 @@ senator_year_data[icpsrLegis == 14240 & congress == 107, latino := 0]
 senator_year_data[icpsrLegis == 14240 & congress == 107, votepct := "50"]
 senator_year_data[icpsrLegis == 14240 & congress == 107, state_leg := 1]
 
+# # see who has missing data in other areas
+# female_NA <- senator_year_data[is.na(female) == TRUE, ]
+# gender_NA <- senator_year_data[is.na(gender) == TRUE, ]
+# afam_NA <- senator_year_data[is.na(afam) == TRUE, ]
+# latino_NA <- senator_year_data[is.na(latino) == TRUE, ]
+# dem_NA <- senator_year_data[is.na(dem) == TRUE, ]
+# party_NA <- senator_year_data[is.na(party) == TRUE, ]
+# maj_NA <- senator_year_data[is.na(majority) == TRUE]
 
-# see who is missing afam data
-afam_NA <- senator_year_data[is.na(afam) == TRUE]
+senator_year_data[gender == "F", fem := 1]
+senator_year_data[gender == "M", fem := 0]
 
+# latino
+senator_year_data[is.na(latino) == TRUE, latino := 0]
 
+# BOB MENENDEZ
+senator_year_data[icpsrLegis == 29373 & congress == 109, latino := 1]
 
+# JOHN SUNUNU
+senator_year_data[icpsrLegis == 29740 & congress == 108, latino := 1]
+senator_year_data[icpsrLegis == 29740 & congress == 109, latino := 1]
+senator_year_data[icpsrLegis == 29740 & congress == 110, latino := 1]
+
+# KEN SALAZAR
+senator_year_data[icpsrLegis == 40500 & congress == 109, latino := 1]
+senator_year_data[icpsrLegis == 40500 & congress == 110, latino := 1]
+senator_year_data[icpsrLegis == 40500 & congress == 111, latino := 1]
+
+# afam
+senator_year_data[is.na(afam) == TRUE, afam := 0]
 
 
 # get first congress in dataset
 senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
+
+# fix first congress for special elections and appointees
+fresh_to_check <- senator_year_data[congress < freshman_congress, ]
+fresh_to_check[, .(first_name, mc, congress, freshman_congress, drop)]
+
+
+
 
 # # Fix senators that served discontinuous terms
 # # for these, create two mc tags, one for each stint
@@ -259,37 +441,6 @@ senator_year_data[, seniority := congress - freshman_congress]
 # add seniority variable by senate term-length
 senator_year_data[, senate_seniority := floor(seniority / 3)]
 
-# correct more values in senate data
-
-# female
-# MURIEL HUMPHREY
-senator_year_data[icpsrLegis == 14516 & congress == 95, female := 1]
-# JOCELYN BURDICK
-senator_year_data[icpsrLegis == 49103 & congress == 102, female := 1]
-# BARBARA BOXER
-senator_year_data[icpsrLegis == 15011 & congress == 104, female := 1]
-senator_year_data[icpsrLegis == 15011 & congress == 109, female := 1]
-# DIANE FEINSTEIN
-senator_year_data[icpsrLegis == 49300 & congress == 104, female := 1]
-senator_year_data[icpsrLegis == 49300 & congress == 109, female := 1]
-# BARBARA MIKULSKI
-senator_year_data[icpsrLegis == 14440 & congress == 105, female := 1]
-# DEBBIE STABENOW
-senator_year_data[icpsrLegis == 29732 & congress == 107, female := 1]
-senator_year_data[icpsrLegis == 29732 & congress == 109, female := 1]
-# PATTY MURRAY
-senator_year_data[icpsrLegis == 49308 & congress == 108, female := 1]
-
-# latino
-
-# JOHN SUNUNU
-senator_year_data[icpsrLegis == 29740 & congress == 108, latino := 1]
-senator_year_data[icpsrLegis == 29740 & congress == 109, latino := 1]
-senator_year_data[icpsrLegis == 29740 & congress == 110, latino := 1]
-# KEN SALAZAR
-senator_year_data[icpsrLegis == 40500 & congress == 109, latino := 1]
-senator_year_data[icpsrLegis == 40500 & congress == 110, latino := 1]
-
 # # check party coding
 # senator_year_data[party == "D" & dem != 1, ]
 # senator_year_data[party == "R" & dem === 1, ]
@@ -329,19 +480,7 @@ senator_year_data[caucus == "Democrat" & congress == 107,
 senator_year_data[caucus == "Republican" & congress == 107,
   caucus_majority := 0.25]
 
-# Populate year of most recent normal (i.e., on-cycle) election
-senator_year_data[,
-  year_of_most_recent_normal_election := calc_year_elected(congress, class)]
 
-# # Populate on-cycle elections data
-# source("package/senate_seat_elections.R")
-# senator_year_data <- merge(senator_year_data, senate_seat_elections,
-#   by.x = c("year_of_most_recent_normal_election", "stabb", "class"),
-#   by.y = c("election_year", "stabb", "class"))
-
-# # For senators appointed to fill remaining terms, replace election returns
-# # with data from special elections when available
-# source("package/fix_special_elections.R")
 
 # add in presidential election data
 senator_year_data[, most_recent_presidential_election_year :=
@@ -385,6 +524,9 @@ senator_year_data[caucus == "Republican",
 source("package/get-best-committee.R")
 senator_year_data <- merge(senator_year_data, best_committee_dt,
   by = c("congress", "icpsrLegis"), all.x = TRUE)
+
+# check committee data
+
 
 # Add indicator for Gingrich senators
 gingrich_senators <- fread("inst/extdata/gingrich_senators.csv")
