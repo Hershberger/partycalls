@@ -5,34 +5,90 @@ set.seed(1634538933, kind = "L'Ecuyer")
 load("test_data/house_party_calls_emIRT_only.RData")
 names(house_party_calls) <- paste0("hou", 93:112)
 
-# load legislative effectiveness data
-lep_data <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
+# use LEP data from website to build baseline dataset
+lep_data_93_110 <-
+  readstata13::read.dta13("inst/extdata/LEPData93to110Congresses.dta")
+setDT(lep_data_93_110)
+lep_data_111_112 <-
+  readstata13::read.dta13("inst/extdata/LEPData111to113Congresses.dta")
+setDT(lep_data_111_112)
+
+# drop congress 113
+lep_data_111_112 <- lep_data_111_112[congress <= 112, ]
+
+# load aggregate legislative effectiveness data for some missing variables
+lep_aggregate <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
+# drop Tim Ryan's first entry (shorter of two)
+lep_aggregate <- subset(lep_aggregate, !(congress == 108 & icpsr == 20343 &
+    thomas_num == 7031))
+# prep data for merge
+setDT(lep_aggregate)
+stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
+lep_aggregate[, drop_stabb := 1 * (stabb %in% stabb_to_drop)]
+lep_aggregate <- lep_aggregate[drop_stabb == 0, ]
+lep_aggregate <- lep_aggregate[, .(congress, icpsr, elected, afam, latino,
+  freshman, sophomore, south, leader)]
+
+lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
+  by = c("congress", "icpsr"))
+
+# select variables for analysis
+lep_data_93_110 <- lep_data_93_110[, .(thomas_name, icpsr, congress, st_name,
+  cd, dem, female, afam, latino, votepct, speaker, chair, subchr, power,
+  seniority, maj_leader, min_leader, south, south_dem, les)]
+
+lep_data_111_112 <- lep_data_111_112[, .(thomas_name, icpsr, congress, st_name,
+  cd, dem, female, afam, latino, votepct, speaker, chair, subchr, power,
+  seniority, maj_leader, min_leader, south, south_dem, les)]
+
+# merge data sets
+lep_data <- rbind(lep_data_93_110, lep_data_111_112)
+
 # drop Tim Ryan's first entry (shorter of two)
 lep_data <- subset(lep_data, !(congress == 108 & icpsr == 20343 &
     thomas_num == 7031))
-# prep data for merge
-lep_data <- subset(lep_data, congress <= 112)
-setDT(lep_data)
-setnames(lep_data, "st_name", "stabb")
-setnames(lep_data, "icpsr", "icpsrLegis")
+
+# remove DC and US territories
 stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
 lep_data[, drop_stabb := 1 * (stabb %in% stabb_to_drop)]
 lep_data <- lep_data[drop_stabb == 0, ]
-lep_data <- lep_data[, .(congress, state_cd, stabb, cd, thomas_name, icpsrLegis, dem, majority, elected,
-  female, afam, latino, freshman, sophomore, seniority, south, chair, power,
-  subchr, leader, votepct, dpres_pct, les, deleg_size, afam_dem, south_dem,
-  thomas_name)]
 
-# might need to use LEP data from website
-lep_data_93_110 <- readstata13::read.dta13("inst/extdata/LEPData93to110Congresses.dta")
-setDT(lep_data_93_110)
-lep_data_111_112 <- readstata13::read.dta13("inst/extdata/LEPData111to113Congresses.dta")
 
-# figure out who is missing state_cd and repair it
+# check variables
+icpsr_to_check <- lep_data[is.na(icpsr) == TRUE, ]
+seniority_to_check <- lep_data[is.na(seniority) == TRUE, ]
+dem_to_check <- lep_data[is.na(dem) == TRUE, ]
+vtpct_to_check <- lep_data[is.na(votepct) == TRUE, ]
+afam_check <- lep_data[is.na(afam) == TRUE, ]
+latino_check <- lep_data[is.na(afam) == TRUE, ]
+maj_check <- lep_data[is.na(majority) == TRUE, ]
+dem_check <- lep_data[is.na(dem) == TRUE, ]
+maj_leader_check <- lep_data[is.na(maj_leader) == TRUE, ]
+min_leader_check <- lep_data[is.na(min_leader) == TRUE, ]
+south_check <- lep_data[is.na(south) == TRUE, ]
+
+# clean data and add variables needed
+lep_data[, freshman := 0]
+lep_data[seniority == 1, freshman := 1]
+
+lep_data[, leader := 0]
+lep_data[maj_leader == 1, leader := 1]
+lep_data[min_leader == 1, leader := 1]
+
+member_year_data[thomas_name == "Albert, Carl", icpsrLegis := 62]
+member_year_data[thomas_name == "Lambert, Blanche", icpsrLegis := 29305]
+member_year_data[thomas_name == "Sekula Gibbs, Shelley", icpsrLegis := 20541]
+
+member_year_data[icpsrLegis == 20301, latino := 0]
+member_year_data[icpsrLegis == 20301, afam := 0]
+
+member_year_data[icpsrLegis == 62, dem := 1]
+
+# create state_cd
 state_fips <- fread("inst/extdata/statefips.csv")
+setnames(lep_data, "st_name", "stabb")
 lep_data <- merge(lep_data, state_fips, by = "stabb")
-lep_data[is.na(state_cd) == TRUE,
-  state_cd := as.numeric(paste0(fips, sprintf("%02.f", cd)))]
+lep_data[, state_cd := as.numeric(paste0(fips, sprintf("%02.f", cd)))]
 
 # load jacobson presidential vote data
 jacobson_pres <- gdata::read.xls("inst/extdata/HR4614.xls")
@@ -47,36 +103,14 @@ member_year_data <- merge(lep_data, jacobson_pres,
   by = c("congress", "state_cd"),
   all.x = TRUE)
 
-
-# load replication data
-old_whoheeds13 <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
-setDT(old_committee)
-
-# clean data and add variables needed
-afam_check <- lep_data[is.na(afam) == TRUE, ]
-latino_check <- lep_data[is.na(afam) == TRUE, ]
-maj_check <- lep_data[is.na(majority) == TRUE, ]
-dem_check <- lep_data[is.na(dem) == TRUE, ]
-leader_check <- lep_data[is.na(leader) == TRUE, ]
-freshman_check <- lep_data[is.na(freshman) == TRUE, ]
-seniority_check <- lep_data[is.na(seniority) == TRUE, ]
-south_check <- lep_data[is.na(south) == TRUE, ]
-
-member_year_data[thomas_name == "Albert, Carl", icpsrLegis := 62]
-member_year_data[thomas_name == "Lambert, Blanche", icpsrLegis := 29305]
-member_year_data[thomas_name == "Sekula Gibbs, Shelley", icpsrLegis := 20541]
-
-member_year_data[icpsrLegis == 20301, latino := 0]
-member_year_data[icpsrLegis == 20301, afam := 0]
-
-member_year_data[icpsrLegis == 62, dem := 1]
-
-member_year_data[is.na(state_cd) == TRUE, dpres := dpres_pct]
-
+# create presidential vote share for same party candidate
 member_year_data[dem == 1, pres_votepct := dpres]
 member_year_data[dem == 0, pres_votepct := 100 - dpres]
 
 
+# load replication data
+old_whoheeds13 <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
+setDT(old_committee)
 
 
 # get old committee data
