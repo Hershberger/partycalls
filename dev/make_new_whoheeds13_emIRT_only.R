@@ -9,14 +9,11 @@ names(house_party_calls) <- paste0("hou", 93:112)
 lep_data_93_110 <-
   readstata13::read.dta13("inst/extdata/LEPData93to110Congresses.dta")
 setDT(lep_data_93_110)
-
 lep_data_111_112 <-
   readstata13::read.dta13("inst/extdata/LEPData111to113Congresses.dta")
 setDT(lep_data_111_112)
-
 # drop congress 113
 lep_data_111_112 <- lep_data_111_112[congress <= 112, ]
-
 # load aggregate legislative effectiveness data for some missing variables
 lep_aggregate <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
 # drop Tim Ryan's first entry (shorter of two)
@@ -29,13 +26,9 @@ setDT(lep_aggregate)
 lep_aggregate <- lep_aggregate[congress %in% c(111:112), ]
 
 stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
-
 lep_data_93_110 <- subset(lep_data_93_110, !(st_name %in% stabb_to_drop))
-
 lep_data_111_112 <- subset(lep_data_111_112, !(st_name %in% stabb_to_drop))
-
 lep_aggregate <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
-
 lep_aggregate <- lep_aggregate[, .(congress, icpsr, elected, afam, latino,
   freshman, sophomore, south, leader)]
 
@@ -84,8 +77,12 @@ lep_data[min_leader == 1, leader := 1]
 # create state_cd
 state_fips <- fread("inst/extdata/statefips.csv")
 setnames(lep_data, "st_name", "stabb")
+state_fips <- state_fips[order(statename), ]
+state_fips <- state_fips[stabb != "DC", ]
+state_fips[, state_alphabetical_order := c(1:50)]
 lep_data <- merge(lep_data, state_fips, by = "stabb")
-lep_data[, state_cd := as.numeric(paste0(fips, sprintf("%02.f", cd)))]
+lep_data[, state_cd := as.numeric(paste0(state_alphabetical_order,
+  sprintf("%02.f", cd)))]
 
 # load jacobson presidential vote data
 jacobson_pres <- gdata::read.xls("inst/extdata/HR4614.xls")
@@ -99,6 +96,18 @@ jacobson_pres <- jacobson_pres[, .(congress, state_cd, dpres)]
 member_year_data <- merge(lep_data, jacobson_pres,
   by = c("congress", "state_cd"),
   all.x = TRUE)
+
+# find missing dpres values
+member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
+# replace these with previous values
+member_year_data[state_cd == 3212 & congress == 93, dpres]
+member_year_data[state_cd == 3213 & congress == 93, dpres]
+member_year_data[state_cd == 3214 & congress == 93, dpres]
+member_year_data[state_cd == 3215 & congress == 93, dpres]
+member_year_data[state_cd == 3212 & congress == 94, dpres := 84.42]
+member_year_data[state_cd == 3213 & congress == 94, dpres := 51.45]
+member_year_data[state_cd == 3214 & congress == 94, dpres := 52.22]
+member_year_data[state_cd == 3215 & congress == 94, dpres := 32.29]
 
 # create presidential vote share for same party candidate
 member_year_data[dem == 1, pres_votepct := dpres]
@@ -142,29 +151,15 @@ new_committee[icpsrLegis == 15006, icpsrLegis := 20758] # gus bilirakis
 # dan miller was not in congress at this time
 
 # correct NA values
-# no committee takes lowest rank
-# unless member is in party leadership
-new_committee[is.na(committee) == TRUE, rank := 21]
-new_committee[is.na(rank) == TRUE, rank := 21]
-leader_no_committee <- c("SPEAKER", "MAJORITY LEADER", "MINORITY LEADER",
-  "MAJORITY WHIP", "MINORITY WHIP", "Speaker", "Majority Leader",
-  "Minority Leader", "Majority Whip", "Minority Whip")
-new_committee_leader_check <- new_committee[rank == 21, ]
-new_committee_leader_check[, leader := 0]
-new_committee_leader_check[, unique(committee_name)]
-new_committee_leader_check[, rank_2 := 21]
-new_committee_leader_check[committee_name %in% leader_no_committee,
-  rank_2 := 0]
-leader_committee <-new_committee_leader_check[, .(leader_check = max(rank_2)),
-  .(congress, icpsrLegis, Name)]
-leader_committee <- leader_committee[leader_check == 0, ]
+# no committee takes lower rank than worst committee
+new_committee[is.na(committee) == TRUE, rank := 22]
+new_committee[is.na(rank) == TRUE, rank := 22]
 
 # get best committee for mc
 new_best_committee <- new_committee[,
   .(bestgrosswart = min(rank, na.rm = TRUE)), .(congress, icpsrLegis, Name)]
-new_best_committee <- merge(new_best_committee, leader_committee,
-  by = c("congress", "icpsrLegis", "Name"), all.x = TRUE)
-new_best_committee[leader_check == 0, bestgrosswart := 0]
+new_best_committee[, best_grosswart := 22 - bestgrosswart]
+
 new_best_committee <- new_best_committee[, .(congress, icpsrLegis, bestgrosswart)]
 
 # merge in bestgrosswart data

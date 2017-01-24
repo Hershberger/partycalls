@@ -1,5 +1,5 @@
 library(partycalls)
-load("test_data/senate_data_emIRT_only.RData")
+load("test_data/senate_data_p_05.RData")
 
 senate_data <- senate_data[, .(congress, class, pres_vote_share, vote_share,
   south, leader, chair, best_committee, power_committee, up_for_reelection,
