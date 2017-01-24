@@ -9,6 +9,7 @@ names(house_party_calls) <- paste0("hou", 93:112)
 lep_data_93_110 <-
   readstata13::read.dta13("inst/extdata/LEPData93to110Congresses.dta")
 setDT(lep_data_93_110)
+
 lep_data_111_112 <-
   readstata13::read.dta13("inst/extdata/LEPData111to113Congresses.dta")
 setDT(lep_data_111_112)
@@ -26,67 +27,59 @@ lep_aggregate <- subset(lep_aggregate, !(congress == 108 & icpsr == 20343 &
 # prep data for merge
 setDT(lep_aggregate)
 lep_aggregate <- lep_aggregate[congress %in% c(111:112), ]
+
 stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
-lep_data_93_110 <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
-lep_data_111_112 <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
+
+lep_data_93_110 <- subset(lep_data_93_110, !(st_name %in% stabb_to_drop))
+
+lep_data_111_112 <- subset(lep_data_111_112, !(st_name %in% stabb_to_drop))
+
 lep_aggregate <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
+
 lep_aggregate <- lep_aggregate[, .(congress, icpsr, elected, afam, latino,
   freshman, sophomore, south, leader)]
 
-# lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
-#   by = c("congress", "icpsr"))
+lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
+  by = c("congress", "icpsr"))
 
 # select variables for analysis
 lep_data_93_110 <- lep_data_93_110[, .(thomas_name, icpsr, congress, st_name,
-  cd, dem, female, afam, latino, votepct, speaker, chair, subchr, power,
-  seniority, maj_leader, min_leader, south, south_dem, les)]
+  cd, dem, majority, female, afam, latino, votepct, speaker, chair, subchr,
+  power, seniority, maj_leader, min_leader, south, les)]
 
 lep_data_111_112 <- lep_data_111_112[, .(thomas_name, icpsr, congress, st_name,
-  cd, dem, female, afam, latino, votepct, speaker, chair, subchr, power,
-  seniority, maj_leader, min_leader, south, south_dem, les)]
+  cd, dem, majority, female, afam, latino, votepct, speaker, chair, subchr,
+  power, seniority, maj_leader, min_leader, south, les)]
 
 # merge data sets
 lep_data <- rbind(lep_data_93_110, lep_data_111_112)
 
-# drop Tim Ryan's first entry (shorter of two)
-lep_data <- subset(lep_data, !(congress == 108 & icpsr == 20343 &
-    thomas_num == 7031))
-
-# remove DC and US territories
-stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
-lep_data[, drop_stabb := 1 * (stabb %in% stabb_to_drop)]
-lep_data <- lep_data[drop_stabb == 0, ]
-
-
-# check variables
-icpsr_to_check <- lep_data[is.na(icpsr) == TRUE, ]
-seniority_to_check <- lep_data[is.na(seniority) == TRUE, ]
-dem_to_check <- lep_data[is.na(dem) == TRUE, ]
-vtpct_to_check <- lep_data[is.na(votepct) == TRUE, ]
-afam_check <- lep_data[is.na(afam) == TRUE, ]
-latino_check <- lep_data[is.na(afam) == TRUE, ]
-maj_check <- lep_data[is.na(majority) == TRUE, ]
-dem_check <- lep_data[is.na(dem) == TRUE, ]
-maj_leader_check <- lep_data[is.na(maj_leader) == TRUE, ]
-min_leader_check <- lep_data[is.na(min_leader) == TRUE, ]
-south_check <- lep_data[is.na(south) == TRUE, ]
-
 # clean data and add variables needed
+lep_data[thomas_name == "Albert, Carl", icpsr := 62]
+lep_data[thomas_name == "Lambert, Blanche", icpsr := 29305]
+lep_data[thomas_name == "Sekula Gibbs, Shelley", icpsr := 20541]
+
+lep_data[icpsr == 62, dem := 1]
+lep_data[icpsr == 20301, latino := 0]
+lep_data[icpsr == 20301, afam := 0]
+
+# fix south variable
+south_stabb <- c("OK", "AR", "NC", "TX", "FL", "TN", "AL", "GA", "LA", "MS",
+  "KY", "VA", "SC")
+lep_data[is.na(south) == TRUE, south := 1]
+lep_data[st_name %in% south_stabb, south := 1]
+
+# missing votepct means appointee
+# mark these as drop
+lep_data[, drop := 0]
+lep_data[is.na(votepct), drop := 1]
+
 lep_data[, freshman := 0]
 lep_data[seniority == 1, freshman := 1]
 
 lep_data[, leader := 0]
 lep_data[maj_leader == 1, leader := 1]
 lep_data[min_leader == 1, leader := 1]
-
-member_year_data[thomas_name == "Albert, Carl", icpsrLegis := 62]
-member_year_data[thomas_name == "Lambert, Blanche", icpsrLegis := 29305]
-member_year_data[thomas_name == "Sekula Gibbs, Shelley", icpsrLegis := 20541]
-
-member_year_data[icpsrLegis == 20301, latino := 0]
-member_year_data[icpsrLegis == 20301, afam := 0]
-
-member_year_data[icpsrLegis == 62, dem := 1]
 
 # create state_cd
 state_fips <- fread("inst/extdata/statefips.csv")
@@ -111,14 +104,10 @@ member_year_data <- merge(lep_data, jacobson_pres,
 member_year_data[dem == 1, pres_votepct := dpres]
 member_year_data[dem == 0, pres_votepct := 100 - dpres]
 
-
-# load replication data
-old_whoheeds13 <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
+# load replication data for committee data
+old_committee <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
 setDT(old_committee)
-
-
-# get old committee data
-old_best_committee <- old_whoheeds13[, .(congress, icpsr, bestgrosswart)]
+old_best_committee <- old_committee[, .(congress, icpsr, bestgrosswart)]
 
 # get stewart committee data for congress 110-112
 new_committee <- fread("inst/extdata/house_assignments_103-114-1.csv")
@@ -136,12 +125,12 @@ new_committee <- new_committee[is.na(congress) == FALSE,]
 new_committee <- new_committee[congress >= 110, ]
 new_committee <- new_committee[congress <= 112, ]
 new_committee[, drop := 1 * (stabb %in% stabb_to_drop)]
-new_committee <- new_committee[drop != 1]
+new_committee <- new_committee[drop != 1, ]
 
 # fix icpsrLegis numbers
 lep_new_data <- lep_data[congress >= 110,]
 new_committee[, in_lep_data := 1 * (icpsrLegis %in% lep_new_data$icpsr)]
-new_committee[in_lep_data == 0, .(congress, icpsrLegis, Name)]
+new_committee[in_lep_data == 0, .(congress, icpsrLegis, Name, stabb, cd)]
 new_committee[icpsrLegis == 21169, icpsrLegis := 20524] # mike fitzpatrick
 new_committee[icpsrLegis == 21144, icpsrLegis := 20725] # tim walburg
 new_committee[icpsrLegis == 90901, icpsrLegis := 20901] # parker griffith
@@ -149,8 +138,11 @@ new_committee[icpsrLegis == 29335, icpsrLegis := 20959] # theodore deutch
 new_committee[icpsrLegis == 21161, icpsrLegis := 29550] # steve chabot
 new_committee[icpsrLegis == 39310, icpsrLegis := 20917] # ahn cao
 new_committee[icpsrLegis == 15006, icpsrLegis := 20758] # gus bilirakis
+# dan miller was not in congress at this time
 
 # correct NA values
+# no committee takes lowest rank
+# unless member is in party leadership
 new_committee[is.na(committee) == TRUE, rank := 21]
 new_committee[is.na(rank) == TRUE, rank := 21]
 leader_no_committee <- c("SPEAKER", "MAJORITY LEADER", "MINORITY LEADER",
