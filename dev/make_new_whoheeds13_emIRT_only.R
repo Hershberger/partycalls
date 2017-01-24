@@ -108,6 +108,7 @@ member_year_data[dem == 0, pres_votepct := 100 - dpres]
 old_committee <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
 setDT(old_committee)
 old_best_committee <- old_committee[, .(congress, icpsr, bestgrosswart)]
+setnames(old_best_committee, "icpsr", "icpsrLegis")
 
 # get stewart committee data for congress 110-112
 new_committee <- fread("inst/extdata/house_assignments_103-114-1.csv")
@@ -164,12 +165,13 @@ new_best_committee <- new_committee[,
 new_best_committee <- merge(new_best_committee, leader_committee,
   by = c("congress", "icpsrLegis", "Name"), all.x = TRUE)
 new_best_committee[leader_check == 0, bestgrosswart := 0]
-new_best_committee <- new_best_committee[, .(congress, icpsr, bestgrosswart)]
+new_best_committee <- new_best_committee[, .(congress, icpsrLegis, bestgrosswart)]
 
 # merge in bestgrosswart data
-best_committee <- rbind(old_committee, new_best_committee)
+setnames(member_year_data, "icpsr", "icpsrLegis")
+best_committee <- rbind(old_best_committee, new_best_committee)
 member_year_data <- merge(member_year_data, best_committee,
-  by = c("icpsrLegis", congress), all.x = TRUE)
+  by = c("icpsrLegis", "congress"), all.x = TRUE)
 
 # get responsiveness rates
 new_responsiveness <- rbindlist(lapply(93:112, function(congress) {
