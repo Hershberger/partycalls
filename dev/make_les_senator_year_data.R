@@ -246,6 +246,13 @@ for (i in 1:nrow(check)) {
     drop := 1]
 }
 
+# create party caucus variable
+senator_year_data[party == "R", caucus := "Republican"]
+senator_year_data[party == "D", caucus := "Democrat"]
+senator_year_data[dem == 112, caucus := "Republican"]
+senator_year_data[dem == 328, caucus := "Democrat"]
+senator_year_data[icpsrLegis == 40106, caucus := "Republican"]
+
 # Populate vote_share
 senator_year_data[,
   vote_share := vote_vote_rank_1 / (vote_vote_rank_1 + vote_vote_rank_2)]
@@ -261,6 +268,18 @@ senator_year_data[
     !last_name %in% c("Shelby", "Specter") &
     candname_vote_rank_1 != "Ben Nighthorse Campbell",
   vote_share := vote_vote_rank_2 / (vote_vote_rank_1 + vote_vote_rank_2)]
+
+# Populate most recent presidential election returns
+senator_year_data[, most_recent_presidential_election_year :=
+    1784 + 2 * (congress + congress %% 2)]
+pres_election_dt <- fread("inst/extdata/pres_election_DT.csv")
+senator_year_data <- merge(senator_year_data, pres_election_dt,
+  by.x = c("stabb", "most_recent_presidential_election_year"),
+  by.y = c("stabb", "election_year"))
+senator_year_data[caucus == "Democrat",
+  pres_vote_share := pres_dem_votes / (pres_dem_votes + pres_rep_votes)]
+senator_year_data[caucus == "Republican",
+  pres_vote_share := pres_rep_votes / (pres_dem_votes + pres_rep_votes)]
 
 # Muriel Humphrey got covariates switched with Hubert, these need corrected
 # also, Muriel needs to be dropped
@@ -522,13 +541,6 @@ senator_year_data[, senate_seniority := ceiling(seniority / 3)]
 # correct party for sen. metzenbaum
 senator_year_data[icpsrLegis == 14073, dem := 1]
 
-# create party caucus variable
-senator_year_data[dem == 1, caucus := "Democrat"]
-senator_year_data[dem == 0, caucus := "Republican"]
-senator_year_data[dem == 112, caucus := "Republican"]
-senator_year_data[dem == 328, caucus := "Democrat"]
-
-
 # create caucus majority variable
 # senator_year_data[dem == 1 & majority == 1, unique(congress)]
 dem_majority <- c(93:96, 100:103, 110:112)
@@ -548,18 +560,6 @@ senator_year_data[caucus == "Democrat" & congress == 107,
 senator_year_data[caucus == "Republican" & congress == 107,
   caucus_majority := 0.25]
 senator_year_data[congress == 107 & mc %like% "JEFFORDS", caucus_majority := 1]
-
-# add in presidential election data
-senator_year_data[, most_recent_presidential_election_year :=
-  1784 + 2 * (congress + congress %% 2)]
-pres_election_dt <- fread("inst/extdata/pres_election_DT.csv")
-senator_year_data <- merge(senator_year_data, pres_election_dt,
-  by.x = c("stabb", "most_recent_presidential_election_year"),
-  by.y = c("stabb", "election_year"))
-senator_year_data[caucus == "Democrat",
-  pres_vote_share := pres_dem_votes / (pres_dem_votes + pres_rep_votes)]
-senator_year_data[caucus == "Republican",
-  pres_vote_share := pres_rep_votes / (pres_dem_votes + pres_rep_votes)]
 
 # Populate committee chair
 committees_93102 <- read.delim("inst/extdata/senate_assignments_80-102.txt",
@@ -583,20 +583,18 @@ senator_year_data <- merge(senator_year_data, chair_dt,
   by = c("congress", "icpsrLegis"), all.x = TRUE)
 senator_year_data[is.na(com_chair) == TRUE, com_chair := 0]
 
-# check chair vs com_chair
-senator_year_data[chair == 1 & com_chair == 0, .(congress, icpsrLegis,
-  first_name, mc, caucus, caucus_majority)]
-senator_year_data[chair == 0 & com_chair == 1, .(congress, icpsrLegis,
-  first_name, mc, caucus, caucus_majority)]
-
-senator_year_data[com_chair == 1 & caucus_majority == 0, .(congress, icpsrLegis,
-  first_name, mc, caucus)]
+# # check chair vs com_chair
+# senator_year_data[chair == 1 & com_chair == 0, .(congress, icpsrLegis,
+#   first_name, mc, caucus, caucus_majority)]
+# senator_year_data[chair == 0 & com_chair == 1, .(congress, icpsrLegis,
+#   first_name, mc, caucus, caucus_majority)]
+# senator_year_data[com_chair == 1 & caucus_majority == 0, .(congress, icpsrLegis,
+#   first_name, mc, caucus)]
 
 # Build committee data and merge in
 source("package/get-best-committee.R")
 senator_year_data <- merge(senator_year_data, best_committee_dt,
   by = c("congress", "icpsrLegis"), all.x = TRUE)
-
 
 # Add indicator for Gingrich senators
 gingrich_senators <- fread("inst/extdata/gingrich_senators.csv")
@@ -621,7 +619,7 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
 # drop unused variables
 senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, mc, caucus, caucus_majority,
-  pres_vote_share, pres_dem_votes, vote_share, south, south11, south13, south17,
+  pres_vote_share, vote_share, south, south11, south13, south17, south_dem,
   leader, com_chair, best_committee, power_committee, up_for_reelection,
   freshman, superfreshman, seniority, senate_seniority, retiree, afam, fem,
   latino, gingrich_senator, drop)]

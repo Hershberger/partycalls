@@ -19,18 +19,22 @@ lep_data_111_112 <- lep_data_111_112[congress <= 112, ]
 # load aggregate legislative effectiveness data for some missing variables
 lep_aggregate <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
 # drop Tim Ryan's first entry (shorter of two)
+lep_data_93_110 <- subset(lep_data_93_110, !(congress == 108 & icpsr == 20343 &
+    thomas_num == 7031))
 lep_aggregate <- subset(lep_aggregate, !(congress == 108 & icpsr == 20343 &
     thomas_num == 7031))
 # prep data for merge
 setDT(lep_aggregate)
+lep_aggregate <- lep_aggregate[congress %in% c(111:112), ]
 stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
-lep_aggregate[, drop_stabb := 1 * (stabb %in% stabb_to_drop)]
-lep_aggregate <- lep_aggregate[drop_stabb == 0, ]
+lep_data_93_110 <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
+lep_data_111_112 <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
+lep_aggregate <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
 lep_aggregate <- lep_aggregate[, .(congress, icpsr, elected, afam, latino,
   freshman, sophomore, south, leader)]
 
-lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
-  by = c("congress", "icpsr"))
+# lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
+#   by = c("congress", "icpsr"))
 
 # select variables for analysis
 lep_data_93_110 <- lep_data_93_110[, .(thomas_name, icpsr, congress, st_name,
