@@ -1,8 +1,8 @@
 library(partycalls)
-set.seed(1634538933, kind = "L'Ecuyer")
+set.seed(1043870504, kind = "L'Ecuyer")
 
 # load party calls data
-load("test_data/senate_party_calls_emIRT_only.RData")
+load("test_data/senate_party_calls_p_05.RData")
 names(senate_party_calls) <- paste0("sen", 93:112)
 
 # load senator_year_data here
@@ -33,5 +33,5 @@ setDT(senate_data)
 senate_data[icpsrLegis == 13100, ideological_extremism := abs(party_free_ideal_point)]
 
 save(senate_data,
-  file = "test_data/senate_data_emIRT_only.RData")
+  file = "test_data/senate_data_p_05.RData")
 

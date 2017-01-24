@@ -9,9 +9,6 @@ senate_data <- senate_data[, .(congress, class, pres_vote_share, votepct,
   party_free_ideal_point, pirate100, pfrate100, ideological_extremism,
   icpsrLegis)]
 
-# correct buckley extremism
-senate_data[icpsrLegis == 13100, ideological_extremism := abs(party_free_ideal_point)]
-
 senate_dem <- senate_data[caucus == "Democrat", ]
 senate_rep <- senate_data[caucus == "Republican", ]
 senate_maj <- senate_data[maj == 1, ]
