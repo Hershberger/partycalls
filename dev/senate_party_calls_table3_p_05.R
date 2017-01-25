@@ -4,7 +4,7 @@ library(data.table)
 options(stringsAsFactors = FALSE)
 
 # load data for analysis
-load("test_data/senate_data_emIRT_only.RData")
+load("test_data/senate_data_p_05.RData")
 senate_data <- senate_data[drop == 0, ]
 
 f_extremism <- pirate100 ~ ideological_extremism +

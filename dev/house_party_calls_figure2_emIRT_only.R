@@ -5,21 +5,22 @@ options(stringsAsFactors = FALSE)
 
 # load data for analysis
 load("test_data/new_whoheeds13_emIRT_only.RData")
-whoheeds13 <- readstata13::read.dta13(
-  "inst/extdata/who-heeds-replication-archive.dta")
-setDT(whoheeds13)
-whoheeds13 <- whoheeds13[, .(
-  congress, icpsr, maj, retiree, bestgrosswart, dpres
-)]
-new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
+new_whoheeds13 <- new_whoheeds13[drop == 0, ]
+# whoheeds13 <- readstata13::read.dta13(
+#   "inst/extdata/who-heeds-replication-archive.dta")
+# setDT(whoheeds13)
+# whoheeds13 <- whoheeds13[, .(
+#   congress, icpsr, maj, retiree, bestgrosswart, dpres
+# )]
+# new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + dpres + south + votepct + female + afam + latino +
-  seniority + freshman + retiree + bestgrosswart + leader +
+  pfrate100 + pres_votepct + south + votepct + female + afam + latino +
+  seniority + freshman + bestgrosswart + leader +
   power + chair
 fm_extremism <- function(i, j) {
   summary(lm(f_extremism,
-    data = subset(new_whoheeds13, congress == i & maj == j)),
+    data = subset(new_whoheeds13, congress == i & majority == j)),
     vcov = vcovHC(type = "HC1"))
 }
 B <- SE <- data.frame(row.names = 93:109)
@@ -67,17 +68,6 @@ segments(x, b - qnorm(.975)*se, x, b+qnorm(.975)*se, lwd=.9)
 
 dev.off()
 
-# whoheeds13 <- readstata13::read.dta13(
-#   "inst/extdata/who-heeds-replication-archive.dta")
-# f_extremism <- pirate100 ~ ideological_extremism +
-#   pfrate100 + dpres + south + votepct + female + afam + latino +
-#   seniority + freshman + retiree + bestgrosswart + leader +
-#   power + chair
-# fm_extremism <- function(i, j) {
-#   summary(lm(f_extremism,
-#     data = subset(whoheeds13, congress == i & maj == j)),
-#     vcov = vcovHC(type = "HC1"))
-# }
 # B <- SE <- data.frame(row.names = 93:109)
 # B$extremism_maj <- sapply(93:109, function(x)
 #   fm_extremism(x, 1)$coef["ideological_extremism", "Estimate"])

@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  24 JAN 2017 16:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  24 JAN 2017 19:10
 entering extended mode
-**update_18jan.tex
-(update_18jan.tex
+**update_24jan_pt2.tex
+(update_24jan_pt2.tex
 LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 68 languages loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -331,17 +331,8 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\enumerate.sty"
 Package: enumerate 2014/10/28 v3.00 enumerate extensions (DPC)
 \@enLab=\toks27
-) (update_18jan.aux
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `' multiply defined.
-
 )
+(update_24jan_pt2.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
@@ -356,7 +347,8 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
- ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count119
 \scratchdimen=\dimen133
@@ -384,7 +376,7 @@ LaTeX Info: Redefining \ref on input line 12.
 LaTeX Info: Redefining \pageref on input line 12.
 LaTeX Info: Redefining \nameref on input line 12.
 
-(update_18jan.out) (update_18jan.out)
+(update_24jan_pt2.out) (update_24jan_pt2.out)
 \@outlinefile=\write3
 
 *geometry* driver: auto-detecting
@@ -395,15 +387,15 @@ LaTeX Info: Redefining \nameref on input line 12.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(90.3375pt, 433.62001pt, 90.3375pt)
-* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
+* h-part:(L,W,R)=(54.2025pt, 505.89pt, 54.2025pt)
+* v-part:(T,H,B)=(54.2025pt, 686.56499pt, 54.2025pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=433.62001pt
-* \textheight=614.295pt
-* \oddsidemargin=18.0675pt
-* \evensidemargin=18.0675pt
-* \topmargin=18.0675pt
+* \textwidth=505.89pt
+* \textheight=686.56499pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-18.06749pt
 * \headheight=0.0pt
 * \headsep=0.0pt
 * \topskip=12.0pt
@@ -421,69 +413,130 @@ LaTeX Info: Redefining \nameref on input line 12.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 26.
+LaTeX Font Info:    Try loading font information for U+msa on input line 21.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 26.
+LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 160.
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-emIRT_only.pdf
+, id=3, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-emIRT_onl
+y.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-emIRT_only
+.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e-figure2-emIRT_only.pdf used on input line 182.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-p_05.pdf, id=4
+, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-p_05.pdf 
+Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-p_05.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e-figure2-p_05.pdf used on input line 189.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
+_emIRT_only.pdf, id=5, 289.08pt x 578.16pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
+ation_emIRT_only.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
+tion_emIRT_only.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
+eeds-figure2-replication_emIRT_only.pdf used on input line 196.
+(pdftex.def)             Requested size: 289.07928pt x 578.15858pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 306.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}pdfTeX warning (ext4): dest
-ination with the same identifier (name{table.1}) has been already used, duplica
-te ignored
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+[2pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
+as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.160 \end{document}
-                    ] [2pdfTeX warning (ext4): destination with the same identi
+l.306 \end{document}
+                    ] [3pdfTeX warning (ext4): destination with the same identi
 fier (name{table.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.160 \end{document}
-                    ] [3pdfTeX warning (ext4): destination with the same identi
+l.306 \end{document}
+                    ] [4pdfTeX warning (ext4): destination with the same identi
 fier (name{table.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.160 \end{document}
-                    ] [4pdfTeX warning (ext4): destination with the same identi
-fier (name{table.4}) has been already used, duplicate ignored
+l.306 \end{document}
+                    ] [5pdfTeX warning (ext4): destination with the same identi
+fier (name{figure.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.160 \end{document}
+l.306 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-f
+igure2-emIRT_only.pdf>] [6pdfTeX warning (ext4): destination with the same iden
+tifier (name{figure.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.306 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-f
+igure2-p_05.pdf>] [7pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.306 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heed
+s-figure2-replication_emIRT_only.pdf>] [8pdfTeX warning (ext4): destination wit
+h the same identifier (name{table.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.306 \end{document}
+                    ] [9pdfTeX warning (ext4): destination with the same identi
+fier (name{table.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.306 \end{document}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 160.
- (update_18jan.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 160.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 160.
-Package rerunfilecheck Info: File `update_18jan.out' has not changed.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 306.
+ (update_24jan_pt2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 306.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 306.
+Package rerunfilecheck Info: File `update_24jan_pt2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 160.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 306.
  ) 
 Here is how much of TeX's memory you used:
- 7055 strings out of 493698
- 99549 string characters out of 3144412
- 212403 words of memory out of 3000000
- 10280 multiletter control sequences out of 15000+200000
- 11054 words of font info for 41 fonts, out of 3000000 for 9000
+ 7097 strings out of 493698
+ 101027 string characters out of 3144412
+ 234354 words of memory out of 3000000
+ 10302 multiletter control sequences out of 15000+200000
+ 13261 words of font info for 49 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,8n,32p,249b,328s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on update_18jan.pdf (4 pages, 32107 bytes).
+ 29i,10n,32p,538b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pf
+b>
+Output written on update_24jan_pt2.pdf (9 pages, 118581 bytes).
 PDF statistics:
- 37 PDF objects out of 1000 (max. 8388607)
- 9 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 PDF objects out of 1000 (max. 8388607)
+ 18 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

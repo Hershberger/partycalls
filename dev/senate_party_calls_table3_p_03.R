@@ -4,7 +4,7 @@ library(data.table)
 options(stringsAsFactors = FALSE)
 
 # load data for analysis
-load("test_data/senate_data_emIRT_only.RData")
+load("test_data/senate_data_p_03.RData")
 senate_data <- senate_data[drop == 0, ]
 
 f_extremism <- pirate100 ~ ideological_extremism +
@@ -33,10 +33,16 @@ f_extremism_dem <- pirate100 ~ ideological_extremism +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
 
+texreg::screenreg(list(lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
+  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1])),
+  reorder.coef = c(2, 16, 3:5, 15, 6:14, 1),
+  digits = 3)
+
 texreg::texreg(list(lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
   lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1])),
   reorder.coef = c(2, 16, 3:5, 15, 6:14, 1),
   digits = 3)
+
 
 # # ommitting pres_vote_share
 # f_extremism_2 <- pirate100 ~ ideological_extremism +

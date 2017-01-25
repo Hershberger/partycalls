@@ -1,5 +1,5 @@
 library(partycalls)
-load("test_data/senate_data_p_05.RData")
+load("test_data/senate_data_p_02.RData")
 
 senate_data <- senate_data[drop == 0,]
 

@@ -4,7 +4,7 @@ library(partycalls)
 options(stringsAsFactors = FALSE)
 
 # load data for analysis
-load("test_data/senate_data_emIRT_only.RData")
+load("test_data/senate_data_p_05.RData")
 senate_data <- senate_data[drop == 0, ]
 senate_data[congress == 107 & maj < 0.5, maj := 0]
 senate_data[congress == 107 & maj >= 0.5, maj := 1]
@@ -30,7 +30,7 @@ SE$extremism_maj <- sapply(93:112, function(x)
 SE$extremism_min <- sapply(93:112, function(x)
   fm_extremism(x, 0)$coef["ideological_extremism", "Std. Error"])
 
-pdf(file="plots/senate-figure2-emIRT_only.pdf", ## RENAME
+pdf(file="plots/senate-figure2-p_05.pdf", ## RENAME
   width = 4, height = 8, family = "Times")
 layout(matrix(1:2, 2, 1, byrow = TRUE))
 par(mar = c(2.5, 4, 2, 0.3) + 0.1, font.lab = 2)
