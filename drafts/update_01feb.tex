@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1.25in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+\begin{center}
+\Large 01 February 2016
+\end{center}
+
+\section{Overview}
+
+\subsection{Old Senate Party Calls Summary}
+
+In reviewing the data and code that William and I were working from in the beginning of the project, I found a number of things. First and foremost among these was that we had been randomly selecting half of the votes to serve as the noncalls for the first iteration of the algorithm. Though it is not necessarily the case, it is possible that setting the lopsided votes as the initial noncalls leads the algorithm to get stuck at a local minima/maxima instead of reaching the correct conclusions, if in fact the truth is that party calls in the Senate happen as they do in the House. It may be worth retesting this method of coding the Senate Party Calls. Of course, testing it first in the House or doing both simultaneously may be a better approach.
+
+
+\section{Tables and Figures}
+
+\subsection{Old Senate Party Calls}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Thu Jan 26 20:04:57 2017
+\begin{table}[ht]
+	\caption{Vote Coding from Oldest Method}
+	\centering
+	\begin{tabular}{cccc}
+		\hline
+		Congress & Party Calls & Noncalls & Gray Votes \\ 
+		\hline
+		93 & 411 & 726 &   1 \\ 
+		94 & 456 & 852 &   3 \\ 
+		95 & 332 & 820 &   4 \\ 
+		96 & 411 & 642 &   1 \\ 
+		97 & 464 & 497 &   5 \\ 
+		98 & 313 & 346 &   4 \\ 
+		99 & 306 & 432 &   2 \\ 
+		100 & 355 & 443 &   1 \\ 
+		101 & 259 & 378 &   1 \\ 
+		102 & 278 & 270 &   2 \\ 
+		103 & 395 & 326 &   3 \\ 
+		104 & 518 & 394 &   7 \\ 
+		105 & 295 & 314 &   3 \\ 
+		106 & 376 & 289 &   7 \\ 
+		107 & 282 & 346 &   5 \\ 
+		108 & 381 & 294 &   0 \\ 
+		109 & 323 & 315 &   7 \\ 
+		110 & 333 & 321 &   3 \\ 
+		111 & 487 & 206 &   3 \\ 
+		112 & 275 & 203 &   8 \\ 
+		\hline
+		Total: & 7250 & 8414 & 70 \\
+		Mean: & 362.5 & 420.7 & 3.5 \\
+		sd: & 76.3 & 191.8 & 2.4 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Thu Jan 26 20:44:36 2017
+\begin{table}[ht]
+	\caption{Oldest Method Lopsided and Close Vote Sorting}
+	\centering
+	\begin{tabular}{rrrr}
+		\hline
+		& Party Calls & Noncalls & Gray \\ 
+		\hline
+		Lopsided &  2054 & 6540 & 46 \\ 
+		Close & 5196  & 1874 & 24 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+
+
+
+\end{document}
