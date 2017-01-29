@@ -7,10 +7,13 @@ get_initial_senator_data <- function(congress) {
   ld <- rc$legis.data
   ld$mc <- rownames(ld)
   setDT(ld)
-  ld[, congress := congress]
-  # remove presidents
+  vt <- rc$votes
+  vt[vt %in% 1:6] <- 1
+  vt[vt == 0 | vt %in% 7:9] <- 0
+  vt <- data.table(mc = rownames(vt), votes = rowSums(vt), congress = congress)
+  ld <- merge(ld, vt, by = "mc")
   ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
-    partyCode)]
+    partyCode, votes)]
 }
 
 syd_list <- lapply(93:112, get_initial_senator_data)
@@ -205,6 +208,61 @@ senator_year_data[icpsrLegis == 49901 & congress >= 106, elected := 1998]
 # JOCELYN BURDICK is correct as is
 # SHEILA FRAHM is correct as is
 
+# get first congress in dataset
+senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
+
+# fix first congress for special elections and appointees
+fresh_to_check <- senator_year_data[congress < freshman_congress, ]
+# fresh_to_check[, .(icpsrLegis, first_name, mc, congress, freshman_congress)]
+# senator_year_data[icpsrLegis %in% fresh_to_check$icpsrLegis,
+# unique(freshman_congress), .(icpsrLegis, first_name, mc)]
+# these are all off by 1 so subtract 1 from all
+senator_year_data[icpsrLegis %in% fresh_to_check$icpsrLegis,
+  freshman_congress := freshman_congress - 1]
+
+# # Fix senators that served discontinuous terms
+# # for these, create two mc tags, one for each stint
+# # mc will have "XX time in senate" pasted to the end
+# # change freshman_congress variable for second term to reflect this
+# # also, set class to correct value
+# discontinuous_term <- senator_data[grep(";", years_of_service), icpsrLegis]
+senator_year_data[icpsrLegis == 2087 & congress <= 93, `:=`(
+  mc = paste(mc, "1st time in senate"))]
+senator_year_data[icpsrLegis == 2087 & congress >= 94, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 94, class = 3)]
+senator_year_data[icpsrLegis == 2822 & congress <= 77, `:=`(
+  mc = paste(mc, "1st time in senate"))]
+senator_year_data[icpsrLegis == 2822 & congress >= 78, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 78, class = 2)]
+senator_year_data[icpsrLegis == 3658 & congress <= 88, `:=`(
+  mc = paste(mc, "1st time in senate"))]
+senator_year_data[icpsrLegis == 3658 & congress >= 91, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 91, class = 3)]
+senator_year_data[icpsrLegis == 4728 & congress <= 88,  `:=`(
+  mc = paste(mc, "1st time in senate"))]
+senator_year_data[icpsrLegis == 4728 & congress >= 92, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 92, class = 1)]
+senator_year_data[icpsrLegis == 14073 & congress <= 93 ,  `:=`(
+  mc = paste(mc, "1st time in senate"), class = 3)]
+senator_year_data[icpsrLegis == 14073 & congress >= 95, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 95, class = 1)]
+senator_year_data[icpsrLegis == 14806 & congress <= 105,  `:=`(
+  mc = paste(mc, "1st time in senate"), class = 3)]
+senator_year_data[icpsrLegis == 14806 & congress >= 112, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 112, class = 3)]
+senator_year_data[icpsrLegis == 14904 & congress <= 100,  `:=`(
+  mc = paste(mc, "1st time in senate"), class = 3)]
+senator_year_data[icpsrLegis == 14904 & congress >= 101, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 101, class = 1)]
+senator_year_data[icpsrLegis == 14914 & congress <= 107,  `:=`(
+  mc = paste(mc, "1st time in senate"), class = 1)]
+senator_year_data[icpsrLegis == 14914 & congress >= 108, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 108, class = 2)]
+senator_year_data[icpsrLegis == 15502 & congress <= 102, `:=`(
+  mc = paste(mc, "1st time in senate"), class = 3)]
+senator_year_data[icpsrLegis == 15502 & congress >= 103, `:=`(
+  mc = paste(mc, "2nd time in senate"), freshman_congress = 103, class = 1)]
+
 # Populate year of most recent normal (i.e., on-cycle) election
 senator_year_data[,
   year_of_most_recent_normal_election := calc_year_elected(congress, class)]
@@ -228,11 +286,11 @@ check <- sapply(1:2041, function(i) {
     senator_year_data$candname_vote_rank_1[i], ignore.case = TRUE)
 })
 check <- senator_year_data[check, .(congress, stabb, icpsrLegis,
-  last_name, candname_vote_rank_1)]
+  last_name, candname_vote_rank_1, vote_vote_rank_1, vote_vote_rank_2)]
 senator_year_data[, drop := 0]
 
-remove_from_check <-  c(10514, 3658, 10802, 10562, 4728, 14107, 14904,
-  49306, 15502, 29369, 14914)
+# some of these candname is wrong but vote_share is correct, don't drop them
+remove_from_check <-  c(10514, 3658, 10802, 14107)
 check[, remove := 0]
 check[icpsrLegis %in% remove_from_check, remove := 1]
 check[icpsrLegis == 14073 & congress >= 95, remove := 1]
@@ -268,6 +326,18 @@ senator_year_data[
     !last_name %in% c("Shelby", "Specter") &
     candname_vote_rank_1 != "Ben Nighthorse Campbell",
   vote_share := vote_vote_rank_2 / (vote_vote_rank_1 + vote_vote_rank_2)]
+
+# check vote_share
+vote_check <- senator_year_data[vote_share <= .5, ]
+vote_check[drop == 0, .(congress, class, mc, icpsrLegis, vote_share,
+  vote_vote_rank_1, vote_vote_rank_2)]
+# all not marked as dropped are backward coded
+senator_year_data[vote_share <= .5, vote_share := 1 - vote_share]
+
+# GOLDWATER (R AZ) 3658 - class is wrong
+
+
+
 
 # Populate most recent presidential election returns
 senator_year_data[, most_recent_presidential_election_year :=
@@ -395,61 +465,6 @@ senator_year_data[icpsrLegis == 29740 & congress == 110, latino := 1]
 
 # afam
 senator_year_data[is.na(afam) == TRUE, afam := 0]
-
-# # Fix senators that served discontinuous terms
-# # for these, create two mc tags, one for each stint
-# # mc will have "XX time in senate" pasted to the end
-# # change freshman_congress variable for second term to reflect this
-# # also, set class to correct value
-# discontinuous_term <- senator_data[grep(";", years_of_service), icpsrLegis]
-senator_year_data[icpsrLegis == 2087 & congress <= 93, `:=`(
-  mc = paste(mc, "1st time in senate"))]
-senator_year_data[icpsrLegis == 2087 & congress >= 94, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 94, class = 3)]
-senator_year_data[icpsrLegis == 2822 & congress <= 77, `:=`(
-  mc = paste(mc, "1st time in senate"))]
-senator_year_data[icpsrLegis == 2822 & congress >= 78, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 78, class = 2)]
-senator_year_data[icpsrLegis == 3658 & congress <= 88, `:=`(
-  mc = paste(mc, "1st time in senate"))]
-senator_year_data[icpsrLegis == 3658 & congress >= 91, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 91, class = 3)]
-senator_year_data[icpsrLegis == 4728 & congress <= 88,  `:=`(
-  mc = paste(mc, "1st time in senate"))]
-senator_year_data[icpsrLegis == 4728 & congress >= 92, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 92, class = 1)]
-senator_year_data[icpsrLegis == 14073 & congress <= 93 ,  `:=`(
-  mc = paste(mc, "1st time in senate"), class = 3)]
-senator_year_data[icpsrLegis == 14073 & congress >= 95, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 95, class = 1)]
-senator_year_data[icpsrLegis == 14806 & congress <= 105,  `:=`(
-  mc = paste(mc, "1st time in senate"), class = 3)]
-senator_year_data[icpsrLegis == 14806 & congress >= 112, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 112, class = 3)]
-senator_year_data[icpsrLegis == 14904 & congress <= 100,  `:=`(
-  mc = paste(mc, "1st time in senate"), class = 3)]
-senator_year_data[icpsrLegis == 14904 & congress >= 101, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 101, class = 1)]
-senator_year_data[icpsrLegis == 14914 & congress <= 107,  `:=`(
-  mc = paste(mc, "1st time in senate"), class = 1)]
-senator_year_data[icpsrLegis == 14914 & congress >= 108, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 108, class = 2)]
-senator_year_data[icpsrLegis == 15502 & congress <= 102, `:=`(
-  mc = paste(mc, "1st time in senate"), class = 3)]
-senator_year_data[icpsrLegis == 15502 & congress >= 103, `:=`(
-  mc = paste(mc, "2nd time in senate"), freshman_congress = 103, class = 1)]
-
-# get first congress in dataset
-senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
-
-# fix first congress for special elections and appointees
-fresh_to_check <- senator_year_data[congress < freshman_congress, ]
-# fresh_to_check[, .(icpsrLegis, first_name, mc, congress, freshman_congress, drop)]
-# senator_year_data[icpsrLegis %in% fresh_to_check$icpsrLegis,
-  # unique(freshman_congress), .(icpsrLegis, first_name, mc)]
-# these are all off by 1 so subtract 1 from all
-senator_year_data[icpsrLegis %in% fresh_to_check$icpsrLegis,
-  freshman_congress := freshman_congress - 1]
 
 # fresh_NA <- senator_year_data[is.na(freshman_congress) == TRUE, .(icpsrLegis,
 #   first_name, mc, votepct, congress, drop)]

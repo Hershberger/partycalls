@@ -5,18 +5,18 @@ library(yaml)
 states <- fread("inst/extdata/states.csv")
 states[, fips := sprintf("%02.f", fips)]
 # load("inst/extdata/senate93-112.RData")
-load("test_data/senate_party_calls_replication_emIRT_only.RData")
+load("test_data/senate_party_calls_emIRT_only.RData")
 
-# get_initial_senator_data <- function(congress) {
-#   rc <- get(paste0("sen", congress))
-#   ld <- rc$legis.data
-#   ld$mc <- rownames(ld)
-#   setDT(ld)
-#   ld[, congress := congress]
-#   # remove presidents
-#   ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
-#     partyCode)]
-# }
+get_initial_senator_data <- function(congress) {
+  rc <- get(paste0("sen", congress))
+  ld <- rc$legis.data
+  ld$mc <- rownames(ld)
+  setDT(ld)
+  ld[, congress := congress]
+  # remove presidents
+  ld[state != "USA", .(mc, congress, state, icpsrState, icpsrLegis, party,
+    partyCode)]
+}
 
 get_vote_counts_by_congress <- function(congress) {
   rc <- get(paste0("sen", congress))
@@ -65,23 +65,23 @@ senator_year_data[mc == "MURKOWSKI (R AK)" & icpsrLegis == "40300",
 senator_data <- senator_year_data[, .N, .(icpsrLegis, mc)]
 
 # populate south indicators
-  south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
-  south13 <- c(south11, "OK", "KY")
-  south17 <- c(south13, "DE", "WV", "MD", "MO")
-  senator_year_data[, south11 := 1 * (stabb %in% south11)]
-  senator_year_data[, south13 := 1 * (stabb %in% south13)]
-  senator_year_data[, south17 := 1 * (stabb %in% south17)]
+south11 <- c("SC", "MS", "FL", "AL", "AR", "GA", "LA", "TX", "VA", "TN", "NC")
+south13 <- c(south11, "OK", "KY")
+south17 <- c(south13, "DE", "WV", "MD", "MO")
+senator_year_data[, south11 := 1 * (stabb %in% south11)]
+senator_year_data[, south13 := 1 * (stabb %in% south13)]
+senator_year_data[, south17 := 1 * (stabb %in% south17)]
 
-  # populate demographic indicators
-  # afam_mc <- c("BROOKE (R MA)", "MOSELEY-BRA (D IL)", "OBAMA (D IL)",
-  # "OBAMA (D USA)", "BURRIS (D IL)")
-  afam_icpsr = c(11201, 49303, 40502, 99911, 40903)
-  senator_year_data[, afam := 1 * (icpsrLegis %in% afam_icpsr)]
-  # female_mc <- c("ALLEN (D AL) 14517", "HUMPHREY (D MN) 14516",
-  # "KASSEBAUM (R KS)", "MIKULSKI (D MD)", "BURDICK2 (D ND)", "BOXER (D CA)",
-  # "FEINSTEIN (D CA)", "MOSELEY-BRA (D IL)", "HUTCHISON (R TX)",
-  # "MURRAY (D WA)", "FRAHM (R KS)", "SNOWE (R ME)", "LANDRIEU (D LA)",
-  # "COLLINS (R ME)", "LINCOLN (D AR)", "STABENOW (D MI)", "CLINTON (D NY)",
+# populate demographic indicators
+# afam_mc <- c("BROOKE (R MA)", "MOSELEY-BRA (D IL)", "OBAMA (D IL)",
+# "OBAMA (D USA)", "BURRIS (D IL)")
+afam_icpsr = c(11201, 49303, 40502, 99911, 40903)
+senator_year_data[, afam := 1 * (icpsrLegis %in% afam_icpsr)]
+# female_mc <- c("ALLEN (D AL) 14517", "HUMPHREY (D MN) 14516",
+# "KASSEBAUM (R KS)", "MIKULSKI (D MD)", "BURDICK2 (D ND)", "BOXER (D CA)",
+# "FEINSTEIN (D CA)", "MOSELEY-BRA (D IL)", "HUTCHISON (R TX)",
+# "MURRAY (D WA)", "FRAHM (R KS)", "SNOWE (R ME)", "LANDRIEU (D LA)",
+# "COLLINS (R ME)", "LINCOLN (D AR)", "STABENOW (D MI)", "CLINTON (D NY)",
   # "CANTWELL (D WA)", "MURKOWSKI (R AK)", "DOLE (R NC)", "KLOBUCHAR (D MN)",
   # "SHAHEEN (D NH)", "GILLIBRAND (D NY)", "AYOTTE (R NH)")
   female_icpsr = c(14517, 14516, 14708, 14440, 49103, 15011, 49300,
