@@ -601,10 +601,10 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
 # select variables to keep
 senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, mc, caucus, caucus_majority,
-  pres_vote_share, vote_share, south, south11, south13, south17, south_dem,
-  leader, com_chair, best_committee, power_committee, up_for_reelection,
-  freshman, superfreshman, seniority, senate_seniority, retiree, afam, fem,
-  latino, gingrich_senator, drop)]
+  pres_vote_share, pres_dem_vote_share, vote_share, south, south11, south13,
+  south17, south_dem, leader, com_chair, best_committee, power_committee,
+  up_for_reelection, freshman, superfreshman, seniority, senate_seniority,
+  retiree, afam, fem, latino, gingrich_senator, votes, drop)]
 
 setnames(senator_year_data, "fem", "female")
 setnames(senator_year_data, "com_chair", "chair")
