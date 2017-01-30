@@ -116,6 +116,10 @@ senator_year_data <- merge(senator_year_data, les_senate,
   by.x = c("icpsrLegis", "congress"), by.y = c("icpsr", "congress"),
   all.x = TRUE)
 
+# check south variable
+senator_year_data[stabb == "WV", south := 0]
+senator_year_data[stabb == "OK", south := 1]
+
 # fixing mcs with mistakes in year elected
 # HUBERT HUMPHREY
 senator_year_data[icpsrLegis == 4728 & congress == 95, elected == 1970]
@@ -188,31 +192,12 @@ senator_year_data[icpsrLegis == 49307 & congress >= 103, elected := 1992]
 # EVAN BAYH
 senator_year_data[icpsrLegis == 49901 & congress >= 106, elected := 1998]
 
-# THOMAS GORTON is correct as is
-# FRANK LAUTENBERG is correct as is
-# JAMES BROYHILL is correct as is
-# HOWARD METZENBAUM is correct as is
-# JOE BIDEN is correct as is
-# ROBERT KRUEGER is correct as is
-# DAN QUAYLE is correct as is
-# KANEASTER HODGES is correct as is
-# PAUL HATFIELD is correct as is
-# MARYON ALLEN is correct as is
-# NICHOLAS BRADY is correct as is
-# HILLARY CLINTON is correct as is
-# DEAN BARKLEY is correct as is
-# KEN SALAZAR is correct as is
-# GEORGE LEMIEUX is correct as is
-# CARTE GOODWIN is correct as is
-# BRIAN SCHATZ is correct as is
-# JOCELYN BURDICK is correct as is
-# SHEILA FRAHM is correct as is
-
 # get first congress in dataset
 senator_year_data[, freshman_congress := ceiling(calc_congress(elected + 1))]
 
 # fix first congress for special elections and appointees
-fresh_to_check <- senator_year_data[congress < freshman_congress, ]
+fresh_to_check <- senator_year_data[congress < freshman_congress, .(icpsrLegis,
+  first_name, mc, congress, freshman_congress)]
 # fresh_to_check[, .(icpsrLegis, first_name, mc, congress, freshman_congress)]
 # senator_year_data[icpsrLegis %in% fresh_to_check$icpsrLegis,
 # unique(freshman_congress), .(icpsrLegis, first_name, mc)]
@@ -289,8 +274,9 @@ check <- senator_year_data[check, .(congress, stabb, icpsrLegis,
   last_name, candname_vote_rank_1, vote_vote_rank_1, vote_vote_rank_2)]
 senator_year_data[, drop := 0]
 
-# some of these candname is wrong but vote_share is correct, don't drop them
-remove_from_check <-  c(10514, 3658, 10802, 14107)
+# some of these candname is wrong or mispelled but vote_share is correct
+# don't drop them
+remove_from_check <-  c(10514, 10802, 14107)
 check[, remove := 0]
 check[icpsrLegis %in% remove_from_check, remove := 1]
 check[icpsrLegis == 14073 & congress >= 95, remove := 1]
@@ -311,6 +297,12 @@ senator_year_data[dem == 112, caucus := "Republican"]
 senator_year_data[dem == 328, caucus := "Democrat"]
 senator_year_data[icpsrLegis == 40106, caucus := "Republican"]
 
+# fix south_dem variable
+senator_year_data[south == 1 & caucus == "Democrat" & south_dem != 1,
+  south_dem := 1]
+senator_year_data[south != 1 & caucus == "Democrat" & south_dem == 1,
+  south_dem := 0]
+
 # Populate vote_share
 senator_year_data[,
   vote_share := vote_vote_rank_1 / (vote_vote_rank_1 + vote_vote_rank_2)]
@@ -327,17 +319,9 @@ senator_year_data[
     candname_vote_rank_1 != "Ben Nighthorse Campbell",
   vote_share := vote_vote_rank_2 / (vote_vote_rank_1 + vote_vote_rank_2)]
 
-# check vote_share
-vote_check <- senator_year_data[vote_share <= .5, ]
-vote_check[drop == 0, .(congress, class, mc, icpsrLegis, vote_share,
-  vote_vote_rank_1, vote_vote_rank_2)]
-# all not marked as dropped are backward coded
-senator_year_data[vote_share <= .5, vote_share := 1 - vote_share]
-
-# GOLDWATER (R AZ) 3658 - class is wrong
-
-
-
+# 10514 DOMINICK (R CO) given opponents vote share in congress 93
+senator_year_data[icpsrLegis == 10514 & congress == 93,
+  vote_share := 1 - vote_share]
 
 # Populate most recent presidential election returns
 senator_year_data[, most_recent_presidential_election_year :=
@@ -350,6 +334,9 @@ senator_year_data[caucus == "Democrat",
   pres_vote_share := pres_dem_votes / (pres_dem_votes + pres_rep_votes)]
 senator_year_data[caucus == "Republican",
   pres_vote_share := pres_rep_votes / (pres_dem_votes + pres_rep_votes)]
+# check with dem pres vote share
+senator_year_data[,
+  pres_dem_vote_share := pres_dem_votes / (pres_dem_votes + pres_rep_votes)]
 
 # Muriel Humphrey got covariates switched with Hubert, these need corrected
 # also, Muriel needs to be dropped
@@ -380,9 +367,6 @@ vt_NA_2 <- senator_year_data[votepct == "", ]
 votepct_NA <- rbind(votepct_NA, vt_NA_2)
 vt_NA_3 <- senator_year_data[votepct == "N/A"]
 votepct_NA <- rbind(votepct_NA, vt_NA_3)
-# see if any were removed from check
-votepct_NA[icpsrLegis %in% remove_from_check, .(icpsrLegis, congress,
-first_name, mc, votepct)]
 # select only those who have not been assigned drop
 votepct_NA <- votepct_NA[drop == 0,
   .(icpsrLegis, first_name, mc, congress, votepct)]
@@ -423,14 +407,24 @@ senator_year_data[icpsrLegis == 40500, south_dem := 0]
 senator_year_data[icpsrLegis == 40500 & congress == 109, latino := 1]
 senator_year_data[icpsrLegis == 40500 & congress == 110, latino := 1]
 senator_year_data[icpsrLegis == 40500 & congress == 111, latino := 1]
+senator_year_data[icpsrLegis == 40500 & congress == 111, female := 0]
+senator_year_data[icpsrLegis == 40500 & congress == 111, afam := 0]
+# JOE BIDEN
+senator_year_data[icpsrLegis == 14101, dem := 1]
+senator_year_data[icpsrLegis == 14101, south := 0]
+senator_year_data[icpsrLegis == 14101, south_dem := 0]
+senator_year_data[icpsrLegis == 14101, latino := 0]
+senator_year_data[icpsrLegis == 14101, afam := 0]
+senator_year_data[icpsrLegis == 14101, female := 0]
+# CRAIG THOMAS
+senator_year_data[icpsrLegis == 15633 & congress == 110, dem := 0]
+senator_year_data[icpsrLegis == 15633 & congress == 110, afam := 0]
+senator_year_data[icpsrLegis == 15633 & congress == 110, latino := 0]
 
 # drop those whose votepct is a real NA or is still missing
-senator_year_data[icpsrLegis == 14101 & congress == 111, drop := 1] # JOE BIDEN
 senator_year_data[icpsrLegis == 14517 & congress == 95, drop := 1] # MARYON ALLEN
 senator_year_data[icpsrLegis == 49103 & congress == 102, drop := 1] # JOCELYN BURDICK
 senator_year_data[icpsrLegis == 49905 & congress == 106, drop := 1] # LINCOLN CHAFEE
-senator_year_data[icpsrLegis == 20115 & congress == 111, drop := 1] # MARK KIRK
-senator_year_data[icpsrLegis == 15633 & congress == 110, drop := 1] # CRAIG THOMAS
 senator_year_data[icpsrLegis == 40300 & congress == 108, drop := 1] # LISA MURKOWSKI
 senator_year_data[icpsrLegis == 40102 & congress == 107, drop := 1] # JEAN CARNAHAN
 
@@ -441,13 +435,14 @@ senator_year_data[icpsrLegis == 94240 & congress == 107, afam := 0]
 senator_year_data[icpsrLegis == 94240 & congress == 107, latino := 0]
 senator_year_data[icpsrLegis == 94240 & congress == 107, votepct := "50"]
 senator_year_data[icpsrLegis == 94240 & congress == 107, state_leg := 1]
+senator_year_data[icpsrLegis == 94240 & congress == 107, freshman_congress := 101]
 senator_year_data[icpsrLegis == 14240 & congress == 107, elected := 1988]
 senator_year_data[icpsrLegis == 14240 & congress == 107, female := 0]
 senator_year_data[icpsrLegis == 14240 & congress == 107, afam := 0]
 senator_year_data[icpsrLegis == 14240 & congress == 107, latino := 0]
 senator_year_data[icpsrLegis == 14240 & congress == 107, votepct := "50"]
 senator_year_data[icpsrLegis == 14240 & congress == 107, state_leg := 1]
-
+senator_year_data[icpsrLegis == 14240 & congress == 107, freshman_congress := 101]
 # fix missing data in other areas
 senator_year_data[gender == "F", fem := 1]
 senator_year_data[gender == "M", fem := 0]
@@ -506,6 +501,8 @@ senator_year_data[icpsrLegis == 14447, freshman_congress := 97]
 senator_year_data[icpsrLegis == 40500, freshman_congress := 109]
 # BRIAN SCHATZ
 senator_year_data[icpsrLegis == 41112, freshman_congress := 112]
+# JOCELYN BURDICK
+senator_year_data[icpsrLegis == 49103, freshman_congress := 102]
 
 # Calculate freshman
 senator_year_data[, freshman := 0]
@@ -528,30 +525,6 @@ senator_year_data[congress == last_congress &
 senator_year_data[, seniority := 1 + congress - freshman_congress]
 # add seniority variable by senate term-length
 senator_year_data[, senate_seniority := ceiling(seniority / 3)]
-
-# # check votepct stability over senate term
-# # these should be the same for legislators except in cases of special elections
-# senator_year_data[, votepct := as.numeric(votepct)]
-# votepct_term1 <- senator_year_data[senate_seniority == 1, .(icpsrLegis, first_name, mc,
-#   congress, votepct)]
-# votepct_term1[, mean_votepct := mean(votepct, na.rm = TRUE), .(icpsrLegis, mc)]
-# term1_votepct_check <- votepct_term1[votepct != mean_votepct, ]
-# votepct_term2 <- senator_year_data[senate_seniority == 2, .(icpsrLegis, first_name, mc,
-#   congress, votepct)]
-# votepct_term2[, mean_votepct := mean(votepct, na.rm = TRUE), .(icpsrLegis, mc)]
-# term2_votepct_check <- votepct_term2[votepct != mean_votepct, ]
-# # many errors, ask William and Craig if we want to fix these
-# # alternative is use 2 party vote share
-
-# # check party coding
-# senator_year_data[party == "D" & dem != 1, ]
-# senator_year_data[party == "R" & dem === 1, ]
-
-# # figure out who isn't coded as dem == 1 | dem == 0
-# unique(senator_year_data$dem)
-# senator_year_data[is.na(dem) == TRUE, ]
-# senator_year_data[dem == 112, ]
-# senator_year_data[dem == 328, ]
 
 # correct party for sen. metzenbaum
 senator_year_data[icpsrLegis == 14073, dem := 1]
@@ -598,14 +571,6 @@ senator_year_data <- merge(senator_year_data, chair_dt,
   by = c("congress", "icpsrLegis"), all.x = TRUE)
 senator_year_data[is.na(com_chair) == TRUE, com_chair := 0]
 
-# # check chair vs com_chair
-# senator_year_data[chair == 1 & com_chair == 0, .(congress, icpsrLegis,
-#   first_name, mc, caucus, caucus_majority)]
-# senator_year_data[chair == 0 & com_chair == 1, .(congress, icpsrLegis,
-#   first_name, mc, caucus, caucus_majority)]
-# senator_year_data[com_chair == 1 & caucus_majority == 0, .(congress, icpsrLegis,
-#   first_name, mc, caucus)]
-
 # Build committee data and merge in
 source("package/get-best-committee.R")
 senator_year_data <- merge(senator_year_data, best_committee_dt,
@@ -633,7 +598,7 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
     (class == 3 & congress %in% seq(3, 120, 3)),
   up_for_reelection := 1]
 
-# drop unused variables
+# select variables to keep
 senator_year_data <- senator_year_data[, .(
   congress, icpsrLegis, stabb, class, first_name, mc, caucus, caucus_majority,
   pres_vote_share, vote_share, south, south11, south13, south17, south_dem,
