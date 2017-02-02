@@ -58,6 +58,8 @@ code_party_calls <- function(rc,
   return_pvals = TRUE,
   n_iterations_for_coding = 5,
   random_seed = FALSE,
+  semi_random_seed = FALSE,
+  initial_vote_switch_pct = 0,
   drop_very_lopsided_votes = TRUE,
   type = "brglm",
   temperature_function = function(counter, n_votes)
@@ -76,14 +78,26 @@ code_party_calls <- function(rc,
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
   DT[y == -1, y:= 0]
-  if (random_seed == TRUE) {
+  if (random_seed) {
     noncalls <- sample(rc$m, floor(.5 * rc$m))
   } else {
     stopifnot(lopside_thresh > 0 & lopside_thresh < 1 & lopside_thresh != .5)
     LB <- min(1 - lopside_thresh, lopside_thresh)
     UB <- max(1 - lopside_thresh, lopside_thresh)
     noncalls_DT <- DT[, .(yea_perc = mean(y, na.rm = TRUE)), by = vt]
-    noncalls <- which(noncalls_DT[, yea_perc <= LB | UB <= yea_perc])
+    noncalls_start <- which(noncalls_DT[, yea_perc <= LB | UB <= yea_perc])
+  }
+  if (semi_random_seed) {
+    stopifnot(initial_vote_switch_pct >= 0 & initial_vote_switch_pct <= 1)
+    calls_start <- which(noncalls_DT[, yea_perc > LB & UB > yea_perc])
+    lopsided_calls <- sample(noncalls_start,
+      floor((length(noncalls_start) * initial_vote_switch_pct)))
+    close_noncalls <- sample(calls_start,
+      floor((length(calls_start) * initial_vote_switch_pct)))
+    noncalls_start <- setdiff(noncalls_start, lopsided_calls)
+    noncalls <- c(noncalls_start, close_noncalls)
+  } else {
+    noncalls <- noncalls_start
   }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0

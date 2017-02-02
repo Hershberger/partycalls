@@ -9,6 +9,7 @@ code_party_calls(rc, sim_annealing, hybrid, reassign_flip_flop,
   count_min = 15, pval_threshold = 0.01, tval_threshold = qnorm(0.99),
   vote_switch_percent = 0.01, return_pvals = TRUE,
   n_iterations_for_coding = 5, random_seed = FALSE,
+  semi_random_seed = FALSE, initial_vote_switch_pct = 0,
   drop_very_lopsided_votes = TRUE, type = "brglm",
   temperature_function = function(counter, n_votes) floor(n_votes * 0.2 *
   max(0, 1 - (abs(counter - 10)/50))^2), lopside_thresh = 0.65,
