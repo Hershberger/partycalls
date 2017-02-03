@@ -59,7 +59,7 @@ lep_data[icpsr == 20301, afam := 0]
 # fix south variable
 south_stabb <- c("OK", "AR", "NC", "TX", "FL", "TN", "AL", "GA", "LA", "MS",
   "KY", "VA", "SC")
-lep_data[is.na(south) == TRUE, south := 1]
+lep_data[is.na(south) == TRUE, south := 0]
 lep_data[st_name %in% south_stabb, south := 1]
 
 # missing votepct means appointee
@@ -97,13 +97,13 @@ member_year_data <- merge(lep_data, jacobson_pres,
   by = c("congress", "state_cd"),
   all.x = TRUE)
 
-# find missing dpres values
-member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
-# replace these with previous values
-member_year_data[state_cd == 3212 & congress == 93, dpres]
-member_year_data[state_cd == 3213 & congress == 93, dpres]
-member_year_data[state_cd == 3214 & congress == 93, dpres]
-member_year_data[state_cd == 3215 & congress == 93, dpres]
+# # find missing dpres values
+# member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
+# # replace these with previous values
+# member_year_data[state_cd == 3212 & congress == 93, dpres]
+# member_year_data[state_cd == 3213 & congress == 93, dpres]
+# member_year_data[state_cd == 3214 & congress == 93, dpres]
+# member_year_data[state_cd == 3215 & congress == 93, dpres]
 member_year_data[state_cd == 3212 & congress == 94, dpres := 84.42]
 member_year_data[state_cd == 3213 & congress == 94, dpres := 51.45]
 member_year_data[state_cd == 3214 & congress == 94, dpres := 52.22]

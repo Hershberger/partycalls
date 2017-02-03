@@ -86,7 +86,6 @@ code_party_calls <- function(rc,
     UB <- max(1 - lopside_thresh, lopside_thresh)
     noncalls_DT <- DT[, .(yea_perc = mean(y, na.rm = TRUE)), by = vt]
     noncalls_start <- which(noncalls_DT[, yea_perc <= LB | UB <= yea_perc])
-  }
   if (semi_random_seed) {
     stopifnot(initial_vote_switch_pct >= 0 & initial_vote_switch_pct <= 1)
     calls_start <- which(noncalls_DT[, yea_perc > LB & UB > yea_perc])
@@ -98,7 +97,7 @@ code_party_calls <- function(rc,
     noncalls <- c(noncalls_start, close_noncalls)
   } else {
     noncalls <- noncalls_start
-  }
+  } }
   switched_votes <- seq_len(rc$m)
   match_counter <- 0
   counter <- 0
