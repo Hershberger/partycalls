@@ -118,3 +118,14 @@ ggplot(senate_rep, aes(ideological_extremism, responsiveness_party_calls,
   scale_color_manual(breaks = c("0", "1"),
     values = c("red2", "gray25")) +
   geom_smooth(method=loess, se=TRUE)
+
+ggplot(senate_rep, aes(ideological_extremism, responsiveness_party_calls,
+  color = south)) +
+  geom_point(shape = 16) +
+  scale_color_manual(breaks = c("0", "1"),
+    values = c("red2", "gray25")) +
+  geom_smooth(method=loess, se=TRUE)
+
+############################################################
+## identify command will give names for individual points ##
+############################################################

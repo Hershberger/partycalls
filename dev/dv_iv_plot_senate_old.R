@@ -55,3 +55,12 @@ plot(senate_rep$ideological_extremism, senate_rep$responsiveness_party_calls,
   ylab = "Responsiveness to Party Calls")
 abline(rep_lm2)
 # dev.off()
+
+senate_rep[, gingrich_senator := as.factor(gingrich_senator)]
+
+ggplot(senate_rep, aes(ideological_extremism, responsiveness_party_calls,
+  color = gingrich_senator)) +
+  geom_point(shape = 16) +
+  scale_color_manual(breaks = c("0", "1"),
+    values = c("red2", "gray25")) +
+  geom_smooth(method=loess, se=TRUE)

@@ -8,6 +8,7 @@ load("test_data/senate_data_p_05.RData")
 senate_data <- senate_data[drop == 0, ]
 
 senate_data[, south := as.factor(south)]
+senate_data[, majority := as.factor(maj)]
 senate_data[, gingrich_senator := as.factor(gingrich_senator)]
 
 senate_dem <- senate_data[caucus == "Democrat", ]
@@ -62,6 +63,12 @@ ggplot(senate_dem, aes(ideological_extremism, pirate100, color = south)) +
     values = c("blue2", "gray25")) +
   geom_smooth(method=loess, se=TRUE)
 
+ggplot(senate_dem, aes(ideological_extremism, pirate100, color = majority)) +
+  geom_point(shape = 16) +
+  scale_color_manual(breaks = c("0", "0.75", "1"),
+    values = c("blue2", "gray55", "gray25")) +
+  geom_smooth(method=loess, se=TRUE)
+
 
 # pdf(file="plots/senate-emIRT_rep_iv-dv_1.pdf", ## RENAME
 # width = 6, height = 4, family = "Times")
@@ -99,4 +106,10 @@ ggplot(senate_rep, aes(ideological_extremism, pirate100, color = gingrich_senato
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
       values = c("red2", "gray25")) +
+  geom_smooth(method=loess, se=TRUE)
+
+ggplot(senate_rep, aes(ideological_extremism, pirate100, color = majority)) +
+  geom_point(shape = 16) +
+  scale_color_manual(breaks = c("0", "0.75", "1"),
+    values = c("red2", "gray55", "gray25")) +
   geom_smooth(method=loess, se=TRUE)
