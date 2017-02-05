@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+\begin{center}
+\Large 08 February 2016
+\end{center}
+
+\section{Overview}
+
+The main tasks I set out to accomplish over week as per our last meeting were as follows:
+
+\begin{itemize}
+	\item Check that we were sorting lopsided and close votes correctly
+	
+	\item Test adding different levels of randomness to the initial lopsided/close vote seeding
+	
+	\item Conduct regressions with responsiveness to party calls as the dependent variable, responsiveness to noncalls and ideological extremism as the independent variables.
+	
+	\item Figure out who the ideological extremists who are not responding to party calls are
+\end{itemize}
+
+\noindent
+After checking the first item, I worked on the others. I include the plots and tables most relevant to these below.
+
+Over the course of this week, I continued digging into the old functions and comparing them with the new functions. I found two differences which I had previously missed. The first of these was what I earlier emailed you about, that we had moved to allowing the function to stop not only when the number of switched votes dropped below a certain threshold, but also when the number of switched votes began rising again. This is in line with the 2013 paper, yet may cut off the algorithm too early. The second, which I discovered later in the week and therefore decided to save for the update was that we have begun dropping votes which had 4 or fewer Senators on one side.
+
+I worked to test both of these. For the stopping rule I thought it would be best to run the algorithm all the way through and produce tables to check them. For the dropped votes I manually ran the code on Senate 112 until it got to the $p$-value assignment at which point I checked the votes which we have begun dropping. Out of 94 votes that we are now dropping, 47 continue to be dropped (since all votes are `yea' or `nay' on them), 10 are made into party calls, and 37 are made into noncalls. Further, their inclusion (likely through some being selected as the initial noncalls) led to 2 votes beyond those which were dropped to be coded as party calls for the first iteration. Therefore, it seems reasonable to assume that their inclusion in the oldest version of the Senate Party Calls project is the most impacting change from then to now. I have been unable to find mention of these votes in the 2013 paper or its Appendix and find it likely that their exclusion has lowered the number of votes classified as party calls in both the House and Senate.
+
+
+
+
+
+\section{Tables and Figures}
+
+\subsection{Digging into $ p < 0.05 $ Party Call Coding}
+
+%\begin{figure}[h]
+%	\caption{Main DV and Ideological Extremism - Gingrich Senators and Other Republicans}
+%	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/.pdf}
+%\end{figure}
+
+
+
+
+
+
+
+
+\end{document}

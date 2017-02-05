@@ -142,7 +142,5 @@ sen_lop_coding <- merge(sen_lop_coding, sen_coding, by = c("congress", "voteno")
 
 # get summary stats for lopsided votes
 lopside_table <- table(sen_lop_coding$lopsided, sen_lop_coding$coding)
+lopside_table
 xtable::xtable(lopside_table)
-
-party_table <- table(sen_lop_coding$yea_party, sen_lop_coding$coding)
-party_table
