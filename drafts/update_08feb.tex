@@ -22,11 +22,11 @@ The main tasks I set out to accomplish over week as per our last meeting were as
 \begin{itemize}
 	\item Check that we were sorting lopsided and close votes correctly
 	
-		\item Figure out who is being sorted as an extremist and not as complying to party calls
+	\item Figure out who is being sorted as an extremist and not as complying to party calls
+	
+	\item Redo DV/IV regressions with both IVs by party and majority/minority status
 	
 	\item Test adding different levels of randomness to the initial lopsided/close vote seeding
-	
-	\item Conduct regressions with responsiveness to party calls as the dependent variable, responsiveness to noncalls and ideological extremism as the independent variables.
 \end{itemize}
 
 \noindent
@@ -142,12 +142,12 @@ I first show plots in which characteristics I thought likely to go along with no
 			\hline
 			& Democrats & Republicans & Majority & Minority \\
 			\hline
-			(Intercept)            & $7.695^{***}$ & $10.332^{***}$ & $6.442^{**}$  & $15.341^{***}$ \\
-			& $(2.098)$     & $(1.955)$      & $(2.026)$     & $(2.192)$      \\
 			pfrate100              & $0.879^{***}$ & $0.847^{***}$  & $0.895^{***}$ & $0.777^{***}$  \\
 			& $(0.028)$     & $(0.026)$      & $(0.026)$     & $(0.030)$      \\
 			ideological\_extremism & $0.810$       & $2.350^{***}$  & $1.442^{**}$  & $2.471^{***}$  \\
 			& $(0.527)$     & $(0.444)$      & $(0.481)$     & $(0.529)$      \\
+			(Intercept)            & $7.695^{***}$ & $10.332^{***}$ & $6.442^{**}$  & $15.341^{***}$ \\
+			& $(2.098)$     & $(1.955)$      & $(2.026)$     & $(2.192)$      \\
 			\hline
 			R$^2$                  & 0.666         & 0.669          & 0.694         & 0.631          \\
 			Adj. R$^2$             & 0.665         & 0.668          & 0.694         & 0.630          \\
@@ -158,6 +158,229 @@ I first show plots in which characteristics I thought likely to go along with no
 		\end{tabular}
 	\end{center}
 \end{table}
+
+\clearpage
+
+\subsection{Senate Vote Coding With Semi-Random Initial Noncalls}
+
+In order to test a combination of first round noncalls being selected by lopsided or close votes and random chance I added a model parameter which can randomly switch a certain percent of the close and lopsided votes. In order to test this, I ran the algorithm with 25, 50, and 75 percent of these switched as well as one with all selected at random. Of these, the 50\% would be the most similar in its parameters to random selection and the 75\% is like reverse selection with a 25\% switch. These otherwise matched the current sorting algorithm we have been using (with the agreed upon $ p < 0.05 $ threshold). These performed roughly the same as one another, showing that our initial selection has little to no influence on the performance of the sorting function.
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 11:51:36 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 25\% of Votes Initially Switched by Congress}
+	\begin{tabular}{rrrr}
+		\hline
+		congress & party calls & noncalls & gray votes \\ 
+		\hline
+		93 & 350 & 590 &   4 \\ 
+		94 & 407 & 689 &   0 \\ 
+		95 & 277 & 710 &   2 \\ 
+		96 & 348 & 535 &   3 \\ 
+		97 & 322 & 424 &  30 \\ 
+		98 & 216 & 316 &   8 \\ 
+		99 & 186 & 445 &   5 \\ 
+		100 & 213 & 378 &  13 \\ 
+		101 & 162 & 322 &   4 \\ 
+		102 & 132 & 323 &   5 \\ 
+		103 & 135 & 473 &  13 \\ 
+		104 & 157 & 598 &  36 \\ 
+		105 &  89 & 365 &  12 \\ 
+		106 & 110 & 394 &  10 \\ 
+		107 &  69 & 367 &   7 \\ 
+		108 &  70 & 418 &  11 \\ 
+		109 &  87 & 414 &   5 \\ 
+		110 &  71 & 442 &  10 \\ 
+		111 &  94 & 499 &  12 \\ 
+		112 &  44 & 344 &   4 \\ 
+		\hline
+		Total: & 3539 & 9046 & 194 \\
+		Mean: & 177.0 & 452.3 & 9.7 \\
+		sd: & 109.9 & 117.8 & 8.9 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:02:07 2017
+\begin{table}[ht]
+	\centering
+		\caption{Senate Coding with 25\% of Votes Initially Switched by Lopsided/Close}
+	\begin{tabular}{rrrr}
+		\hline
+		& party call  & noncall & gray \\ 
+		\hline
+		Lopsided & 1397 & 4180 & 109 \\ 
+		Close & 2142 & 4866 & 85 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:07:34 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 50\% of Votes Initially Switched by Congress}
+	\begin{tabular}{rrrr}
+		\hline
+		congress & party calls & noncalls & gray votes \\ 
+		\hline
+		93 & 350 & 590 &   4 \\ 
+		94 & 407 & 689 &   0 \\ 
+		95 & 277 & 710 &   2 \\ 
+		96 & 348 & 535 &   3 \\ 
+		97 & 323 & 423 &  30 \\ 
+		98 & 219 & 315 &   6 \\ 
+		99 & 184 & 441 &  11 \\ 
+		100 & 212 & 378 &  14 \\ 
+		101 & 160 & 324 &   4 \\ 
+		102 & 131 & 325 &   4 \\ 
+		103 & 136 & 474 &  11 \\ 
+		104 & 158 & 605 &  28 \\ 
+		105 &  90 & 364 &  12 \\ 
+		106 & 109 & 393 &  12 \\ 
+		107 &  69 & 367 &   7 \\ 
+		108 &  72 & 418 &   9 \\ 
+		109 &  87 & 414 &   5 \\ 
+		110 &  71 & 444 &   8 \\ 
+		111 &  92 & 500 &  13 \\ 
+		112 &  42 & 346 &   4 \\ 
+		\hline
+		Total: & 3537 & 9055 & 187 \\
+		Mean: & 176.9 & 452.8 & 9.4 \\
+		sd: & 110.2 & 118.1 & 7.8 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:02:07 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 50\% of Votes Initially Switched by Lopsided/Close}
+	\begin{tabular}{rrrr}
+		\hline
+		& party call  & noncall & gray \\ 
+		\hline
+		Lopsided & 1398 & 4179 & 109 \\ 
+		Close & 2139 & 4876 & 78 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:15:23 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 75\% of Votes Initially Switched by Congress}
+	\begin{tabular}{rrrr}
+		\hline
+		congress & party calls & noncalls & gray votes \\ 
+		\hline
+		93 & 350 & 590 &   4 \\ 
+		94 & 407 & 689 &   0 \\ 
+		95 & 277 & 710 &   2 \\ 
+		96 & 348 & 535 &   3 \\ 
+		97 & 336 & 429 &  11 \\ 
+		98 & 217 & 322 &   1 \\ 
+		99 & 185 & 444 &   7 \\ 
+		100 & 212 & 376 &  16 \\ 
+		101 & 160 & 324 &   4 \\ 
+		102 & 132 & 324 &   4 \\ 
+		103 & 129 & 468 &  24 \\ 
+		104 & 158 & 604 &  29 \\ 
+		105 &  89 & 365 &  12 \\ 
+		106 & 109 & 391 &  14 \\ 
+		107 &  67 & 367 &   9 \\ 
+		108 &  71 & 419 &   9 \\ 
+		109 &  86 & 415 &   5 \\ 
+		110 &  71 & 441 &  11 \\ 
+		111 &  93 & 499 &  13 \\ 
+		112 &  42 & 346 &   4 \\ 
+		\hline
+		Total: & 3539 & 9058 & 182 \\
+		Mean: & 177.0 & 452.9 & 9.1 \\
+		sd: & 111.4 & 117.6 & 7.5 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:02:07 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 75\% of Votes Initially Switched by Lopsided/Close}
+	\begin{tabular}{rrrr}
+		\hline
+		& party call  & noncall & gray \\ 
+		\hline
+		Lopsided & 1418 & 4177 & 91 \\ 
+		Close & 2121 & 4881 & 91 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:25:47 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with 75\% of Votes Initially Sorted Randomly by Congress}
+	\begin{tabular}{rrrr}
+		\hline
+		congress & party calls & noncalls & gray votes \\ 
+		\hline
+		93 & 350 & 590 &   4 \\ 
+		94 & 407 & 689 &   0 \\ 
+		95 & 277 & 709 &   3 \\ 
+		96 & 348 & 535 &   3 \\ 
+		97 & 321 & 424 &  31 \\ 
+		98 & 218 & 312 &  10 \\ 
+		99 & 185 & 442 &   9 \\ 
+		100 & 213 & 376 &  15 \\ 
+		101 & 154 & 327 &   7 \\ 
+		102 & 132 & 322 &   6 \\ 
+		103 & 137 & 474 &  10 \\ 
+		104 & 158 & 604 &  29 \\ 
+		105 &  90 & 365 &  11 \\ 
+		106 & 106 & 391 &  17 \\ 
+		107 &  69 & 367 &   7 \\ 
+		108 &  71 & 416 &  12 \\ 
+		109 &  87 & 414 &   5 \\ 
+		110 &  74 & 439 &  10 \\ 
+		111 &  94 & 499 &  12 \\ 
+		112 &  42 & 346 &   4 \\ 
+		\hline
+		Total: & 3533 & 9041 & 205 \\ 
+		Mean: & 176.7 & 452.0 & 10.3 \\
+		sd: & 110.0 & 118.2 & 8.0 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 06 12:02:07 2017
+\begin{table}[ht]
+	\centering
+	\caption{Senate Coding with Votes Initially Sorted Randomly by Lopsided/Close}
+	\begin{tabular}{rrrr}
+		\hline
+		& party call  & noncall & gray \\ 
+		\hline
+		Lopsided & 1403 & 4167 & 116 \\ 
+		Close & 2130 & 4874 & 89 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{}
+
+
+
+
+
+
 
 
 
