@@ -39,11 +39,11 @@ unique(rep_extreme_noncomplier$congress)
 table(rep_extreme_noncomplier$maj, rep_extreme_noncomplier$congress)
 
 # generate tables with relevant traits reported
-dem_noncomplier_table <- dem_extreme_noncomplier[, .(congress, mc, maj,
+dem_noncomplier_table <- dem_extreme_noncomplier[, .(congress, mc, votes,
   pres_vote_share, ideological_extremism, pfrate100, pirate100)]
 xtable(dem_noncomplier_table)
 
-rep_noncomplier_table <- rep_extreme_noncomplier[, .(congress, mc, maj,
+rep_noncomplier_table <- rep_extreme_noncomplier[, .(congress, mc, votes,
   pres_vote_share, ideological_extremism, pfrate100, pirate100)]
 xtable(rep_noncomplier_table)
 

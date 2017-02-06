@@ -22,19 +22,19 @@ The main tasks I set out to accomplish over week as per our last meeting were as
 \begin{itemize}
 	\item Check that we were sorting lopsided and close votes correctly
 	
+		\item Figure out who is being sorted as an extremist and not as complying to party calls
+	
 	\item Test adding different levels of randomness to the initial lopsided/close vote seeding
 	
 	\item Conduct regressions with responsiveness to party calls as the dependent variable, responsiveness to noncalls and ideological extremism as the independent variables.
-	
-	\item Figure out who the ideological extremists who are not responding to party calls are
 \end{itemize}
 
 \noindent
 After checking the first item, I worked on the others. I include the plots and tables most relevant to these below.
 
-Over the course of this week, I continued digging into the old functions and comparing them with the new functions. I found two differences which I had previously missed. The first of these was what I earlier emailed you about, that we had moved to allowing the function to stop not only when the number of switched votes dropped below a certain threshold, but also when the number of switched votes began rising again. This is in line with the 2013 paper, yet may cut off the algorithm too early. The second, which I discovered later in the week and therefore decided to save for the update was that we have begun dropping votes which had 4 or fewer Senators on one side.
+Over the course of this week, I continued digging into the old functions and comparing them with the new functions. I found four differences which I had previously missed. The first of these I discussed with you through email. We had moved to allowing the function to stop not only when the number of switched votes dropped below a certain threshold, but also when the number of switched votes began rising again. This is in line with the 2013 paper. Having run the algorithm with our new stopping rule, I find it to have only a negligible impact on vote sorting. Summary tables for this sorting are included.
 
-I worked to test both of these. For the stopping rule I thought it would be best to run the algorithm all the way through and produce tables to check them. For the dropped votes I manually ran the code on Senate 112 until it got to the $p$-value assignment at which point I checked the votes which we have begun dropping. Out of 94 votes that we are now dropping, 47 continue to be dropped (since all votes are `yea' or `nay' on them), 10 are made into party calls, and 37 are made into noncalls. Further, their inclusion (likely through some being selected as the initial noncalls) led to 2 votes beyond those which were dropped to be coded as party calls for the first iteration. Therefore, it seems reasonable to assume that their inclusion in the oldest version of the Senate Party Calls project is the most impacting change from then to now. I have been unable to find mention of these votes in the 2013 paper or its Appendix and find it likely that their exclusion has lowered the number of votes classified as party calls in both the House and Senate. Further, I would assume this to affect the Senate more than the House because it eliminates votes which are less lopsided than the minimum threshold for the House.
+The second through fourth, I found later in the week and thus saved for the update. None of them seem promising. The first is that we have begun dropping votes which had 4 or fewer Senators on one side. I was unable to find anything which mentioned their exclusion or inclusion in the 2013 paper or its appendices, so I looked into them. Running a single iteration of the sorting function manually initially led to more party calls than a counterpart without them, but running the algorithm all the way through proved to lead to a much larger increase in noncalls. Additionally, in the previous Senate Party Calls we were sorting votes by OLS rather than a bias-reduced logit and had party line votes dropped rather than coded as definite party calls. The first of these leads the current algorithm to be more like the one used for the 2013 paper and the second makes sense theoretically and could not possibly be driving the differences we are seeing.
 
 
 
@@ -44,10 +44,32 @@ I worked to test both of these. For the stopping rule I thought it would be best
 
 \subsection{Digging into $ p < 0.05 $ Party Call Coding}
 
-%\begin{figure}[h]
-%	\caption{Main DV and Ideological Extremism - Gingrich Senators and Other Republicans}
-%	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/.pdf}
-%\end{figure}
+I first show plots in which characteristics I thought likely to go along with non-responsiveness are broken down by party. These are followed by tables of some particular outliers that we have. I found that the switch in responsiveness seems to happen around the ideological extremism value of 1 for both Democrats and Republicans and so I provide tables of MCs who are above this threshold and non-responsive. Finally, I conducted regression analysis with party call responsiveness as the DV and noncall response and extremism as IVs.
+
+\begin{figure}[h]
+	\caption{Main DV and Ideological Extremism - Majority and Minority Party Democrats \textit{Note}: The light gray line and dots are for Congress 107.}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_majority.pdf}
+\end{figure}
+
+\begin{figure}[h]
+	\caption{Main DV and Ideological Extremism - Southern and Other Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_south.pdf}
+\end{figure}
+
+\begin{figure}[h]
+	\caption{Main DV and Ideological Extremism - Majority and Minority Party Republicans \textit{Note}: The light gray line and dots are for Congress 107.}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_majority.pdf}
+\end{figure}
+
+\begin{figure}[h]
+	\caption{Main DV and Ideological Extremism - Southern and Other Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_south.pdf}
+\end{figure}
+
+\begin{figure}[h]
+	\caption{Main DV and Ideological Extremism - Gingrich Senators and Other Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_gingrich.pdf}
+ \end{figure}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Sun Feb 05 15:06:25 2017
@@ -56,20 +78,20 @@ I worked to test both of these. For the stopping rule I thought it would be best
 		\caption{Democrats With Extremism $ \textgreater $ 1 and Party Call Response $ \textless $ 75\%}
 	\begin{tabular}{rlrrrrr}
 		\hline
-		congress & mc & maj & pres vote & extremism & pfrate100 & pirate100 \\ 
+		congress & mc & votes & pres vote & extremism & pfrate100 & pirate100 \\ 
 		\hline
-		95 & ABOUREZK (D SD) & 1.00 & 0.49 & 1.14 & 70.56 & 70.55 \\ 
-		96 & LEAHY (D VT) & 1.00 & 0.44 & 1.00 & 86.56 & 74.76 \\ 
-		97 & RANDOLPH (D WV) & 0.00 & 0.52 & 1.02 & 85.06 & 72.58 \\ 
-		97 & WILLIAMS (D NJ) & 0.00 & 0.43 & 1.20 & 84.57 & 71.67 \\ 
-		97 & KENNEDY (D MA) & 0.00 & 0.50 & 2.04 & 82.68 & 71.12 \\ 
-		97 & PELL (D RI) & 0.00 & 0.56 & 1.12 & 77.89 & 72.11 \\ 
-		97 & CRANSTON (D CA) & 0.00 & 0.41 & 1.49 & 79.21 & 74.81 \\ 
-		97 & METZENBAUM (D OH) & 0.00 & 0.44 & 1.74 & 85.37 & 73.96 \\ 
-		97 & TSONGAS (D MA) & 0.00 & 0.50 & 1.39 & 78.63 & 70.44 \\ 
-		97 & BRADLEY (D NJ) & 0.00 & 0.43 & 1.25 & 82.76 & 74.65 \\ 
-		101 & BIDEN (D DE) & 1.00 & 0.44 & 1.03 & 79.17 & 73.29 \\ 
-		101 & BRADLEY (D NJ) & 1.00 & 0.43 & 1.19 & 75.73 & 73.46 \\ 
+		95 & ABOUREZK (D SD) & 642 & 0.49 & 1.14 & 70.56 & 70.55 \\ 
+		96 & LEAHY (D VT) & 972 & 0.44 & 1.00 & 86.56 & 74.76 \\ 
+		97 & RANDOLPH (D WV) & 964 & 0.52 & 1.02 & 85.06 & 72.58 \\ 
+		97 & WILLIAMS (D NJ) & 443 & 0.43 & 1.20 & 84.57 & 71.67 \\ 
+		97 & KENNEDY (D MA) & 880 & 0.50 & 2.04 & 82.68 & 71.12 \\ 
+		97 & PELL (D RI) & 951 & 0.56 & 1.12 & 77.89 & 72.11 \\ 
+		97 & CRANSTON (D CA) & 873 & 0.41 & 1.49 & 79.21 & 74.81 \\ 
+		97 & METZENBAUM (D OH) & 883 & 0.44 & 1.74 & 85.37 & 73.96 \\ 
+		97 & TSONGAS (D MA) & 865 & 0.50 & 1.39 & 78.63 & 70.44 \\ 
+		97 & BRADLEY (D NJ) & 917 & 0.43 & 1.25 & 82.76 & 74.65 \\ 
+		101 & BIDEN (D DE) & 626 & 0.44 & 1.03 & 79.17 & 73.29 \\ 
+		101 & BRADLEY (D NJ) & 625 & 0.43 & 1.19 & 75.73 & 73.46 \\ 
 		\hline
 	\end{tabular}
 \end{table}
@@ -81,37 +103,73 @@ I worked to test both of these. For the stopping rule I thought it would be best
 	\caption{Republicans With Extremism $ \textgreater $ 1 and Party Call Response $ \textless $ 75\%}
 	\begin{tabular}{rlrrrrr}
 		\hline
-		congress & mc & maj & pres vote & extremism & pfrate100 & pirate100 \\ 
+		congress & mc & votes cast & pres vote & extremism & pfrate100 & pirate100 \\ 
 		\hline
-		93 & GOLDWATER (R AZ) & 0.00 & 0.67 & 1.81 & 73.70 & 72.83 \\ 
-		93 & MCCLURE (R ID) & 0.00 & 0.71 & 1.38 & 76.39 & 72.28 \\ 
-		93 & SCOTT (R VA) & 0.00 & 0.69 & 1.55 & 69.64 & 67.52 \\ 
-		93 & HELMS (R NC) & 0.00 & 0.71 & 2.10 & 72.10 & 72.42 \\ 
-		94 & GOLDWATER (R AZ) & 0.00 & 0.67 & 2.09 & 69.56 & 73.64 \\ 
-		94 & SCOTT (R VA) & 0.00 & 0.69 & 1.87 & 64.01 & 74.07 \\ 
-		94 & HELMS (R NC) & 0.00 & 0.71 & 2.04 & 65.90 & 74.62 \\ 
-		95 & YOUNG (R ND) & 0.00 & 0.53 & 1.00 & 85.69 & 74.55 \\ 
-		98 & SYMMS (R ID) & 1.00 & 0.73 & 2.38 & 70.79 & 72.95 \\ 
-		98 & HELMS (R NC) & 1.00 & 0.51 & 1.96 & 70.49 & 67.76 \\ 
-		98 & EAST (R NC) & 1.00 & 0.51 & 2.27 & 69.13 & 70.73 \\ 
-		98 & NICKLES (R OK) & 1.00 & 0.63 & 1.54 & 74.26 & 66.36 \\ 
-		99 & NICKLES (R OK) & 1.00 & 0.69 & 1.02 & 83.08 & 70.40 \\ 
-		100 & HELMS (R NC) & 0.00 & 0.62 & 2.50 & 68.29 & 74.77 \\ 
-		101 & HELMS (R NC) & 0.00 & 0.58 & 2.07 & 74.92 & 72.22 \\ 
-		101 & HUMPHREY (R NH) & 0.00 & 0.63 & 1.44 & 75.74 & 71.88 \\ 
-		110 & BUNNING (R KY) & 0.00 & 0.60 & 1.37 & 85.98 & 73.85 \\ 
-		110 & KYL (R AZ) & 0.00 & 0.55 & 1.46 & 83.99 & 70.15 \\ 
-		110 & COBURN (R OK) & 0.00 & 0.66 & 1.90 & 81.08 & 65.00 \\ 
-		110 & VITTER (R LA) & 0.00 & 0.57 & 1.34 & 87.32 & 74.63 \\ 
-		110 & DEMINT (R SC) & 0.00 & 0.59 & 2.12 & 82.44 & 66.67 \\ 
-		110 & SESSIONS (R AL) & 0.00 & 0.63 & 1.15 & 88.37 & 70.15 \\ 
-		110 & ENZI (R WY) & 0.00 & 0.70 & 1.39 & 87.62 & 72.46 \\ 
-		112 & DEMINT (R SC) & 0.00 & 0.55 & 2.19 & 77.96 & 60.00 \\ 
-		112 & PAUL (R KY) & 0.00 & 0.58 & 1.54 & 74.46 & 57.14 \\ 
-		112 & LEE (R UT) & 0.00 & 0.65 & 1.84 & 76.15 & 59.09 \\ 
+		93 & GOLDWATER (R AZ) & 788 & 0.67 & 1.81 & 73.70 & 72.83 \\ 
+		93 & MCCLURE (R ID) & 967 & 0.71 & 1.38 & 76.39 & 72.28 \\ 
+		93 & SCOTT (R VA) & 1000 & 0.69 & 1.55 & 69.64 & 67.52 \\ 
+		93 & HELMS (R NC) & 1083 & 0.71 & 2.10 & 72.10 & 72.42 \\ 
+		94 & GOLDWATER (R AZ) & 804 & 0.67 & 2.09 & 69.56 & 73.64 \\ 
+		94 & SCOTT (R VA) & 1153 & 0.69 & 1.87 & 64.01 & 74.07 \\ 
+		94 & HELMS (R NC) & 1276 & 0.71 & 2.04 & 65.90 & 74.62 \\ 
+		95 & YOUNG (R ND) & 935 & 0.53 & 1.00 & 85.69 & 74.55 \\ 
+		98 & SYMMS (R ID) & 615 & 0.73 & 2.38 & 70.79 & 72.95 \\ 
+		98 & HELMS (R NC) & 648 & 0.51 & 1.96 & 70.49 & 67.76 \\ 
+		98 & EAST (R NC) & 624 & 0.51 & 2.27 & 69.13 & 70.73 \\ 
+		98 & NICKLES (R OK) & 646 & 0.63 & 1.54 & 74.26 & 66.36 \\ 
+		99 & NICKLES (R OK) & 739 & 0.69 & 1.02 & 83.08 & 70.40 \\ 
+		100 & HELMS (R NC) & 737 & 0.62 & 2.50 & 68.29 & 74.77 \\ 
+		101 & HELMS (R NC) & 633 & 0.58 & 2.07 & 74.92 & 72.22 \\ 
+		101 & HUMPHREY (R NH) & 615 & 0.63 & 1.44 & 75.74 & 71.88 \\ 
+		110 & BUNNING (R KY) & 636 & 0.60 & 1.37 & 85.98 & 73.85 \\ 
+		110 & KYL (R AZ) & 644 & 0.55 & 1.46 & 83.99 & 70.15 \\ 
+		110 & COBURN (R OK) & 607 & 0.66 & 1.90 & 81.08 & 65.00 \\ 
+		110 & VITTER (R LA) & 628 & 0.57 & 1.34 & 87.32 & 74.63 \\ 
+		110 & DEMINT (R SC) & 634 & 0.59 & 2.12 & 82.44 & 66.67 \\ 
+		110 & SESSIONS (R AL) & 643 & 0.63 & 1.15 & 88.37 & 70.15 \\ 
+		110 & ENZI (R WY) & 636 & 0.70 & 1.39 & 87.62 & 72.46 \\ 
+		112 & DEMINT (R SC) & 431 & 0.55 & 2.19 & 77.96 & 60.00 \\ 
+		112 & PAUL (R KY) & 462 & 0.58 & 1.54 & 74.46 & 57.14 \\ 
+		112 & LEE (R UT) & 472 & 0.65 & 1.84 & 76.15 & 59.09 \\ 
 		\hline
 	\end{tabular}
 \end{table}
+
+\begin{table}
+	\begin{center}
+		\caption{Main DV and IV Regressions}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Democrats & Republicans & Majority & Minority \\
+			\hline
+			(Intercept)            & $7.695^{***}$ & $10.332^{***}$ & $6.442^{**}$  & $15.341^{***}$ \\
+			& $(2.098)$     & $(1.955)$      & $(2.026)$     & $(2.192)$      \\
+			pfrate100              & $0.879^{***}$ & $0.847^{***}$  & $0.895^{***}$ & $0.777^{***}$  \\
+			& $(0.028)$     & $(0.026)$      & $(0.026)$     & $(0.030)$      \\
+			ideological\_extremism & $0.810$       & $2.350^{***}$  & $1.442^{**}$  & $2.471^{***}$  \\
+			& $(0.527)$     & $(0.444)$      & $(0.481)$     & $(0.529)$      \\
+			\hline
+			R$^2$                  & 0.666         & 0.669          & 0.694         & 0.631          \\
+			Adj. R$^2$             & 0.665         & 0.668          & 0.694         & 0.630          \\
+			Num. obs.              & 1039          & 951            & 1049          & 843            \\
+			RMSE                   & 6.433         & 6.758          & 6.093         & 7.120          \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

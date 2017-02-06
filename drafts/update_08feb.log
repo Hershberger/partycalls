@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  5 FEB 2017 15:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  6 FEB 2017 11:37
 entering extended mode
 **update_08feb.tex
 (update_08feb.tex
@@ -417,12 +417,12 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 23.
-LaTeX Font Info:    Try loading font information for U+msa on input line 37.
+LaTeX Font Info:    Try loading font information for U+msa on input line 45.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 37.
+LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -436,82 +436,207 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 45.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 56.
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_major
+ity.pdf, id=15, 501.875pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_
+majority.pdf Graphic file (type pdf)
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 56.
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_m
+ajority.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_p_05_dem_iv-dv_2_majority.pdf used on input line 51.
+(pdftex.def)             Requested size: 469.75502pt x 250.86205pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_south
+.pdf, id=16, 501.875pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_
+south.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_dem_iv-dv_2_s
+outh.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_p_05_dem_iv-dv_2_south.pdf used on input line 56.
+(pdftex.def)             Requested size: 469.75502pt x 250.86205pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_major
+ity.pdf, id=17, 501.875pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_
+majority.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_m
+ajority.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_p_05_rep_iv-dv_2_majority.pdf used on input line 61.
+(pdftex.def)             Requested size: 469.75502pt x 250.86205pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_south
+.pdf, id=18, 501.875pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_
+south.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_s
+outh.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_p_05_rep_iv-dv_2_south.pdf used on input line 66.
+(pdftex.def)             Requested size: 469.75502pt x 250.86205pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_gingr
+ich.pdf, id=19, 501.875pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_
+gingrich.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p_05_rep_iv-dv_2_g
+ingrich.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_p_05_rep_iv-dv_2_gingrich.pdf used on input line 71.
+(pdftex.def)             Requested size: 469.75502pt x 250.86205pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Command \textgreater invalid in math mode on input line 78.
+
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 78.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omlcmr.fd"
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 56.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 78.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 56.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 78.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 56.
+LaTeX Warning: Command \textless invalid in math mode on input line 78.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 56.
+LaTeX Warning: Command \textless invalid in math mode on input line 78.
 
 
-Overfull \hbox (4.50357pt too wide) in paragraph at lines 57--75
+Overfull \hbox (9.79102pt too wide) in paragraph at lines 79--97
  [][] 
  []
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 81.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 103.
 
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 81.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 103.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 81.
+LaTeX Warning: Command \textless invalid in math mode on input line 103.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 81.
+LaTeX Warning: Command \textless invalid in math mode on input line 103.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 119.
+
+Overfull \hbox (22.18674pt too wide) in paragraph at lines 104--136
+ [][] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2pdfTeX warning (ext4): 
-destination with the same identifier (name{table.1}) has been already used, dup
-licate ignored
+destination with the same identifier (name{figure.1}) has been already used, du
+plicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.119 \end{document}
+l.177 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
- (name{table.2}) has been already used, duplicate ignored
+ (name{figure.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.119 \end{document}
+l.177 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p
+_05_dem_iv-dv_2_majority.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots
+/senate_p_05_dem_iv-dv_2_south.pdf>] [3pdfTeX warning (ext4): destination with 
+the same identifier (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p
+_05_rep_iv-dv_2_majority.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots
+/senate_p_05_rep_iv-dv_2_south.pdf>] [4pdfTeX warning (ext4): destination with 
+the same identifier (name{figure.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{table.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_p
+_05_rep_iv-dv_2_gingrich.pdf>] [5pdfTeX warning (ext4): destination with the sa
+me identifier (name{table.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{table.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.177 \end{document}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 119.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (update_08feb.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 119.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 119.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `update_08feb.out' has not changed.
 (rerunfilecheck)             Checksum: E86E7F8212E42B62644FA443D56D0931;195.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 119.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 7118 strings out of 493698
- 100510 string characters out of 3144412
- 206300 words of memory out of 3000000
- 10333 multiletter control sequences out of 15000+200000
- 17020 words of font info for 63 fonts, out of 3000000 for 9000
+ 7169 strings out of 493698
+ 102734 string characters out of 3144412
+ 211300 words of memory out of 3000000
+ 10363 multiletter control sequences out of 15000+200000
+ 18928 words of font info for 70 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,7n,32p,1313b,322s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,10n,32p,972b,328s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on update_08feb.pdf (2 pages, 66526 bytes).
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on update_08feb.pdf (5 pages, 427058 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
+ 50 words of extra memory for PDF output out of 10000 (max. 10000000)
 
