@@ -57,17 +57,19 @@ ggplot(senate_dem, aes(ideological_extremism, pirate100, color = south)) +
     values = c("blue2", "gray25")) +
   geom_smooth(method=lm, se=TRUE)
 
+# save as plots/senate_p_05_dem_iv-dv_2_south.pdf
 ggplot(senate_dem, aes(ideological_extremism, pirate100, color = south)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("blue2", "gray25")) +
-  geom_smooth(method=loess, se=TRUE)
+  geom_smooth(method=loess, se=FALSE)
 
+# save as plots/senate_p_05_dem_iv-dv_2_majority.pdf
 ggplot(senate_dem, aes(ideological_extremism, pirate100, color = majority)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "0.75", "1"),
     values = c("blue2", "gray55", "gray25")) +
-  geom_smooth(method=loess, se=TRUE)
+  geom_smooth(method=loess, se=FALSE)
 
 
 # pdf(file="plots/senate-emIRT_rep_iv-dv_1.pdf", ## RENAME
@@ -102,14 +104,23 @@ ggplot(senate_rep, aes(ideological_extremism, pirate100, color = gingrich_senato
     values = c("red2", "gray25")) +
   geom_smooth(method=lm, se=TRUE)
 
+# save as plots/senate_p_05_rep_iv-dv_2_gingrich.pdf
 ggplot(senate_rep, aes(ideological_extremism, pirate100, color = gingrich_senator)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
       values = c("red2", "gray25")) +
-  geom_smooth(method=loess, se=TRUE)
+  geom_smooth(method=loess, se=FALSE)
 
+# save as plots/senate_p_05_rep_iv-dv_2_majority.pdf
 ggplot(senate_rep, aes(ideological_extremism, pirate100, color = majority)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "0.75", "1"),
     values = c("red2", "gray55", "gray25")) +
-  geom_smooth(method=loess, se=TRUE)
+  geom_smooth(method=loess, se=FALSE)
+
+# save as plots/senate_p_05_rep_iv-dv_2_south.pdf
+ggplot(senate_rep, aes(ideological_extremism, pirate100, color = south)) +
+  geom_point(shape = 16) +
+  scale_color_manual(breaks = c("0", "1"),
+    values = c("red2", "gray25")) +
+  geom_smooth(method=loess, se=FALSE)

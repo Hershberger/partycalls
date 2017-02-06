@@ -1,4 +1,5 @@
 library(partycalls)
+library(ggplot2)
 
 load("old_senatePartyCalls/old_data/senator_year_data.rda")
 

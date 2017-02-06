@@ -1,7 +1,4 @@
 library(partycalls)
-library(ggplot2)
-
-theme_set(theme_bw())
 
 load("test_data/senate_data_p_05.RData")
 
@@ -40,3 +37,13 @@ table(dem_extreme_noncomplier$maj, dem_extreme_noncomplier$congress)
 # more for reps, and more spread
 unique(rep_extreme_noncomplier$congress)
 table(rep_extreme_noncomplier$maj, rep_extreme_noncomplier$congress)
+
+# generate tables with relevant traits reported
+dem_noncomplier_table <- dem_extreme_noncomplier[, .(congress, mc, maj,
+  pres_vote_share, ideological_extremism, pfrate100, pirate100)]
+xtable(dem_noncomplier_table)
+
+rep_noncomplier_table <- rep_extreme_noncomplier[, .(congress, mc, maj,
+  pres_vote_share, ideological_extremism, pfrate100, pirate100)]
+xtable(rep_noncomplier_table)
+
