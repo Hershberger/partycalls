@@ -1,7 +1,7 @@
 library(partycalls)
 library(xtable)
 
-load("test_data/senate_party_calls_new_stop_lopsided_seed.RData")
+load("test_data/senate_party_calls_new_stop2_lopsided_seed.RData")
 names(senate_party_calls) <- paste0("sen", 93:112)
 
 # table for all congresses

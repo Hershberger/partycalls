@@ -144,5 +144,3 @@ sen_lop_coding <- merge(sen_lop_coding, sen_coding, by = c("congress", "voteno")
 lopside_table <- table(sen_lop_coding$lopsided, sen_lop_coding$coding)
 xtable::xtable(lopside_table)
 
-party_table <- table(sen_lop_coding$yea_party, sen_lop_coding$coding)
-party_table
