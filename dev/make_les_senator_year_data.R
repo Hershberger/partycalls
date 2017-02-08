@@ -122,7 +122,7 @@ senator_year_data[stabb == "OK", south := 1]
 
 # fixing mcs with mistakes in year elected
 # HUBERT HUMPHREY
-senator_year_data[icpsrLegis == 4728 & congress == 95, elected == 1970]
+senator_year_data[icpsrLegis == 4728 & congress == 95, elected := 1970]
 # HENRY HEINZ
 senator_year_data[icpsrLegis == 13050 & congress == 102, elected := 1976]
 # EDWARD ZORINSKY
@@ -478,7 +478,7 @@ senator_year_data[icpsrLegis == 40105, freshman_congress := 107]
 # CHRIS COONS
 senator_year_data[icpsrLegis == 40916, freshman_congress := 111]
 # NORRIS COTTON 2nd time in senate
-senator_year_data[icpsrLegis == 2087 & congress == 94, freshman_congress == 94]
+senator_year_data[icpsrLegis == 2087 & congress == 94, freshman_congress := 94]
 # SHEILA FRAHM
 senator_year_data[icpsrLegis == 49504, freshman_congress := 104]
 # CARTE GOODWIN

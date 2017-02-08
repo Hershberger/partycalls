@@ -170,16 +170,15 @@ committees[code == 374, code := 332]
 # committees[icpsrLegis == 15502 & congress >= 103,
 #   icpsrLegis := 200000 + icpsrLegis]
 
-
 committees <- rbind(
   merge(committees[congress >= 81 & congress <= 95],
     committee_values[min_cong == 81 & max_cong == 95, .(code, rank)],
     by = "code", all.x = TRUE),
   merge(committees[congress >= 96 & congress <= 102],
-    committee_values[min_cong == 96 & max_cong == 103, .(code, rank)],
+    committee_values[min_cong == 96 & max_cong == 102, .(code, rank)],
     by = "code", all.x = TRUE),
   merge(committees[congress >= 103 & congress <= 112],
-    committee_values[min_cong == 104 & max_cong == 112, .(code, rank)],
+    committee_values[min_cong == 103 & max_cong == 112, .(code, rank)],
     by = "code", all.x = TRUE))
 
 best_committee_dt <- committees[congress >= 93,
