@@ -7,6 +7,7 @@
 options(stringsAsFactors = FALSE)
 # library(senatePartyCalls)
 source("old_senatePartyCalls/functions.R")
+library(data.table)
 library(yaml)
 states <- fread("old_senatePartyCalls/inst/extdata/states.csv")
 states[, fips := sprintf("%02.f", fips)]
