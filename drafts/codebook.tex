@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=0.75in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+\begin{center}
+\Large Draft Codebook
+\end{center}
+
+\begin{itemize}
+	\item \verb|congress|: Congress Number of Observation
+	
+	\item \verb|icpsrLegis|: ICPSR Number of Legislator
+	
+	\item \verb|stabb|: State Abbreviation
+	
+	\item \verb|class|: Senator Class (for Election)
+	
+	\item \verb|first_name|: First Name of Legislator
+	
+	\item \verb|mc|: Last Name and State Abbreviation of Legislator 
+	
+	For non-unique combinations in the Senate, the ICPSR Number is included after the state abbreviation.
+	
+	\item \verb|caucus|: The Party a Senator Caucused With
+	
+	\item \verb|caucus_majority|: Majority Party Status
+	
+	Takes 1 when the a party caucus is in the majority and a 0 when it is in the minority. Because majority party status switched during Congress 107 it is treated as a special case. For this Congress, Democrats (who were the majority for a longer period) receive 0.75, Republicans (who were the majority for a shorter period) receive 0.25, and Sen. Jeffords (who always caucused with the majority party) receives 1.
+	
+	\item \verb|pres_vote_share|: Most Recent Same Party Presidential Vote Percent in Senator's State
+	
+	Members not of one of the two major parties receive the presidential vote share of the party they caucused with in the Senate
+	
+	\item \verb|pres_dem_vote_share|: Most Recent Democratic Presidential Vote Percent in Senator's State
+	
+	\item \verb|vote_share|: Two Party Vote Share Received by Senator in Most Recent Election
+	
+	Members not of one of the two major parties are paired against their next closest opponent
+	
+	\item \verb|south|: Dummy Indicator for Serving in the 13 State South
+	
+	\item \verb|south11|: Dummy Indicator for Serving in the 11 State South
+	
+	\item \verb|south13|: Dummy Indicator for Serving in the 13 State South
+	
+	This should be identical to the \item \verb|south| variable.
+	
+	\item \verb|south17|: Dummy Indicator for Serving in the 17 State South
+	
+	\item \verb|south_dem|: Dummy Indicator for Democrats Serving in the South
+	
+	\item \verb|leader|: Dummy Indicator for Party Leadership As Listed in the Almanac of American Politics
+	
+	\item \verb|chair|: Dummy Indicator for Committee Chairs
+	
+	\item \verb|best_committee|: Best Committee Value
+	
+	Ranks committee assignments from worst (lower values) to best (higher values) based on ``The Value of Committee Assignments in Congress since 1994'' Edwards \& Stewart (2006).
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

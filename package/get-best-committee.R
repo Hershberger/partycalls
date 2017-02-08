@@ -175,10 +175,10 @@ committees <- rbind(
   merge(committees[congress >= 81 & congress <= 95],
     committee_values[min_cong == 81 & max_cong == 95, .(code, rank)],
     by = "code", all.x = TRUE),
-  merge(committees[congress >= 96 & congress <= 103],
+  merge(committees[congress >= 96 & congress <= 102],
     committee_values[min_cong == 96 & max_cong == 103, .(code, rank)],
     by = "code", all.x = TRUE),
-  merge(committees[congress >= 104 & congress <= 112],
+  merge(committees[congress >= 103 & congress <= 112],
     committee_values[min_cong == 104 & max_cong == 112, .(code, rank)],
     by = "code", all.x = TRUE))
 
