@@ -14,14 +14,14 @@ code_party_calls <- function(rc)
 {
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   ## BEGIN NEW
-  rc <- pscl::dropRollCall(rc, dropList = alist(lop = 4))
+  # rc <- pscl::dropRollCall(rc, dropList = alist(lop = 0))
   ## END NEW
   rc <- emIRT::convertRC(rc, type = "binIRT")
   DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
   DT$y <- as.vector(rc$votes)
   DT$party <- rc$legis.data$party
   DT[y %in% c(0, 9), y:= NA]
-  DT[y == -1, y:= 0]
+  DT[y == -1, y := 0]
   ## BEGIN REPLACE
   #noncalls <- sample(rc$m, floor(.5 * rc$m))
   ## REPLACED WITH
