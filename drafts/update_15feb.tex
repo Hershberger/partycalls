@@ -1,0 +1,143 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+\begin{center}
+\Large 15 February 2016
+\end{center}
+
+\section{Overview}
+
+The main tasks I set out to accomplish over week as per our last meeting were as follows:
+
+\begin{itemize}
+	\item Finish testing differences between the Summer and Winter specifications for the Senate to determine what led to changes in results.
+	
+	\item Conduct tests on models which might be meaningfully different.
+	
+	\item Redo the graphs from last week with \verb|pirate100| replaced by \verb|pfrate100| in the Senate, as well as showing similar graphs for the House.
+\end{itemize}
+
+\noindent
+William graciously took the time to update the Summer algorithm to include the changes we've made which are still in use. This allowed us to turn changes we'd made off and on again so we could see what the meaningful changes were. We found that the truly meaningful changes were produced by keeping very lopsided votes in the sorting (which increased the noncalls, as shown last week) and choosing between OLS and bias-reduced logit to identify party influence in votes (with OLS sorting more votes as party calls, as predicted). I tested a specification which was set up like the Winter model except for these two aspects on Senate 95 (which produced very different results between the Summer and Winter) against the Summer model and found that each model shared 344 party calls with each only having a single vote as a party call that the other didn't.
+
+While there is good reason to stick with the bias-reduced logit instead of OLS, it remains worth considering whether we should be setting the same threshold for dropping votes in the Senate that we use in the House, given that there are over 4 times as many members of the House than the Senate. So, it means something entirely different when a House vote has 4 members on one side than it does for a Senate vote. For this reason, below I show the differences in results produced by keeping these votes in beyond the vote sorting I showed last week. Since testing showed these results to be largely the same between models, I use the sorting from the Winter model for these. I further show the tables with \verb|pfrate100| as the $y$ variable in the Senate and the same tables repeated for the House as requested at our last meeting.
+
+\pagebreak
+
+
+
+\section{Tables and Figures}
+
+\subsection{Summary Statistics, Senate with Very Lopsided Votes}
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mon, Feb 13, 2017 - 14:41:16
+\begin{table}[!htbp] \centering 
+	\caption{Main DV and IV Range, Senate with Very Lopsided Votes} 
+	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+		\hline \\[-1.8ex] 
+		Party Free Ideal Point - All & 1,990 & 0.002 & 1.000 & $-$2.040 & 2.808 \\ 
+		pirate100 - All & 1,990 & 82.257 & 11.347 & 12.500 & 100.000 \\ 
+		pfrate100 - All & 1,990 & 87.077 & 7.891 & 41.889 & 100.000 \\ 
+		Ideological Extremism - All & 1,990 & 0.827 & 0.562 & $-$1.589 & 2.808 \\ 
+		\hline
+		Party Free Ideal Point - Dems & 1,039 & $-$0.790 & 0.522 & $-$2.040 & 1.589 \\ 
+		pirate100 - Dems & 1,039 & 82.664 & 11.033 & 12.500 & 100.000 \\ 
+		pfrate100 - Dems & 1,039 & 87.926 & 7.713 & 41.889 & 100.000 \\ 
+		Ideological Extremism - Dems & 1,039 & 0.790 & 0.522 & $-$1.589 & 2.040 \\ 
+		\hline 
+		Party Free Ideal Point - Reps & 951 & 0.867 & 0.600 & $-$1.279 & 2.808 \\ 
+		pirate100 - Reps & 951 & 81.813 & 11.671 & 35.897 & 100.000 \\ 
+		pfrate100 - Reps & 951 & 86.151 & 7.984 & 52.927 & 100.000 \\ 
+		Ideological Extremism - Reps & 951 & 0.867 & 0.600 & $-$1.279 & 2.808 \\
+		\hline
+		Party Free Ideal Point - Maj & 1,049 & $-$0.057 & 0.901 & $-$1.924 & 2.511 \\ 
+		pirate100 - Maj & 1,049 & 83.089 & 10.982 & 35.516 & 100.000 \\ 
+		pfrate100 - Maj & 1,049 & 88.131 & 7.484 & 50.772 & 100.000 \\ 
+		Ideological Extremism - Maj & 1,049 & 0.737 & 0.521 & $-$1.589 & 2.511 \\ 
+		\hline
+		Party Free Ideal Point - Min & 843 & 0.074 & 1.106 & $-$2.040 & 2.808 \\ 
+		pirate100 - Min & 843 & 80.848 & 11.615 & 12.500 & 100.000 \\ 
+		pfrate100 - Min & 843 & 85.266 & 8.219 & 41.889 & 100.000 \\ 
+		Ideological Extremism - Min & 843 & 0.924 & 0.611 & $-$1.279 & 2.808 \\ 
+		\hline \\[-1.8ex] 
+	\end{tabular} 
+\end{table} 
+
+\begin{table}
+	\begin{center}
+		\caption{Basic DV IV Regression, Senate with Very Lopsided Votes}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Democrats & Democrats & Republicans & Republicans \\
+			\hline
+			pfrate100              & $1.17^{***}$   &               & $1.19^{***}$   &               \\
+			& $(0.03)$       &               & $(0.03)$       &               \\
+			ideological\_extremism &                & $12.78^{***}$ &                & $10.53^{***}$ \\
+			&                & $(0.52)$      &                & $(0.53)$      \\
+			(Intercept)            & $-20.46^{***}$ & $72.57^{***}$ & $-20.81^{***}$ & $72.68^{***}$ \\
+			& $(2.24)$       & $(0.49)$      & $(2.38)$       & $(0.56)$      \\
+			\hline
+			R$^2$                  & 0.67           & 0.37          & 0.66           & 0.29          \\
+			Adj. R$^2$             & 0.67           & 0.37          & 0.66           & 0.29          \\
+			Num. obs.              & 1039           & 1039          & 951            & 951           \\
+			RMSE                   & 6.32           & 8.79          & 6.77           & 9.82          \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\caption{Main DV IV Regression, Senate with Very Lopsided Votes}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Model 1 & Model 2 & Model 3 & Model 4 \\
+			\hline
+			pfrate100              & $1.087^{***}$   & $1.076^{***}$   & $1.151^{***}$   & $0.991^{***}$ \\
+			& $(0.035)$       & $(0.032)$       & $(0.033)$       & $(0.036)$     \\
+			ideological\_extremism & $1.861^{***}$   & $2.866^{***}$   & $1.659^{***}$   & $3.043^{***}$ \\
+			& $(0.510)$       & $(0.423)$       & $(0.475)$       & $(0.485)$     \\
+			(Intercept)            & $-14.388^{***}$ & $-13.365^{***}$ & $-19.562^{***}$ & $-6.464^{*}$  \\
+			& $(2.782)$       & $(2.573)$       & $(2.699)$       & $(2.837)$     \\
+			\hline
+			R$^2$                  & 0.676           & 0.680           & 0.703           & 0.653         \\
+			Adj. R$^2$             & 0.676           & 0.679           & 0.703           & 0.652         \\
+			Num. obs.              & 1039            & 951             & 1049            & 843           \\
+			RMSE                   & 6.282           & 6.614           & 5.989           & 6.851         \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
