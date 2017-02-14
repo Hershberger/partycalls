@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  13 FEB 2017 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  14 FEB 2017 10:28
 entering extended mode
 **update_15feb.tex
 (update_15feb.tex
@@ -722,7 +722,7 @@ Here is how much of TeX's memory you used:
  10366 multiletter control sequences out of 15000+200000
  14342 words of font info for 53 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,10n,32p,874b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,10n,32p,932b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
@@ -733,7 +733,7 @@ fonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on update_15feb.pdf (12 pages, 2324178 bytes).
+Output written on update_15feb.pdf (12 pages, 2324708 bytes).
 PDF statistics:
  229 PDF objects out of 1000 (max. 8388607)
  38 named destinations out of 1000 (max. 500000)
