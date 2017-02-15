@@ -33,7 +33,14 @@ code_party_calls_1step <- function(rc, DT, votes_for_ideal_point_estimation,
     .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
   sink()
   unlink(sink_target)
+
+
   DT$x <- l$means$x
+
+  # DT <- merge(DT,
+  #   data.table(x = l$means$x[, 1], mc = rownames(l$means$x)),
+  #   by = "mc", all = TRUE)
+
   ideal <- l$means$x
   party <- rc1$legis.data$party
   # orientation_correct <- DT[party == "D", mean(ideal)] < DT[party == "R", mean(x)]

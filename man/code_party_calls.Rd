@@ -4,10 +4,10 @@
 \alias{code_party_calls}
 \title{Run the party calls classifier}
 \usage{
-code_party_calls(rc, sim_annealing, hybrid, reassign_flip_flop,
-  use_new_match_check, count_max = 100, match_count_min = 15,
-  count_min = 15, pval_threshold = 0.01, tval_threshold = qnorm(0.99),
-  vote_switch_percent = 0.01, return_pvals = TRUE,
+code_party_calls(rc, sim_annealing = FALSE, hybrid = FALSE,
+  reassign_flip_flop = FALSE, use_new_match_check = FALSE,
+  count_max = 100, match_count_min = 15, count_min = 15, pval_threshold,
+  tval_threshold, vote_switch_percent = 0.01, return_pvals = TRUE,
   n_iterations_for_coding = 5, random_seed = FALSE,
   semi_random_seed = FALSE, initial_vote_switch_pct = 0,
   drop_very_lopsided_votes = TRUE, type = "brglm",

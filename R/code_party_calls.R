@@ -45,15 +45,15 @@
 #' @import data.table emIRT pscl
 #' @export
 code_party_calls <- function(rc,
-  sim_annealing,
-  hybrid,
-  reassign_flip_flop,
-  use_new_match_check,
+  sim_annealing = FALSE,
+  hybrid = FALSE,
+  reassign_flip_flop = FALSE,
+  use_new_match_check = FALSE,
   count_max = 100,
   match_count_min = 15,
   count_min = 15,
-  pval_threshold = 0.01,
-  tval_threshold = qnorm(.99),
+  pval_threshold,
+  tval_threshold,
   vote_switch_percent = 0.01,
   return_pvals = TRUE,
   n_iterations_for_coding = 5,
@@ -70,7 +70,7 @@ code_party_calls <- function(rc,
   stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
-    rc <- pscl::dropRollCall(rc, dropList = alist(lop = 4))
+    rc <- pscl::dropRollCall(rc, dropList = alist(lop = 0))
   }
   rc <- emIRT::convertRC(rc, type = "binIRT")
   DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
