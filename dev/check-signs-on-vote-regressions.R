@@ -2,6 +2,7 @@ library(partycalls)
 library(ggplot2)
 
 load("test_data/senate_party_calls_p_05.RData")
+names(senate_party_calls) <- paste0("sen", 93:112)
 
 test_rollcall2 <- function(.SD, type = c("brglm", "lm", "glm"))
 {
@@ -119,10 +120,12 @@ check_signs <- function(rc)
   regs
 }
 
-rc <- partycalls::code_party_calls_by_congress_number(93,
-  chamber = "senate", pval_threshold = 0.05,  type = "brglm")
-
-regs <- check_signs(rc)
+regs <- list()
+for (i in 93:112) {
+  cat("*** working on congress", i, "\n")
+  regs[[paste0("sen", i)]] <- check_signs(senate_party_calls[[paste0("sen", i)]])
+}
+regs <- rbindlist(regs)
 
 # regs <- rbindlist(lapply(senate_party_calls, check_signs))
 
@@ -137,3 +140,6 @@ ggplot(regs,
   geom_vline(xintercept = qnorm(.975), linetype = 3, color = "black") +
   geom_vline(xintercept = qnorm(.025), linetype = 3, color = "black")#+
   #geom_smooth(se = FALSE, method = "lm")
+
+# get 3x3 table of percent of vote
+table(regs$party_coef, regs$ideal_coef) / length(regs$vt)
