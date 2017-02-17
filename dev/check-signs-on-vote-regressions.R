@@ -61,21 +61,24 @@ test_rollcall2 <- function(.SD, type = c("brglm", "lm", "glm"))
 
 check_signs <- function(rc)
 {
-  p <- emIRT::makePriors(rc$n, rc$m, 1)
-  s <- emIRT::getStarts(rc$n, rc$m, 1)
-  sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
-    "NUL"
-  } else {
-    "/dev/null"
-  }
-  sink(sink_target)
-  l <- emIRT::binIRT(.rc = rc, .starts = s, .priors = p,
-    .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
-  sink()
-  unlink(sink_target)
+  # p <- emIRT::makePriors(rc$n, rc$m, 1)
+  # s <- emIRT::getStarts(rc$n, rc$m, 1)
+  # sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
+  #   "NUL"
+  # } else {
+  #   "/dev/null"
+  # }
+  # sink(sink_target)
+  # l <- emIRT::binIRT(.rc = rc, .starts = s, .priors = p,
+  #   .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
+  # sink()
+  # unlink(sink_target)
+
+  n_iterations <- length(rc$record_of_ideals)
 
   ideal_dt <- merge(
-    data.table(x = l$means$x[, 1], mc = rownames(l$means$x)),
+    data.table(x = as.vector(rc$record_of_ideals[[n_iterations]]),
+      mc = rownames(rc$record_of_ideals[[n_iterations]])),
     data.table(mc = rownames(rc$legis.data), party = rc$legis.data$party),
     by = "mc", all = TRUE)
   if (ideal_dt[party == "D", mean(x)] > ideal_dt[party == "R", mean(x)]) {
