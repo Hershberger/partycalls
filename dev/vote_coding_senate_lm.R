@@ -1,7 +1,7 @@
 library(partycalls)
 library(xtable)
 
-load("test_data/senate_party_calls_keep_very_lopsided.RData")
+load("test_data/senate_party_calls_lm.RData")
 names(senate_party_calls) <- paste0("sen", 93:112)
 
 # table for all congresses
@@ -13,7 +13,7 @@ senate_coding_record[, noncall_count := sapply(93:112, function(x)
 senate_coding_record[, gray_vote_count := sapply(93:112, function(x)
   length(get_gray_votes(senate_party_calls[[paste0("sen", x)]])))]
 
-xtable(senate_coding_record)
+print(xtable(senate_coding_record), include.rownames = FALSE)
 
 # summary stats
 sum(senate_coding_record$party_call_count)
@@ -27,43 +27,6 @@ mean(senate_coding_record$gray_vote_count)
 sd(senate_coding_record$party_call_count)
 sd(senate_coding_record$noncall_count)
 sd(senate_coding_record$gray_vote_count)
-
-# democrat table
-dem_majority <- c(93:96, 100:103, 110:112)
-dem_senate_record <- senate_coding_record[congress %in% dem_majority, ]
-xtable(dem_senate_record)
-
-
-# summary stats
-sum(dem_senate_record$party_call_count)
-sum(dem_senate_record$noncall_count)
-sum(dem_senate_record$gray_vote_count)
-
-mean(dem_senate_record$party_call_count)
-mean(dem_senate_record$noncall_count)
-mean(dem_senate_record$gray_vote_count)
-
-sd(dem_senate_record$party_call_count)
-sd(dem_senate_record$noncall_count)
-sd(dem_senate_record$gray_vote_count)
-
-# republican table
-rep_majority <- c(97:99, 104:106, 108:109)
-rep_senate_record <- senate_coding_record[congress %in% rep_majority, ]
-xtable(rep_senate_record)
-
-# summary stats
-sum(rep_senate_record$party_call_count)
-sum(rep_senate_record$noncall_count)
-sum(rep_senate_record$gray_vote_count)
-
-mean(rep_senate_record$party_call_count)
-mean(rep_senate_record$noncall_count)
-mean(rep_senate_record$gray_vote_count)
-
-sd(rep_senate_record$party_call_count)
-sd(rep_senate_record$noncall_count)
-sd(rep_senate_record$gray_vote_count)
 
 
 # for more in depth coding info
@@ -118,4 +81,4 @@ sen_lop_coding[, coding := factor(coding, levels = level_calls)]
 
 # get summary stats for lopsided votes
 lopside_table <- table(sen_lop_coding$lopsided, sen_lop_coding$coding)
-xtable::xtable(lopside_table)
+xtable(lopside_table)
