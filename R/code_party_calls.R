@@ -61,6 +61,7 @@ code_party_calls <- function(rc,
   semi_random_seed = FALSE,
   initial_vote_switch_pct = 0,
   drop_very_lopsided_votes = TRUE,
+  very_lopsided_threshold = 0,
   type = "brglm",
   temperature_function = function(counter, n_votes)
     floor(n_votes * .2 * max(0, 1 - (abs(counter - 10) / 50)) ^ 2),
@@ -70,7 +71,7 @@ code_party_calls <- function(rc,
   stopifnot(type %in% c("brglm", "lm", "glm"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
-    rc <- pscl::dropRollCall(rc, dropList = alist(lop = 0))
+    rc <- pscl::dropRollCall(rc, dropList = alist(lop = very_lopsided_threshold))
   }
   rc <- emIRT::convertRC(rc, type = "binIRT")
   DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
