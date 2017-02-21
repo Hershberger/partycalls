@@ -167,6 +167,7 @@ setnames(member_year_data, "icpsr", "icpsrLegis")
 best_committee <- rbind(old_best_committee, new_best_committee)
 member_year_data <- merge(member_year_data, best_committee,
   by = c("icpsrLegis", "congress"), all.x = TRUE)
+member_year_data[is.na(bestgrosswart) == TRUE, bestgrosswart := 0]
 
 # get responsiveness rates
 new_responsiveness <- rbindlist(lapply(93:112, function(congress) {
@@ -184,6 +185,28 @@ new_responsiveness <- rbindlist(lapply(93:112, function(congress) {
 new_whoheeds13 <- merge(member_year_data, new_responsiveness,
   by = c("congress", "icpsrLegis"), all = TRUE)
 setDT(new_whoheeds13)
+
+# # correct some values
+# check_dem <- new_whoheeds13[dem == 1 &
+#   ideological_extremism != -party_free_ideal_point, ]
+# check_rep <- new_whoheeds13[dem == 0 &
+#   ideological_extremism != party_free_ideal_point, ]
+
+new_whoheeds13[icpsrLegis == 94602 & congress == 97, dem := 0] # party changer
+new_whoheeds13[icpsrLegis == 14628 & congress == 98, dem := 0] # party changer
+new_whoheeds13[icpsrLegis == 15415 & congress == 101, dem := 0] # party changer
+new_whoheeds13[icpsrLegis == 29772 & congress == 105, dem := 0] # miscoded
+new_whoheeds13[icpsrLegis == 20143 & congress == 107, dem := 0] # miscoded
+new_whoheeds13[icpsrLegis == 14039 & congress == 93, dem := 1] # miscoded
+new_whoheeds13[icpsrLegis == 14876 & congress == 97, dem := 1] # miscoded
+new_whoheeds13[icpsrLegis == 15631 & congress == 101, dem := 1] # miscoded
+new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1] # miscoded
+new_whoheeds13[icpsrLegis == 29147 & congress >= 102, dem := 1] # independent
+
+new_whoheeds13[dem == 1 & ideological_extremism != -party_free_ideal_point,
+  ideological_extremism := -party_free_ideal_point]
+new_whoheeds13[dem == 0 & ideological_extremism != party_free_ideal_point,
+  ideological_extremism := party_free_ideal_point]
 
 save(new_whoheeds13,
   file = "test_data/new_whoheeds13_lm.RData")
