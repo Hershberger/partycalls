@@ -10,10 +10,10 @@ code_party_calls(rc, sim_annealing = FALSE, hybrid = FALSE,
   tval_threshold, vote_switch_percent = 0.01, return_pvals = TRUE,
   n_iterations_for_coding = 5, random_seed = FALSE,
   semi_random_seed = FALSE, initial_vote_switch_pct = 0,
-  drop_very_lopsided_votes = TRUE, type = "brglm",
-  temperature_function = function(counter, n_votes) floor(n_votes * 0.2 *
-  max(0, 1 - (abs(counter - 10)/50))^2), lopside_thresh = 0.65,
-  use_noncalls_for_ideal_point_estimation = TRUE)
+  drop_very_lopsided_votes = TRUE, very_lopsided_threshold = 0,
+  type = "brglm", temperature_function = function(counter, n_votes)
+  floor(n_votes * 0.2 * max(0, 1 - (abs(counter - 10)/50))^2),
+  lopside_thresh = 0.65, use_noncalls_for_ideal_point_estimation = TRUE)
 }
 \arguments{
 \item{rc}{a rollcall object}

@@ -1,0 +1,283 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+	
+\begin{center}
+	\Large 22 February 2017, cont.
+\end{center}
+	
+\section{Tables and Figures, cont.}
+	
+\subsection{House lm Descriptive Statistics}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 20 20:13:00 2017
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rrrr}
+		\hline
+		congress & party calls & noncalls & gray votes \\ 
+		\hline
+		93 & 504 & 535 &   3 \\ 
+		94 & 601 & 599 &   7 \\ 
+		95 & 660 & 806 &   4 \\ 
+		96 & 631 & 596 &   1 \\ 
+		97 & 425 & 289 &  63 \\ 
+		98 & 542 & 298 &  15 \\ 
+		99 & 523 & 318 &   2 \\ 
+		100 & 559 & 289 &   4 \\ 
+		101 & 496 & 318 &   2 \\ 
+		102 & 569 & 251 &  24 \\ 
+		103 & 754 & 278 &   6 \\ 
+		104 & 857 & 392 &   0 \\ 
+		105 & 592 & 481 &   2 \\ 
+		106 & 768 & 226 &  79 \\ 
+		107 & 640 & 169 &   1 \\ 
+		108 & 627 & 251 & 102 \\ 
+		109 & 659 & 288 &  91 \\ 
+		110 & 1087 & 316 & 147 \\ 
+		111 & 787 & 340 &  84 \\ 
+		112 & 1272 & 173 &  80 \\
+		\hline
+		Total: & 13553 & 7213 & 717 \\
+		Mean: & 677.7 & 360.7 & 35.9 \\
+		sd: & 204.4 & 162.7 & 45.4 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Feb 20 20:21:26 2017
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rrrr}
+		\hline
+		& party call & noncall & gray \\ 
+		\hline
+		lopsided & 4245 & 6123 & 686 \\ 
+		close & 9308 & 1090 &  31 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mon, Feb 20, 2017 - 20:49:00
+\begin{table}[!htbp] \centering 
+	\caption{Responsiveness Statistics} 
+	\label{} 
+	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+		\\[-1.8ex]\hline 
+		\hline \\[-1.8ex] 
+		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
+		\hline \\[-1.8ex] 
+		Democrats: & & & & & \\
+		\hline
+		party free ideal point & 4,743 & $-$0.543 & 0.811 & $-$4.076 & 4.317 \\ 
+		pirate100 & 4,743 & 86.265 & 12.112 & 8.021 & 100.000 \\ 
+		pfrate100 & 4,740 & 86.975 & 7.198 & 0.000 & 100.000 \\ 
+		ideological extremism & 4,743 & 0.545 & 0.809 & $-$4.317 & 4.076 \\ 
+		\hline
+		Republicans: & & & & & \\
+		\hline
+		party free ideal point & 3,807 & 0.669 & 0.790 & $-$2.473 & 9.347 \\ 
+		pirate100 & 3,807 & 85.242 & 10.614 & 31.276 & 100.000 \\ 
+		pfrate100 & 3,804 & 86.931 & 7.875 & 28.302 & 100.000 \\ 
+		ideological extremism & 3,807 & 0.674 & 0.786 & $-$2.473 & 9.347 \\ 
+		\hline
+		Majority Party: & & & & & \\
+		\hline
+		party free ideal point & 4,905 & $-$0.152 & 0.958 & $-$4.076 & 9.347 \\ 
+		pirate100 & 4,905 & 87.612 & 11.446 & 8.021 & 100.000 \\ 
+		pfrate100 & 4,902 & 87.078 & 7.587 & 0.000 & 100.000 \\ 
+		ideological extremism & 4,905 & 0.527 & 0.814 & $-$4.317 & 9.347 \\ 
+		\hline
+		Minority Party: & & & & & \\
+		\hline
+		party free ideal point & 3,645 & 0.197 & 1.027 & $-$3.524 & 4.084 \\ 
+		pirate100 & 3,645 & 83.384 & 11.073 & 20.077 & 100.000 \\ 
+		pfrate100 & 3,642 & 86.791 & 7.395 & 38.889 & 100.000 \\ 
+		ideological extremism & 3,645 & 0.705 & 0.773 & $-$1.756 & 4.084 \\ 
+		\hline \\[-1.8ex] 
+	\end{tabular} 
+\end{table} 
+
+\pagebreak
+
+\subsection{House lm Models}
+
+
+\begin{table}[!htb]
+	\begin{center}
+		\caption{Bivariate DV/IV Regressions}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Democrats & Democrats & Republican & Republican \\
+			\hline
+			pfrate100              & $0.70^{***}$  &               & $0.27^{***}$  &               \\
+			& $(0.02)$      &               & $(0.02)$      &               \\
+			ideological extremism &               & $9.86^{***}$  &               & $4.68^{***}$  \\
+			&               & $(0.16)$      &               & $(0.21)$      \\
+			(Intercept)            & $24.95^{***}$ & $80.89^{***}$ & $61.85^{***}$ & $82.09^{***}$ \\
+			& $(1.94)$      & $(0.16)$      & $(1.87)$      & $(0.21)$      \\
+			\hline
+			R$^2$                  & 0.18          & 0.43          & 0.04          & 0.12          \\
+			Adj. R$^2$             & 0.18          & 0.43          & 0.04          & 0.12          \\
+			Num. obs.              & 4740          & 4743          & 3804          & 3807          \\
+			RMSE                   & 11.00         & 9.11          & 10.40         & 9.96          \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[!htb]
+	\begin{center}
+		\caption{Multivariate DV/IV Regressions}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Democrats & Republicans & Majority & Minority \\
+			\hline
+			pfrate100              & $0.690^{***}$  & $0.439^{***}$  & $0.593^{***}$  & $0.650^{***}$  \\
+			& $(0.015)$      & $(0.020)$      & $(0.015)$      & $(0.020)$      \\
+			ideological extremism & $9.789^{***}$  & $5.954^{***}$  & $8.038^{***}$  & $9.666^{***}$  \\
+			& $(0.137)$      & $(0.202)$      & $(0.142)$      & $(0.193)$      \\
+			(Intercept)            & $20.940^{***}$ & $43.057^{***}$ & $31.698^{***}$ & $20.154^{***}$ \\
+			& $(1.345)$      & $(1.803)$      & $(1.329)$      & $(1.810)$      \\
+			\hline
+			R$^2$                  & 0.603          & 0.219          & 0.502          & 0.428          \\
+			Adj. R$^2$             & 0.603          & 0.218          & 0.502          & 0.428          \\
+			Num. obs.              & 4740           & 3804           & 4902           & 3642           \\
+			RMSE                   & 7.629          & 9.382          & 8.075          & 8.370          \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[ht]
+	\caption{Main DV and Ideological Extremism - Southern and Other House Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_south.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{Main DV and Ideological Extremism - Majority and Minority House Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_majority.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{Main DV and Ideological Extremism - Southern and Other House Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_south.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{Main DV and Ideological Extremism - Majority and Minority House Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_majority.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{IV/IV Plot - Southern and Other House Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_south.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{IV/IV Plot - Majority and Minority House Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_majority.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{IV/IV Plot - Southern and Other House Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_south.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\caption{IV/IV Plot - Majority and Minority House Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_majority.pdf}
+\end{figure}
+
+\begin{table}[ht]
+	\begin{center}
+		\caption{Full Regression Tables}
+		\begin{tabular}{l c c c c }
+			\hline
+			& Model 1 & Model 2 & Model 3 & Model 4 \\
+			\hline
+			(Intercept)            & $21.29^{***}$ & $52.90^{***}$ & $35.03^{***}$ & $17.94^{***}$ \\
+			& $(1.60)$      & $(2.21)$      & $(1.51)$      & $(2.05)$      \\
+			ideological extremism & $8.36^{***}$  & $5.88^{***}$  & $6.63^{***}$  & $8.66^{***}$  \\
+			& $(0.17)$      & $(0.21)$      & $(0.16)$      & $(0.20)$      \\
+			pfrate100              & $0.67^{***}$  & $0.42^{***}$  & $0.54^{***}$  & $0.64^{***}$  \\
+			& $(0.02)$      & $(0.02)$      & $(0.01)$      & $(0.02)$      \\
+			pres votepct          & $0.09^{***}$  & $-0.09^{***}$ & $0.20^{***}$  & $0.17^{***}$  \\
+			& $(0.01)$      & $(0.02)$      & $(0.01)$      & $(0.02)$      \\
+			south                  & $-2.27^{***}$ & $3.63^{***}$  & $-1.60^{***}$ & $-0.24$       \\
+			& $(0.27)$      & $(0.34)$      & $(0.25)$      & $(0.31)$      \\
+			votepct                & $-0.04^{***}$ & $-0.00$       & $-0.09^{***}$ & $-0.07^{***}$ \\
+			& $(0.01)$      & $(0.01)$      & $(0.01)$      & $(0.01)$      \\
+			female                 & $0.52$        & $-0.17$       & $-0.18$       & $2.11^{***}$  \\
+			& $(0.35)$      & $(0.57)$      & $(0.40)$      & $(0.44)$      \\
+			afam                   & $-0.65$       & $5.01$        & $-3.16^{***}$ & $3.14^{***}$  \\
+			& $(0.43)$      & $(2.96)$      & $(0.53)$      & $(0.60)$      \\
+			latino                 & $1.65^{**}$   & $2.34^{*}$    & $2.69^{***}$  & $3.08^{***}$  \\
+			& $(0.51)$      & $(1.15)$      & $(0.63)$      & $(0.70)$      \\
+			seniority              & $0.05$        & $-0.33^{***}$ & $0.02$        & $-0.00$       \\
+			& $(0.03)$      & $(0.05)$      & $(0.03)$      & $(0.04)$      \\
+			freshman               & $-0.14$       & $0.99^{*}$    & $0.34$        & $-0.61$       \\
+			& $(0.35)$      & $(0.46)$      & $(0.35)$      & $(0.44)$      \\
+			bestgrosswart          & $-0.03$       & $-0.26^{***}$ & $-0.18^{***}$ & $-0.18^{***}$ \\
+			& $(0.02)$      & $(0.03)$      & $(0.02)$      & $(0.02)$      \\
+			leader                 & $1.74^{**}$   & $2.72^{***}$  & $2.62^{***}$  & $1.45^{*}$    \\
+			& $(0.59)$      & $(0.76)$      & $(0.65)$      & $(0.65)$      \\
+			power                  & $1.76^{***}$  & $2.98^{***}$  & $3.07^{***}$  & $1.14^{**}$   \\
+			& $(0.27)$      & $(0.37)$      & $(0.27)$      & $(0.36)$      \\
+			chair                  & $2.29^{***}$  & $9.52^{***}$  & $1.71^{***}$  & $-7.97$       \\
+			& $(0.49)$      & $(0.80)$      & $(0.44)$      & $(4.56)$      \\
+			\hline
+			R$^2$                  & 0.64          & 0.31          & 0.57          & 0.48          \\
+			Adj. R$^2$             & 0.64          & 0.30          & 0.57          & 0.48          \\
+			Num. obs.              & 4676          & 3758          & 4839          & 3595          \\
+			RMSE                   & 7.17          & 8.83          & 7.47          & 7.88          \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[h]
+	\centering
+	\caption{House lm Coefficient Plot}
+	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_lm.pdf}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

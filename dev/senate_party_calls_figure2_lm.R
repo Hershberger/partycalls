@@ -41,7 +41,7 @@ y.ticks <- c(- 24, -12, 0, 12, 24, 36)
 
 b <- B$extremism_maj[-15]
 se <- SE$extremism_maj[-15]
-plot(0, 0, type='n', ylim=c(-26, 42), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-26, 30), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -53,7 +53,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_min[-15]
 se <- SE$extremism_min[-15]
-plot(0, 0, type='n', ylim=c(-26, 42), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-26, 30), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
