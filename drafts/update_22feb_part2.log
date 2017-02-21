@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  20 FEB 2017 21:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  21 FEB 2017 11:23
 entering extended mode
 **update_22feb_part2.tex
 (update_22feb_part2.tex
@@ -413,11 +413,11 @@ LaTeX Info: Redefining \nameref on input line 12.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+LaTeX Font Info:    Try loading font information for U+msa on input line 26.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+LaTeX Font Info:    Try loading font information for U+msb on input line 26.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -429,135 +429,135 @@ licate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.110 
+l.114 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_south.pdf,
- id=28, 520.94624pt x 268.00125pt>
+ id=29, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_south
 .pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_south.
 pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_dem_iv-dv_south.pdf used on input line 164.
+_lm_dem_iv-dv_south.pdf used on input line 168.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_majority.p
-df, id=29, 520.94624pt x 268.00125pt>
+df, id=30, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_major
 ity.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-dv_majori
 ty.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_dem_iv-dv_majority.pdf used on input line 169.
+_lm_dem_iv-dv_majority.pdf used on input line 173.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_south.pdf,
- id=30, 520.94624pt x 268.00125pt>
+ id=31, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_south
 .pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_south.
 pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_rep_iv-dv_south.pdf used on input line 174.
+_lm_rep_iv-dv_south.pdf used on input line 178.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_majority.p
-df, id=31, 520.94624pt x 268.00125pt>
+df, id=32, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_major
 ity.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_majori
 ty.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_rep_iv-dv_majority.pdf used on input line 179.
+_lm_rep_iv-dv_majority.pdf used on input line 183.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_south.pdf,
- id=32, 520.94624pt x 268.00125pt>
+ id=33, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_south
 .pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_south.
 pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_dem_iv-iv_south.pdf used on input line 184.
+_lm_dem_iv-iv_south.pdf used on input line 188.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_majority.p
-df, id=33, 520.94624pt x 268.00125pt>
+df, id=34, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_major
 ity.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_dem_iv-iv_majori
 ty.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_dem_iv-iv_majority.pdf used on input line 189.
+_lm_dem_iv-iv_majority.pdf used on input line 193.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_south.pdf,
- id=34, 520.94624pt x 268.00125pt>
+ id=35, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_south
 .pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_south.
 pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_rep_iv-iv_south.pdf used on input line 194.
+_lm_rep_iv-iv_south.pdf used on input line 198.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_majority.p
-df, id=35, 520.94624pt x 268.00125pt>
+df, id=36, 520.94624pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_major
 ity.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_majori
 ty.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_lm_rep_iv-iv_majority.pdf used on input line 199.
+_lm_rep_iv-iv_majority.pdf used on input line 203.
 (pdftex.def)             Requested size: 469.75502pt x 241.66916pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
-_lm.pdf, id=36, 289.08pt x 578.16pt>
+_lm.pdf, id=37, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
 ation_lm.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
 tion_lm.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_lm.pdf used on input line 253.
+eeds-figure2-replication_lm.pdf used on input line 257.
 (pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 279.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
 [3pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{table.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     ] [4pdfTeX warning (ext4): destination with the same identi
 fier (name{figure.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm
 _dem_iv-dv_south.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_l
 m_dem_iv-dv_majority.pdf>] [5pdfTeX warning (ext4): destination with the same i
@@ -565,13 +565,13 @@ dentifier (name{figure.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm
 _rep_iv-dv_south.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_l
 m_rep_iv-dv_majority.pdf>] [6pdfTeX warning (ext4): destination with the same i
@@ -579,13 +579,13 @@ dentifier (name{figure.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.6}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm
 _dem_iv-iv_south.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_l
 m_dem_iv-iv_majority.pdf>] [7pdfTeX warning (ext4): destination with the same i
@@ -593,13 +593,13 @@ dentifier (name{figure.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm
 _rep_iv-iv_south.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_l
 m_rep_iv-iv_majority.pdf>] [8pdfTeX warning (ext4): destination with the same i
@@ -607,28 +607,28 @@ dentifier (name{table.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                     ] [9pdfTeX warning (ext4): destination with the same identi
 fier (name{figure.9}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.279 \end{document}
+l.283 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heed
 s-figure2-replication_lm.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 279.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
  (update_22feb_part2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 279.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 279.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `update_22feb_part2.out' has not changed.
 (rerunfilecheck)             Checksum: A5F17928D9495F5EC76B84A8E9AC8D71;207.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 279.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
- 7140 strings out of 493698
- 103348 string characters out of 3144412
+ 7141 strings out of 493698
+ 103366 string characters out of 3144412
  207358 words of memory out of 3000000
- 10332 multiletter control sequences out of 15000+200000
+ 10333 multiletter control sequences out of 15000+200000
  13826 words of font info for 51 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  29i,10n,32p,255b,330s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -636,13 +636,14 @@ Here is how much of TeX's memory you used:
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmsy8.pfb>
-Output written on update_22feb_part2.pdf (9 pages, 2123569 bytes).
+ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b>
+Output written on update_22feb_part2.pdf (9 pages, 2135242 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
+ 168 PDF objects out of 1000 (max. 8388607)
  26 named destinations out of 1000 (max. 500000)
  70 words of extra memory for PDF output out of 10000 (max. 10000000)
 

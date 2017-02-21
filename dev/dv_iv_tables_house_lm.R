@@ -1,7 +1,4 @@
 library(partycalls)
-library(ggplot2)
-
-theme_set(theme_bw())
 
 load("test_data/new_whoheeds13_lm.RData")
 
