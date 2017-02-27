@@ -6,43 +6,42 @@ options(stringsAsFactors = FALSE)
 # load data for analysis
 load("test_data/senate_data_lm.RData")
 senate_data <- senate_data[drop == 0, ]
-senate_data[congress == 107 & maj < 0.5, maj := 0]
-senate_data[congress == 107 & maj >= 0.5, maj := 1]
+senate_data <- senate_data[caucus == "Democrat"]
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + pres_vote_share + south + vote_share +
-  female + afam + latino + up_for_reelection +
+  pfrate100 + pres_vote_share + up_for_reelection + vote_share +
+  female + afam + latino + maj +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
 fm_extremism <- function(i, j) {
   summary(lm(f_extremism,
-    data = subset(senate_data, congress == i & maj == j)),
+    data = subset(senate_data, congress == i & south == j)),
     vcov = vcovHC(type = "HC1"))
 }
 
 B <- SE <- data.frame(row.names = 93:112)
-B$extremism_maj <- sapply(93:112, function(x)
+B$extremism_south <- sapply(93:112, function(x)
   fm_extremism(x, 1)$coef["ideological_extremism", "Estimate"])
-B$extremism_min <- sapply(93:112, function(x)
+B$extremism_other <- sapply(93:112, function(x)
   fm_extremism(x, 0)$coef["ideological_extremism", "Estimate"])
-SE$extremism_maj <- sapply(93:112, function(x)
+SE$extremism_south <- sapply(93:112, function(x)
   fm_extremism(x, 1)$coef["ideological_extremism", "Std. Error"])
-SE$extremism_min <- sapply(93:112, function(x)
+SE$extremism_other <- sapply(93:112, function(x)
   fm_extremism(x, 0)$coef["ideological_extremism", "Std. Error"])
 
-pdf(file="plots/senate-figure2-lm.pdf", ## RENAME
+pdf(file="plots/senate-figure2-southern-other-dems.pdf", ## RENAME
   width = 4, height = 8, family = "Times")
 layout(matrix(1:2, 2, 1, byrow = TRUE))
 par(mar = c(2.5, 4, 2, 0.3) + 0.1, font.lab = 2)
 
 x <- (93:112)
 x.ticks <- c(95, 100, 105, 110)
-y.ticks <- c(- 24, -12, 0, 12)
+y.ticks <- c(- 24, -12, 0, 12, 24, 36)
 
-b <- B$extremism_maj#[-15]
-se <- SE$extremism_maj#[-15]
-plot(0, 0, type='n', ylim=c(-6, 24), xlim=c(93, 112),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
+b <- B$extremism_south
+se <- SE$extremism_south
+plot(0, 0, type='n', ylim=c(-18, 42), xlim=c(93, 112),
+  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Southern Democrats")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
@@ -51,10 +50,10 @@ points(x, b, pch=19, col="black", cex=.8)
 segments(x, b - qnorm(.750) * se, x, b+qnorm(.750)*se, lwd=2)
 segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
-b <- B$extremism_min#[-15]
-se <- SE$extremism_min#[-15]
-plot(0, 0, type='n', ylim=c(-6, 24), xlim=c(93, 112),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
+b <- B$extremism_other
+se <- SE$extremism_other
+plot(0, 0, type='n', ylim=c(-18, 42), xlim=c(93, 112),
+  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Other Democrats")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
