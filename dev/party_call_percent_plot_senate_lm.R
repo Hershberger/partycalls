@@ -10,11 +10,13 @@ senate_coding_record[, party_calls := sapply(93:112, function(x)
   length(get_party_calls(senate_party_calls[[paste0("sen", x)]])))]
 senate_coding_record[, noncalls := sapply(93:112, function(x)
   length(get_noncalls(senate_party_calls[[paste0("sen", x)]])))]
+senate_coding_record[, gray_votes := sapply(93:112, function(x)
+  length(get_gray_votes(senate_party_calls[[paste0("sen", x)]])))]
 
-senate_coding_record[, percent_party_calls := party_calls / (party_calls + noncalls)]
-
-plot(senate_coding_record$congress, senate_coding_record$percent_party_calls,
-  type = "b")
+senate_coding_record[, percent_party_calls :=
+    party_calls / (party_calls + noncalls + gray_votes)]
+senate_coding_record[, percent_noncalls :=
+    noncalls / (party_calls + noncalls + gray_votes)]
 
 ggplot(senate_coding_record, aes(congress, percent_party_calls)) +
   xlab("Congress") +
@@ -23,3 +25,17 @@ ggplot(senate_coding_record, aes(congress, percent_party_calls)) +
   geom_point(color = "red1") +
   geom_line() +
   theme_bw()
+ggsave("plots/party_call_percent_plot_senate_lm.pdf")
+
+dev.off()
+
+ggplot(senate_coding_record, aes(congress, percent_noncalls)) +
+  xlab("Congress") +
+  ylab("Party Call Percent") +
+  labs(title = "Percent of Party Calls by Congress") +
+  geom_point(color = "blue") +
+  geom_line() +
+  theme_bw()
+ggsave("plots/non_call_percent_plot_senate_lm.pdf")
+
+dev.off()
