@@ -33,16 +33,21 @@ f_extremism_dem <- pirate100 ~ ideological_extremism +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
 
-texreg::screenreg(list(lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
-  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1])),
-  reorder.coef = c(2, 16, 3:5, 15, 6:14, 1),
+texreg::screenreg(list(
+  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1]),
+  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
+  lm(f_extremism, senate_data[caucus == "Republican" & gingrich_senator == 1]),
+  lm(f_extremism, senate_data[caucus == "Republican" & gingrich_senator == 0])),
+  reorder.coef = c(2, 17, 3:5, 16, 6:15, 1),
   digits = 3)
 
-texreg::texreg(list(lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
-  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1])),
-  reorder.coef = c(2, 16, 3:5, 15, 6:14, 1),
+texreg::texreg(list(
+  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 1]),
+  lm(f_extremism_dem, senate_data[caucus == "Democrat" & south == 0]),
+  lm(f_extremism, senate_data[caucus == "Republican" & gingrich_senator == 1]),
+  lm(f_extremism, senate_data[caucus == "Republican" & gingrich_senator == 0])),
+  reorder.coef = c(2, 17, 3:5, 16, 6:15, 1),
   digits = 3)
-
 
 # # ommitting pres_vote_share
 # f_extremism_2 <- pirate100 ~ ideological_extremism +
