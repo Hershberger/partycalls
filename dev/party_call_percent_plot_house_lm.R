@@ -21,7 +21,7 @@ house_coding_record[, percent_noncalls :=
 ggplot(house_coding_record, aes(congress, percent_party_calls)) +
   xlab("Congress") +
   ylab("Party Call Percent") +
-  labs(title = "Percent of Party Calls by Congress") +
+  #labs(title = "Percent of Party Calls by Congress") +
   geom_point(color = "red1") +
   geom_line() +
   theme_bw()
@@ -32,7 +32,7 @@ dev.off()
 ggplot(house_coding_record, aes(congress, percent_noncalls)) +
   xlab("Congress") +
   ylab("Party Call Percent") +
-  labs(title = "Percent of Party Calls by Congress") +
+  #labs(title = "Percent of Party Calls by Congress") +
   geom_point(color = "blue") +
   geom_line() +
   theme_bw()

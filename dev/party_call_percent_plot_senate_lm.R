@@ -21,8 +21,7 @@ senate_coding_record[, percent_noncalls :=
 ggplot(senate_coding_record, aes(congress, percent_party_calls)) +
   xlab("Congress") +
   ylab("Party Call Percent") +
-  labs(title = "Percent of Party Calls by Congress") +
-  geom_point(color = "red1") +
+  geom_point(color = "red") +
   geom_line() +
   theme_bw()
 ggsave("plots/party_call_percent_plot_senate_lm.pdf")
@@ -32,7 +31,6 @@ dev.off()
 ggplot(senate_coding_record, aes(congress, percent_noncalls)) +
   xlab("Congress") +
   ylab("Party Call Percent") +
-  labs(title = "Percent of Party Calls by Congress") +
   geom_point(color = "blue") +
   geom_line() +
   theme_bw()

@@ -14,14 +14,33 @@
 \begin{center}
 	\Large 01 March 2017
 \end{center}
+
+\section{Overview}
+
+At our last meeting, we finally reached full agreement on the use and reasoning of using an \verb|lm| to sort party votes. Further, it was decided that we should produce additional tables and figures of potential interest for developing our analysis based on the additional things we wished to use the Senate to study as well as those which could allow us to more easily compare the House and Senate. Specifically, the following items were selected to see this week:
+
+\begin{itemize}
+	\item Create more concise tables showing the signs of coefficients at the end of the vote sorting algorithm
+	
+	\item Develop plots which show the percent of votes sorted as party calls by Congress
+	
+	\item Create coefficient plots for ideological extremism by Congress between a series of groups we want to compare (Democrats/Republicans, Southern/Other Democrats, Gingrich Senators/Other Republicans, Senators approaching election/other Senators, Majority/Minority with Congress 107)
+	
+	\item The DV/IV and IV/IV plots for House Republicans with the exclusion of the outliers on the right side of the graph
+\end{itemize}
+
+\noindent
+Each of these is included throughout the rest of this document
 	
 \section{Tables and Figures}
 	
+\subsection{Sorting Coefficient 2 $ \times $ 2 Tables}
+
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Thu Feb 23 17:23:31 2017
 \begin{table}[ht]
 	\centering
-	\caption{Senate Coefficient Signs}
+	\caption{Senate Sorting Algorithm Coefficient Signs}
 	\begin{tabular}{rrr}
 		\hline
 		& ($-$) Ideal & (+) Ideal \\ 
@@ -36,7 +55,7 @@
 % Thu Feb 23 17:39:42 2017
 \begin{table}[ht]
 	\centering
-	\caption{House Coefficient Signs}
+	\caption{House Sorting Algorithm Coefficient Signs}
 	\begin{tabular}{rrr}
 		\hline
 		& ($-$) Ideal & (+) Ideal \\ 
@@ -46,6 +65,86 @@
 		\hline
 	\end{tabular}
 \end{table}
+
+\clearpage
+
+\subsection{Vote Sorting by Congress}
+
+\begin{figure}[h]
+	\centering
+	\caption{Senate Party Calls by Congress}
+	\includegraphics[width = 13cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_plot_senate_lm.pdf}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\caption{House Party Calls by Congress}
+	\includegraphics[width = 13cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_plot_house_lm.pdf}
+\end{figure}
+
+
+\clearpage
+
+\subsection{Senate Coefficient Plots}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, Senate Democrats and Republicans}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-party.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, Senate Southern and Other Democrats}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-southern-other-dems.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, Gingrich Senators and Other Republicans}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingrich-other-reps.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, Senators Up for Reelection and Others}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-reelection.pdf}
+\end{figure}
+
+\clearpage
+
+\subsection{House Coefficient Plots}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, House Democrats and Republicans}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_party.pdf}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\caption{Coefficient Plot, House Southern and Other Democrats}
+	\includegraphics[width = 8cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication-south-other-dems.pdf}
+\end{figure}
+
+\clearpage
+
+\subsection{Condensed DV/IV and IV/IV Plots, House Republicans}
+
+\begin{figure}[h]
+	\centering
+	\caption{House Republicans, Ideological Extremism and Party Influenced Vote Rate by Majority Status}
+	\includegraphics[width = 13cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-dv_majority.pdf}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\caption{House Republicans, Ideological Extremism and Party Free Vote Rate by Majority Status}
+	\includegraphics[width = 13cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_lm_rep_iv-iv_majority.pdf}
+\end{figure}
+
 
 
 
