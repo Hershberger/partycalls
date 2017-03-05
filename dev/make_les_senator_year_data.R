@@ -504,11 +504,15 @@ senator_year_data[icpsrLegis == 41112, freshman_congress := 112]
 # JOCELYN BURDICK
 senator_year_data[icpsrLegis == 49103, freshman_congress := 102]
 
-# Calculate freshman
-senator_year_data[, freshman := 0]
+# Calculate first Senate term length in chamber
+senator_year_data[, first_term := 0]
 senator_year_data[congress == freshman_congress |
   congress == freshman_congress + 1 | congress == freshman_congress + 2,
-  freshman := 1]
+  first_term := 1]
+
+# calculate freshman
+senator_year_data[, freshman := 0]
+senator_year_data[congress == freshman_congress, freshman := 1]
 
 # Make superfreshman
 senator_year_data[, superfreshman := 0]
@@ -604,7 +608,7 @@ senator_year_data <- senator_year_data[, .(
   pres_vote_share, pres_dem_vote_share, vote_share, south, south11, south13,
   south17, south_dem, leader, com_chair, best_committee, power_committee,
   up_for_reelection, freshman, superfreshman, seniority, senate_seniority,
-  retiree, afam, fem, latino, gingrich_senator, votes, drop)]
+  retiree, first_term, afam, fem, latino, gingrich_senator, votes, drop)]
 
 setnames(senator_year_data, "fem", "female")
 setnames(senator_year_data, "com_chair", "chair")
