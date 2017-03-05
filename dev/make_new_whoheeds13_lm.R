@@ -192,6 +192,7 @@ setDT(new_whoheeds13)
 # check_rep <- new_whoheeds13[dem == 0 &
 #   ideological_extremism != party_free_ideal_point, ]
 
+# fix dem variable for analysis
 new_whoheeds13[icpsrLegis == 94602 & congress == 97, dem := 0] # party changer
 new_whoheeds13[icpsrLegis == 14628 & congress == 98, dem := 0] # party changer
 new_whoheeds13[icpsrLegis == 15415 & congress == 101, dem := 0] # party changer
@@ -202,6 +203,11 @@ new_whoheeds13[icpsrLegis == 14876 & congress == 97, dem := 1] # miscoded
 new_whoheeds13[icpsrLegis == 15631 & congress == 101, dem := 1] # miscoded
 new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1] # miscoded
 new_whoheeds13[icpsrLegis == 29147 & congress >= 102, dem := 1] # independent
+
+# fix chair variable for analysis
+new_whoheeds13[icpsrLegis == 11036 & congress == 100, chair := 0] # miscoded
+new_whoheeds13[icpsrLegis == 14829 & congress == 102, chair := 0] # miscoded
+new_whoheeds13[icpsrLegis == 14248 & congress == 107, chair := 0] # miscoded
 
 new_whoheeds13[dem == 1 & ideological_extremism != -party_free_ideal_point,
   ideological_extremism := -party_free_ideal_point]

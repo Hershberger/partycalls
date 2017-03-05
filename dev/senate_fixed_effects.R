@@ -26,3 +26,5 @@ mod4 <- felm(pirate100 ~ ideological_extremism + pfrate100 + vote_share +
   senate_data[maj == 0])
 
 texreg::screenreg(list(mod1, mod2, mod3, mod4))
+
+texreg::texreg(list(mod1, mod2, mod3, mod4))
