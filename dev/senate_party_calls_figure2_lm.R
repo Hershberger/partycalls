@@ -37,11 +37,11 @@ par(mar = c(2.5, 4, 2, 0.3) + 0.1, font.lab = 2)
 
 x <- (93:112)
 x.ticks <- c(95, 100, 105, 110)
-y.ticks <- c(- 24, -12, 0, 12)
+y.ticks <- c(- 24, -12, -6, 0, 12)
 
 b <- B$extremism_maj#[-15]
 se <- SE$extremism_maj#[-15]
-plot(0, 0, type='n', ylim=c(-6, 24), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -53,7 +53,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_min#[-15]
 se <- SE$extremism_min#[-15]
-plot(0, 0, type='n', ylim=c(-6, 24), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority Party")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
