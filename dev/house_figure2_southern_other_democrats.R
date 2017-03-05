@@ -38,7 +38,7 @@ y.ticks <- c(-12, -6, 0, 12)
 
 b <- B$extremism_south
 se <- SE$extremism_south
-plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-8, 22), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Southern Democrats")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -50,7 +50,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_other
 se <- SE$extremism_other
-plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-8, 22), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Other Democrats")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)

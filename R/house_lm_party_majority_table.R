@@ -15,11 +15,11 @@ texreg::screenreg(list(
   lm(f_extremism, new_whoheeds13[dem == 1 & majority == 0]),
   lm(f_extremism, new_whoheeds13[dem == 0 & majority == 1]),
   lm(f_extremism, new_whoheeds13[dem == 0 & majority == 0])
-))
+), reorder.coef = c(2:15, 1))
 
 texreg::texreg(list(
   lm(f_extremism, new_whoheeds13[dem == 1 & majority == 1]),
   lm(f_extremism, new_whoheeds13[dem == 1 & majority == 0]),
   lm(f_extremism, new_whoheeds13[dem == 0 & majority == 1]),
   lm(f_extremism, new_whoheeds13[dem == 0 & majority == 0])
-))
+), reorder.coef = c(2:15, 1))
