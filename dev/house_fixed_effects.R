@@ -22,3 +22,5 @@ mod4 <- felm(pirate100 ~ ideological_extremism + pfrate100 + pres_votepct +
   congress | 0 | icpsrLegis, new_whoheeds13[majority == 0])
 
 texreg::screenreg(list(mod1, mod2, mod3, mod4))
+
+texreg::texreg(list(mod1, mod2, mod3, mod4))
