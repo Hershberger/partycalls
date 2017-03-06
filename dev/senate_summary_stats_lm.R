@@ -8,6 +8,7 @@ senate_rep <- senate_data[caucus == "Republican", ]
 senate_maj <- senate_data[maj == 1, ]
 senate_min <- senate_data[maj == 0, ]
 
+stargazer::stargazer(senate_data, summary = TRUE)
 stargazer::stargazer(senate_dem, summary = TRUE)
 stargazer::stargazer(senate_rep, summary = TRUE)
 stargazer::stargazer(senate_maj, summary = TRUE)

@@ -40,7 +40,7 @@ y.ticks <- c(- 24, -12, -6, 0, 12, 24, 36)
 
 b <- B$extremism_gingrich
 se <- SE$extremism_gingrich
-plot(0, 0, type='n', ylim=c(-18, 24), xlim=c(100, 112),
+plot(0, 0, type='n', ylim=c(-16, 22), xlim=c(100, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Gingrich Senators")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -52,7 +52,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_other
 se <- SE$extremism_other
-plot(0, 0, type='n', ylim=c(-18, 24), xlim=c(100, 112),
+plot(0, 0, type='n', ylim=c(-16, 22), xlim=c(100, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Other Republicans")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)

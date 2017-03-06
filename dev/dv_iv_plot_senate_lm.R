@@ -41,37 +41,48 @@ texreg::texreg(list(dem_lm3, rep_lm3, maj_lm3, min_lm3),
   reorder.coef = c(2:3, 1),
   digits = 3)
 
-# save as plots/senate_lm_dem_iv-dv_south.pdf
+
 ggplot(senate_dem, aes(ideological_extremism, pirate100, color = south)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("blue2", "gray25")) +
   geom_smooth(method=loess, se=FALSE)
+ggsave("plots/senate_lm_dem_iv-dv_south.pdf")
 
-# save as plots/senate_lm_dem_iv-dv_majority.pdf
+dev.off()
+
 ggplot(senate_dem, aes(ideological_extremism, pirate100, color = majority)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "0.75", "1"),
     values = c("blue2", "gray55", "gray25")) +
   geom_smooth(method=loess, se=FALSE)
+ggsave("plots/senate_lm_dem_iv-dv_majority.pdf")
 
-# save as plots/senate_lm_rep_iv-dv_gingrich.pdf
+dev.off()
+
 ggplot(senate_rep, aes(ideological_extremism, pirate100, color = gingrich_senator)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("red2", "gray25")) +
   geom_smooth(method=loess, se=FALSE)
+ggsave("plots/senate_lm_rep_iv-dv_gingrich.pdf")
 
-# save as plots/senate_lm_rep_iv-dv_majority.pdf
+dev.off()
+
 ggplot(senate_rep, aes(ideological_extremism, pirate100, color = majority)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "0.75", "1"),
     values = c("red2", "gray55", "gray25")) +
   geom_smooth(method=loess, se=FALSE)
+ggsave("plots/senate_lm_rep_iv-dv_majority.pdf")
 
-# save as plots/senate_lm_rep_iv-dv_south.pdf
+dev.off()
+
 ggplot(senate_rep, aes(ideological_extremism, pirate100, color = south)) +
   geom_point(shape = 16) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("red2", "gray25")) +
   geom_smooth(method=loess, se=FALSE)
+ggsave("plots/senate_lm_rep_iv-dv_south.pdf")
+
+dev.off()
