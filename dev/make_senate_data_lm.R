@@ -34,6 +34,7 @@ senate_data[icpsrLegis == 13100, ideological_extremism := abs(party_free_ideal_p
 
 # drop those without pirate100 values
 senate_data[is.na(pirate100) == TRUE, drop := 1]
+senate_data[is.na(pfrate100) == TRUE, drop := 1]
 
 save(senate_data,
   file = "test_data/senate_data_lm.RData")

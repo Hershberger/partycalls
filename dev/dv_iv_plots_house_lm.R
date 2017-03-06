@@ -12,6 +12,8 @@ new_whoheeds13[, majority := as.factor(majority)]
 
 house_dem <- new_whoheeds13[dem == 1, ]
 house_rep <- new_whoheeds13[dem == 0, ]
+
+# remove outliers
 house_rep <- house_rep[ideological_extremism < 5, ]
 
 

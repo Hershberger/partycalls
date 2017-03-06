@@ -214,6 +214,12 @@ new_whoheeds13[dem == 1 & ideological_extremism != -party_free_ideal_point,
 new_whoheeds13[dem == 0 & ideological_extremism != party_free_ideal_point,
   ideological_extremism := party_free_ideal_point]
 
+# drop members with missing values in main DV and IVs
+new_whoheeds13[is.na(pirate100) == TRUE, drop := 1]
+new_whoheeds13[is.na(pfrate100) == TRUE, drop := 1]
+new_whoheeds13[is.na(ideological_extremism) == TRUE, drop := 1]
+new_whoheeds13[is.na(party_free_ideal_point) == TRUE, drop := 1]
+
 save(new_whoheeds13,
   file = "test_data/new_whoheeds13_lm.RData")
 

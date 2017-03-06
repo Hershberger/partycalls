@@ -579,6 +579,7 @@ senator_year_data[is.na(com_chair) == TRUE, com_chair := 0]
 source("package/get-best-committee.R")
 senator_year_data <- merge(senator_year_data, best_committee_dt,
   by = c("congress", "icpsrLegis"), all.x = TRUE)
+senator_year_data[is.na(best_committee) == TRUE, power_committee := 0]
 senator_year_data[is.na(best_committee) == TRUE, best_committee := 16]
 senator_year_data[, best_committee := 16 - best_committee]
 
