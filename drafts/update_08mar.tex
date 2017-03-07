@@ -45,7 +45,7 @@ If there are any tables or figures from past weekly updates you would like to se
 
 \begin{table}[H]
 	\begin{center}
-		\caption{Senate Fixed Effects Models}
+		\caption{Senate Inter Party Fixed Effects Models}
 		\begin{tabular}{l c c c c }
 			\hline
 			& Democrats & Republicans & Majority & Minority \\
@@ -78,6 +78,49 @@ If there are any tables or figures from past weekly updates you would like to se
 			R$^2$ (proj model)      & 0.26          & 0.19          & 0.31          & 0.17         \\
 			Adj. R$^2$ (full model) & 0.87          & 0.88          & 0.89          & 0.91         \\
 			Adj. R$^2$ (proj model) & 0.09          & -0.02         & 0.02          & -0.21        \\
+			\hline
+			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\caption{Senate Intra Party Fixed Effects Models}
+		\begin{tabular}{l c c c c }
+			\hline
+			& \multicolumn{2}{c}{Democrats} & \multicolumn{2}{c}{Republicans} \\
+			\cline{2-5}
+			& Southern & Others & Gingrich Senators & Others \\
+			\hline
+			ideological\_extremism  & $10.78^{***}$ & $2.05^{***}$ & $2.11$   & $4.01^{***}$  \\
+			& $(2.64)$      & $(0.56)$     & $(1.52)$ & $(0.88)$      \\
+			pfrate100               & $0.05$        & $0.37^{***}$ & $0.11$   & $0.27^{***}$  \\
+			& $(0.14)$      & $(0.06)$     & $(0.11)$ & $(0.06)$      \\
+			vote\_share             & $1.32$        & $5.16$       & $-0.74$  & $-6.78$       \\
+			& $(3.41)$      & $(2.87)$     & $(4.45)$ & $(3.52)$      \\
+			pres\_vote\_share       & $21.64$       & $12.74^{*}$  & $0.13$   & $11.00$       \\
+			& $(11.42)$     & $(5.61)$     & $(6.74)$ & $(6.36)$      \\
+			freshman                & $0.77$        & $1.06^{*}$   & $-0.41$  & $1.53^{**}$   \\
+			& $(0.82)$      & $(0.51)$     & $(0.85)$ & $(0.58)$      \\
+			retiree                 & $-2.88$       & $0.87$       & $1.41$   & $0.77$        \\
+			& $(2.10)$      & $(0.64)$     & $(1.04)$ & $(0.94)$      \\
+			best\_committee         & $0.49$        & $0.04$       & $0.29$   & $0.06$        \\
+			& $(0.32)$      & $(0.12)$     & $(0.29)$ & $(0.18)$      \\
+			up\_for\_reelection     & $-0.42$       & $-0.45$      & $-0.64$  & $-1.81^{***}$ \\
+			& $(0.71)$      & $(0.28)$     & $(0.54)$ & $(0.40)$      \\
+			power\_committee        & $-2.11$       & $-0.10$      & $-0.84$  & $0.13$        \\
+			& $(2.19)$      & $(0.67)$     & $(1.18)$ & $(1.16)$      \\
+			leader                  & $2.73$        & $0.79$       & $1.02$   & $1.51^{*}$    \\
+			& $(2.27)$      & $(0.50)$     & $(0.86)$ & $(0.73)$      \\
+			chair                   & $1.77$        & $0.29$       & $-1.16$  & $0.75$        \\
+			& $(1.55)$      & $(0.60)$     & $(0.94)$ & $(0.83)$      \\
+			\hline
+			Num. obs.               & 246           & 796          & 188      & 763           \\
+			R$^2$ (full model)      & 0.91          & 0.87         & 0.66     & 0.91          \\
+			R$^2$ (proj model)      & 0.30          & 0.22         & 0.12     & 0.21          \\
+			Adj. R$^2$ (full model) & 0.87          & 0.84         & 0.50     & 0.88          \\
+			Adj. R$^2$ (proj model) & 0.01          & 0.03         & -0.31    & 0.00          \\
 			\hline
 			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
 		\end{tabular}
@@ -140,7 +183,7 @@ If there are any tables or figures from past weekly updates you would like to se
 	
 \begin{table}[H]
 	\begin{center}
-		\caption{House Fixed Effects Models}
+		\caption{House Inter Party Fixed Effects Models}
 		\begin{tabular}{l c c c c }
 			\hline
 			& Democrats & Republicans & Majority & Minority \\
@@ -171,6 +214,43 @@ If there are any tables or figures from past weekly updates you would like to se
 			Adj. R$^2$ (proj model) & -0.14        & -0.26        & -0.32        & -0.32        \\
 			\hline
 			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\caption{House Intra Party Fixed Effects Models}
+		\begin{tabular}{l c c }
+			\hline
+			& Southern Democrats & Other Democrats \\
+			\hline
+			ideological\_extremism  & $3.18^{***}$ & $1.83^{***}$ \\
+			& $(0.61)$     & $(0.30)$     \\
+			pfrate100               & $0.34^{***}$ & $0.11^{*}$   \\
+			& $(0.07)$     & $(0.05)$     \\
+			pres\_votepct           & $0.10$       & $0.01$       \\
+			& $(0.05)$     & $(0.03)$     \\
+			votepct                 & $0.01$       & $0.01$       \\
+			& $(0.01)$     & $(0.01)$     \\
+			freshman                & $1.07$       & $0.02$       \\
+			& $(0.58)$     & $(0.28)$     \\
+			bestgrosswart           & $0.01$       & $0.01$       \\
+			& $(0.08)$     & $(0.03)$     \\
+			leader                  & $0.86$       & $-0.12$      \\
+			& $(1.12)$     & $(0.66)$     \\
+			power                   & $0.79$       & $-0.39$      \\
+			& $(1.06)$     & $(0.34)$     \\
+			chair                   & $2.06$       & $0.21$       \\
+			& $(1.44)$     & $(0.46)$     \\
+			\hline
+			Num. obs.               & 1370         & 3376         \\
+			R$^2$ (full model)      & 0.93         & 0.86         \\
+			R$^2$ (proj model)      & 0.14         & 0.04         \\
+			Adj. R$^2$ (full model) & 0.91         & 0.82         \\
+			Adj. R$^2$ (proj model) & -0.10        & -0.18        \\
+			\hline
+			\multicolumn{3}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
 		\end{tabular}
 	\end{center}
 \end{table}	
@@ -237,8 +317,44 @@ If there are any tables or figures from past weekly updates you would like to se
 
 \begin{figure}[H]
 	\centering
+	\caption{Senate IV/IV Plot, Majority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_dem_maj.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Majority Democrats, South/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_dem_maj_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Majority Democrats, South/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_dem_maj_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{Senate DV/IV Plot, Minority Democrats}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_dem_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Minority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_dem_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Minority Democrats, South/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_dem_min_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Minority Democrats, South/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_dem_min_south.pdf}
 \end{figure}
 
 \begin{figure}[H]
@@ -249,8 +365,44 @@ If there are any tables or figures from past weekly updates you would like to se
 
 \begin{figure}[H]
 	\centering
+	\caption{Senate IV/IV Plot, Majority Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_rep_maj.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Majority Republicans, Gingrich/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_rep_maj_gingrich.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Majority Republicans, Gingrich/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_rep_maj_gingrich.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{Senate DV/IV Plot, Minority Republicans}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_rep_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Minority Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_rep_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Minority Republicans, Gingrich/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_dv_rep_min_gingrich.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Minority Republicans, Gingrich/Other}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_iv_iv_rep_min_gingrich.pdf}
 \end{figure}
 
 \begin{figure}[H]
@@ -261,8 +413,44 @@ If there are any tables or figures from past weekly updates you would like to se
 
 \begin{figure}[H]
 	\centering
+	\caption{House IV/IV Plot, Majority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_dem_maj.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House DV/IV Plot, Majority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_dv_dem_maj_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House IV/IV Plot, Majority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_dem_maj_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{House DV/IV Plot, Minority Democrats}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_dv_dem_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House IV/IV Plot, Minority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_dem_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House DV/IV Plot, Minority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_dv_dem_min_south.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House IV/IV Plot, Minority Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_dem_min_south.pdf}
 \end{figure}
 
 \begin{figure}[H]
@@ -273,8 +461,21 @@ If there are any tables or figures from past weekly updates you would like to se
 
 \begin{figure}[H]
 	\centering
+	\caption{House IV/IV Plot, Majority Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_rep_maj.pdf}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
 	\caption{House DV/IV Plot, Minority Republicans}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_dv_rep_min.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House IV/IV Plot, Minority Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_iv_iv_rep_min.pdf}
 \end{figure}
 
 \clearpage
@@ -445,6 +646,21 @@ If there are any tables or figures from past weekly updates you would like to se
 		\hline \\[-1.8ex] 
 	\end{tabular} 
 \end{table} 
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Thu Feb 23 17:23:31 2017
+\begin{table}[H]
+	\centering
+	\caption{Senate Sorting Algorithm Coefficient Signs}
+	\begin{tabular}{rrr}
+		\hline
+		& ($-$) Ideal & (+) Ideal \\ 
+		\hline
+		($-$) Party & 0.33 & 0.16 \\ 
+		(+) Party & 0.23 & 0.28 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
 \begin{figure}[H]
 	\centering
@@ -712,6 +928,21 @@ If there are any tables or figures from past weekly updates you would like to se
 		\hline \\[-1.8ex] 
 	\end{tabular} 
 \end{table} 
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Thu Feb 23 17:39:42 2017
+\begin{table}[H]
+	\centering
+	\caption{House Sorting Algorithm Coefficient Signs}
+	\begin{tabular}{rrr}
+		\hline
+		& ($-$) Ideal & (+) Ideal \\ 
+		\hline
+		(-) Party & 0.38 & 0.15 \\ 
+		(+) Party & 0.17 & 0.30 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
 \begin{figure}[H]
 	\centering
