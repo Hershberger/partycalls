@@ -66,3 +66,13 @@ ggplot(house_dem_min, aes(ideological_extremism, pfrate100, color = south)) +
 ggsave("plots/house_iv_iv_dem_min_south.pdf")
 
 dev.off()
+
+
+# check house republican majority pfrate100
+house_rep_maj[, congress := as.factor(congress)]
+ggplot(house_rep_maj, aes(ideological_extremism, pfrate100, color = congress)) +
+  geom_point(shape = 16) +
+  geom_smooth(method = lm, se = FALSE)
+ggsave("plots/house_iv_iv_rep_maj_congress.pdf")
+
+dev.off()
