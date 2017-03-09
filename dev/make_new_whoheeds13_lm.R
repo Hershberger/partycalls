@@ -238,6 +238,7 @@ new_whoheeds13[dem == 0 & ideological_extremism != party_free_ideal_point,
 
 # drop members with missing values in variables used for analysis
 new_whoheeds13[, drop := 0]
+new_whoheeds13[is.na(majority) == TRUE, drop := 1]
 new_whoheeds13[is.na(pirate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(pfrate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(ideological_extremism) == TRUE, drop := 1]
