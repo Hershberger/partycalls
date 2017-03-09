@@ -29,7 +29,7 @@ stabb_to_drop <- c("PR", "DC", "GU", "VI", "AS", "MP")
 lep_data_93_110 <- subset(lep_data_93_110, !(st_name %in% stabb_to_drop))
 lep_data_111_112 <- subset(lep_data_111_112, !(st_name %in% stabb_to_drop))
 lep_aggregate <- subset(lep_aggregate, !(st_name %in% stabb_to_drop))
-lep_aggregate <- lep_aggregate[, .(congress, icpsr, elected, afam, latino,
+lep_aggregate <- lep_aggregate[, .(congress, icpsr, afam, latino,
   freshman, sophomore, south, leader)]
 
 lep_data_111_112 <- merge(lep_data_111_112, lep_aggregate,
@@ -192,29 +192,52 @@ setDT(new_whoheeds13)
 # check_rep <- new_whoheeds13[dem == 0 &
 #   ideological_extremism != party_free_ideal_point, ]
 
-# fix dem variable for analysis
-new_whoheeds13[icpsrLegis == 94602 & congress == 97, dem := 0] # party changer
-new_whoheeds13[icpsrLegis == 14628 & congress == 98, dem := 0] # party changer
-new_whoheeds13[icpsrLegis == 15415 & congress == 101, dem := 0] # party changer
-new_whoheeds13[icpsrLegis == 29772 & congress == 105, dem := 0] # miscoded
-new_whoheeds13[icpsrLegis == 20143 & congress == 107, dem := 0] # miscoded
-new_whoheeds13[icpsrLegis == 14039 & congress == 93, dem := 1] # miscoded
-new_whoheeds13[icpsrLegis == 14876 & congress == 97, dem := 1] # miscoded
-new_whoheeds13[icpsrLegis == 15631 & congress == 101, dem := 1] # miscoded
-new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1] # miscoded
-new_whoheeds13[icpsrLegis == 29147 & congress >= 102, dem := 1] # independent
+# fix dem and majority variables for analysis
 
-# fix chair variable for analysis
-new_whoheeds13[icpsrLegis == 11036 & congress == 100, chair := 0] # miscoded
-new_whoheeds13[icpsrLegis == 14829 & congress == 102, chair := 0] # miscoded
-new_whoheeds13[icpsrLegis == 14248 & congress == 107, chair := 0] # miscoded
+# Eugene Atkinson, party changer
+new_whoheeds13[icpsrLegis == 94602 & congress == 97, dem := 0]
+new_whoheeds13[icpsrLegis == 94602 & congress == 97, majority := 0]
+# Phil Gramm, party changer
+new_whoheeds13[icpsrLegis == 14628 & congress == 98, dem := 0]
+new_whoheeds13[icpsrLegis == 14628 & congress == 98, majority := 0]
+# Bill Grant, party changer
+new_whoheeds13[icpsrLegis == 15415 & congress == 101, dem := 0]
+new_whoheeds13[icpsrLegis == 15415 & congress == 101, majority := 0]
+# Bill Redmond, miscoded
+new_whoheeds13[icpsrLegis == 29772 & congress == 105, dem := 0]
+new_whoheeds13[icpsrLegis == 29772 & congress == 105, majority := 1]
+# J. Randy Forbes, miscoded
+new_whoheeds13[icpsrLegis == 20143 & congress == 107, dem := 0]
+new_whoheeds13[icpsrLegis == 20143 & congress == 107, majority := 1]
+# John Moakley, miscoded
+new_whoheeds13[icpsrLegis == 14039 & congress == 93, dem := 1]
+new_whoheeds13[icpsrLegis == 14039 & congress == 93, majority := 1]
+# Joseph Smith, miscoded
+new_whoheeds13[icpsrLegis == 14876 & congress == 97, dem := 1]
+new_whoheeds13[icpsrLegis == 14876 & congress == 97, majority := 1]
+# Jill Long, miscoded
+new_whoheeds13[icpsrLegis == 15631 & congress == 101, dem := 1]
+new_whoheeds13[icpsrLegis == 15631 & congress == 101, majority := 1]
+# John Oliver, miscoded
+new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1]
+new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1]
+# Bernie Sanders, independent who we don't want to count as Republican
+new_whoheeds13[icpsrLegis == 29147 & congress >= 102, dem := 1]
+new_whoheeds13[icpsrLegis == 29147 & congress >= 102,
+  majority := abs(majority - 1)]
+
+# there are minority party members listed as chairs, fix this
+new_whoheeds13[icpsrLegis == 11036 & congress == 100, chair := 0]
+new_whoheeds13[icpsrLegis == 14829 & congress == 102, chair := 0]
+new_whoheeds13[icpsrLegis == 14248 & congress == 107, chair := 0]
 
 new_whoheeds13[dem == 1 & ideological_extremism != -party_free_ideal_point,
   ideological_extremism := -party_free_ideal_point]
 new_whoheeds13[dem == 0 & ideological_extremism != party_free_ideal_point,
   ideological_extremism := party_free_ideal_point]
 
-# drop members with missing values in main DV and IVs
+# drop members with missing values in variables used for analysis
+new_whoheeds13[, drop := 0]
 new_whoheeds13[is.na(pirate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(pfrate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(ideological_extremism) == TRUE, drop := 1]
