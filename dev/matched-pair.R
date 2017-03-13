@@ -62,11 +62,11 @@ DATA[, `:=`(both_same_party = NULL, both_democrats = NULL,
 # Estimate Effects
 effect <- DATA[mean_tr == .5,
   sum(tr * y) - sum((1 - tr) * y), .(stabb, congress)][,
-  mean(V1)]
+    mean(V1)]
 placebo <- DATA[mean_tr == 0,
   sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
   .(stabb, congress)][,
-  mean(V1)]
+    mean(V1)]
 
 # Do inference
 # bootstrap by state
@@ -91,12 +91,12 @@ boot <- function(i) {
 }
 
 boots <- rbindlist(lapply(1:1000, boot))
-naive_difference <- data.table(test = c("effect", "placebo"),
-  variable = "pirate100",
-  estimate = c(effect, placebo),
-  lower_bound = c(boots[, quantile(boot_effect, .025)],
+naive_difference <- data.table(test = c("Effect", "Placebo"),
+  DV = "pirate100",
+  Estimate = c(effect, placebo),
+  Lower_Bound = c(boots[, quantile(boot_effect, .025)],
     boots[, quantile(boot_placebo, .025)]),
-  upper_bound = c(boots[, quantile(boot_effect, .975)],
+  Upper_Bound = c(boots[, quantile(boot_effect, .975)],
     boots[, quantile(boot_placebo, .975)])
 )
 
@@ -137,30 +137,7 @@ boot_adjusted <- function(i) {
       .(conditional_effect = mean(V1), weight = .N / n_placebo_pairs),
       seat_pair_type][,
         sum(conditional_effect * weight)]
-
-  seat_type_effect_boot <- DATA[mean_tr == .5, sum(tr * y) - sum((1 - tr) * y),
-    .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
-  boot_split_maj_dem <- seat_type_effect_boot[seat_pair_type == "split/maj dem", V1]
-  boot_2_maj_reps <- seat_type_effect_boot[seat_pair_type == "2 maj reps", V1]
-  boot_2_min_reps <- seat_type_effect_boot[seat_pair_type == "2 min reps", V1]
-  boot_2_maj_dems <- seat_type_effect_boot[seat_pair_type == "2 maj dems", V1]
-  boot_split_maj_rep <- seat_type_effect_boot[seat_pair_type == "split/maj rep", V1]
-  boot_2_min_dems <- seat_type_effect_boot[seat_pair_type == "2 min dems", V1]
-
-  seat_type_placebo_boot <- DATA[, sum((rand > mean(rand)) * y) - sum(((rand) <= mean(rand)) * y),
-    .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
-
-  boot_placebo_split_maj_dem <- seat_type_placebo_boot[seat_pair_type == "split/maj dem", V1]
-  boot_placebo_2_maj_reps <- seat_type_placebo_boot[seat_pair_type == "2 maj reps", V1]
-  boot_placebo_2_min_reps <- seat_type_placebo_boot[seat_pair_type == "2 min reps", V1]
-  boot_placebo_2_maj_dems <- seat_type_placebo_boot[seat_pair_type == "2 maj dems", V1]
-  boot_placebo_split_maj_rep <- seat_type_placebo_boot[seat_pair_type == "split/maj rep", V1]
-  boot_placebo_2_min_dems <- seat_type_placebo_boot[seat_pair_type == "2 min dems", V1]
-
-  data.table(boot_effect_adjusted, placebo_adjusted, boot_split_maj_dem, boot_2_maj_reps,
-    boot_2_min_reps, boot_2_maj_dems, boot_split_maj_rep,  boot_2_min_dems,
-    boot_placebo_split_maj_dem, boot_placebo_2_maj_reps, boot_placebo_2_min_reps,
-    boot_placebo_2_maj_dems, boot_placebo_split_maj_rep, boot_placebo_2_min_dems)
+  data.table(boot_effect_adjusted, placebo_adjusted)
 }
 
 adjusted_boots <- rbindlist(lapply(1:1000, boot_adjusted))
@@ -178,24 +155,24 @@ setnames(seat_type_placebo, "V1", "placebo")
 seat_type_placebo
 
 adjusted_difference <- data.table(
-  test = c("Adjusted Effect", "Adjusted Placebo"),
-  variable = "pirate100",
+  Test = c("Adjusted Effect", "Adjusted Placebo"),
+  DV = "pirate100",
   estimate = c(effect_adjusted, placebo_adjusted),
-  lower_bound = c(adjusted_boots[, quantile(boot_effect_adjusted, .025)],
+  Lower_Bound = c(adjusted_boots[, quantile(boot_effect_adjusted, .025)],
     adjusted_boots[, quantile(placebo_adjusted, .025)]),
-  upper_bound = c(adjusted_boots[, quantile(boot_effect_adjusted, .975)],
+  Upper_Bound = c(adjusted_boots[, quantile(boot_effect_adjusted, .975)],
     adjusted_boots[, quantile(placebo_adjusted, .975)])
-  )
+)
 
 seat_type_difference <- data.table(
-  test = c("2 Maj Dems Effect", "2 Maj Dems Placebo",
+  Test = c("2 Maj Dems Effect", "2 Maj Dems Placebo",
     "2 Min Dems Effect", "2 Min Dems Placebo",
     "2 Maj Reps Effect", "2 Maj Reps Placebo",
     "2 Min Reps Effect", "2 Min Reps Placebo",
     "Split, Maj Dem Effect", "Split, Maj Dem Placebo",
     "Split, Maj Rep Effect", "Split, Maj Rep Placebo"),
-  variable = "pirate100",
-  estimate = c(
+  DV = "pirate100",
+  Estimate = c(
     seat_type_effect[seat_pair_type == "2 maj dems", effect],
     seat_type_placebo[seat_pair_type == "2 maj dems", placebo],
     seat_type_effect[seat_pair_type == "2 min dems", effect],
@@ -207,34 +184,8 @@ seat_type_difference <- data.table(
     seat_type_effect[seat_pair_type == "split/maj dem", effect],
     seat_type_placebo[seat_pair_type == "split/maj dem", placebo],
     seat_type_effect[seat_pair_type == "split/maj rep", effect],
-    seat_type_placebo[seat_pair_type == "split/maj rep", placebo]),
-  lower_bound = c(
-    adjusted_boots[, quantile(boot_2_maj_dems, .025)],
-    adjusted_boots[, quantile(boot_placebo_2_maj_dems, .025)],
-    adjusted_boots[, quantile(boot_2_min_dems, .025)],
-    adjusted_boots[, quantile(boot_placebo_2_min_dems, .025)],
-    adjusted_boots[, quantile(boot_2_maj_reps, .025)],
-    adjusted_boots[, quantile(boot_placebo_2_maj_reps, .025)],
-    adjusted_boots[, quantile(boot_2_min_reps, .025)],
-    adjusted_boots[, quantile(boot_placebo_2_min_reps, .025)],
-    adjusted_boots[, quantile(boot_split_maj_dem, .025)],
-    adjusted_boots[, quantile(boot_placebo_split_maj_dem, .025)],
-    adjusted_boots[, quantile(boot_split_maj_rep, .025)],
-    adjusted_boots[, quantile(boot_placebo_split_maj_rep, .025)]
-  ),
-  upper_bound = c(adjusted_boots[, quantile(boot_2_maj_dems, .975)],
-    adjusted_boots[, quantile(boot_placebo_2_maj_dems, .975)],
-    adjusted_boots[, quantile(boot_2_min_dems, .975)],
-    adjusted_boots[, quantile(boot_placebo_2_min_dems, .975)],
-    adjusted_boots[, quantile(boot_2_maj_reps, .975)],
-    adjusted_boots[, quantile(boot_placebo_2_maj_reps, .975)],
-    adjusted_boots[, quantile(boot_2_min_reps, .975)],
-    adjusted_boots[, quantile(boot_placebo_2_min_reps, .975)],
-    adjusted_boots[, quantile(boot_split_maj_dem, .975)],
-    adjusted_boots[, quantile(boot_placebo_split_maj_dem, .975)],
-    adjusted_boots[, quantile(boot_split_maj_rep, .975)],
-    adjusted_boots[, quantile(boot_placebo_split_maj_rep, .975)])
-  )
+    seat_type_placebo[seat_pair_type == "split/maj rep", placebo])
+)
 
 naive_difference_tex <- xtable(naive_difference, auto = TRUE)
 print(naive_difference_tex, include.rownames = FALSE)

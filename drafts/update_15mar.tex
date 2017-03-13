@@ -21,34 +21,49 @@
 At our previous meeting we decided to do the following:
 
 \begin{itemize}
-	\item
+	\item Compare same state Senators who are up for reelection against those who aren't, taking Levitt (1996), Table 4 as inspiration
+	
+	\item Reconduct analyses with an interaction effect between member vote share and presidential vote share
+	
+	\item Conduct analyses with noncall response rate (\verb|pfrate100|) as the DV
+	
+	\item Produce figures which plot our main independent variable (\verb|ideological_extremism|) against party call response rate (\verb|pirate100|) and noncall response rate (\verb|pfrate100|)
 \end{itemize}
+
+\noindent
+These are included below.
 
 \section{Tables and Figures}
 
-\subsection{}
+\subsection{Difference in Differences Tests}
+
+In order to test the effects of election proximity, William and I settled on a difference in differences like approach in which we compare the differences in responsiveness rates between 2 same state Senators in Congresses which one of them is treated. This differs from a standard diff in diff test by including only times when one member of a pair is treated. 
+
+With this test, we estimate the effect as well as a placebo derived from a randomly assigned treatment condition. Analysis is provided separately with responsiveness rate to party calls (tables 1 through 3) and responsiveness rate to noncalls (tables 4 through 6) as dependent variables. Within these, we report the estimate for the ATT and the lower and upper bounds of the 95\% confidence interval. The confidence interval is calculated through a bootstrap at the state level. The first table in each set provides a naive calculation of the confidence interval while the second uses weights the effect by seat pair type. The third table provides the estimated effect for each seat pair type.
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
-% Mon Mar 13 00:29:32 2017
-\begin{table}[ht]
+% Mon Mar 13 11:39:19 2017
+\begin{table}[H]
 	\centering
+	\caption{Difference in Differences, Party Influenced Rate, Reelection Treatment vs. Random Assignment}
 	\begin{tabular}{llrrr}
 		\hline
-		test & variable & estimate & lower\_bound & upper\_bound \\ 
+		Test & DV & Estimate & Lower Bound & Upper Bound \\ 
 		\hline
-		effect & pirate100 & -1.5685604 & -2.0957029 & -2.0957029 \\ 
-		placebo & pirate100 & -0.6902020 & 1.2327126 & 1.2327126 \\ 
+		Effect & pirate100 & -1.5685604 & -2.0957029 & -0.97344617 \\ 
+		Placebo & pirate100 & -0.6902020 & -1.2397304 & 1.23271255 \\ 
 		\hline
 	\end{tabular}
 \end{table}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Mon Mar 13 00:30:40 2017
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
+	\caption{Weighted Difference in Differences, Party Influenced Rate, Reelection Treatment vs. Random Assignment}
 	\begin{tabular}{llrrr}
 		\hline
-		test & variable & estimate & lower\_bound & upper\_bound \\ 
+		Test & DV & Estimate & Lower Bound & Upper Bound \\  
 		\hline
 		Adjusted Effect & pirate100 & -1.5685604 & -2.1541096 & -0.97751751 \\ 
 		Adjusted Placebo & pirate100 & -0.6902020 & -6.1688446 & 6.06350669 \\ 
@@ -56,14 +71,87 @@ At our previous meeting we decided to do the following:
 	\end{tabular}
 \end{table}
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 13 10:20:42 2017
+\begin{table}[H]
+	\centering
+	\caption{Disaggregated Difference in Differences, Party Influenced Rate, Reelection Treatment vs. Random Assignment}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\ 
+		\hline
+		2 Maj Dems Effect & pirate100 & 0.0708958 \\ 
+		2 Maj Dems Placebo & pirate100 & -0.2036783 \\ 
+		2 Min Dems Effect & pirate100 & -1.8733904 \\ 
+		2 Min Dems Placebo & pirate100 & -0.9602191 \\ 
+		2 Maj Reps Effect & pirate100 & -1.1307379 \\ 
+		2 Maj Reps Placebo & pirate100 & -0.2868056 \\ 
+		2 Min Reps Effect & pirate100 & 0.3990873 \\ 
+		2 Min Reps Placebo & pirate100 & 0.0147628 \\ 
+		Split, Maj Dem Effect & pirate100 & -2.4804711 \\ 
+		Split, Maj Dem Placebo & pirate100 & -0.7279546 \\ 
+		Split, Maj Rep Effect & pirate100 & -4.3246972 \\ 
+		Split, Maj Rep Placebo & pirate100 & 0.3390961 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 13 11:12:56 2017
+\begin{table}[H]
+	\centering
+	\caption{Difference in Differences, Party Free Rate, Reelection Treatment vs. Random Assignment}
+	\begin{tabular}{llrrr}
+		\hline
+		Test & DV & Estimate & Lower Bound & Upper Bound \\ 
+		\hline
+		Effect & pfrate100 & -0.2969119 & -0.7350467 & 0.13767116 \\ 
+		Placebo & pfrate100 & -0.3120122 & -1.0565962 & 1.06650160 \\  
+		\hline
+	\end{tabular}
+\end{table}
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 13 11:12:56 2017
+\begin{table}[H]
+	\centering
+	\caption{Weighted Difference in Differences, Party Free Rate, Reelection Treatment vs. Random Assignment}
+	\begin{tabular}{llrrr}
+		\hline
+		Test & DV & Estimate & Lower Bound & Upper Bound \\ 
+		\hline
+		Adjusted Effect & pfrate100 & -0.2969119 & -0.7111920 & 0.14368690 \\ 
+		Adjusted Placebo & pfrate100 & -0.3120122 & -6.5885299 & 6.18565591 \\  
+		\hline
+	\end{tabular}
+\end{table}
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 13 11:12:56 2017
+\begin{table}[H]
+	\centering
+	\caption{Disaggregated Difference in Differences, Party Free Rate, Reelection Treatment vs. Random Assignment}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\  
+		\hline
+		2 Maj Dems Effect & pfrate100 & 0.1900901 \\ 
+		2 Maj Dems Placebo & pfrate100 & -0.9693719 \\ 
+		2 Min Dems Effect & pfrate100 & -0.0480525 \\ 
+		2 Min Dems Placebo & pfrate100 & -0.4318845 \\ 
+		2 Maj Reps Effect & pfrate100 & 1.0805092 \\ 
+		2 Maj Reps Placebo & pfrate100 & 0.4701269 \\ 
+		2 Min Reps Effect & pfrate100 & -0.3783909 \\ 
+		2 Min Reps Placebo & pfrate100 & 0.6484191 \\ 
+		Split, Maj Dem Effect & pfrate100 & -1.3097195 \\ 
+		Split, Maj Dem Placebo & pfrate100 & 0.5617371 \\ 
+		Split, Maj Rep Effect & pfrate100 & -0.6552082 \\ 
+		Split, Maj Rep Placebo & pfrate100 & 0.3091112 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
-
-
-
-
+\subsection{Models with Vote Share Interaction}
 
 
 
