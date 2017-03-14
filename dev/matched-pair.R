@@ -207,13 +207,6 @@ min_rep <- seat_type_boot(pair_type = "2 min reps", n = 1000)
 split_dem <- seat_type_boot(pair_type = "split/maj dem", n = 1000)
 split_rep <- seat_type_boot(pair_type = "split/maj rep", n = 1000)
 
-maj_dem <- seat_type_boot(pair_type = "2 maj dems", n = 1000)
-min_dem <- seat_type_boot(pair_type = "2 min dems", n = 1000)
-maj_rep <- seat_type_boot(pair_type = "2 maj reps", n = 1000)
-min_rep <- seat_type_boot(pair_type = "2 min reps", n = 1000)
-split_dem <- seat_type_boot(pair_type = "split/maj dem", n = 1000)
-split_rep <- seat_type_boot(pair_type = "split/maj rep", n = 1000)
-
 seat_type_difference <- data.table(
   Test = c("2 Maj Dems Effect",
     "2 Maj Dems Placebo",

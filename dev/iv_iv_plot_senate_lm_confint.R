@@ -16,6 +16,12 @@ senate_data[, gingrich_senator := as.factor(gingrich_senator)]
 senate_dem <- senate_data[caucus == "Democrat", ]
 senate_rep <- senate_data[caucus == "Republican", ]
 
+ggplot(senate_dem, aes(ideological_extremism, pfrate100)) +
+  geom_point(color = "blue2", shape = 16, alpha = .75) +
+  geom_smooth(method=loess, color = "blue2")
+ggsave("plots/senate_dem_iv-iv_all_confint.pdf")
+
+dev.off()
 
 ggplot(senate_dem, aes(ideological_extremism, pfrate100, color = south)) +
   geom_point(shape = 16, alpha = .75) +
@@ -32,6 +38,13 @@ ggplot(senate_dem, aes(ideological_extremism, pfrate100, color = majority)) +
     values = c("blue2", "gray5")) +
   geom_smooth(method=loess)
 ggsave("plots/senate_dem_iv-iv_majority_confint.pdf")
+
+dev.off()
+
+ggplot(senate_rep, aes(ideological_extremism, pfrate100)) +
+  geom_point(color = "red2", shape = 16, alpha = .75) +
+  geom_smooth(method=loess, color = "red2")
+ggsave("plots/senate_rep_iv-iv_all_confint.pdf")
 
 dev.off()
 

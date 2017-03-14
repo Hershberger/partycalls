@@ -25,21 +25,21 @@ At our previous meeting we decided to do the following:
 	
 	\item Reconduct analyses with an interaction effect between member vote share and presidential vote share
 	
-	\item Conduct analyses with noncall response rate (\verb|pfrate100|) as the DV
+	\item Conduct analyses with party free response rate as the DV
 	
-	\item Produce figures which plot our main independent variable (\verb|ideological_extremism|) against party call response rate (\verb|pirate100|) and noncall response rate (\verb|pfrate100|)
+	\item Produce figures which plot ideological extremism against response party influenced and party free response rate with standard errors included on the fit lines.
 \end{itemize}
 
 \noindent
-These are included below. For analysis of reelection, William and I settled on a generalized version of difference in differences estimation, further detailed in its subsection. Additionally, I would note that the interaction term for vote share and presidential vote share in some instances receives entirely unrealistic coefficients, and in others which it is included other variables take them.
+These are included below. For analysis of reelection, William and I settled on a generalized version of difference in differences estimation, which is detailed below.
 
 \section{Tables and Figures}
 
 \subsection{Generalized Difference in Differences Tests}
 
-Our generalized form of the diff in diff uses cases in which there are 2 Senators from a state in a given Congress, one of whom is up for reelection at the end of the Congress and one of whom is not. The effect is calculated by 
+Our generalized form of the diff in diff uses cases in which there are 2 Senators from a state in a given Congress, one of whom is up for reelection at the end of the Congress and one of whom is not. The effect is calculated by subtracting the response rate of the Senator not up for reelection from the response rate of the other Senator from their state who is up for reelection. Analysis is conducted with both party influenced and party free response rates as the dependent variable, with results of the test reported against a placebo test in which treatment is randomly assigned.
 
-With this test, we estimate the effect as well as a placebo derived from a randomly assigned treatment condition. Analysis is provided separately with responsiveness rate to party calls (tables 1 through 3) and responsiveness rate to noncalls (tables 4 through 6) as dependent variables. Within these, we report the estimate for the ATT and the lower and upper bounds of the 95\% confidence interval. The confidence interval is calculated through a bootstrap at the state level. The first table in each set provides a naive calculation of the confidence interval while the second uses weights the effect by seat pair type. The third table provides the estimated effect for each seat pair type.
+The first table in each set provides a naive calculation of the confidence interval while the second uses weights the effect by seat pair type. The third table provides the estimated effect for each seat pair type. The tables provided report the estimate for the ATT and the lower and upper bounds of a bootstrapped 95\% confidence interval. Bootstraps for the first 2 tables in each set are conducted at the state level, while the disaggregated results required bootstrapping by Congress/state pairs. The results we obtained are largely in line with our expectations.
 
 \pagebreak
 
@@ -777,6 +777,18 @@ With this test, we estimate the effect as well as a placebo derived from a rando
 
 \begin{figure}[H]
 	\centering
+	\caption{Senate IV/IV Plot, Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{Senate IV/IV Plot, Democrats, Majority Status}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_majority_confint.pdf}
 \end{figure}
@@ -797,6 +809,18 @@ With this test, we estimate the effect as well as a placebo derived from a rando
 	\centering
 	\caption{Senate DV/IV Plot, Democrats, South/Other}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate IV/IV Plot, Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Senate DV/IV Plot, Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_all_confint.pdf}
 \end{figure}
 
 \begin{figure}[H]
@@ -825,6 +849,18 @@ With this test, we estimate the effect as well as a placebo derived from a rando
 
 \begin{figure}[H]
 	\centering
+	\caption{House IV/IV Plot, Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House DV/IV Plot, Democrats}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
 	\caption{House IV/IV Plot, Democrats, Majority Status}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority_confint.pdf}
 \end{figure}
@@ -845,6 +881,18 @@ With this test, we estimate the effect as well as a placebo derived from a rando
 	\centering
 	\caption{House DV/IV Plot, Democrats, South/Other}
 	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House IV/IV Plot, Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_all_confint.pdf}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{House DV/IV Plot, Republicans}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_all_confint.pdf}
 \end{figure}
 
 \begin{figure}[H]

@@ -14,6 +14,13 @@ house_dem <- new_whoheeds13[dem == 1, ]
 house_rep <- new_whoheeds13[dem == 0, ]
 house_rep <- house_rep[ideological_extremism < 5, ]
 
+ggplot(house_dem, aes(ideological_extremism, pirate100)) +
+  geom_point(color = "blue2", shape = 16, alpha = .65) +
+  geom_smooth(method = loess, color = "blue2")
+ggsave("plots/house_dem_iv-dv_all_confint.pdf")
+
+dev.off()
+
 
 ggplot(house_dem, aes(ideological_extremism, pirate100, color = south)) +
   geom_point(shape = 16, alpha = .65) +
@@ -31,6 +38,13 @@ ggplot(house_dem, aes(ideological_extremism, pirate100, color = majority)) +
     values = c("blue2", "gray5")) +
   geom_smooth(method=loess, se=FALSE)
 ggsave("plots/house_dem_iv-dv_majority_confint.pdf")
+
+dev.off()
+
+ggplot(house_rep, aes(ideological_extremism, pirate100)) +
+  geom_point(color = "red2", shape = 16, alpha = .65) +
+  geom_smooth(method = loess, color = "red2")
+ggsave("plots/house_rep_iv-dv_all_confint.pdf")
 
 dev.off()
 

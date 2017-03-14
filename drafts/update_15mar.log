@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  13 MAR 2017 21:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  14 MAR 2017 11:13
 entering extended mode
 **update_15mar.tex
 (update_15mar.tex
@@ -444,13 +444,7 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 24.
-
-Overfull \hbox (0.44615pt too wide) in paragraph at lines 30--31
-[]\OT1/cmr/m/n/12 Produce fig-ures which plot our main in-de-pen-dent vari-able
- ([]\OT1/cmtt/m/n/12 ideological_extremism\OT1/cmr/m/n/12 ) against
- []
-
-[1
+ [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 LaTeX Font Info:    Try loading font information for U+msa on input line 51.
@@ -518,7 +512,7 @@ le.9}) has been already used, duplicate ignored
 l.365 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
-_interaction.pdf, id=71, 289.08pt x 578.16pt>
+_interaction.pdf, id=70, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
 ation_interaction.pdf Graphic file (type pdf)
 
@@ -535,7 +529,7 @@ eeds-figure2-replication_interaction.pdf used on input line 369.
 l.371 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-interaction
-_party.pdf, id=78, 289.08pt x 578.16pt>
+_party.pdf, id=77, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-intera
 ction_party.pdf Graphic file (type pdf)
 
@@ -553,7 +547,7 @@ l.377
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-repl
 ication_interaction.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-interaction
--south-other-dems.pdf, id=91, 289.08pt x 578.16pt>
+-south-other-dems.pdf, id=90, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-intera
 ction-south-other-dems.pdf Graphic file (type pdf)
 
@@ -571,7 +565,7 @@ l.383
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-inte
 raction_party.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interaction.pd
-f, id=104, 289.08pt x 578.16pt>
+f, id=103, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interacti
 on.pdf Graphic file (type pdf)
 
@@ -589,7 +583,7 @@ l.389
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-inte
 raction-south-other-dems.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interaction-pa
-rty.pdf, id=117, 289.08pt x 578.16pt>
+rty.pdf, id=116, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interacti
 on-party.pdf Graphic file (type pdf)
 
@@ -607,7 +601,7 @@ l.395
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interac
 tion.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interaction-re
-election.pdf, id=130, 289.08pt x 578.16pt>
+election.pdf, id=129, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interacti
 on-reelection.pdf Graphic file (type pdf)
 
@@ -625,7 +619,7 @@ l.401
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interac
 tion-party.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interaction-gi
-ngrich-other-reps.pdf, id=143, 289.08pt x 578.16pt>
+ngrich-other-reps.pdf, id=142, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interacti
 on-gingrich-other-reps.pdf Graphic file (type pdf)
 
@@ -643,7 +637,7 @@ l.407
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interac
 tion-reelection.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interaction-so
-uthern-other-dems.pdf, id=157, 289.08pt x 578.16pt>
+uthern-other-dems.pdf, id=156, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-interacti
 on-southern-other-dems.pdf Graphic file (type pdf)
 
@@ -715,37 +709,37 @@ ble.18}) has been already used, duplicate ignored
                                                   \fi \fi 
 l.775 
       ]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_all_confint.
+pdf, id=222, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_all_con
+fint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_all_conf
+int.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-iv_all_confint.pdf used on input line 781.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_all_confint.
+pdf, id=223, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_all_con
+fint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_all_conf
+int.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-dv_all_confint.pdf used on input line 787.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_majority_con
-fint.pdf, id=223, 462.72874pt x 268.00125pt>
+fint.pdf, id=224, 462.72874pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_majorit
 y_confint.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_majority
 _confint.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_dem_iv-iv_majority_confint.pdf used on input line 781.
-(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
-
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majority_con
-fint.pdf, id=224, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majorit
-y_confint.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majority
-_confint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_dem_iv-dv_majority_confint.pdf used on input line 787.
-(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
-
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_confin
-t.pdf, id=225, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_c
-onfint.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_co
-nfint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_dem_iv-iv_south_confint.pdf used on input line 793.
+e_dem_iv-iv_majority_confint.pdf used on input line 793.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [24pdfTeX warning (ext4): destination with the same identifier (name{figure.9}
 ) has been already used, duplicate ignored
@@ -759,29 +753,29 @@ l.795
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.795 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_major
-ity_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_i
-v-dv_majority_confint.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_confin
-t.pdf, id=250, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_c
-onfint.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_co
-nfint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_dem_iv-dv_south_confint.pdf used on input line 799.
-(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
-
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majority_con
-fint.pdf, id=251, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majorit
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_all_c
+onfint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_
+all_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majority_con
+fint.pdf, id=249, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majorit
 y_confint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majority
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_majority
 _confint.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_rep_iv-iv_majority_confint.pdf used on input line 805.
+e_dem_iv-dv_majority_confint.pdf used on input line 799.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_confin
+t.pdf, id=250, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_c
+onfint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south_co
+nfint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-iv_south_confint.pdf used on input line 805.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [25pdfTeX warning (ext4): destination with the same identifier (name{figure.11
 }) has been already used, duplicate ignored
@@ -795,29 +789,29 @@ l.807
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.807 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south
-_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-d
-v_south_confint.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majority_con
-fint.pdf, id=277, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majorit
-y_confint.pdf Graphic file (type pdf)
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_major
+ity_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_i
+v-dv_majority_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_confin
+t.pdf, id=276, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_c
+onfint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majority
-_confint.pdf>
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_south_co
+nfint.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_rep_iv-dv_majority_confint.pdf used on input line 811.
+e_dem_iv-dv_south_confint.pdf used on input line 811.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
 
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingrich_con
-fint.pdf, id=278, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingric
-h_confint.pdf Graphic file (type pdf)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_all_confint.
+pdf, id=277, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_all_con
+fint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingrich
-_confint.pdf>
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_all_conf
+int.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_rep_iv-iv_gingrich_confint.pdf used on input line 817.
+e_rep_iv-iv_all_confint.pdf used on input line 817.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [26pdfTeX warning (ext4): destination with the same identifier (name{figure.13
 }) has been already used, duplicate ignored
@@ -831,29 +825,29 @@ l.819
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.819 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_major
-ity_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_i
-v-dv_majority_confint.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingrich_con
-fint.pdf, id=303, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingric
-h_confint.pdf Graphic file (type pdf)
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_south
+_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-d
+v_south_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_all_confint.
+pdf, id=302, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_all_con
+fint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingrich
-_confint.pdf>
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_all_conf
+int.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_rep_iv-dv_gingrich_confint.pdf used on input line 823.
+e_rep_iv-dv_all_confint.pdf used on input line 823.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
 
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority_conf
-int.pdf, id=304, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority
-_confint.pdf Graphic file (type pdf)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majority_con
+fint.pdf, id=303, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majorit
+y_confint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority_
-confint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_dem_iv-iv_majority_confint.pdf used on input line 829.
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_majority
+_confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-iv_majority_confint.pdf used on input line 829.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [27pdfTeX warning (ext4): destination with the same identifier (name{figure.15
 }) has been already used, duplicate ignored
@@ -867,29 +861,29 @@ l.831
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.831 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingr
-ich_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_i
-v-dv_gingrich_confint.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority_conf
-int.pdf, id=329, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority
-_confint.pdf Graphic file (type pdf)
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_all_c
+onfint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_
+all_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majority_con
+fint.pdf, id=328, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majorit
+y_confint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority_
-confint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_dem_iv-dv_majority_confint.pdf used on input line 835.
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_majority
+_confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-dv_majority_confint.pdf used on input line 835.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
 
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_confint
-.pdf, id=330, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_co
-nfint.pdf Graphic file (type pdf)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingrich_con
+fint.pdf, id=329, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingric
+h_confint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_con
-fint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_dem_iv-iv_south_confint.pdf used on input line 841.
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingrich
+_confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-iv_gingrich_confint.pdf used on input line 841.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [28pdfTeX warning (ext4): destination with the same identifier (name{figure.17
 }) has been already used, duplicate ignored
@@ -903,29 +897,29 @@ l.843
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.843 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majori
-ty_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-
-dv_majority_confint.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_confint
-.pdf, id=351, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_co
-nfint.pdf Graphic file (type pdf)
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_major
+ity_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_i
+v-dv_majority_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingrich_con
+fint.pdf, id=354, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingric
+h_confint.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_con
-fint.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_dem_iv-dv_south_confint.pdf used on input line 847.
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_gingrich
+_confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-dv_gingrich_confint.pdf used on input line 847.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
 
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority_conf
-int.pdf, id=352, 462.72874pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority
-_confint.pdf Graphic file (type pdf)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_all_confint.p
+df, id=355, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_all_conf
+int.pdf Graphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority_
-confint.pdf>
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_all_confi
+nt.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_rep_iv-iv_majority_confint.pdf used on input line 853.
+_dem_iv-iv_all_confint.pdf used on input line 853.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
  [29pdfTeX warning (ext4): destination with the same identifier (name{figure.19
 }) has been already used, duplicate ignored
@@ -939,51 +933,195 @@ l.855
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.855 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_gingr
+ich_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_i
+v-dv_gingrich_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_all_confint.p
+df, id=380, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_all_conf
+int.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_all_confi
+nt.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_dem_iv-dv_all_confint.pdf used on input line 859.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority_conf
+int.pdf, id=381, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority
+_confint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majority_
+confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_dem_iv-iv_majority_confint.pdf used on input line 865.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+ [30pdfTeX warning (ext4): destination with the same identifier (name{figure.21
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.867 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+22}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.867 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_all_co
+nfint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_al
+l_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority_conf
+int.pdf, id=406, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority
+_confint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_majority_
+confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_dem_iv-dv_majority_confint.pdf used on input line 871.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_confint
+.pdf, id=407, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_co
+nfint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_con
+fint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_dem_iv-iv_south_confint.pdf used on input line 877.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+ [31pdfTeX warning (ext4): destination with the same identifier (name{figure.23
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.879 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+24}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.879 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_majori
+ty_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-
+dv_majority_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_confint
+.pdf, id=432, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_co
+nfint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_south_con
+fint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_dem_iv-dv_south_confint.pdf used on input line 883.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_all_confint.p
+df, id=433, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_all_conf
+int.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_all_confi
+nt.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_rep_iv-iv_all_confint.pdf used on input line 889.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+ [32pdfTeX warning (ext4): destination with the same identifier (name{figure.25
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.891 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+26}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.891 
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-iv_south_
 confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_dem_iv-dv_
 south_confint.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_all_confint.p
+df, id=458, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_all_conf
+int.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_all_confi
+nt.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_rep_iv-dv_all_confint.pdf used on input line 895.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority_conf
+int.pdf, id=459, 462.72874pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority
+_confint.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_majority_
+confint.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
+_rep_iv-iv_majority_confint.pdf used on input line 901.
+(pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
+ [33pdfTeX warning (ext4): destination with the same identifier (name{figure.27
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.903 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+28}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.903 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-iv_all_co
+nfint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_al
+l_confint.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_majority_conf
-int.pdf, id=374, 462.72874pt x 268.00125pt>
+int.pdf, id=484, 462.72874pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_majority
 _confint.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_rep_iv-dv_majority_
 confint.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_rep_iv-dv_majority_confint.pdf used on input line 859.
+_rep_iv-dv_majority_confint.pdf used on input line 907.
 (pdftex.def)             Requested size: 498.66258pt x 288.81543pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 877.
- [30pdfTeX warning (ext4): destination with the same identifier (name{figure.21
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 925.
+ [34pdfTeX warning (ext4): destination with the same identifier (name{figure.29
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.877 \end{document}
+l.925 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
- (name{figure.22}) has been already used, duplicate ignored
+ (name{figure.30}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.877 \end{document}
+l.925 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_re
 p_iv-iv_majority_confint.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots
 /house_rep_iv-dv_majority_confint.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 877.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 925.
  (update_15mar.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 877.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 877.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 925.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 925.
 Package rerunfilecheck Info: File `update_15mar.out' has not changed.
 (rerunfilecheck)             Checksum: 45C6D6CD34453B0FA16A56DDF0EE6034;455.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 877.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 925.
  ) 
 Here is how much of TeX's memory you used:
- 7319 strings out of 493698
- 110279 string characters out of 3144412
+ 7369 strings out of 493698
+ 113338 string characters out of 3144412
  211503 words of memory out of 3000000
- 10439 multiletter control sequences out of 15000+200000
- 13995 words of font info for 52 fonts, out of 3000000 for 9000
+ 10470 multiletter control sequences out of 15000+200000
+ 13826 words of font info for 51 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,10n,32p,713b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,10n,32p,605b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
@@ -992,10 +1130,10 @@ ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on update_15mar.pdf (30 pages, 1650335 bytes).
+b>
+Output written on update_15mar.pdf (34 pages, 3653774 bytes).
 PDF statistics:
- 446 PDF objects out of 1000 (max. 8388607)
- 77 named destinations out of 1000 (max. 500000)
- 159 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 558 PDF objects out of 1000 (max. 8388607)
+ 89 named destinations out of 1000 (max. 500000)
+ 199 words of extra memory for PDF output out of 10000 (max. 10000000)
 
