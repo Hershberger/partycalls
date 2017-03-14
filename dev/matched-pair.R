@@ -164,13 +164,69 @@ adjusted_difference <- data.table(
     adjusted_boots[, quantile(placebo_adjusted, .975)])
 )
 
+# bootstrap seat type confidence intervals
+# need to do this at state/congress level
+congress_state <- DATA[, unique(stabb), .(seat_pair_type, congress)]
+
+seat_type_boot <- function(pair_type, n) {
+  counter <- 1
+  out <- data.table()
+
+  while(counter <= n) {
+    boot_ids <- congress_state[seat_pair_type == pair_type, ]
+    boot_ids <- data.frame(boot_ids)
+    boot_ids <- boot_ids[sample(nrow(boot_ids), replace = TRUE),]
+    setDT(boot_ids)
+    setnames(boot_ids, "V1", "stabb")
+    boot_ids[, boot_id := 1:nrow(boot_ids)]
+    treat_DATA <- merge(boot_ids, DATA[tr == 1, ], by = c("congress", "stabb",
+      "seat_pair_type"),
+      all.x = TRUE, all.y = FALSE)
+    contr_DATA <- merge(boot_ids, DATA[tr == 0, ], by = c("congress", "stabb",
+      "seat_pair_type"),
+      all.x = TRUE, all.y = FALSE)
+    boot_DATA <- rbind(treat_DATA, contr_DATA)
+
+    effect <- boot_DATA[mean_tr == .5,
+      sum(tr * y) - sum((1 - tr) * y), .(boot_id)][,mean(V1)]
+
+    placebo <- boot_DATA[mean_tr == 0,
+      sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+      .(boot_id)][,mean(V1)]
+    temp <- data.table(effect, placebo)
+    out <- rbind(out, temp)
+    counter <- counter + 1
+  }
+  out
+}
+
+maj_dem <- seat_type_boot(pair_type = "2 maj dems", n = 1000)
+min_dem <- seat_type_boot(pair_type = "2 min dems", n = 1000)
+maj_rep <- seat_type_boot(pair_type = "2 maj reps", n = 1000)
+min_rep <- seat_type_boot(pair_type = "2 min reps", n = 1000)
+split_dem <- seat_type_boot(pair_type = "split/maj dem", n = 1000)
+split_rep <- seat_type_boot(pair_type = "split/maj rep", n = 1000)
+
+maj_dem <- seat_type_boot(pair_type = "2 maj dems", n = 1000)
+min_dem <- seat_type_boot(pair_type = "2 min dems", n = 1000)
+maj_rep <- seat_type_boot(pair_type = "2 maj reps", n = 1000)
+min_rep <- seat_type_boot(pair_type = "2 min reps", n = 1000)
+split_dem <- seat_type_boot(pair_type = "split/maj dem", n = 1000)
+split_rep <- seat_type_boot(pair_type = "split/maj rep", n = 1000)
+
 seat_type_difference <- data.table(
-  Test = c("2 Maj Dems Effect", "2 Maj Dems Placebo",
-    "2 Min Dems Effect", "2 Min Dems Placebo",
-    "2 Maj Reps Effect", "2 Maj Reps Placebo",
-    "2 Min Reps Effect", "2 Min Reps Placebo",
-    "Split, Maj Dem Effect", "Split, Maj Dem Placebo",
-    "Split, Maj Rep Effect", "Split, Maj Rep Placebo"),
+  Test = c("2 Maj Dems Effect",
+    "2 Maj Dems Placebo",
+    "2 Min Dems Effect",
+    "2 Min Dems Placebo",
+    "2 Maj Reps Effect",
+    "2 Maj Reps Placebo",
+    "2 Min Reps Effect",
+    "2 Min Reps Placebo",
+    "Split, Maj Dem Effect",
+    "Split, Maj Dem Placebo",
+    "Split, Maj Rep Effect",
+    "Split, Maj Rep Placebo"),
   DV = "pirate100",
   Estimate = c(
     seat_type_effect[seat_pair_type == "2 maj dems", effect],
@@ -184,7 +240,35 @@ seat_type_difference <- data.table(
     seat_type_effect[seat_pair_type == "split/maj dem", effect],
     seat_type_placebo[seat_pair_type == "split/maj dem", placebo],
     seat_type_effect[seat_pair_type == "split/maj rep", effect],
-    seat_type_placebo[seat_pair_type == "split/maj rep", placebo])
+    seat_type_placebo[seat_pair_type == "split/maj rep", placebo]),
+  Lower_Bound = c(
+    maj_dem[, quantile(effect, .025)],
+    maj_dem[, quantile(placebo, .025)],
+    min_dem[, quantile(effect, .025)],
+    min_dem[, quantile(placebo, .025)],
+    maj_rep[, quantile(effect, .025)],
+    maj_rep[, quantile(placebo, .025)],
+    min_rep[, quantile(effect, .025)],
+    min_rep[, quantile(placebo, .025)],
+    split_dem[, quantile(effect, .025)],
+    split_dem[, quantile(placebo, .025)],
+    split_rep[, quantile(effect, .025)],
+    split_rep[, quantile(placebo, .025)]
+  ),
+  Upper_Bound = c(
+    maj_dem[, quantile(effect, .975)],
+    maj_dem[, quantile(placebo, .975)],
+    min_dem[, quantile(effect, .975)],
+    min_dem[, quantile(placebo, .975)],
+    maj_rep[, quantile(effect, .975)],
+    maj_rep[, quantile(placebo, .975)],
+    min_rep[, quantile(effect, .975)],
+    min_rep[, quantile(placebo, .975)],
+    split_dem[, quantile(effect, .975)],
+    split_dem[, quantile(placebo, .975)],
+    split_rep[, quantile(effect, .975)],
+    split_rep[, quantile(placebo, .975)]
+  )
 )
 
 naive_difference_tex <- xtable(naive_difference, auto = TRUE)
