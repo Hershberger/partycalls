@@ -45,15 +45,79 @@ As with much work considering the behavior of members of Congress, we begin with
 
 Levitt (1996) finds members' behavior (as proxied by ADA score) is less a factor of the party (as proxied by party leaders) and more of those of their home state (as proxied by the average ADA score of House members from their state). While these results are highly persuasive and indicative of general aspects of the decision-making process of Senators approaching reelection, what is missing is trends in member behavior relating to party influence. It remains possible that members behave differently on votes less influenced by the party in order to differentiate themselves in these years in order to still aid the party while still allowing themselves to stake out a claim of being more than a mere partisan.
 
-Thus, a primary goals in this paper is to test how Senators roll call voting differs on votes more and less influenced by the party in Congresses which they are up for reelection compared to those which they are not. We find a decrease in member alignment to the position of the party in highly party influenced votes which is robust to different model specification not present in other votes.
+Thus, an additional goal to replication in this paper is to test how Senators roll call voting differs on votes more and less influenced by the party in Congresses which they are up for reelection compared to those which they are not. We conduct tests using same-state Senators as a natural matched pair, following Levitt (1996), as well as fixed effects modeling to consider within member variation resulting from reelection.
 
 %Based on previous work in the field, we expect the party to play a strong role in member vote decisions the Senate as in the House (Lee, 2009, 2015).
 
-\subsection{Data and Methodology}
+\subsection{Replication}
 
-We draw on Congressional roll call data for Congresses 93-112 for both chambers in order to view the behavior of members. As in Minozzi \& Volden (2013), we iteratively sort votes based on the the predictive power of party in vote decision taken alongside ideology. We dub those votes which are significantly predicted by party as ``party calls'' and those which are not as ``noncalls.'' As in the paper we are replicating, member ideology is calculated based on the 
+In this section we show that the results from Minozzi \& Volden (2013) hold when analysis is included for later Congresses in the House as well as those Congresses Senate. We draw on Congressional roll call data for Congresses 93-112 for both chambers in order to view the behavior of members. As in Minozzi \& Volden (2013), we iteratively sort votes based on the the predictive power of party in vote decision taken alongside ideology. We dub those votes which are significantly predicted by party as ``party calls'' and those which are not as ``noncalls.'' 
 
-In order to conduct our analyses, we 
+We have made some changes to the sorting algorithm used to sort votes. One of the key changes was the use of the \verb|emIRT()| R function as described in Imai, Lo \& Olmsted (2016) in order to obtain member ideology. This function was developed by those authors in order to produce estimates analagous to those of the \verb|ideal()| function developed by Clinton, Jackman \& Rivers (2004) and used in the prior party call sorting algorithm. These and other changes, as detailed in an appendix, produce highly similar results to those found in Minozzi \& Volden (2013) when applied to both chambers. We find for each chamber that party call votes are more often close votes and the opposite holds for noncalls.
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 20 13:02:44 2017
+\begin{table}[H]
+	\centering
+	\caption{House Vote Coding for Close and Lopsided Votes} 
+	\begin{tabular}{lrr}
+		\hline
+		& Party Call & Noncall \\ 
+		\hline
+		Lopsided & 4245 & 6123 \\ 
+		Close & 9308 & 1090 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 20 13:04:18 2017
+\begin{table}[H]
+	\centering
+	\caption{Senate Vote Coding for Close and Lopsided Votes} 
+	\begin{tabular}{lrr}
+		\hline
+		& Party Call & Noncall \\ 
+		\hline
+		Lopsided & 2063 & 4876 \\ 
+		Close & 5233 & 1851 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+ 
+
+\subsection{Extension}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 20 12:37:31 2017
+\begin{table}[H]
+	\centering
+	\caption{Reelection and Response to Party Calls, Difference in Differences} 
+	\begin{tabular}{llrrr}
+		\hline
+		test & DV & Estimate & Lower\_Bound & Upper\_Bound \\ 
+		\hline
+		Effect & pirate100 & -1.569 & -2.094 & -0.996 \\ 
+		Placebo & pirate100 & -0.604 & -1.282 & 1.285 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Mon Mar 20 12:45:07 2017
+\begin{table}[H]
+	\centering
+	\caption{Reelection and Response to Non Party Calls, Difference in Differences} 
+	\begin{tabular}{llrrr}
+		\hline
+		test & DV & Estimate & Lower\_Bound & Upper\_Bound \\ 
+		\hline
+		Effect & pfrate100 & -0.297 & -0.735 & 0.138 \\ 
+		Placebo & pfrate100 & -0.312 & -1.057 & 1.067 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Results}
 
@@ -70,7 +134,7 @@ In the following tables, the diff in diff estimation groups in which states have
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Sun Mar 19 21:35:32 2017
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\caption{Diff in Diff, Subgroup Condition, Party Influenced Rate, No Placebo}
 	\begin{tabular}{llr}
@@ -94,7 +158,7 @@ In the following tables, the diff in diff estimation groups in which states have
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Sun Mar 19 21:35:32 2017
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\caption{Diff in Diff, Subgroup Condition, Party Influenced Rate, With Placebo}
 	\begin{tabular}{llr}
@@ -130,7 +194,7 @@ In the following tables, the diff in diff estimation groups in which states have
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Sun Mar 19 21:46:45 2017
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\caption{Diff in Diff, Subgroup Condition, Party Free Rate, With Placebo}
 	\begin{tabular}{llr}
@@ -155,7 +219,7 @@ In the following tables, the diff in diff estimation groups in which states have
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Sun Mar 19 21:46:45 2017
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\caption{Diff in Diff, Subgroup Condition, Party Free Rate, With Placebo}
 	\begin{tabular}{llr}
@@ -189,9 +253,21 @@ In the following tables, the diff in diff estimation groups in which states have
 	\end{tabular}
 \end{table}
 
+
+
 \subsection{Re-Scaled Coefficient Plots}
 
+\begin{figure}[H]
+	\centering
+	\caption{Senate Ideological Extremism Coefficient Plot, Gingrich Senators and Other Republicans}
+	\includegraphics[width = 9cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingrich-other-reps.pdf}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+	\caption{Senate Ideological Extremism Coefficient Plot, Southern and Other Democrats}
+	\includegraphics[width = 9cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-southern-other-dems.pdf}
+\end{figure}
 
 
 

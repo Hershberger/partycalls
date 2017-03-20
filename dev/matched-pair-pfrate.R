@@ -159,8 +159,13 @@ seat_type_difference <- data.table(
   )
 )
 
-naive_difference_tex <- xtable(naive_difference, auto = TRUE)
-print(naive_difference_tex, include.rownames = FALSE)
+naive_difference_tex <- xtable(naive_difference, auto = TRUE,
+  caption = "Reelection and Response to Non Party Calls, Difference in Differences",
+  digits = c(3, 3, 3, 3, 3, 3))
+print(naive_difference_tex, include.rownames = FALSE,
+  table.placement = "H", caption.placement = "top")
 
-seat_type_difference_tex <- xtable(seat_type_difference, auto = TRUE)
-print(seat_type_difference_tex, include.rownames = FALSE)
+seat_type_difference_tex <- xtable(seat_type_difference, auto = TRUE,
+  caption = "Diff in Diff, Subgroup Condition, Party Free Rate")
+print(seat_type_difference_tex, include.rownames = FALSE,
+  table.placement = "H", caption.placement = "top")

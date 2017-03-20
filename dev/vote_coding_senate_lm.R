@@ -73,12 +73,18 @@ sen_lop_coding <- merge(sen_lop_coding, sen_coding, by = c("congress", "voteno")
 sen_lop_coding[, lop_close := "close"]
 sen_lop_coding[lopsided == 1, lop_close := "lopsided"]
 
-level_calls <- c("party call", "noncall", "gray")
+level_calls <- c("party call", "noncall")
 level_lop <- c("lopsided", "close")
 
+sen_lop_coding <- sen_lop_coding[coding != "gray", ]
 sen_lop_coding[, lopsided := factor(lop_close, levels = level_lop)]
 sen_lop_coding[, coding := factor(coding, levels = level_calls)]
 
+
+
 # get summary stats for lopsided votes
 lopside_table <- table(sen_lop_coding$lopsided, sen_lop_coding$coding)
-xtable(lopside_table)
+lopside_xtable <- xtable(lopside_table, auto = TRUE,
+  caption = "Senate Vote Coding for Close and Lopsided Votes")
+print(lopside_xtable, include.rownames = TRUE,
+  table.placement = "H", caption.placement = "top")
