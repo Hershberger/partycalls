@@ -60,14 +60,136 @@ In order to conduct our analyses, we
 \subsection{Conclusion}
 
 
+\section{Other Items for This Week}
 
 
 
+\subsection{Expanded Diff in Diff Breakdown}
+
+In the following tables, the diff in diff estimation groups in which states have split party representation are broken down further by which party is up for reelection. Two tables each are included for the pirate100 and pfrate100 variables; one in which only effects are reported and another which a placebo treatment is included by random assignment. Weird things happen with the placebos for the split seats when we further divide them by who is up for reelection, so if we want to include this subgroup analysis I will need to change the method of doing these.
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Sun Mar 19 21:35:32 2017
+\begin{table}[ht]
+	\centering
+	\caption{Diff in Diff, Subgroup Condition, Party Influenced Rate, No Placebo}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\ 
+		\hline
+		2 Maj Dems Effect & pirate100 & 0.0708958 \\  
+		2 Min Dems Effect & pirate100 & -1.8733904 \\  
+		\hline
+		2 Maj Reps Effect & pirate100 & -1.1307379 \\ 
+		2 Min Reps Effect & pirate100 & 0.3990873 \\ 
+		\hline
+		Split, Maj Dem, Dem Effect & pirate100 & 3.8789004 \\ 
+		Split, Maj Dem, Rep Effect & pirate100 & 0.0096892 \\  
+		\hline
+		Split, Maj Rep, Dem Effect & pirate100 & 0.0708958 \\ 
+		Split, Maj Rep, Rep Effect & pirate100 & -1.8733904 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Sun Mar 19 21:35:32 2017
+\begin{table}[ht]
+	\centering
+	\caption{Diff in Diff, Subgroup Condition, Party Influenced Rate, With Placebo}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\ 
+		\hline
+		2 Maj Dems Effect & pirate100 & 0.0708958 \\ 
+		2 Maj Dems Placebo & pirate100 & -0.4036702 \\ 
+		\hline
+		2 Min Dems Effect & pirate100 & -1.8733904 \\ 
+		2 Min Dems Placebo & pirate100 & -0.8782579 \\ 
+		\hline
+		2 Maj Reps Effect & pirate100 & -1.1307379 \\ 
+		2 Maj Reps Placebo & pirate100 & 0.2951320 \\ 
+		\hline
+		2 Min Reps Effect & pirate100 & 0.3990873 \\ 
+		2 Min Reps Placebo & pirate100 & 0.1967755 \\ 
+		\hline
+		Split, Maj Dem, Dem Effect & pirate100 & 3.8789004 \\ 
+		Split, Maj Dem, Dem Placebo & pirate100 & -40.1325468 \\ 
+		\hline
+		Split, Maj Dem, Rep Effect & pirate100 & -8.6767819 \\ 
+		Split, Maj Dem, Rep Placebo & pirate100 & -40.5585422 \\ 
+		\hline
+		Split, Maj Rep, Dem Effect & pirate100 & -8.0169523 \\ 
+		Split, Maj Rep, Dem Placebo & pirate100 & -42.9719651 \\ 
+		\hline
+		Split, Maj Rep, Rep Effect & pirate100 & 0.0096892 \\ 
+		Split, Maj Rep, Rep Placebo & pirate100 & -42.1846488 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Sun Mar 19 21:46:45 2017
+\begin{table}[ht]
+	\centering
+	\caption{Diff in Diff, Subgroup Condition, Party Free Rate, With Placebo}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\ 
+		\hline
+		2 Maj Dems Effect & pfrate100 & 0.1900901 \\ 
+		2 Min Dems Effect & pfrate100 & -0.0480525 \\ 
+		\hline
+		2 Maj Reps Effect & pfrate100 & 1.0805092 \\ 
+		2 Min Reps Effect & pfrate100 & -0.3783909 \\ 
+		\hline
+		Split, Maj Dem, Dem Effect & pfrate100 & 4.7545825 \\ 
+		Split, Maj Dem, Rep Effect & pfrate100 & -0.3675259 \\ 
+		\hline
+		Split, Maj Rep, Dem Effect & pfrate100 & 0.1900901 \\ 
+		Split, Maj Rep, Rep Effect & pfrate100 & -0.0480525 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
 
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Sun Mar 19 21:46:45 2017
+\begin{table}[ht]
+	\centering
+	\caption{Diff in Diff, Subgroup Condition, Party Free Rate, With Placebo}
+	\begin{tabular}{llr}
+		\hline
+		Test & DV & Estimate \\ 
+		\hline
+		2 Maj Dems Effect & pfrate100 & 0.1900901 \\ 
+		2 Maj Dems Placebo & pfrate100 & -0.9693719 \\ 
+		\hline
+		2 Min Dems Effect & pfrate100 & -0.0480525 \\ 
+		2 Min Dems Placebo & pfrate100 & -0.4318845 \\ 
+		\hline
+		2 Maj Reps Effect & pfrate100 & 1.0805092 \\ 
+		2 Maj Reps Placebo & pfrate100 & 0.4701269 \\ 
+		\hline
+		2 Min Reps Effect & pfrate100 & -0.3783909 \\ 
+		2 Min Reps Placebo & pfrate100 & 0.6484191 \\ 
+		\hline
+		Split, Maj Dem, Dem Effect & pfrate100 & 4.7545825 \\ 
+		Split, Maj Dem, Dem Placebo & pfrate100 & -38.2870597 \\ 
+		\hline
+		Split, Maj Dem, Rep Effect & pfrate100 & -7.2185267 \\ 
+		Split, Maj Dem, Rep Placebo & pfrate100 & -40.5703417 \\ 
+		\hline
+		Split, Maj Rep, Dem Effect & pfrate100 & -0.9002709 \\ 
+		Split, Maj Rep, Dem Placebo & pfrate100 & -39.5088692 \\ 
+		\hline
+		Split, Maj Rep, Rep Effect & pfrate100 & -0.3675259 \\ 
+		Split, Maj Rep, REp Placebo & pfrate100 & -42.4810991 \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
-
-
+\subsection{Re-Scaled Coefficient Plots}
 
 
 
