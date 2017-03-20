@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  20 MAR 2017 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  20 MAR 2017 16:31
 entering extended mode
 **update_22mar.tex
 (update_22mar.tex
@@ -412,15 +412,15 @@ LaTeX Info: Redefining \nameref on input line 15.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(90.3375pt, 433.62001pt, 90.3375pt)
-* v-part:(T,H,B)=(90.3375pt, 614.295pt, 90.3375pt)
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=433.62001pt
-* \textheight=614.295pt
-* \oddsidemargin=18.0675pt
-* \evensidemargin=18.0675pt
-* \topmargin=18.0675pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=0.0pt
 * \headheight=0.0pt
 * \headsep=0.0pt
 * \topskip=12.0pt
@@ -447,12 +447,12 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 63.
+LaTeX Font Info:    Try loading font information for U+msa on input line 56.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 63.
+LaTeX Font Info:    Try loading font information for U+msb on input line 56.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -461,112 +461,711 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.106 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.2
+l.89 
+     pdfTeX warning (ext4): destination with the same identifier (name{table.2}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.89 
+     ] [3] [4pdfTeX warning (ext4): destination with the same identifier (name{
+table.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.191 
+      ] [5pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.196 
+      ] [6pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.269 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.6
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.106 
-      ] [3pdfTeX warning (ext4): destination with the same identifier (name{tab
-le.3}) has been already used, duplicate ignored
+l.269 
+      ] [7pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.194 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.4
+l.279 
+      ] [8pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.363 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.9
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.194 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.5
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.194 
-      ] [4pdfTeX warning (ext4): destination with the same identifier (name{tab
-le.6}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.255 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.7
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.255 
+l.363 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingrich-other
--reps.pdf, id=72, 289.08pt x 578.16pt>
+-reps.pdf, id=100, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingrich-
 other-reps.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingrich-o
 ther-reps.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-figure2-gingrich-other-reps.pdf used on input line 263.
+e-figure2-gingrich-other-reps.pdf used on input line 408.
 (pdftex.def)             Requested size: 256.0748pt x 512.17883pt.
- [5pdfTeX warning (ext4): destination with the same identifier (name{table.8}) 
-has been already used, duplicate ignored
+ [9pdfTeX warning (ext4): destination with the same identifier (name{table.10})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.265 
+l.410 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.1
+1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.410 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-southern-other
--dems.pdf, id=78, 289.08pt x 578.16pt>
+-dems.pdf, id=107, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-southern-
 other-dems.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-southern-o
 ther-dems.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-figure2-southern-other-dems.pdf used on input line 269.
+e-figure2-southern-other-dems.pdf used on input line 414.
 (pdftex.def)             Requested size: 256.0748pt x 512.17883pt.
- [6pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
- has been already used, duplicate ignored
+ [10pdfTeX warning (ext4): destination with the same identifier (name{figure.1}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.271 
+l.416 
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-gingric
 h-other-reps.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 274.
- [7pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
- has been already used, duplicate ignored
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelection_l
+oess.pdf, id=120, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-iv_reelection_loess.pdf used on input line 424.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [11pdfTeX warning (ext4): destination with the same identifier (name{figure.2}
+) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.274 \end{document}
-                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-f
-igure2-southern-other-dems.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 274.
+l.426 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-souther
+n-other-dems.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelection_l
+oess.pdf, id=133, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-dv_reelection_loess.pdf used on input line 430.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelection_l
+m.pdf, id=134, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-iv_reelection_lm.pdf used on input line 436.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [12pdfTeX warning (ext4): destination with the same identifier (name{figure.3}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.438 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.438 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reele
+ction_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_i
+v-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelection_l
+m.pdf, id=159, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-dv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_dem_iv-dv_reelection_lm.pdf used on input line 442.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelection_l
+oess.pdf, id=160, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-iv_reelection_loess.pdf used on input line 448.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [13pdfTeX warning (ext4): destination with the same identifier (name{figure.5}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.450 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.450 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-iv_reele
+ction_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_dem_iv-d
+v_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelection_l
+oess.pdf, id=186, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-dv_reelection_loess.pdf used on input line 454.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelection_l
+m.pdf, id=187, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-iv_reelection_lm.pdf used on input line 460.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [14pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.462 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.462 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reele
+ction_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_i
+v-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelection_l
+m.pdf, id=212, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-dv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_rep_iv-dv_reelection_lm.pdf used on input line 466.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelection_l
+oess.pdf, id=213, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_iv-iv_reelection_loess.pdf used on input line 473.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [15pdfTeX warning (ext4): destination with the same identifier (name{figure.9}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.475 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+10}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.475 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-iv_reele
+ction_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_rep_iv-d
+v_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelection_l
+oess.pdf, id=238, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_iv-dv_reelection_loess.pdf used on input line 479.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelection_l
+m.pdf, id=239, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_iv-iv_reelection_lm.pdf used on input line 485.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [16pdfTeX warning (ext4): destination with the same identifier (name{figure.11
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.487 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+12}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.487 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reele
+ction_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_i
+v-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelection_l
+m.pdf, id=264, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-dv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_iv-dv_reelection_lm.pdf used on input line 491.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelection_l
+oess.pdf, id=265, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_iv-iv_reelection_loess.pdf used on input line 497.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [17pdfTeX warning (ext4): destination with the same identifier (name{figure.13
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.499 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+14}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.499 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-iv_reele
+ction_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_iv-d
+v_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelection_l
+oess.pdf, id=290, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelect
+ion_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelecti
+on_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_iv-dv_reelection_loess.pdf used on input line 503.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelection_l
+m.pdf, id=291, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_iv-iv_reelection_lm.pdf used on input line 509.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [18pdfTeX warning (ext4): destination with the same identifier (name{figure.15
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.511 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+16}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.511 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reele
+ction_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_i
+v-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelection_l
+m.pdf, id=316, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelect
+ion_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-dv_reelecti
+on_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_iv-dv_reelection_lm.pdf used on input line 515.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_reelecti
+on_loess.pdf, id=317, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_dem_iv-iv_reelection_loess.pdf used on input line 521.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [19pdfTeX warning (ext4): destination with the same identifier (name{figure.17
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.523 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+18}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.523 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-iv_reele
+ction_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_iv-d
+v_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_reelecti
+on_loess.pdf, id=343, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_dem_iv-dv_reelection_loess.pdf used on input line 527.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_reelecti
+on_lm.pdf, id=344, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_dem_iv-iv_reelection_lm.pdf used on input line 533.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [20pdfTeX warning (ext4): destination with the same identifier (name{figure.19
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.535 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+20}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.535 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_r
+eelection_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_m
+aj_dem_iv-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_reelecti
+on_lm.pdf, id=369, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-dv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_dem_iv-dv_reelection_lm.pdf used on input line 539.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_reelecti
+on_loess.pdf, id=370, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_dem_iv-iv_reelection_loess.pdf used on input line 545.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [21pdfTeX warning (ext4): destination with the same identifier (name{figure.21
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.547 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+22}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.547 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_dem_iv-iv_r
+eelection_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_
+dem_iv-dv_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_reelecti
+on_loess.pdf, id=395, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_dem_iv-dv_reelection_loess.pdf used on input line 551.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_reelecti
+on_lm.pdf, id=396, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_dem_iv-iv_reelection_lm.pdf used on input line 557.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [22pdfTeX warning (ext4): destination with the same identifier (name{figure.23
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.559 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+24}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.559 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_r
+eelection_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_m
+in_dem_iv-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_reelecti
+on_lm.pdf, id=421, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-dv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_dem_iv-dv_reelection_lm.pdf used on input line 563.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_reelecti
+on_loess.pdf, id=422, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_rep_iv-iv_reelection_loess.pdf used on input line 569.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [23pdfTeX warning (ext4): destination with the same identifier (name{figure.25
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.571 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+26}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.571 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_dem_iv-iv_r
+eelection_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_
+dem_iv-dv_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_reelecti
+on_loess.pdf, id=447, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_rep_iv-dv_reelection_loess.pdf used on input line 575.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_reelecti
+on_lm.pdf, id=448, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_rep_iv-iv_reelection_lm.pdf used on input line 581.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [24pdfTeX warning (ext4): destination with the same identifier (name{figure.27
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.583 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+28}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.583 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_r
+eelection_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_m
+aj_rep_iv-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_reelecti
+on_lm.pdf, id=473, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-dv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_maj_rep_iv-dv_reelection_lm.pdf used on input line 587.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_reelecti
+on_loess.pdf, id=474, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_rep_iv-iv_reelection_loess.pdf used on input line 593.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [25pdfTeX warning (ext4): destination with the same identifier (name{figure.29
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.595 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+30}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.595 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_rep_iv-iv_r
+eelection_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_maj_
+rep_iv-dv_reelection_lm.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_reelecti
+on_loess.pdf, id=500, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_ree
+lection_loess.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_reel
+ection_loess.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_rep_iv-dv_reelection_loess.pdf used on input line 599.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_reelecti
+on_lm.pdf, id=501, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_rep_iv-iv_reelection_lm.pdf used on input line 605.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+ [26pdfTeX warning (ext4): destination with the same identifier (name{figure.31
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.607 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+32}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.607 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-iv_r
+eelection_loess.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_m
+in_rep_iv-dv_reelection_loess.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_reelecti
+on_lm.pdf, id=526, 507.8975pt x 268.00125pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_ree
+lection_lm.pdf Graphic file (type pdf)
+
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_min_rep_iv-dv_reel
+ection_lm.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_min_rep_iv-dv_reelection_lm.pdf used on input line 611.
+(pdftex.def)             Requested size: 469.75502pt x 247.885pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 678.
+ [27pdfTeX warning (ext4): destination with the same identifier (name{figure.33
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.678 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.34}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.678 \end{document}
+                     <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_m
+in_rep_iv-iv_reelection_lm.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plo
+ts/senate_min_rep_iv-dv_reelection_lm.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 678.
  (update_22mar.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 274.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 274.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 678.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 678.
 Package rerunfilecheck Info: File `update_22mar.out' has not changed.
-(rerunfilecheck)             Checksum: 6C7AFDE1BCC0DEC7E99CE5797B35E677;629.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 274.
+(rerunfilecheck)             Checksum: D245935245F595592EE55FCD60E9B0F7;664.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 678.
  ) 
 Here is how much of TeX's memory you used:
- 7163 strings out of 493698
- 101748 string characters out of 3144412
- 197496 words of memory out of 3000000
- 10357 multiletter control sequences out of 15000+200000
- 12434 words of font info for 46 fonts, out of 3000000 for 9000
+ 7404 strings out of 493698
+ 115338 string characters out of 3144412
+ 208486 words of memory out of 3000000
+ 10501 multiletter control sequences out of 15000+200000
+ 16890 words of font info for 63 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,8n,32p,830b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,10n,32p,922b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on update_22mar.pdf (7 pages, 87166 bytes).
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on update_22mar.pdf (27 pages, 1835083 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 609 PDF objects out of 1000 (max. 8388607)
+ 84 named destinations out of 1000 (max. 500000)
+ 251 words of extra memory for PDF output out of 10000 (max. 10000000)
 
