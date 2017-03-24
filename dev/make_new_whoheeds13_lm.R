@@ -85,17 +85,27 @@ lep_data[, state_cd := as.numeric(paste0(state_alphabetical_order,
   sprintf("%02.f", cd)))]
 
 # load jacobson presidential vote data
-jacobson_pres <- gdata::read.xls("inst/extdata/HR4614.xls")
-setDT(jacobson_pres)
+jacobson <- gdata::read.xls("inst/extdata/HR4614.xls")
+setDT(jacobson)
 # prep data for merge
-jacobson_pres[, congress := calc_congress(year) + 1]
-setnames(jacobson_pres, "stcd", "state_cd")
-jacobson_pres <- jacobson_pres[congress >= 93 & congress <= 112, ]
-jacobson_pres <- jacobson_pres[, .(congress, state_cd, dpres)]
+jacobson[, congress := calc_congress(year) + 1]
+setnames(jacobson, "stcd", "state_cd")
+jacobson1 <- jacobson[congress >= 93 & congress <= 112, ]
+jacobson1 <- jacobson[, .(congress, state_cd, dv, dpres)]
+jacobson2 <- jacobson[congress >= 94 & congress <= 113, ]
+jacobson2[, congress := congress - 1]
+jacobson2 <- jacobson[, .(congress, state_cd, dvp)]
 
-member_year_data <- merge(lep_data, jacobson_pres,
+
+member_year_data <- merge(lep_data, jacobson1,
   by = c("congress", "state_cd"),
   all.x = TRUE)
+member_year_data <- merge(member_year_data, jacobson2,
+  by = c("congress", "state_cd"),
+  all.x = TRUE)
+
+member_year_data[is.na(dv) == TRUE, dv := dvp]
+check <- member_year_data[is.na(dv) == TRUE, .(congress, stabb, thomas_name, dvp)]
 
 # # find missing dpres values
 # member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
