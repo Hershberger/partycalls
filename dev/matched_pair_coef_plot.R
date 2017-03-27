@@ -5,7 +5,7 @@ load("test_data/senate_data_lm.RData")
 
 # select variables needed
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
-  tr = up_for_reelection, y = pirate100 - pfrate100)]
+  tr = up_for_reelection, y1 = pirate100, y2 = pfrate100)]
 setorder(DATA, stabb, congress, class)
 
 # make dems majority for congress 107
@@ -79,11 +79,19 @@ DATA[, `:=`(both_same_party = NULL, both_democrats = NULL,
   split_majority_republican = NULL)]
 
 # Estimate Effects
-effect <- DATA[mean_tr == .5,
-  sum(tr * y) - sum((1 - tr) * y), .(stabb, congress)][,
+effect_pi <- DATA[mean_tr == .5,
+  sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
     mean(V1)]
-placebo <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+placebo_pi <- DATA[mean_tr == 0,
+  sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
+  .(stabb, congress)][,
+    mean(V1)]
+
+effect_pf <- DATA[mean_tr == .5,
+  sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
+    mean(V1)]
+placebo_pf <- DATA[mean_tr == 0,
+  sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
   .(stabb, congress)][,
     mean(V1)]
 
@@ -98,52 +106,47 @@ boot <- function(i) {
     boot_DATA[, boot_id := boot_id]
     boot_DATA
   }))
-  boot_effect <- boot_DATA[mean_tr == .5,
-    sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
+  boot_effect_pi <- boot_DATA[mean_tr == .5,
+    sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
       mean(V1)]
   boot_DATA[, rand := runif(nrow(boot_DATA))]
-  boot_placebo <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+  boot_placebo_pi <- boot_DATA[mean_tr == 0,
+    sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
     .(boot_id, congress)][,
       mean(V1)]
-  data.table(boot_effect, boot_placebo)
+  boot_effect_pf <- boot_DATA[mean_tr == .5,
+    sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
+      mean(V1)]
+  boot_placebo_pf <- boot_DATA[mean_tr == 0,
+    sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
+    .(boot_id, congress)][,
+      mean(V1)]
+
+  data.table(boot_effect_pi, boot_placebo_pi, boot_effect_pf, boot_placebo_pf)
 }
 
 boots <- rbindlist(lapply(1:1000, boot))
-naive_difference <- data.table(test = c("Effect", "Placebo"),
-  DV = "pirate100 - pfrate100",
-  Estimate = c(effect, placebo),
-  Lower_Bound = c(boots[, quantile(boot_effect, .025)],
-    boots[, quantile(boot_placebo, .025)]),
-  Upper_Bound = c(boots[, quantile(boot_effect, .975)],
-    boots[, quantile(boot_placebo, .975)])
+naive_difference <- data.table(test = c("Effect", "Placebo", "Effect", "Placebo"),
+  DV = c("pirate100", "pirate100", "pfrate100", "pfrate100"),
+  Estimate = c(effect_pi, placebo_pi, effect_pf, placebo_pf),
+  Lower_Bound = c(boots[, quantile(boot_effect_pi, .025)],
+    boots[, quantile(boot_placebo_pi, .025)],
+    boots[, quantile(boot_effect_pf, .025)],
+    boots[, quantile(boot_placebo_pf, .025)]),
+  Upper_Bound = c(boots[, quantile(boot_effect_pi, .975)],
+    boots[, quantile(boot_placebo_pi, .975)],
+    boots[, quantile(boot_effect_pf, .975)],
+    boots[, quantile(boot_placebo_pf, .975)])
 )
 
-DATA[, stabb_congress := paste(stabb, congress)]
-summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
-  DATA[mean_tr == .5]))
-summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
-  DATA[mean_tr == 0]))
-
-summary(lfe::felm(y ~ tr + factor(seat_pair_type) |
-    stabb_congress | 0 | stabb_congress,
-  DATA))
-
-
-DATA_1 <- DATA[tr == 1]
-DATA_0 <- DATA[tr == 0]
-DATA_pairs <- merge(DATA_1, DATA_0, by = c("stabb", "congress", "seat_pair_type"))
-
-
-seat_type_effect <- DATA[mean_tr == .5, sum(tr * y) - sum((1 - tr) * y),
+seat_type_effect <- DATA[mean_tr == .5, sum(tr * y1) - sum((1 - tr) * y1),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_effect, "V1", "effect")
-seat_type_effect
 
-seat_type_placebo <- DATA[, sum((rand > mean(rand)) * y) - sum(((rand) <= mean(rand)) * y),
+seat_type_placebo <- DATA[, sum((rand > mean(rand)) * y1) -
+    sum(((rand) <= mean(rand)) * y1),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_placebo, "V1", "placebo")
-seat_type_placebo
 
 seat_type_difference <- data.table(
   Test = c("2 Maj Dems Effect", "2 Maj Dems Placebo",
@@ -154,7 +157,7 @@ seat_type_difference <- data.table(
     "Split, Maj Dem, Rep Effect", "Split, Maj Dem, Rep Placebo",
     "Split, Maj Rep, Dem Effect", "Split, Maj Rep, Dem Placebo",
     "Split, Maj Rep, Rep Effect", "Split, Maj Rep, Rep Placebo"),
-  DV = "pirate100 - pfrate100",
+  DV = "pirate100",
   Estimate = c(
     seat_type_effect[seat_pair_type == "2 maj dems", effect],
     seat_type_placebo[seat_pair_type == "2 maj dems", placebo],
@@ -186,30 +189,35 @@ seat_type_difference_tex <- xtable(seat_type_difference, auto = TRUE,
 print(seat_type_difference_tex, include.rownames = FALSE,
   table.placement = "H", caption.placement = "top")
 
-# make coeff plot from effects
-naive_difference[, position := 0]
-naive_difference[test == "Placebo", position := 1]
-naive_difference[, Lower_Bound_50 := c(boots[, quantile(boot_effect, .25)],
-  boots[, quantile(boot_placebo, .25)])]
-naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect, .75)],
-  boots[, quantile(boot_placebo, .75)])]
+# make coeff plot for responsiveness effect/placebo
+naive_difference[, placement := c(1:4)]
 
-pdf(file="plots/senate-diff-in-diff-coeff.pdf", ## RENAME
+naive_difference[, Lower_Bound_50 := c(boots[, quantile(boot_effect_pi, .25)],
+  boots[, quantile(boot_placebo_pi, .25)],
+  boots[, quantile(boot_effect_pf, .25)],
+  boots[, quantile(boot_placebo_pf, .25)])]
+naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect_pi, .75)],
+  boots[, quantile(boot_placebo_pi, .75)],
+  boots[, quantile(boot_effect_pf, .75)],
+  boots[, quantile(boot_placebo_pf, .75)])]
+
+pdf(file="plots/senate-diff-in-diff-coeff-separate.pdf", ## RENAME
   width = 4, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-1.8, 1), xlim=c(-0.5, 1.5),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
-axis(1, naive_difference$position, cex.axis = 1.1,
-  labels = c("Reelection Treatment", "Placebo"))
-axis(2, c(-1.5, -1, -0.5, 0, 0.5), cex.axis = 1.1, labels = TRUE)
+plot(0, 0, type='n', ylim=c(-2.25, 1.5), xlim=c(0.5, 4.5),
+  cex.lab=1.1, xaxt="n", yaxt="n", xlab="", ylab="Effect")
+axis(1, naive_difference$placement, cex.axis = .7,
+  labels = c("Party Calls, Reelection", "Placebo",
+    "Baseline, Reelection", "Placebo"))
+axis(2, c(-1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
-title(main="Party Call Rate Difference from Baseline",
+title(main="Party Call and Baseline Rate",
   cex.main=1, line=0.75, font.main=2)
-points(naive_difference$position, naive_difference$Estimate,
+points(naive_difference$placement, naive_difference$Estimate,
   pch=19, col="black", cex=.8)
-segments(naive_difference$position, naive_difference$Lower_Bound_50,
-  naive_difference$position,  naive_difference$Upper_Bound_50, lwd = 2.5)
-segments(naive_difference$position, naive_difference$Lower_Bound,
-  naive_difference$position,  naive_difference$Upper_Bound, lwd = 1)
+# segments(naive_difference$placement, naive_difference$Lower_Bound_50,
+  # naive_difference$placement,  naive_difference$Upper_Bound_50, lwd = 2.5)
+segments(naive_difference$placement, naive_difference$Lower_Bound,
+  naive_difference$placement,  naive_difference$Upper_Bound, lwd = 1)
 
 dev.off()
