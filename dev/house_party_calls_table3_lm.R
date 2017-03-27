@@ -17,14 +17,14 @@ texreg::screenreg(list(
   lm(f_extremism, new_whoheeds13[dem == 0]),
   lm(f_extremism, new_whoheeds13[majority == 1]),
   lm(f_extremism, new_whoheeds13[majority == 0])
-), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1))
+), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1), digits = 3)
 
 texreg::texreg(list(
   lm(f_extremism, new_whoheeds13[dem == 1]),
   lm(f_extremism, new_whoheeds13[dem == 0]),
   lm(f_extremism, new_whoheeds13[majority == 1]),
   lm(f_extremism, new_whoheeds13[majority == 0])
-), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1))
+), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1), digits = 3)
 
 # make replication of who heeds 2013 table 3
 texreg::screenreg(list(

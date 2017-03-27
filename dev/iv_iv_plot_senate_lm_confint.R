@@ -18,7 +18,8 @@ senate_rep <- senate_data[caucus == "Republican", ]
 
 ggplot(senate_dem, aes(ideological_extremism, pfrate100)) +
   geom_point(color = "blue2", shape = 16, alpha = .75) +
-  geom_smooth(method=loess, color = "blue2")
+  geom_smooth(method=loess, color = "blue2") +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_dem_iv-iv_all_confint.pdf")
 
 dev.off()
@@ -27,7 +28,8 @@ ggplot(senate_dem, aes(ideological_extremism, pfrate100, color = south)) +
   geom_point(shape = 16, alpha = .75) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("blue2", "gray5")) +
-  geom_smooth(method=loess)
+  geom_smooth(method=loess) +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_dem_iv-iv_south_confint.pdf")
 
 dev.off()
@@ -36,14 +38,16 @@ ggplot(senate_dem, aes(ideological_extremism, pfrate100, color = majority)) +
   geom_point(shape = 16, alpha = .75) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("blue2", "gray5")) +
-  geom_smooth(method=loess)
+  geom_smooth(method=loess) +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_dem_iv-iv_majority_confint.pdf")
 
 dev.off()
 
 ggplot(senate_rep, aes(ideological_extremism, pfrate100)) +
   geom_point(color = "red2", shape = 16, alpha = .75) +
-  geom_smooth(method=loess, color = "red2")
+  geom_smooth(method=loess, color = "red2") +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_rep_iv-iv_all_confint.pdf")
 
 dev.off()
@@ -52,7 +56,8 @@ ggplot(senate_rep, aes(ideological_extremism, pfrate100, color = gingrich_senato
   geom_point(shape = 16, alpha = .75) +
   scale_color_manual(breaks = c("0", "1"),
       values = c("red2", "gray5")) +
-  geom_smooth(method=loess)
+  geom_smooth(method=loess) +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_rep_iv-iv_gingrich_confint.pdf")
 
 dev.off()
@@ -61,7 +66,8 @@ ggplot(senate_rep, aes(ideological_extremism, pfrate100, color = majority)) +
   geom_point(shape = 16, alpha = .75) +
   scale_color_manual(breaks = c("0", "1"),
     values = c("red2", "gray5")) +
-  geom_smooth(method=loess)
+  geom_smooth(method=loess) +
+  labs(x = "Ideological Extremism", y = "Baseline Rate of Voting With Party")
 ggsave("plots/senate_rep_iv-iv_majority_confint.pdf")
 
 dev.off()

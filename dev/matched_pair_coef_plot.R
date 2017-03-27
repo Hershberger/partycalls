@@ -206,7 +206,7 @@ pdf(file="plots/senate-diff-in-diff-coeff-separate.pdf", ## RENAME
 
 plot(0, 0, type='n', ylim=c(-2.25, 1.5), xlim=c(0.5, 4.5),
   cex.lab=1.1, xaxt="n", yaxt="n", xlab="", ylab="Effect")
-axis(1, naive_difference$placement, cex.axis = .7,
+axis(1, naive_difference$placement, cex.axis = .5,
   labels = c("Party Calls, Reelection", "Placebo",
     "Baseline, Reelection", "Placebo"))
 axis(2, c(-1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
