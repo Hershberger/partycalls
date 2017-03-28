@@ -1,6 +1,7 @@
 library(partycalls)
 library(ggplot2)
 library(gridExtra)
+library(xtable)
 
 
 # load data for analysis
@@ -13,6 +14,68 @@ senate_data[congress == 107 & caucus == "Democrat", maj := 1]
 senate_data[, vote_share := vote_share * 100]
 senate_data[, pres_vote_share := pres_vote_share * 100]
 
+# subsets of the data
+DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
+  tr = up_for_reelection, y = pirate100 - pfrate, y1 = pirate100, y2 = pfrate100)]
+setorder(DATA, stabb, congress, class)
+DATA <- merge(DATA,
+  DATA[, .N, .(stabb, congress)],
+  by = c("stabb", "congress"),
+  all.x = TRUE)
+DATA <- DATA[N == 2]
+DATA[, mean_tr := mean(tr), .(stabb, congress)]
+DATA[, both_same_party := 1 * (length(unique(caucus)) == 1), .(stabb, congress)]
+DATA[, both_democrats := 0]
+DATA[, both_republicans := 0]
+DATA[both_same_party == 1, both_democrats := 1 * (unique(caucus)[1] == "Democrat"),
+  .(stabb, congress)]
+DATA[both_same_party == 1, both_republicans := 1 * (unique(caucus)[1] == "Republican"),
+  .(stabb, congress)]
+DATA[, both_same_majority_status := 1 * (length(unique(maj)) == 1), .(stabb, congress)]
+DATA[, both_majority := 0]
+DATA[, both_minority := 0]
+DATA[both_same_majority_status == 1, both_majority := 1 * (unique(maj)[1] == 1),
+  .(stabb, congress)]
+DATA[both_same_majority_status == 1, both_minority := 1 * (unique(maj)[1] == 0),
+  .(stabb, congress)]
+DATA[, majority_democrat := 1 * (maj == 1 & caucus == "Democrat")]
+DATA[, majority_republican := 1 * (maj == 1 & caucus == "Republican")]
+DATA[, split_majority_democrat := 0]
+DATA[, split_majority_republican := 0]
+DATA[both_same_party == 0 & both_same_majority_status == 0,
+  split_majority_democrat := 1 * (max(majority_democrat) == 1),
+  .(stabb, congress)]
+DATA[both_same_party == 0 & both_same_majority_status == 0,
+  split_majority_republican := 1 * (max(majority_republican) == 1),
+  .(stabb, congress)]
+DATA[both_majority == 1 & both_democrats == 1, seat_pair_type := "2 maj dems"]
+DATA[both_majority == 1 & both_republicans == 1, seat_pair_type := "2 maj reps"]
+DATA[both_minority == 1 & both_democrats == 1, seat_pair_type := "2 min dems"]
+DATA[both_minority == 1 & both_republicans == 1, seat_pair_type := "2 min reps"]
+DATA[split_majority_democrat == 1, seat_pair_type := "split/maj dem"]
+DATA[split_majority_republican == 1, seat_pair_type := "split/maj rep"]
+DATA[seat_pair_type == "split/maj dem" & caucus == "Democrat" & tr == 1,
+  seat_pair_type := "split/maj dem, dem"]
+DATA[seat_pair_type == "split/maj dem" & caucus == "Republican" & tr == 1,
+  seat_pair_type := "split/maj dem, rep"]
+DATA[seat_pair_type == "split/maj rep" & caucus == "Democrat" & tr == 1,
+  seat_pair_type := "split/maj rep, dem"]
+DATA[seat_pair_type == "split/maj rep" & caucus == "Republican" & tr == 1,
+  seat_pair_type := "split/maj rep, rep"]
+DATA[seat_pair_type == "split/maj dem" & caucus == "Democrat" & tr == 0,
+  seat_pair_type := "split/maj dem, rep"]
+DATA[seat_pair_type == "split/maj dem" & caucus == "Republican" & tr == 0,
+  seat_pair_type := "split/maj dem, dem"]
+DATA[seat_pair_type == "split/maj rep" & caucus == "Democrat" & tr == 0,
+  seat_pair_type := "split/maj rep, rep"]
+DATA[seat_pair_type == "split/maj rep" & caucus == "Republican" & tr == 0,
+  seat_pair_type := "split/maj rep, dem"]
+DATA[, `:=`(both_same_party = NULL, both_democrats = NULL,
+  both_republicans = NULL, both_same_majority_status = NULL,
+  both_majority = NULL, both_minority = NULL, majority_democrat = NULL,
+  majority_republican = NULL, split_majority_democrat = NULL,
+  split_majority_republican = NULL)]
+
 
 # formulas necessary for analysis
 hou_extremism <- pirate100 ~ ideological_extremism +
@@ -24,6 +87,98 @@ sen_extremism <- pirate100 ~ ideological_extremism +
   female + afam + latino + up_for_reelection +
   seniority + freshman + retiree + best_committee + leader +
   power_committee + chair
+
+
+# functions necessary for analysis
+test_rollcall2 <- function(.SD, type = c("brglm", "lm", "glm"))
+{
+  .SD <- .SD[party %in% c("D", "R")]
+  n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
+  n_nay_reps <- .SD[, sum(y == 0 & party == "R", na.rm = TRUE)]
+  n_yea_dems <- .SD[, sum(y == 1 & party == "D", na.rm = TRUE)]
+  n_nay_dems <- .SD[, sum(y == 0 & party == "D", na.rm = TRUE)]
+  party_line_vote <-
+    (n_yea_reps == 0 & n_nay_reps >  0 & n_yea_dems >  0 & n_nay_dems == 0) |
+    (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
+  if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
+      length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
+    out <- list(b = 0, se = 0, t = Inf, p = NA_real_)
+    out <- list(
+      party_t = NA_real_,
+      ideal_t = NA_real_)
+  } else if (party_line_vote) {
+    # out <- list(b = 1, se = 0, t = Inf, p = 0)
+    m <- brglm::brglm(y ~ x, data = .SD, family = binomial)
+    suppressWarnings(ideal_summ <- summary(m)$coef["x", ])
+    out <- list(
+      party_t = NA_real_,
+      ideal_t = ideal_summ["z value"])
+  } else {
+    if (type == "brglm") {
+      m <- brglm::brglm(y ~ republican + x, data = .SD, family = binomial)
+      suppressWarnings(party_summ <- summary(m)$coef["republican", ])
+      suppressWarnings(ideal_summ <- summary(m)$coef["x", ])
+      out <- list(
+        party_t = party_summ["z value"],
+        ideal_t = ideal_summ["z value"])
+    } else if (type == "glm") {
+      suppressWarnings(m <- glm(y ~ republican + x, data = .SD, family = binomial))
+      suppressWarnings(party_summ <- summary(m)$coef["republican", ])
+      suppressWarnings(ideal_summ <- summary(m)$coef["x", ])
+      out <- list(
+        party_t = party_summ["z value"],
+        ideal_t = ideal_summ["z value"])
+    } else {
+      m <- lm(y ~ republican + x, data = .SD)
+      suppressWarnings(party_summ <- summary(m)$coef["republican", ])
+      suppressWarnings(ideal_summ <- summary(m)$coef["x", ])
+      out <- list(
+        party_t = party_summ["t value"],
+        ideal_t = ideal_summ["t value"])
+    }
+  }
+  out$n_yea_reps <- n_yea_reps
+  out$n_nay_reps <- n_nay_reps
+  out$n_yea_dems <- n_yea_dems
+  out$n_nay_dems <- n_nay_dems
+  out$party_line_vote <- party_line_vote
+  out
+}
+
+check_signs <- function(rc)
+{
+  n_iterations <- length(rc$record_of_ideals)
+
+  ideal_dt <- merge(
+    data.table(x = as.vector(rc$record_of_ideals[[n_iterations]]),
+      mc = rownames(rc$record_of_ideals[[n_iterations]])),
+    data.table(mc = rownames(rc$legis.data), party = rc$legis.data$party),
+    by = "mc", all = TRUE)
+  if (ideal_dt[party == "D", mean(x)] > ideal_dt[party == "R", mean(x)]) {
+    ideal_dt[, x := -x]
+  }
+
+  DT <- CJ(vt = colnames(rc$votes), mc = rownames(rc$votes), sorted = FALSE)
+  DT$y <- as.vector(rc$votes)
+  # DT$party <- rc$legis.data$party
+  DT[y %in% c(0, 9), y:= NA]
+  DT[y == -1, y:= 0]
+  DT <- merge(DT,
+    ideal_dt,
+    by = "mc", all = TRUE)
+  DT[, republican := as.numeric(party == "R")]
+
+  regs <- DT[party %in% c("D", "R"), test_rollcall2(.SD, type = "lm"), vt]
+  levels <- c("negative", "positive")
+  regs[, party_coef := "positive"]
+  regs[party_t <= 0, party_coef := "negative"]
+  regs[, ideal_coef := "positive"]
+  regs[ideal_t <= 0, ideal_coef := "negative"]
+  regs
+}
+
+
+# # Main Paper
 
 
 # Make Figure 1
@@ -101,8 +256,7 @@ texreg::texreg(list(
   lm(hou_extremism, new_whoheeds13[dem == 0]),
   lm(hou_extremism, new_whoheeds13[majority == 1]),
   lm(hou_extremism, new_whoheeds13[majority == 0])
-), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1),
-  digits = 3)
+), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1))
 
 
 # Make Table 2
@@ -110,5 +264,257 @@ texreg::texreg(list(lm(sen_extremism, senate_data[caucus == "Democrat"]),
   lm(sen_extremism, senate_data[caucus == "Republican"]),
   lm(sen_extremism, senate_data[maj == 1]),
   lm(sen_extremism, senate_data[maj == 0])),
-  reorder.coef = c(2:3, 10, 6, 4, 5, 7:9, 11:17, 1),
-  digits = 3)
+  reorder.coef = c(2:3, 10, 6, 4, 5, 7:9, 11:17, 1))
+
+
+# Make Figure 3
+set.seed(98037298)
+DATA[, rand := runif(nrow(DATA))]
+
+effect_pi <- DATA[mean_tr == .5,
+  sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
+    mean(V1)]
+placebo_pi <- DATA[mean_tr == 0,
+  sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
+  .(stabb, congress)][,
+    mean(V1)]
+
+effect_pf <- DATA[mean_tr == .5,
+  sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
+    mean(V1)]
+placebo_pf <- DATA[mean_tr == 0,
+  sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
+  .(stabb, congress)][,
+    mean(V1)]
+
+states <- DATA[, unique(stabb)]
+
+boot1 <- function(i) {
+  boot_states <- sample(states, replace = TRUE)
+  boot_DATA <- rbindlist(lapply(seq_along(boot_states), function(boot_id) {
+    boot_DATA <- DATA[stabb == boot_states[boot_id]]
+    boot_DATA[, boot_id := boot_id]
+    boot_DATA
+  }))
+  boot_effect_pi <- boot_DATA[mean_tr == .5,
+    sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
+      mean(V1)]
+  boot_DATA[, rand := runif(nrow(boot_DATA))]
+  boot_placebo_pi <- boot_DATA[mean_tr == 0,
+    sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
+    .(boot_id, congress)][,
+      mean(V1)]
+  boot_effect_pf <- boot_DATA[mean_tr == .5,
+    sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
+      mean(V1)]
+  boot_placebo_pf <- boot_DATA[mean_tr == 0,
+    sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
+    .(boot_id, congress)][,
+      mean(V1)]
+
+  data.table(boot_effect_pi, boot_placebo_pi, boot_effect_pf, boot_placebo_pf)
+}
+
+boots <- rbindlist(lapply(1:1000, boot1))
+naive_difference1 <- data.table(test = c("Effect", "Placebo", "Effect", "Placebo"),
+  DV = c("pirate100", "pirate100", "pfrate100", "pfrate100"),
+  Estimate = c(effect_pi, placebo_pi, effect_pf, placebo_pf),
+  Lower_Bound = c(boots[, quantile(boot_effect_pi, .025)],
+    boots[, quantile(boot_placebo_pi, .025)],
+    boots[, quantile(boot_effect_pf, .025)],
+    boots[, quantile(boot_placebo_pf, .025)]),
+  Upper_Bound = c(boots[, quantile(boot_effect_pi, .975)],
+    boots[, quantile(boot_placebo_pi, .975)],
+    boots[, quantile(boot_effect_pf, .975)],
+    boots[, quantile(boot_placebo_pf, .975)])
+)
+
+naive_difference1[, placement := c(1:4)]
+
+naive_difference1[, Lower_Bound_50 := c(boots[, quantile(boot_effect_pi, .25)],
+  boots[, quantile(boot_placebo_pi, .25)],
+  boots[, quantile(boot_effect_pf, .25)],
+  boots[, quantile(boot_placebo_pf, .25)])]
+naive_difference1[, Upper_Bound_50 := c(boots[, quantile(boot_effect_pi, .75)],
+  boots[, quantile(boot_placebo_pi, .75)],
+  boots[, quantile(boot_effect_pf, .75)],
+  boots[, quantile(boot_placebo_pf, .75)])]
+
+pdf(file="plots/senate-diff-in-diff-coeff-separate.pdf",
+  width = 4, height = 4, family = "Times")
+
+plot(0, 0, type='n', ylim=c(-2.25, 1.5), xlim=c(0.5, 4.5),
+  cex.lab=1.1, xaxt="n", yaxt="n", xlab="", ylab="Effect")
+axis(1, naive_difference1$placement, cex.axis = .5,
+  labels = c("Party Calls, Reelection", "Placebo",
+    "Baseline, Reelection", "Placebo"))
+axis(2, c(-1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
+abline(h=0, col="gray55", xpd=FALSE)
+title(main="Party Call and Baseline Rate",
+  cex.main=1, line=0.75, font.main=2)
+points(naive_difference1$placement, naive_difference1$Estimate,
+  pch=19, col="black", cex=.8)
+# segments(naive_difference1$placement, naive_difference1$Lower_Bound_50,
+# naive_difference1$placement,  naive_difference1$Upper_Bound_50, lwd = 2.5)
+segments(naive_difference1$placement, naive_difference1$Lower_Bound,
+  naive_difference1$placement,  naive_difference1$Upper_Bound, lwd = 1)
+
+dev.off()
+
+
+# Make Figure 4
+set.seed(98037298)
+
+boot <- function(i) {
+  boot_states <- sample(states, replace = TRUE)
+  boot_DATA <- rbindlist(lapply(seq_along(boot_states), function(boot_id) {
+    boot_DATA <- DATA[stabb == boot_states[boot_id]]
+    boot_DATA[, boot_id := boot_id]
+    boot_DATA
+  }))
+  boot_effect <- boot_DATA[mean_tr == .5,
+    sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
+      mean(V1)]
+  boot_DATA[, rand := runif(nrow(boot_DATA))]
+  boot_placebo <- boot_DATA[mean_tr == 0,
+    sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+    .(boot_id, congress)][,
+      mean(V1)]
+  data.table(boot_effect, boot_placebo)
+}
+
+boots <- rbindlist(lapply(1:1000, boot))
+naive_difference <- data.table(test = c("Effect", "Placebo"),
+  DV = "pirate100 - pfrate100",
+  Estimate = c(effect, placebo),
+  Lower_Bound = c(boots[, quantile(boot_effect, .025)],
+    boots[, quantile(boot_placebo, .025)]),
+  Upper_Bound = c(boots[, quantile(boot_effect, .975)],
+    boots[, quantile(boot_placebo, .975)])
+)
+
+naive_difference[, position := 0]
+naive_difference[test == "Placebo", position := 1]
+naive_difference[, Lower_Bound_50 := c(boots[, quantile(boot_effect, .25)],
+  boots[, quantile(boot_placebo, .25)])]
+naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect, .75)],
+  boots[, quantile(boot_placebo, .75)])]
+
+pdf(file="plots/senate-diff-in-diff-coeff.pdf",
+  width = 4, height = 4, family = "Times")
+
+plot(0, 0, type='n', ylim=c(-1.8, 1), xlim=c(-0.5, 1.5),
+  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
+axis(1, naive_difference$position, cex.axis = 1.1,
+  labels = c("Reelection Treatment", "Placebo"))
+axis(2, c(-1.5, -1, -0.5, 0, 0.5), cex.axis = 1.1, labels = TRUE)
+abline(h=0, col="gray55", xpd=FALSE)
+title(main="Party Call Rate Difference from Baseline",
+  cex.main=1, line=0.75, font.main=2)
+points(naive_difference$position, naive_difference$Estimate,
+  pch=19, col="black", cex=.8)
+segments(naive_difference$position, naive_difference$Lower_Bound_50,
+  naive_difference$position,  naive_difference$Upper_Bound_50, lwd = 2.5)
+segments(naive_difference$position, naive_difference$Lower_Bound,
+  naive_difference$position,  naive_difference$Upper_Bound, lwd = 1)
+
+dev.off()
+
+
+
+# # Appendix
+
+
+# Make Table 5
+regs1 <- list()
+for (i in 93:112) {
+  cat("*** working on congress", i, "\n")
+  regs1[[paste0("hou", i)]] <- check_signs(house_party_calls[[paste0("hou", i)]])
+}
+regs1 <- rbindlist(regs)
+coef_signs <- table(regs$party_coef, regs$ideal_coef) / length(regs$vt)
+xtable(coef_signs)
+
+
+# Make Table 6
+regs <- list()
+for (i in 93:112) {
+  cat("*** working on congress", i, "\n")
+  regs[[paste0("sen", i)]] <- check_signs(senate_party_calls[[paste0("sen", i)]])
+}
+regs <- rbindlist(regs)
+coef_signs <- table(regs$party_coef, regs$ideal_coef) / length(regs$vt)
+xtable(coef_signs)
+
+
+# Make Tables 7 & 8
+
+
+
+# Make Tables 9 & 10
+DATA[, stabb_congress := paste(stabb, congress)]
+summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
+  DATA[mean_tr == .5]))
+summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
+  DATA[mean_tr == 0]))
+
+summary(lfe::felm(y ~ tr + factor(seat_pair_type) |
+    stabb_congress | 0 | stabb_congress,
+  DATA))
+
+
+DATA_1 <- DATA[tr == 1]
+DATA_0 <- DATA[tr == 0]
+DATA_pairs <- merge(DATA_1, DATA_0, by = c("stabb", "congress", "seat_pair_type"))
+
+
+seat_type_effect <- DATA[mean_tr == .5, sum(tr * y) - sum((1 - tr) * y),
+  .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
+setnames(seat_type_effect, "V1", "effect")
+seat_type_effect
+
+seat_type_placebo <- DATA[, sum((rand > mean(rand)) * y) - sum(((rand) <= mean(rand)) * y),
+  .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
+setnames(seat_type_placebo, "V1", "placebo")
+seat_type_placebo
+
+seat_type_difference <- data.table(
+  Test = c("2 Maj Dems Effect", "2 Maj Dems Placebo",
+    "2 Min Dems Effect", "2 Min Dems Placebo",
+    "2 Maj Reps Effect", "2 Maj Reps Placebo",
+    "2 Min Reps Effect", "2 Min Reps Placebo",
+    "Split, Maj Dem, Dem Effect", "Split, Maj Dem, Dem Placebo",
+    "Split, Maj Dem, Rep Effect", "Split, Maj Dem, Rep Placebo",
+    "Split, Maj Rep, Dem Effect", "Split, Maj Rep, Dem Placebo",
+    "Split, Maj Rep, Rep Effect", "Split, Maj Rep, Rep Placebo"),
+  DV = "pirate100 - pfrate100",
+  Estimate = c(
+    seat_type_effect[seat_pair_type == "2 maj dems", effect],
+    seat_type_placebo[seat_pair_type == "2 maj dems", placebo],
+    seat_type_effect[seat_pair_type == "2 min dems", effect],
+    seat_type_placebo[seat_pair_type == "2 min dems", placebo],
+    seat_type_effect[seat_pair_type == "2 maj reps", effect],
+    seat_type_placebo[seat_pair_type == "2 maj reps", placebo],
+    seat_type_effect[seat_pair_type == "2 min reps", effect],
+    seat_type_placebo[seat_pair_type == "2 min reps", placebo],
+    seat_type_effect[seat_pair_type == "split/maj dem, dem", effect],
+    seat_type_placebo[seat_pair_type == "split/maj dem, dem", placebo],
+    seat_type_effect[seat_pair_type == "split/maj dem, rep", effect],
+    seat_type_placebo[seat_pair_type == "split/maj dem, rep", placebo],
+    seat_type_effect[seat_pair_type == "split/maj rep, dem", effect],
+    seat_type_placebo[seat_pair_type == "split/maj rep, dem", placebo],
+    seat_type_effect[seat_pair_type == "split/maj rep, rep", effect],
+    seat_type_placebo[seat_pair_type == "split/maj rep, rep", placebo]
+  )
+)
+
+naive_difference_tex <- xtable(naive_difference, auto = TRUE,
+  caption = "Reelection and Response to Party Calls, Difference in Differences",
+  digits = c(3, 3, 3, 3, 3, 3))
+print(naive_difference_tex, include.rownames = FALSE,
+  table.placement = "H", caption.placement = "top")
+
+seat_type_difference_tex <- xtable(seat_type_difference, auto = TRUE,
+  caption = "Diff in Diff, Subgroup Condition, Party Influenced Rate")
+print(seat_type_difference_tex, include.rownames = FALSE,
+  table.placement = "H", caption.placement = "top")
