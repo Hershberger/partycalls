@@ -33,6 +33,8 @@ At our previous meeting we decided to do the following:
 	\item Create a separate \LaTeX document which contains tables and figures we would want to include in a second paper focused on increases in party calls over Congresses 93-112
 \end{itemize}
 
+
+
 \pagebreak
 
 \section{Paper, Draft 2}
@@ -54,16 +56,24 @@ We make a number of important findings. First, the relationship between extremis
 \begin{figure}[H]
 	\centering
 	\caption{House Rate of Voting With Party by Vote Type}
-	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_plot.pdf}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_plot.pdf}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\caption{Senate Rate of Voting With Party by Vote Type}
-	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness_plot.pdf}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness_plot.pdf}
 \end{figure}
 
-Further, pooled regressions with members divided by party and majority status broadly show similar relationships both between chambers in the current analysis as well as with those presented in Minozzi \& Volden (2013). Though they differ in strength between parties, ideological extremism and rate of voting with majority of non party call votes both carry substantive predictive power in determining responsiveness by to party calls. 
+We also note that the number of party call votes in both chambers of Congress during the period of analysis are on an upward trend. We believe this trend merits further investigation, but initially take it to echo arguments such as those of Lee (2009), Theriault (2013), and Smith (2014) that Congressional partisan conflict has been on the rise. 
+
+\begin{figure}[H]
+	\centering
+	\caption{Party Calls as a Percentage of Votes, Congresses 93-112}
+	\includegraphics[width = \textwidth]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.pdf}
+\end{figure}
+
+Pooled regressions with members divided by party and majority status broadly show similar relationships both between chambers in the current analysis as well as with those presented in Minozzi \& Volden (2013). Though they differ in strength between parties, ideological extremism and rate of voting with majority of non party call votes both carry substantive predictive power in determining responsiveness by to party calls. 
 
 Unsurprisingly, in both chambers we also find that southern Democrats are less responsive to the party than are other Democrats. We also note that the power committee variable we constructed for the Senate (based on membership in a top 4 committee) carries little predictive power, either in terms of substantive power or statistical significance. This is unsurprising since this is a variable we included less because we believed it had meaning to Senators and more for model comparability. We also note that in both chambers increased same party presidential vote share within one's constituency makes Democrats more likely to respond to a party call but reduces the chances of a Republican doing so.
 
@@ -420,7 +430,9 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 		\caption{Statistical models}
 		\begin{tabular}{l c c c c c c }
 			\hline
-			& Model 1 & Model 2 & Model 3 & Model 4 & Model 5 & Model 6 \\
+			& \multicolumn{3}{c}{Democrats} & \multicolumn{3}{c}{Republicans} \\
+			\cline{2-7}
+			& 97th & 102nd & 107th & 97th & 102nd & 107th \\
 			\hline
 			ideological\_extremism & $9.27^{***}$  & $5.07^{***}$  & $-1.11$      & $5.21^{***}$ & $6.78^{***}$  & $-0.20$       \\
 			& $(0.53)$      & $(0.69)$      & $(1.50)$     & $(0.71)$     & $(0.76)$      & $(0.61)$      \\
@@ -463,8 +475,17 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 	\end{center}
 \end{table}
 
+\begin{figure}[H]
+	\centering
+	\caption{House Ideological Extremism Coefficient Plot}
+	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_lm.pdf}
+\end{figure}
 
-
+\begin{figure}[H]
+	\centering
+	\caption{Senate Ideological Extremism Coefficient Plot}
+	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf}
+\end{figure}
 
 
 
