@@ -91,7 +91,7 @@ setDT(jacobson)
 jacobson[, congress := calc_congress(year) + 1]
 setnames(jacobson, "stcd", "state_cd")
 jacobson1 <- jacobson[congress >= 93 & congress <= 112, ]
-jacobson1 <- jacobson[, .(congress, state_cd, dv, dpres)]
+jacobson1 <- jacobson[, .(congress, state_cd, dv, dpres, po1, po2.)]
 jacobson2 <- jacobson[congress >= 94 & congress <= 113, ]
 jacobson2[, congress := congress - 1]
 jacobson2 <- jacobson[, .(congress, state_cd, dvp)]
@@ -103,9 +103,7 @@ member_year_data <- merge(lep_data, jacobson1,
 member_year_data <- merge(member_year_data, jacobson2,
   by = c("congress", "state_cd"),
   all.x = TRUE)
-
 member_year_data[is.na(dv) == TRUE, dv := dvp]
-check <- member_year_data[is.na(dv) == TRUE, .(congress, stabb, thomas_name, dvp)]
 
 # # find missing dpres values
 # member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
@@ -119,9 +117,52 @@ member_year_data[state_cd == 3213 & congress == 94, dpres := 51.45]
 member_year_data[state_cd == 3214 & congress == 94, dpres := 52.22]
 member_year_data[state_cd == 3215 & congress == 94, dpres := 32.29]
 
+# fix dem and majority variables for analysis
+
+# Eugene Atkinson, party changer
+member_year_data[icpsrLegis == 94602 & congress == 97, dem := 0]
+member_year_data[icpsrLegis == 94602 & congress == 97, majority := 0]
+# Phil Gramm, party changer
+member_year_data[icpsrLegis == 14628 & congress == 98, dem := 0]
+member_year_data[icpsrLegis == 14628 & congress == 98, majority := 0]
+# Bill Grant, party changer
+member_year_data[icpsrLegis == 15415 & congress == 101, dem := 0]
+member_year_data[icpsrLegis == 15415 & congress == 101, majority := 0]
+# Bill Redmond, miscoded
+member_year_data[icpsrLegis == 29772 & congress == 105, dem := 0]
+member_year_data[icpsrLegis == 29772 & congress == 105, majority := 1]
+# J. Randy Forbes, miscoded
+member_year_data[icpsrLegis == 20143 & congress == 107, dem := 0]
+member_year_data[icpsrLegis == 20143 & congress == 107, majority := 1]
+# John Moakley, miscoded
+member_year_data[icpsrLegis == 14039 & congress == 93, dem := 1]
+member_year_data[icpsrLegis == 14039 & congress == 93, majority := 1]
+# Joseph Smith, miscoded
+member_year_data[icpsrLegis == 14876 & congress == 97, dem := 1]
+member_year_data[icpsrLegis == 14876 & congress == 97, majority := 1]
+# Jill Long, miscoded
+member_year_data[icpsrLegis == 15631 & congress == 101, dem := 1]
+member_year_data[icpsrLegis == 15631 & congress == 101, majority := 1]
+# John Oliver, miscoded
+member_year_data[icpsrLegis == 29123 & congress == 102, dem := 1]
+member_year_data[icpsrLegis == 29123 & congress == 102, dem := 1]
+# Bernie Sanders, independent who we don't want to count as Republican
+member_year_data[icpsrLegis == 29147 & congress >= 102, dem := 1]
+member_year_data[icpsrLegis == 29147 & congress >= 102,
+  majority := abs(majority - 1)]
+
+# there are minority party members listed as chairs, fix this
+member_year_data[icpsrLegis == 11036 & congress == 100, chair := 0]
+member_year_data[icpsrLegis == 14829 & congress == 102, chair := 0]
+member_year_data[icpsrLegis == 14248 & congress == 107, chair := 0]
+
+
 # create presidential vote share for same party candidate
-member_year_data[dem == 1, pres_votepct := dpres]
-member_year_data[dem == 0, pres_votepct := 100 - dpres]
+member_year_data[dem == 1, pres_vote_share := dpres]
+member_year_data[dem == 0, pres_vote_share := 100 - dpres]
+member_year_data[dem == 1, vote_share := dv]
+member_year_data[dem == 0, vote_share := 100 - dv]
+
 
 # load replication data for committee data
 old_committee <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
@@ -202,45 +243,6 @@ setDT(new_whoheeds13)
 # check_rep <- new_whoheeds13[dem == 0 &
 #   ideological_extremism != party_free_ideal_point, ]
 
-# fix dem and majority variables for analysis
-
-# Eugene Atkinson, party changer
-new_whoheeds13[icpsrLegis == 94602 & congress == 97, dem := 0]
-new_whoheeds13[icpsrLegis == 94602 & congress == 97, majority := 0]
-# Phil Gramm, party changer
-new_whoheeds13[icpsrLegis == 14628 & congress == 98, dem := 0]
-new_whoheeds13[icpsrLegis == 14628 & congress == 98, majority := 0]
-# Bill Grant, party changer
-new_whoheeds13[icpsrLegis == 15415 & congress == 101, dem := 0]
-new_whoheeds13[icpsrLegis == 15415 & congress == 101, majority := 0]
-# Bill Redmond, miscoded
-new_whoheeds13[icpsrLegis == 29772 & congress == 105, dem := 0]
-new_whoheeds13[icpsrLegis == 29772 & congress == 105, majority := 1]
-# J. Randy Forbes, miscoded
-new_whoheeds13[icpsrLegis == 20143 & congress == 107, dem := 0]
-new_whoheeds13[icpsrLegis == 20143 & congress == 107, majority := 1]
-# John Moakley, miscoded
-new_whoheeds13[icpsrLegis == 14039 & congress == 93, dem := 1]
-new_whoheeds13[icpsrLegis == 14039 & congress == 93, majority := 1]
-# Joseph Smith, miscoded
-new_whoheeds13[icpsrLegis == 14876 & congress == 97, dem := 1]
-new_whoheeds13[icpsrLegis == 14876 & congress == 97, majority := 1]
-# Jill Long, miscoded
-new_whoheeds13[icpsrLegis == 15631 & congress == 101, dem := 1]
-new_whoheeds13[icpsrLegis == 15631 & congress == 101, majority := 1]
-# John Oliver, miscoded
-new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1]
-new_whoheeds13[icpsrLegis == 29123 & congress == 102, dem := 1]
-# Bernie Sanders, independent who we don't want to count as Republican
-new_whoheeds13[icpsrLegis == 29147 & congress >= 102, dem := 1]
-new_whoheeds13[icpsrLegis == 29147 & congress >= 102,
-  majority := abs(majority - 1)]
-
-# there are minority party members listed as chairs, fix this
-new_whoheeds13[icpsrLegis == 11036 & congress == 100, chair := 0]
-new_whoheeds13[icpsrLegis == 14829 & congress == 102, chair := 0]
-new_whoheeds13[icpsrLegis == 14248 & congress == 107, chair := 0]
-
 new_whoheeds13[dem == 1 & ideological_extremism != -party_free_ideal_point,
   ideological_extremism := -party_free_ideal_point]
 new_whoheeds13[dem == 0 & ideological_extremism != party_free_ideal_point,
@@ -253,6 +255,10 @@ new_whoheeds13[is.na(pirate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(pfrate100) == TRUE, drop := 1]
 new_whoheeds13[is.na(ideological_extremism) == TRUE, drop := 1]
 new_whoheeds13[is.na(party_free_ideal_point) == TRUE, drop := 1]
+
+# drop uneeded variables
+new_whoheeds13[, `:=`(c("fips", "statename", "dvp", "po1", "po2.",
+  "state_alphabetical_order"), NULL)]
 
 save(new_whoheeds13,
   file = "test_data/new_whoheeds13_lm.RData")
