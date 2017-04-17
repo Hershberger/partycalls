@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  11 APR 2017 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  11 APR 2017 12:40
 entering extended mode
-**update_05apr.tex
-(update_05apr.tex
+**update_12apr.tex
+(update_12apr.tex
 LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 68 languages loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -358,7 +358,7 @@ Package morefloats Info: Maximum number of possible floats asked for: 36.
 \bx@AI=\insert217
 \bx@AJ=\insert216
 )
-(update_05apr.aux)
+(update_12apr.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
@@ -401,7 +401,7 @@ LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
 LaTeX Info: Redefining \nameref on input line 15.
 
-(update_05apr.out) (update_05apr.out)
+(update_12apr.out) (update_12apr.out)
 \@outlinefile=\write3
 
 *geometry* driver: auto-detecting
@@ -438,359 +438,252 @@ LaTeX Info: Redefining \nameref on input line 15.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 25.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 25.
-LaTeX Font Info:    Try loading font information for U+msa on input line 50.
+[1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Try loading font information for U+msa on input line 33.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 50.
+LaTeX Font Info:    Try loading font information for U+msb on input line 33.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
-_vote_share.pdf, id=39, 289.08pt x 578.16pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
-ation_vote_share.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
-tion_vote_share.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_vote_share.pdf used on input line 246.
-(pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
- [1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-[2pdfTeX warning (ext4): destination with the same identifier (name{table.1}) h
-as been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.248 
-      ] [3pdfTeX warning (ext4): destination with the same identifier (name{tab
-le.2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.248 
-      ] [4pdfTeX warning (ext4): destination with the same identifier (name{tab
-le.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.248 
-      ] [5pdfTeX warning (ext4): destination with the same identifier (name{tab
-le.4}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.248 
-      ]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
-_vote_share_b.pdf, id=74, 289.08pt x 578.16pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
-ation_vote_share_b.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
-tion_vote_share_b.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_vote_share_b.pdf used on input line 252.
-(pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
- [6pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
- has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.254 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-repl
-ication_vote_share.pdf>]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
-_lm.pdf, id=87, 289.08pt x 578.16pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
-ation_lm.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
-tion_lm.pdf>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_lm.pdf used on input line 258.
-(pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
- [7pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
- has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.260 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-repl
-ication_vote_share_b.pdf>] [8pdfTeX warning (ext4): destination with the same i
-dentifier (name{figure.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.264 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-repl
-ication_lm.pdf>] [9] [10] [11]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_plot.pdf
-, id=134, 509.905pt x 268.00125pt>
+, id=47, 509.905pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_plo
 t.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_plot
 .pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/house
-_responsiveness_plot.pdf used on input line 359.
+_responsiveness_plot.pdf used on input line 40.
 (pdftex.def)             Requested size: 469.75502pt x 246.91173pt.
-
+ [2]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness_plot.pd
-f, id=135, 509.905pt x 268.00125pt>
+f, id=57, 509.905pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness_pl
 ot.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness_plo
 t.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_responsiveness_plot.pdf used on input line 365.
+e_responsiveness_plot.pdf used on input line 46.
 (pdftex.def)             Requested size: 469.75502pt x 246.91173pt.
- [12pdfTeX warning (ext4): destination with the same identifier (name{figure.4}
-) has been already used, duplicate ignored
+ [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.369 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-5}) has been already used, duplicate ignored
+l.50 
+     pdfTeX warning (ext4): destination with the same identifier (name{figure.2
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.369 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_p
-lot.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsivenes
-s_plot.pdf>]
+l.50 
+      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/house_responsiveness_pl
+ot.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_responsiveness
+_plot.pdf>]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.pdf, 
-id=160, 509.905pt x 268.00125pt>
+id=82, 509.905pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.
 pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.p
 df>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party
-_call_percent_both.pdf used on input line 373.
+_call_percent_both.pdf used on input line 54.
 (pdftex.def)             Requested size: 469.75502pt x 246.91173pt.
- [13pdfTeX warning (ext4): destination with the same identifier (name{figure.6}
-) has been already used, duplicate ignored
+ [4pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.428 
+l.108 
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_bot
-h.pdf>] [14pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.5}) has been already used, duplicate ignored
+h.pdf>] [5pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.481 
-      ] [15pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.6}) has been already used, duplicate ignored
+l.162 
+      ] [6pdfTeX warning (ext4): destination with the same identifier (name{tab
+le.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.483 
+l.164 
       ]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff-sep
-arate.pdf, id=184, 289.08pt x 289.08pt>
+arate.pdf, id=109, 289.08pt x 289.08pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coef
 f-separate.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff
 -separate.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-diff-in-diff-coeff-separate.pdf used on input line 493.
+e-diff-in-diff-coeff-separate.pdf used on input line 174.
 (pdftex.def)             Requested size: 284.52756pt x 284.54036pt.
-
+ [7]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff.pdf
-, id=185, 289.08pt x 289.08pt>
+, id=116, 289.08pt x 289.08pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coef
 f.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff
 .pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-diff-in-diff-coeff.pdf used on input line 499.
+e-diff-in-diff-coeff.pdf used on input line 180.
 (pdftex.def)             Requested size: 284.52756pt x 284.54036pt.
- [16pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
-) has been already used, duplicate ignored
+ [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.501 
+l.184 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.184 
        <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-co
-eff-separate.pdf>] [17pdfTeX warning (ext4): destination with the same identifi
-er (name{figure.8}) has been already used, duplicate ignored
+eff-separate.pdf> <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff
+-in-diff-coeff.pdf>] [9] [10pdfTeX warning (ext4): destination with the same id
+entifier (name{table.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.509 
-       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-co
-eff.pdf>] [18pdfTeX warning (ext4): destination with the same identifier (name{
-table.7}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.566 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.8
+l.230 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.4
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.566 
-      ] [19pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.9}) has been already used, duplicate ignored
+l.230 
+      ] [11pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.645 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-0}) has been already used, duplicate ignored
+l.278 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.6
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.645 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-1}) has been already used, duplicate ignored
+l.278 
+      ] [12pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.645 
-      ] [20pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.12}) has been already used, duplicate ignored
+l.326 
+      ] [13pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.728 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-3}) has been already used, duplicate ignored
+l.370 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.9
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.728 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.1
-4}) has been already used, duplicate ignored
+l.370 
+      ] [14pdfTeX warning (ext4): destination with the same identifier (name{ta
+ble.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.728 
+l.409 
       ]
+Overfull \vbox (33.7682pt too high) has occurred while \output is active []
+
+
+[15pdfTeX warning (ext4): destination with the same identifier (name{table.11})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.409 
+      ]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication
+_lm.pdf, id=176, 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replic
 ation_lm.pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
 tion_lm.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_lm.pdf used on input line 783.
+eeds-figure2-replication_lm.pdf used on input line 464.
 (pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
- [21pdfTeX warning (ext4): destination with the same identifier (name{table.15}
-) has been already used, duplicate ignored
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.785 
-      ] [22pdfTeX warning (ext4): destination with the same identifier (name{ta
-ble.16}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.785 
-      ]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf, id=248
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf, id=177
 , 289.08pt x 578.16pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf Gr
 aphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-figure2-lm.pdf used on input line 789.
+e-figure2-lm.pdf used on input line 470.
 (pdftex.def)             Requested size: 284.52756pt x 569.08073pt.
 
-[23pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
+[16pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.791 
-      ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 844.
- [24pdfTeX warning (ext4): destination with the same identifier (name{figure.10
-}) has been already used, duplicate ignored
+l.472 
+       <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-repl
+ication_lm.pdf>] [17pdfTeX warning (ext4): destination with the same identifier
+ (name{table.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.844 \end{document}
+l.472 
+      ]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 525.
+ [18pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.525 \end{document}
                      <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-f
 igure2-lm.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 844.
- (update_05apr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 844.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 844.
-
-
-Package rerunfilecheck Warning: File `update_05apr.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `update_05apr.out':
-(rerunfilecheck)             Before: 73638BCBDD9C9A3563E7720C04D7C2C0;671
-(rerunfilecheck)             After:  27CE29B72DFA8E5A872B0E39A6392F56;875.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 844.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 525.
+ (update_12apr.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 525.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 525.
+Package rerunfilecheck Info: File `update_12apr.out' has not changed.
+(rerunfilecheck)             Checksum: 73638BCBDD9C9A3563E7720C04D7C2C0;671.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 525.
  ) 
 Here is how much of TeX's memory you used:
- 7269 strings out of 493698
- 105044 string characters out of 3144412
- 237486 words of memory out of 3000000
- 10402 multiletter control sequences out of 15000+200000
- 17249 words of font info for 64 fonts, out of 3000000 for 9000
+ 7217 strings out of 493698
+ 103628 string characters out of 3144412
+ 208486 words of memory out of 3000000
+ 10379 multiletter control sequences out of 15000+200000
+ 16890 words of font info for 63 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 29i,10n,32p,1068b,384s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{subsection.2.3} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.2.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.2.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.4} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.1.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on update_05apr.pdf (24 pages, 1495324 bytes).
+ 29i,10n,32p,1068b,332s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+msy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on update_12apr.pdf (18 pages, 1440467 bytes).
 PDF statistics:
- 325 PDF objects out of 1000 (max. 8388607)
- 72 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 256 PDF objects out of 1000 (max. 8388607)
+ 49 named destinations out of 1000 (max. 500000)
+ 108 words of extra memory for PDF output out of 10000 (max. 10000000)
 

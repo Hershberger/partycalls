@@ -6,6 +6,8 @@ options(stringsAsFactors = FALSE)
 # load data for analysis
 load("test_data/senate_data_lm.RData")
 senate_data <- senate_data[drop == 0, ]
+senate_data[, vote_share := vote_share * 100]
+senate_data[, pres_vote_share := pres_vote_share * 100]
 
 f_extremism <- pirate100 ~ ideological_extremism +
   pfrate100 + pres_vote_share + south + vote_share +

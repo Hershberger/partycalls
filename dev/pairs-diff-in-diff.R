@@ -5,7 +5,7 @@ load("test_data/senate_data_lm.RData")
 
 # select variables needed
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
-  tr = up_for_reelection, y = pirate100 - pfrate100)]
+  seniority, tr = up_for_reelection, y = pirate100 - pfrate100)]
 setorder(DATA, stabb, congress, class)
 
 # make dems majority for congress 107
@@ -19,7 +19,6 @@ DATA <- merge(DATA,
   all.x = TRUE)
 DATA <- DATA[N == 2]
 DATA[, mean_tr := mean(tr), .(stabb, congress)]
-DATA[, rand := runif(nrow(DATA))]
 
 # define types of cases by party/majority makeup
 DATA[, both_same_party := 1 * (length(unique(caucus)) == 1), .(stabb, congress)]
@@ -83,7 +82,7 @@ effect <- DATA[mean_tr == .5,
   sum(tr * y) - sum((1 - tr) * y), .(stabb, congress)][,
     mean(V1)]
 placebo <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+  sum((seniority > mean(seniority)) * y) - sum((seniority < mean(seniority)) * y),
   .(stabb, congress)][,
     mean(V1)]
 
@@ -101,9 +100,8 @@ boot <- function(i) {
   boot_effect <- boot_DATA[mean_tr == .5,
     sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
       mean(V1)]
-  boot_DATA[, rand := runif(nrow(boot_DATA))]
   boot_placebo <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
+    sum((seniority > mean(seniority)) * y) - sum((seniority < mean(seniority)) * y),
     .(boot_id, congress)][,
       mean(V1)]
   data.table(boot_effect, boot_placebo)
@@ -140,7 +138,7 @@ seat_type_effect <- DATA[mean_tr == .5, sum(tr * y) - sum((1 - tr) * y),
 setnames(seat_type_effect, "V1", "effect")
 seat_type_effect
 
-seat_type_placebo <- DATA[, sum((rand > mean(rand)) * y) - sum(((rand) <= mean(rand)) * y),
+seat_type_placebo <- DATA[, sum((seniority > mean(seniority)) * y) - sum(((seniority) <= mean(seniority)) * y),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_placebo, "V1", "placebo")
 seat_type_placebo

@@ -28,6 +28,8 @@ house_coding_record[, gray_vote_count := sapply(93:112, function(x)
   length(get_gray_votes(house_party_calls[[paste0("hou", x)]])))]
 house_coding_record[, percent_party_calls :=
     100 * party_calls / (party_calls + noncalls)]
+house_coding_record[, majority := "Republican"]
+house_coding_record[congress %in% c(93:103, 110:111), majority := "Democrat"]
 
 senate_coding_record <- data.table(congress = 93:112)
 senate_coding_record[, party_calls := sapply(93:112, function(x)
@@ -38,6 +40,9 @@ senate_coding_record[, gray_vote_count := sapply(93:112, function(x)
   length(get_gray_votes(senate_party_calls[[paste0("sen", x)]])))]
 senate_coding_record[, percent_party_calls :=
     100 * party_calls / (party_calls + noncalls)]
+senate_coding_record[, majority := "Republican"]
+senate_coding_record[congress %in% c(93:96, 100:103, 107, 110:112),
+  majority := "Democrat"]
 
 
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
@@ -292,21 +297,27 @@ texreg::texreg(list(lm(sen_extremism, senate_data[caucus == "Democrat"]),
   reorder.coef = c(2:3, 10, 6, 4, 5, 7:9, 11:17, 1))
 
 # Make Figure 3
-hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls)) +
+hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls,
+  color = as.factor(majority))) +
   ylim(30, 90) +
   xlab("Congress") +
   ylab("Party Call Percent") +
   labs(title = "Party Call Percent in the House") +
-  geom_point(color = "red2") +
-  geom_line() +
+  geom_point(aes(shape = as.factor(majority))) +
+  scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
+  scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) +
   theme_classic()
-sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_calls)) +
+sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_calls,
+  color = as.factor(majority))) +
   ylim(30, 90) +
   xlab("Congress") +
-  ylab("Party Call Percent") +
+  ylab("") +
   labs(title = "Party Call Percent in the Senate") +
-  geom_point(color = "red2") +
-  geom_line() +
+  geom_point(aes(shape = as.factor(majority))) +
+  scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
+  scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
+  geom_smooth(method = "lm", se = FALSE) +
   theme_classic()
 fig3 <- arrangeGrob(hou_record_plot, sen_record_plot, ncol = 2)
 ggsave("plots/party_call_percent_both.pdf", fig3)

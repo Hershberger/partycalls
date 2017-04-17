@@ -5,7 +5,7 @@ load("test_data/senate_data_lm.RData")
 
 # select variables needed
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
-  tr = up_for_reelection, y1 = pirate100, y2 = pfrate100)]
+  seniority, tr = up_for_reelection, y1 = pirate100, y2 = pfrate100)]
 setorder(DATA, stabb, congress, class)
 
 # make dems majority for congress 107
@@ -19,7 +19,6 @@ DATA <- merge(DATA,
   all.x = TRUE)
 DATA <- DATA[N == 2]
 DATA[, mean_tr := mean(tr), .(stabb, congress)]
-DATA[, rand := runif(nrow(DATA))]
 
 # define types of cases by party/majority makeup
 DATA[, both_same_party := 1 * (length(unique(caucus)) == 1), .(stabb, congress)]
@@ -82,8 +81,8 @@ DATA[, `:=`(both_same_party = NULL, both_democrats = NULL,
 effect_pi <- DATA[mean_tr == .5,
   sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
     mean(V1)]
-placebo_pi <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
+placebo_pi <- DATA[mean_tr == .5,
+  sum((seniority > mean(seniority)) * y1) - sum((seniority < mean(seniority)) * y1),
   .(stabb, congress)][,
     mean(V1)]
 
@@ -91,7 +90,7 @@ effect_pf <- DATA[mean_tr == .5,
   sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
     mean(V1)]
 placebo_pf <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
+  sum((seniority > mean(seniority)) * y2) - sum((seniority < mean(seniority)) * y2),
   .(stabb, congress)][,
     mean(V1)]
 
@@ -109,16 +108,15 @@ boot <- function(i) {
   boot_effect_pi <- boot_DATA[mean_tr == .5,
     sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
       mean(V1)]
-  boot_DATA[, rand := runif(nrow(boot_DATA))]
   boot_placebo_pi <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
+    sum((seniority > mean(seniority)) * y1) - sum((seniority < mean(seniority)) * y1),
     .(boot_id, congress)][,
       mean(V1)]
   boot_effect_pf <- boot_DATA[mean_tr == .5,
     sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
       mean(V1)]
   boot_placebo_pf <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
+    sum((seniority > mean(seniority)) * y2) - sum((seniority < mean(seniority)) * y2),
     .(boot_id, congress)][,
       mean(V1)]
 
@@ -139,12 +137,13 @@ naive_difference <- data.table(test = c("Effect", "Placebo", "Effect", "Placebo"
     boots[, quantile(boot_placebo_pf, .975)])
 )
 
+
 seat_type_effect <- DATA[mean_tr == .5, sum(tr * y1) - sum((1 - tr) * y1),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_effect, "V1", "effect")
 
-seat_type_placebo <- DATA[, sum((rand > mean(rand)) * y1) -
-    sum(((rand) <= mean(rand)) * y1),
+seat_type_placebo <- DATA[, sum((seniority > mean(seniority)) * y1) -
+    sum(((seniority) <= mean(seniority)) * y1),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_placebo, "V1", "placebo")
 
@@ -204,19 +203,19 @@ naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect_pi, .75)],
 pdf(file="plots/senate-diff-in-diff-coeff-separate.pdf", ## RENAME
   width = 4, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-2.25, 1.5), xlim=c(0.5, 4.5),
+plot(0, 0, type='n', ylim=c(-2.5, 1.5), xlim=c(0.5, 4.5),
   cex.lab=1.1, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, naive_difference$placement, cex.axis = .5,
   labels = c("Party Calls, Reelection", "Placebo",
     "Baseline, Reelection", "Placebo"))
-axis(2, c(-1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
+axis(2, c(-2, -1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
 title(main="Party Call and Baseline Rate",
   cex.main=1, line=0.75, font.main=2)
 points(naive_difference$placement, naive_difference$Estimate,
   pch=19, col="black", cex=.8)
-# segments(naive_difference$placement, naive_difference$Lower_Bound_50,
-  # naive_difference$placement,  naive_difference$Upper_Bound_50, lwd = 2.5)
+segments(naive_difference$placement, naive_difference$Lower_Bound_50,
+  naive_difference$placement,  naive_difference$Upper_Bound_50, lwd = 2.5)
 segments(naive_difference$placement, naive_difference$Lower_Bound,
   naive_difference$placement,  naive_difference$Upper_Bound, lwd = 1)
 
