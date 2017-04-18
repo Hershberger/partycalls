@@ -160,19 +160,19 @@ Minozzi \& Volden (2013) developed the responsive extremists hypothesis which ho
 
 This paper is written with the intention of replicating this paper and extending the units of analysis to include the Senate and the period of analysis to Congresses 93-112. These extensions allow us to test the responsive extremists hypothesis in both chambers, with consideration of more recent Congresses which both chambers are held to have become more extreme. Additionally, the inclusion of the Senate allows for tests to be conducted based on proximity to reelection.
 
-%Our assumption that reelection will influence member behavior is based on a number of theories and findings on Congress. Canes-Wrone, Brady \& Cogan (2002) shows that members who stray to far from the preferences of their district are less likely to be reelected. Carson, Koger, Lebo \& Young (2010) find that voters punish members who seem to be partisan hacks.  Mayhew (1974) holds reelection to be chief among the goals of members. Levitt (1996) finds that proximity to reelection induces Senators to more strongly take their constituents' preferences into account. However, Lee (2009) holds that parties confer advantages on members through their resources and the strength of their brand.
+We view the analysis of Congress by way of dividing votes based on the party call to merit further investigation because it allows for the location of preferences of members of congress which takes into account the role of member ideology alongside the pressures of the party. The complimentary nature of these factors in the modern Congress can lead to misattribution of effects from either in ways which cause for poor understanding of Congressional behavior (Krehbiel, 1993; Lee, 2009). Above these patterns of behavior, we recognize that members are most influenced by reelection (Mayhew, 1974). We know that members can reap benefits from parties (Lee, 2009) but that members who are perceived to be holding the interests of the party above those of their district are electorally punished (Canes-Wrone, Brady \& Cogan, 2002; Carson et al., 2010). Further, the behavior of Senators takes their district into much greater account when they approach reelection (Levitt, 1996). However, the manner in which members modify their voting patterns to appease their states remains unknown.
 
-We view this to merit further consideration because 
+Party calls and member responsiveness to them are well-suited to drawing inferences on member behavior. Given their high party unity, these votes are likely to attract larger amounts of attention than other votes which occur in a Congress. However, they are also likely to be more important to the party and voting against the party on them could be damaging. We hypothesize that members approaching reelection will take strategic votes against the party to appear more principled to their voters. We expect this to be present primarily in votes when the party is calling, since it provides the strongest signal to constituents that a member is taking their desires into account. 
 
-We hypothesize that members approaching reelection will take strategic votes against the party to appear more principled to their voters. We expect this to be present primarily in votes when the party is calling, since it provides the strongest signal to constituents that a member is taking their desires into account. Still, given that the responsive extremists hypothesis was originally tested in the House (in which members are always up for reelection at the end of a Congress) we expect the effect to not be so strong as to overwhelm members' responsiveness to the party.
+We find that the responsive extremist hypothesis developed by Minozzi \& Volden holds when applied beyond the initial time period used in their initial study. Further, we find that Senators will vote along with the party on a couple fewer party calls in Congresses than they would otherwise be expected to. This suggests that members remain interested in helping their party as they approach reelection but find it necessary to diverge from them at times they otherwise wouldn't in order to increase their chances of keeping their seat. We believe that this suggests members are aware that constituents are not following every vote, but that members will need something to point to to differentiate themselves from the rest of the party.
 
-We find that the responsive extremist hypothesis developed by Minozzi \& Volden 
+In the next section of the paper we provide results from our replication of the methods of Minozzi \& Volden with an extended set of cases. Following this, we conduct analyses intentioned with more rigorously testing for differences in members produced by electoral incentives.
 
 \subsection{Replication with Extension}
 
 In this section we provide the results of the replication with extension to the Senate and into Congresses 93-112. To do this, we draw on Congressional roll call data for Congresses 93-112 in both chambers which we sort by party influence. Sorting is conducted by an algorithm based on the one used by Minozzi \& Volden in their original paper. This algorithm calculates the percent of times members vote in line with the majority of the party on each vote type and ideology scores based on the non-party call votes. Ideological extremism has its sign reversed for Democrats so that it takes higher values for members of both parties as they become further from the center.\footnote{A more thorough overview of the methodology is detailed in an appendix.}
 
-While it certainly seems the case that party calls are more present in the House, we find evidence of their presence in both chambers. Additionally, we find that in both chambers their incidence has been on an upward trend during our period of analysis. We believe this trend merits further investigation, but initially take it as being in line with those who say that partisanship has been on an upward trend in recent decades (Lee, 2009; Theriault, 2013; Smith, 2014).
+While party calls are more present in the House, we find evidence of their presence in both chambers. Additionally, we find that in both chambers their incidence has been on an upward trend during our period of analysis. We believe this trend merits further investigation, but initially take it as evidence of increased partisanship in recent decades (Lee, 2009; Theriault, 2013; Smith, 2014).
 
 
 \begin{figure}[H]
@@ -187,6 +187,7 @@ Regression analysis with members separated by party and majority status broadly 
 \begin{table}[H]
 	\begin{center}
 		\singlespacing
+		\small
 		\caption{House Responsiveness to Party Calls}
 		%\footnotesize
 		\begin{tabular}{l c c c c }
@@ -197,31 +198,31 @@ Regression analysis with members separated by party and majority status broadly 
 			& $(0.17)$      & $(0.21)$      & $(0.16)$      & $(0.20)$      \\
 			Baseline Rate of Voting with Party              & $0.64^{***}$  & $0.41^{***}$  & $0.52^{***}$  & $0.64^{***}$  \\
 			& $(0.02)$      & $(0.02)$      & $(0.01)$      & $(0.02)$      \\
-			votepct                & $-0.04^{***}$ & $-0.00$       & $-0.09^{***}$ & $-0.07^{***}$ \\
+			Vote Percent                & $-0.04^{***}$ & $-0.00$       & $-0.09^{***}$ & $-0.07^{***}$ \\
 			& $(0.01)$      & $(0.01)$      & $(0.01)$      & $(0.01)$      \\
-			pres\_votepct          & $0.09^{***}$  & $-0.09^{***}$ & $0.20^{***}$  & $0.16^{***}$  \\
+			Same Party Presidential Party Vote Share          & $0.09^{***}$  & $-0.09^{***}$ & $0.20^{***}$  & $0.16^{***}$  \\
 			& $(0.01)$      & $(0.02)$      & $(0.01)$      & $(0.02)$      \\
-			south                  & $-2.43^{***}$ & $3.63^{***}$  & $-1.64^{***}$ & $-0.38$       \\
+			South                  & $-2.43^{***}$ & $3.63^{***}$  & $-1.64^{***}$ & $-0.38$       \\
 			& $(0.28)$      & $(0.34)$      & $(0.25)$      & $(0.31)$      \\
-			female                 & $0.53$        & $-0.08$       & $-0.14$       & $2.12^{***}$  \\
+			Female                 & $0.53$        & $-0.08$       & $-0.14$       & $2.12^{***}$  \\
 			& $(0.35)$      & $(0.57)$      & $(0.40)$      & $(0.44)$      \\
-			afam                   & $-0.52$       & $5.01$        & $-3.04^{***}$ & $3.25^{***}$  \\
+			African American                   & $-0.52$       & $5.01$        & $-3.04^{***}$ & $3.25^{***}$  \\
 			& $(0.44)$      & $(2.97)$      & $(0.53)$      & $(0.61)$      \\
-			latino                 & $1.73^{***}$  & $2.41^{*}$    & $2.82^{***}$  & $3.02^{***}$  \\
+			Latino                 & $1.73^{***}$  & $2.41^{*}$    & $2.82^{***}$  & $3.02^{***}$  \\
 			& $(0.51)$      & $(1.15)$      & $(0.63)$      & $(0.70)$      \\
-			seniority              & $0.05$        & $-0.33^{***}$ & $0.01$        & $0.01$        \\
+			Seniority              & $0.05$        & $-0.33^{***}$ & $0.01$        & $0.01$        \\
 			& $(0.03)$      & $(0.05)$      & $(0.03)$      & $(0.04)$      \\
-			freshman               & $-0.07$       & $1.00^{*}$    & $0.24$        & $-0.41$       \\
+			Freshman               & $-0.07$       & $1.00^{*}$    & $0.24$        & $-0.41$       \\
 			& $(0.36)$      & $(0.46)$      & $(0.35)$      & $(0.45)$      \\
-			bestgrosswart          & $-0.04^{*}$   & $-0.24^{***}$ & $-0.18^{***}$ & $-0.16^{***}$ \\
+			Best Committee          & $-0.04^{*}$   & $-0.24^{***}$ & $-0.18^{***}$ & $-0.16^{***}$ \\
 			& $(0.02)$      & $(0.03)$      & $(0.02)$      & $(0.02)$      \\
-			leader                 & $1.96^{**}$   & $2.80^{***}$  & $2.61^{***}$  & $1.78^{**}$   \\
+			Party Leader                 & $1.96^{**}$   & $2.80^{***}$  & $2.61^{***}$  & $1.78^{**}$   \\
 			& $(0.60)$      & $(0.76)$      & $(0.65)$      & $(0.65)$      \\
-			power                  & $1.82^{***}$  & $2.95^{***}$  & $3.02^{***}$  & $1.06^{**}$   \\
+			Power Committee                  & $1.82^{***}$  & $2.95^{***}$  & $3.02^{***}$  & $1.06^{**}$   \\
 			& $(0.28)$      & $(0.37)$      & $(0.27)$      & $(0.36)$      \\
-			chair                  & $2.49^{***}$  & $9.85^{***}$  & $1.86^{***}$  &               \\
+			Committee Chair                  & $2.49^{***}$  & $9.85^{***}$  & $1.86^{***}$  &               \\
 			& $(0.50)$      & $(0.80)$      & $(0.44)$      &               \\
-			(Intercept)            & $24.00^{***}$ & $53.04^{***}$ & $36.45^{***}$ & $17.69^{***}$ \\
+			Intercept            & $24.00^{***}$ & $53.04^{***}$ & $36.45^{***}$ & $17.69^{***}$ \\
 			& $(1.58)$      & $(2.21)$      & $(1.49)$      & $(2.05)$      \\
 			\hline
 			R$^2$                  & 0.63          & 0.30          & 0.57          & 0.48          \\
@@ -231,51 +232,53 @@ Regression analysis with members separated by party and majority status broadly 
 			\hline
 			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
 		\end{tabular}
+	\fnote{Results are produced by OLS regressions for all Democrats and Republicans as well as all members of the Majority and Minority party in Congresses 93-112 in the House of Representatives. Most variables provided by the Legislative Effectiveness Project.}
 	\end{center}
 \end{table}
 
 \begin{table}[H]
 	\begin{center}
 		\singlespacing
+		\small
 		\caption{Senate Responsiveness to Party Calls}
 		%\footnotesize
 		\begin{tabular}{l c c c c }
 			\hline
 			& Democrats & Republicans & Majority & Minority \\
 			\hline
-			ideological\_extremism & $3.136^{***}$  & $7.792^{***}$   & $4.708^{***}$  & $7.949^{***}$ \\
+			Ideological Extremism & $3.136^{***}$  & $7.792^{***}$   & $4.708^{***}$  & $7.949^{***}$ \\
 			& $(0.409)$      & $(0.357)$       & $(0.315)$      & $(0.400)$     \\
-			chair                  & $0.852$        & $3.626^{***}$   & $-0.017$       &               \\
+			Committee Chair                  & $0.852$        & $3.626^{***}$   & $-0.017$       &               \\
 			& $(0.543)$      & $(0.700)$       & $(0.517)$      &               \\
-			pfrate100              & $0.759^{***}$  & $0.742^{***}$   & $0.702^{***}$  & $0.702^{***}$ \\
+			Baseline Rate of Voting with Party              & $0.759^{***}$  & $0.742^{***}$   & $0.702^{***}$  & $0.702^{***}$ \\
 			& $(0.030)$      & $(0.031)$       & $(0.025)$      & $(0.035)$     \\
-			pres\_vote\_share      & $0.234^{***}$ & $-0.134^{***}$ & $0.182^{***}$  & $0.006$       \\
+			Same Party Presidential Vote Share      & $0.234^{***}$ & $-0.134^{***}$ & $0.182^{***}$  & $0.006$       \\
 			& $(0.024)$     & $(0.031)$      & $(0.020)$      & $(0.032)$     \\
-			south                  & $-1.690^{**}$  & $0.872$         & $0.054$        & $1.085$       \\
+			South                  & $-1.690^{**}$  & $0.872$         & $0.054$        & $1.085$       \\
 			& $(0.557)$      & $(0.578)$       & $(0.427)$      & $(0.622)$     \\
-			power\_committee       & $-0.855$       & $-0.325$        & $-0.052$       & $-1.468$      \\
+			Power Committee       & $-0.855$       & $-0.325$        & $-0.052$       & $-1.468$      \\
 			& $(0.772)$      & $(0.924)$       & $(0.719)$      & $(1.064)$     \\
-			vote\_share            & $-0.053^{*}$  & $0.149^{***}$  & $-0.012$       & $0.076^{*}$   \\
+			2-Party Vote Share            & $-0.053^{*}$  & $0.149^{***}$  & $-0.012$       & $0.076^{*}$   \\
 			& $(0.022)$     & $(0.028)$      & $(0.021)$      & $(0.030)$     \\
-			female                 & $1.690^{*}$    & $0.451$         & $0.532$        & $4.256^{***}$ \\
+			Female                 & $1.690^{*}$    & $0.451$         & $0.532$        & $4.256^{***}$ \\
 			& $(0.730)$      & $(1.132)$       & $(0.758)$      & $(1.113)$     \\
-			afam                   & $-1.164$       & $-10.789^{*}$   & $1.531$        & $-5.519$      \\
+			African American                   & $-1.164$       & $-10.789^{*}$   & $1.531$        & $-5.519$      \\
 			& $(2.789)$      & $(4.278)$       & $(4.184)$      & $(3.219)$     \\
-			latino                 & $1.814$        & $7.264^{**}$    & $4.781^{*}$    & $6.253$       \\
+			Latino                 & $1.814$        & $7.264^{**}$    & $4.781^{*}$    & $6.253$       \\
 			& $(2.198)$      & $(2.779)$       & $(1.878)$      & $(3.506)$     \\
-			up\_for\_reelection    & $-0.630$       & $-1.436^{**}$   & $-0.951^{*}$   & $-1.204^{*}$  \\
+			Up for Reelection    & $-0.630$       & $-1.436^{**}$   & $-0.951^{*}$   & $-1.204^{*}$  \\
 			& $(0.426)$      & $(0.538)$       & $(0.411)$      & $(0.603)$     \\
-			seniority              & $0.041$        & $-0.024$        & $0.077$        & $0.118$       \\
+			Seniority              & $0.041$        & $-0.024$        & $0.077$        & $0.118$       \\
 			& $(0.052)$      & $(0.072)$       & $(0.060)$      & $(0.070)$     \\
-			freshman               & $0.769$        & $0.358$         & $0.600$        & $0.996$       \\
+			Freshman               & $0.769$        & $0.358$         & $0.600$        & $0.996$       \\
 			& $(0.708)$      & $(0.842)$       & $(0.631)$      & $(1.032)$     \\
-			retiree                & $1.599$        & $2.290^{*}$     & $1.816^{*}$    & $2.575^{*}$   \\
+			Retiree                & $1.599$        & $2.290^{*}$     & $1.816^{*}$    & $2.575^{*}$   \\
 			& $(0.897)$      & $(0.997)$       & $(0.850)$      & $(1.110)$     \\
-			best\_committee        & $0.237$        & $0.008$         & $0.027$        & $0.373^{*}$   \\
+			Best Committee        & $0.237$        & $0.008$         & $0.027$        & $0.373^{*}$   \\
 			& $(0.124)$      & $(0.154)$       & $(0.118)$      & $(0.174)$     \\
-			leader                 & $2.218^{**}$   & $0.910$         & $1.441^{*}$    & $1.940^{*}$   \\
+			Leader                 & $2.218^{**}$   & $0.910$         & $1.441^{*}$    & $1.940^{*}$   \\
 			& $(0.712)$      & $(0.776)$       & $(0.661)$      & $(0.899)$     \\
-			(Intercept)            & $9.447^{**}$   & $18.182^{***}$  & $16.365^{***}$ & $10.799^{**}$ \\
+			Intercept            & $9.447^{**}$   & $18.182^{***}$  & $16.365^{***}$ & $10.799^{**}$ \\
 			& $(2.906)$      & $(3.489)$       & $(2.644)$      & $(4.009)$     \\
 			\hline
 			R$^2$                  & 0.689          & 0.641           & 0.684          & 0.615         \\
@@ -285,6 +288,7 @@ Regression analysis with members separated by party and majority status broadly 
 			\hline
 			\multicolumn{5}{l}{\scriptsize{$^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$}}
 		\end{tabular}
+	\fnote{Results are produced by OLS regressions for all Democrats and Republicans as well as all members of the Majority and Minority party in Congresses 93-112 in the House of Representatives. Most variables provided by the Legislative Effectiveness Project, with supplementary data for committees from Charles Stewart's Congressional data and retirement data from the Congressional Bioguides.}
 	\end{center}
 \end{table}
 
@@ -293,16 +297,18 @@ In Table 2, we see some evidence of differences between members up for reelectio
 \begin{figure}[H]
 	\centering
 	\caption{House Ideological Extremism Coefficient Plot}
-	\includegraphics[width = 6cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_lm.pdf}
+	\includegraphics[width = 7cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replication_lm.pdf}
+	\fnote{This coefficient plot is produced by the same formula shown in the House regression table with results decomposed by individual Congresses for the Majority and Minority parties. Coefficients shown are for the effect of ideological extremism on party free votes in relation to party call votes. 50\% and 95\% confidence intervals are shown from the points.}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\caption{Senate Ideological Extremism Coefficient Plot}
-	\includegraphics[width = 6cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf}
+	\includegraphics[width = 7cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf}
+	\fnote{This coefficient plot is produced by the same formula shown in the Senate regression table with results decomposed by individual Congresses for the Majority and Minority parties. Coefficients shown are for the effect of ideological extremism on party free votes in relation to party call votes. 50\% and 95\% confidence intervals are shown from the points.}
 \end{figure}
 
-Having shown that the results of Minozzi \& Volden (2013) hold in later Congresses as well as the Senate, we now move to illustrate the usefulness of considering party calls as an explanatory device for member behavior elsewhere. This is done by considering the behavior of Senators in Congresses which they are up for reelection 
+Having shown that the results of Minozzi \& Volden (2013) hold in later Congresses as well as the Senate, we now move to illustrate the usefulness of considering party calls as an explanatory device for member behavior in relation to the party beyond their extremism. This is done by considering the behavior of Senators in Congresses which they are up for reelection. 
 
 \subsection{Reelection in the Senate}
 
@@ -314,12 +320,14 @@ The fact that same-state Senators are not up for reelection at the same time all
 	\centering
 	\caption{Senate Rate of Voting With Party by Vote Type}
 	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff-separate.pdf}
+	\fnote{\textit{Note}: This coefficient plot is produced by a paired differences model which uses same-state Senators as a natural pairing. Differences between member responsiveness to party calls are shown by the first two points with the second set representing differences in baseline rate of voting with the party. The first and third columns use proximity to reelection as a treatment which are compared in columns 2 and 4 with a placebo treatment of the Senator with higher seniority in Congresses which neither are up for reelection as a comparison. 50\% and 95\% confidence intervals are shown.}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\caption{Senate Rate of Voting With Party by Vote Type}
 	\includegraphics[width = 10cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff.pdf}
+	\fnote{\textit{Note}: This coefficient plot is produced by a paired difference-in-differences model which considers the difference between same-state Senator responsiveness to party calls from their baseline rate of voting with the party. The first column uses proximity to reelection as a treatment while the second uses higher seniority in Congresses which neither is up for reelection as a placebo treatment. 50\% and 95\% confidence intervals are shown.}
 \end{figure}
 
 The results of these tests clearly show that member responsiveness to party calls declines, on average, about 1.5\% when they are up for reelection at the end of a Congress. Since the average number of party calls in a Congress during the time we analyze is approximately 365, this means that a Senate party can generally expect to count on members up for reelection for a little over 5 votes against the party's position on party call votes. This would be enough to allow them to point to multiple instances in which they went against the party to their voters without greatly hindering the party's goals. Member voting behavior on other votes does not exhibit this relationship, likely due to them not being perceived as providing as clear of a signal to voters. Thus, we conclude that member proximity to reelection leads members to place greater weight on voter desires while balancing them against those of the party.
