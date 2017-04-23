@@ -4,9 +4,10 @@ options(stringsAsFactors = FALSE)
 # load data for analysis
 load("test_data/new_whoheeds13_lm.RData")
 new_whoheeds13 <- new_whoheeds13[drop == 0, ]
+new_whoheeds13[is.na(vote_share) == TRUE, vote_share := 100]
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + pres_votepct + south + votepct + female + afam + latino +
+  pfrate100 + pres_vote_share + south + vote_share + female + afam + latino +
   seniority + freshman + bestgrosswart + leader +
   power + chair
 

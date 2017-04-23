@@ -119,6 +119,8 @@ member_year_data[state_cd == 3215 & congress == 94, dpres := 32.29]
 
 # fix dem and majority variables for analysis
 
+setnames(member_year_data, "icpsr", "icpsrLegis")
+
 # Eugene Atkinson, party changer
 member_year_data[icpsrLegis == 94602 & congress == 97, dem := 0]
 member_year_data[icpsrLegis == 94602 & congress == 97, majority := 0]
@@ -214,7 +216,6 @@ new_best_committee[, best_grosswart := 22 - bestgrosswart]
 new_best_committee <- new_best_committee[, .(congress, icpsrLegis, bestgrosswart)]
 
 # merge in bestgrosswart data
-setnames(member_year_data, "icpsr", "icpsrLegis")
 best_committee <- rbind(old_best_committee, new_best_committee)
 member_year_data <- merge(member_year_data, best_committee,
   by = c("icpsrLegis", "congress"), all.x = TRUE)
