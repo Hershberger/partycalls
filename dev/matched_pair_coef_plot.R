@@ -143,7 +143,7 @@ seat_type_effect <- DATA[mean_tr == .5, sum(tr * y1) - sum((1 - tr) * y1),
 setnames(seat_type_effect, "V1", "effect")
 
 seat_type_placebo <- DATA[, sum((seniority > mean(seniority)) * y1) -
-    sum(((seniority) <= mean(seniority)) * y1),
+    sum(((seniority) < mean(seniority)) * y1),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_placebo, "V1", "placebo")
 

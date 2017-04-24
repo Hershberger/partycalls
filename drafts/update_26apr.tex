@@ -92,13 +92,18 @@ For these reasons, I would not want to include the formal model in the paper, th
 	\large How Do Senators Vote When the Party Calls?
 \end{center}
 
+\begin{minipage}{15cm}
+	\singlespacing
+	\small \textit{Abstract}: In this paper, we replicate the findings of Minozzi \& Volden (2013) with some modifications of their methodology. We show that their hypotheses regarding party unity coming through the party working to unite more extreme (rather than more moderate) members holds not only in the House, but also the Senate. Further, we show the usefulness of separating votes by party influence as useful for demonstrating areas that affect the strength of party influence (but not ideology) by considering proximity to reelection in the Senate.
+\end{minipage}
+
 \subsection{Introduction}
 
 Minozzi \& Volden (2013) developed the responsive extremists hypothesis to explain party unity on votes in the House of Representatives. This hypothesis holds that unity is typically a result of the party calling on members to support a position on bills which are coming up for a vote. Members' decisions to get in line with the party are based on their ideological extremism, which tracks with the benefits they get from the party brand, though they will at times have reasons to vote against the party. While pressuring of moderates occurs, it was held that such efforts were not as common or effective as the issuance of a party call. They tested this by sorting roll call votes into party influenced votes and party free votes and estimating the impact of member ideology on decision to respond to party influence.
 
 This paper is written with the intention of replicating this paper and extending the units of analysis to include the Senate and the period of analysis to Congresses 93-112. Party calls and member responsiveness to them are well-suited to drawing inferences on member behavior. Given their high party unity, these votes are likely to attract larger amounts of attention than other votes which occur in a Congress. However, they are also likely to be more important to the party and voting against the party on them could be damaging to the party's agenda. We believe that party calls are a beneficial metric for considering member behavior since they separate the role of party and ideology, as is necessary (Krehbiel, 1993; Lee, 2009). This separation of influence allows for much more thorough considerations of member behavior than do considerations of behavior of all votes as though decisions on them are equivalent.
 
-We know that members can reap benefits from parties (Lee, 2009) but that members who are perceived to be holding the interests of the party above those of their district are electorally punished (Canes-Wrone, Brady \& Cogan, 2002; Carson et al., 2010). Members' primary goal is to be reelected, since other goals cannot be achieved without this (Mayhew, 1974). Unsurprisingly, the behavior of Senators takes their district into much greater account when they approach reelection (Levitt, 1996). We view it as likely that member voting behavior would change in regard to party calls, but not other votes, because they can more clearly show on these votes that they are willing to take principled stands against their party.
+We know that members can reap benefits from parties (Lee, 2009) but that members who are perceived to be holding the interests of the party above those of their district are electorally punished (Canes-Wrone, Brady \& Cogan, 2002; Carson et al., 2010). Members' primary goal is to be reelected, since other goals cannot be achieved without this (Mayhew, 1974). Unsurprisingly, the behavior of Senators takes their district into much greater account when they approach reelection (Levitt, 1996). We view it as likely that member voting behavior would change in regard to party calls, but not other votes, because they can more clearly show on these votes that they are willing to take principled stands against their party. Such a change would not be expected in noncall votes, since members are already voting on these based primarily on personal preferences, something voters are likely to be pleased with.
 
 In the following section we show the results of our replication with a set of tests designed to further explore and explain Senator behavior as reelection approaches following it. Our extensions allow us to test the responsive extremists hypothesis in both chambers, with consideration of more recent Congresses which both chambers are held to have become more extreme. Additionally, the inclusion of the Senate allows for tests to be conducted based on proximity to reelection. We find that the responsive extremist hypothesis developed by Minozzi \& Volden holds in this expanded set of cases. Further, we find that Senators will vote along with the party on a couple fewer party calls in Congresses they are up for reelection than they would otherwise be expected to.
 
@@ -226,7 +231,7 @@ Regression analysis, with all member pooled or separated by party and majority s
 	\end{center}
 \end{table}
 
-In Table 2, we see strong evidence of differences between members up for reelection and others. Though it fails to meet traditional significance threshold for Democrats, across all subgroups this coefficient is negative. Finally, we show coefficient plots for ideological extremism in the House and Senate. 
+In Table 2, we see strong evidence of the predicted differences between members up for reelection and others. Across all subgroups this coefficient is negative, and the effect viewed is negative for all other than Democrats. Finally, we show coefficient plots for ideological extremism in the House and Senate. 
 
 \begin{figure}[H]
 	\centering
@@ -242,7 +247,7 @@ In Table 2, we see strong evidence of differences between members up for reelect
 	\fnote{This coefficient plot is produced by the same formula shown in the Senate regression table with results decomposed by individual Congresses for the Majority and Minority parties. Coefficients shown are for the effect of ideological extremism on party free votes in relation to party call votes. 50\% and 95\% confidence intervals are shown from the points.}
 \end{figure}
 
-Having shown that the results of Minozzi \& Volden (2013) hold in later Congresses as well as the Senate, we now move to illustrate the usefulness of considering party calls as an explanatory device for member behavior in relation to the party beyond their extremism. This is done by considering the behavior of Senators in Congresses which they are up for reelection. 
+We note that though ideological extremism is a significant predictor in the regression analyses which rely on all Congresses, it fails to achieve significance for all Congresses taken separately in the Senate. We are unsurprised by this since each party in a given Senate has far fewer members than does a party in the House. So, we remain confident that party calls are present in both chambers and behave in broadly similar ways. Having established this, we turn to the case of reelection in the Senate, which we see as a useful area to consider how members balance ideology and party preferences. The use of party call responsiveness provides results in line with our expectations for member behavior when approaching reelection.
 
 \subsection{Reelection in the Senate}
 
@@ -280,7 +285,9 @@ In this paper, we tested if members respond to party calls in the Senate as they
 
 \subsection{Appendix A: Detailing the New Sorting Algorithm}
 
-As was done by Minozzi \& Volden (2013) we develop an algorithm to sort votes based on the degree to whether vote choice can be significantly predicted by party or caucus membership after ideology is accounted for. In this algorithm, member ideology in one iteration is calculated on the votes which were not party calls in the previous iteration since party is accounting for some of the weight in decision on the other set. Ideology for the first iteration is calculated on votes which have more than 65\% or less than 35\% of members of the same party voting on a bill on the same side. The algorithm has a 15 iteration burn in period for each Congress. Once this has concluded, the algorithm continues either until the number of votes switched has hit a minimum and begun to climb or until there are fewer than 5 votes which switch between iterations. Once these conditions are met, it continues for 15 additional iterations, the last 5 of which are used to identify party calls and non calls. Any votes which switched between party calls and non party calls during the final 5 iterations are dropped from our analyses.
+As was done by Minozzi \& Volden (2013) we develop an algorithm to sort votes based on the degree to whether vote choice can be significantly predicted by party or caucus membership after ideology is accounted for. In this algorithm, member ideology in one iteration is calculated on the votes which were not party calls in the previous iteration since party is accounting for some of the weight in decision on the other set. Ideology for the first iteration is calculated on votes which have more than 65\% or less than 35\% of members of the chamber voting on the same side. The algorithm has a 15 iteration burn in period for each Congress. Once this has concluded, the algorithm continues either until the number of votes switched has hit a minimum and begun to climb or until there are fewer than 5 votes which switch between iterations. Once these conditions are met, it continues for 15 additional iterations, the last 5 of which are used to identify party calls and non calls. Any votes which switched between party calls and non party calls during the final 5 iterations are dropped from our analyses.
+
+One of the key changes was the use of the \verb|binIRT()| R function from the \verb|emIRT|in order to calculate members' party free ideology, replacing \verb|ideal()| which was used by Minozzi \& Volden. The \verb|binIRT()| function was developed by Imai, Lo \& Olmsted in order to produce estimates analagous to those of \verb|ideal()| with reduced computational taxation. We find both of these aims to be met.
 
 We find that the party call is not merely produced by a tradeoff of party and ideology explaining different votes; they are on the same side approximately two-thirds of the time in the House and three-fifths of the time in the Senate.
 
@@ -318,9 +325,7 @@ We find that the party call is not merely produced by a tradeoff of party and id
 \fnote{The party variable used in this analysis is an indicator for status as a Republican, and thus would be expected to correlate positively with ideal points.}
 \end{table}
 
-One of the key changes was the use of the \verb|emIRT()| R function as described in Imai, Lo \& Olmsted (2016) in order to obtain members' party free ideology. This function was developed by Imai and co-authors in order to produce estimates analagous to those of the \verb|ideal()| function developed by Clinton, Jackman \& Rivers (2004), which was used by Minozzi \& Volden (2013). A key advantage of this new function for estimation of member ideology is that it produces results with greatly reduced computation.
-
-We found that the lowered number of both members and bills in the Senate required a few changes to the vote sorting method. First, since p-values will necessarily be lower with fewer observations, we had to change the p-value threshold for party significance to 0.05 (from 0.01). Next, since the ideal point algorithm uses a logistic regression problems arose in vote sorting when we also tried to use a logistic regression in the Senate and changed to using a linear model. Neither change leads the sorting in the House to change drastically and we find that the sorting of votes based on whether they are close or lopsided mirrors that found in Minozzi \& Volden (2013) very closely.
+We found that the lowered number of both members and bills in the Senate required a few changes to the vote sorting method, however. Since $p$-values will necessarily be lower with fewer observations, we had to change the threshold for party calls to $p <$ 0.05 (from $p <$ 0.01). Next, since the ideal point algorithm uses a logistic regression, problems arose in vote sorting when we also tried to use another to sort vote type with this in the Senate. Neither change leads the sorting in the House to differ for the most part. We find that the sorting of close and lopsided votes by this method to be in line with Minozzi \& Volden's findings.
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Mon Mar 20 13:02:44 2017
@@ -336,6 +341,7 @@ We found that the lowered number of both members and bills in the Senate require
 		Close & 9308 & 1090 \\ 
 		\hline
 	\end{tabular}
+\fnote{The threshold for a vote to be lopsided was 65\% of members (or conversely, 35\%) voting on the same side of a roll call vote.}
 \end{table}
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
@@ -352,6 +358,7 @@ We found that the lowered number of both members and bills in the Senate require
 		Close & 5233 & 1851 \\ 
 		\hline
 	\end{tabular}
+\fnote{The threshold for a vote to be lopsided was 65\% of members (or conversely, 35\%) voting on the same side of a roll call vote.}
 \end{table}
 
 
@@ -368,9 +375,7 @@ We found that the lowered number of both members and bills in the Senate require
 
 \subsection{Appendix B: Methodology for Senate Reelection Section}
 
-In order to better test the role of reelection we use same-state senators as a natural pairing. We view this as an ideal pairing since they answer to the same possible set of voters and therefore should have similar preferences induced by proximity to reelection. The tests we performed on these pairs were generalizations of the difference in differences design in which the member not up for reelection had their response rate subtracted from that of the member who was up for reelection for the first figure in the paper and for the second members had the difference between their party call response rate and baseline rate of voting with the party subtracted from that of the other Senator from their state under the same conditions. 
-
-Here we show the effects in tables, along with breakdowns by seat pair type. We additionally show the results of a model with fixed effects by member and Congress. This produces substantively similar effects to those reported in the main paper on the effects of being up for reelection and changes in ideological extremism. This is presented as a robustness check for the results we present in the paper.
+In order to better test the role of reelection we use same-state senators as a natural pairing. These results were shown in figures 2 and 3 in the paper. The analyses we performed on these pairs were generalizations of the difference in differences design, in which the member not up for reelection had their response rate subtracted from that of the member who was up for reelection. Figure 2 showed the differences by vote type and figure 3 showed the change between vote types between these pairs. For each of these, we also performed analyses on Congresses which neither was up for reelection as a placebo test, with the ``treatment'' being based on which member was more senior. Here we show the results in tables, with breakdowns by seat pair type.
 
 % latex table generated in R 3.3.2 by xtable 1.8-2 package
 % Mon Mar 27 22:28:47 2017
@@ -380,7 +385,7 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 	\caption{Reelection and Response to Party Calls, Difference in Differences} 
 	\begin{tabular}{llrrr}
 		\hline
-		test & DV & Estimate & Lower\_Bound & Upper\_Bound \\ 
+		Test & DV & Estimate & Lower Bound & Upper Bound \\ 
 		\hline
 		Effect & pirate100 & -1.569 & -2.139 & -1.001 \\ 
 		Placebo & pirate100 & -0.331 & -1.281 & 1.259 \\ 
@@ -401,21 +406,21 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 		Test & DV & Estimate \\ 
 		\hline
 		2 Maj Dems Effect & pirate100 & 0.0708958 \\ 
-		2 Maj Dems Placebo & pirate100 & 0.0859113 \\ 
+		2 Maj Dems Placebo & pirate100 & -0.4769119 \\ 
 		2 Min Dems Effect & pirate100 & -1.8733904 \\ 
-		2 Min Dems Placebo & pirate100 & 0.1595294 \\ 
+		2 Min Dems Placebo & pirate100 & -1.2633351 \\ 
 		2 Maj Reps Effect & pirate100 & -1.1307379 \\ 
-		2 Maj Reps Placebo & pirate100 & 0.1677148 \\ 
+		2 Maj Reps Placebo & pirate100 & -2.2707921 \\ 
 		2 Min Reps Effect & pirate100 & 0.3990873 \\ 
-		2 Min Reps Placebo & pirate100 & -0.1514964 \\ 
+		2 Min Reps Placebo & pirate100 & -1.9947329 \\ 
 		Split, Maj Dem, Dem Effect & pirate100 & 3.8789004 \\ 
-		Split, Maj Dem, Dem Placebo & pirate100 & -40.3593458 \\ 
+		Split, Maj Dem, Dem Placebo & pirate100 & 0.7159106 \\ 
 		Split, Maj Dem, Rep Effect & pirate100 & -8.6767819 \\ 
-		Split, Maj Dem, Rep Placebo & pirate100 & -42.2647881 \\ 
+		Split, Maj Dem, Rep Placebo & pirate100 & -1.0729345 \\ 
 		Split, Maj Rep, Dem Effect & pirate100 & -8.0169523 \\ 
-		Split, Maj Rep, Dem Placebo & pirate100 & -42.4436232 \\ 
+		Split, Maj Rep, Dem Placebo & pirate100 & -2.1276690 \\ 
 		Split, Maj Rep, Rep Effect & pirate100 & 0.0096892 \\ 
-		Split, Maj Rep, Rep Placebo & pirate100 & -44.6050484 \\ 
+		Split, Maj Rep, Rep Placebo & pirate100 & 0.0232939 \\ 
 		\hline
 	\end{tabular}
 \end{table}
@@ -428,7 +433,7 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 	\caption{Reelection and Response to Party Calls, Difference in Differences} 
 	\begin{tabular}{llrrr}
 		\hline
-		test & DV & Estimate & Lower\_Bound & Upper\_Bound \\ 
+		test & DV & Estimate & Lower Bound & Upper Bound \\ 
 		\hline
 		Effect & pirate100 - pfrate100 & -1.272 & -1.775 & -0.794 \\ 
 		Placebo & pirate100 - pfrate100 & -0.292 & -0.904 & 0.935 \\ 
@@ -464,6 +469,8 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 		\hline
 	\end{tabular}
 \end{table}
+
+As a further test, not shown in the paper, we estimated the effect of reelection and other variables with a fixed effects model. This produces substantively similar effects to those reported in the main paper. Most notable to us is that the effect produced by being up for reelection is in line with findings shown in the main paper.
 
 \begin{table}[H]
 	\begin{center}
@@ -505,42 +512,45 @@ Here we show the effects in tables, along with breakdowns by seat pair type. We 
 \end{table}
 
 \subsection{Appendix C: Other Tables and Figures from Replication}
+
+In Minozzi \& Volden (2013), the regression table produced shows results in Congresses 97, 102, and 107 divided by party. Here, we produce the results from our analyses in the House of these chambers for ideological extremism\footnote{Since distance from floor median was not calculated for or used by any of our analyses, we do not replicate any of their analyses which use it}.
+
 \begin{table}
 	\begin{center}
-		\caption{Statistical models}
+		\caption{Replication of Minozzi \& Volden (2013), Table 3}
 		\begin{tabular}{l c c c c c c }
 			\hline
 			& \multicolumn{3}{c}{Democrats} & \multicolumn{3}{c}{Republicans} \\
 			\cline{2-7}
 			& 97th & 102nd & 107th & 97th & 102nd & 107th \\
 			\hline
-			ideological\_extremism & $9.27^{***}$  & $5.07^{***}$  & $-1.11$      & $5.21^{***}$ & $6.78^{***}$  & $-0.20$       \\
+			Ideological Extremism & $9.27^{***}$  & $5.07^{***}$  & $-1.11$      & $5.21^{***}$ & $6.78^{***}$  & $-0.20$       \\
 			& $(0.53)$      & $(0.69)$      & $(1.50)$     & $(0.71)$     & $(0.76)$      & $(0.61)$      \\
-			pfrate100              & $1.03^{***}$  & $0.67^{***}$  & $1.11^{**}$  & $0.50^{***}$ & $0.48^{***}$  & $0.35^{**}$   \\
+			Baseline Rate of Voting with Party              & $1.03^{***}$  & $0.67^{***}$  & $1.11^{**}$  & $0.50^{***}$ & $0.48^{***}$  & $0.35^{**}$   \\
 			& $(0.07)$      & $(0.08)$      & $(0.36)$     & $(0.08)$     & $(0.08)$      & $(0.11)$      \\
-			pres\_votepct          & $0.15^{**}$   & $0.14^{**}$   & $0.22^{***}$ & $0.23^{***}$ & $0.21^{*}$    & $0.18^{***}$  \\
+			Presidential Vote Share          & $0.15^{**}$   & $0.14^{**}$   & $0.22^{***}$ & $0.23^{***}$ & $0.21^{*}$    & $0.18^{***}$  \\
 			& $(0.05)$      & $(0.05)$      & $(0.06)$     & $(0.07)$     & $(0.08)$      & $(0.03)$      \\
-			south                  & $-4.20^{***}$ & $-1.31$       & $-3.13^{*}$  & $1.53$       & $0.07$        & $1.75^{***}$  \\
+			South                  & $-4.20^{***}$ & $-1.31$       & $-3.13^{*}$  & $1.53$       & $0.07$        & $1.75^{***}$  \\
 			& $(1.02)$      & $(0.80)$      & $(1.28)$     & $(1.19)$     & $(1.22)$      & $(0.52)$      \\
-			votepct                & $-0.08^{*}$   & $-0.03$       & $-0.04$      & $0.05$       & $-0.00$       & $-0.03$       \\
+			Vote Percent                & $-0.08^{*}$   & $-0.03$       & $-0.04$      & $0.05$       & $-0.00$       & $-0.03$       \\
 			& $(0.03)$      & $(0.03)$      & $(0.05)$     & $(0.05)$     & $(0.03)$      & $(0.02)$      \\
-			female                 & $0.05$        & $-1.58$       & $2.44^{*}$   & $-4.21^{*}$  & $-1.87$       & $-1.39$       \\
+			Female                 & $0.05$        & $-1.58$       & $2.44^{*}$   & $-4.21^{*}$  & $-1.87$       & $-1.39$       \\
 			& $(2.06)$      & $(1.22)$      & $(1.21)$     & $(2.00)$     & $(2.25)$      & $(0.83)$      \\
-			afam                   & $-2.56$       & $-1.98$       & $-1.43$      &              & $3.95$        & $-3.54$       \\
+			African American                   & $-2.56$       & $-1.98$       & $-1.43$      &              & $3.95$        & $-3.54$       \\
 			& $(2.12)$      & $(1.58)$      & $(1.73)$     &              & $(6.14)$      & $(3.57)$      \\
-			latino                 & $4.02$        & $2.79$        & $0.69$       & $-1.28$      & $3.26$        & $0.79$        \\
+			Latino                 & $4.02$        & $2.79$        & $0.69$       & $-1.28$      & $3.26$        & $0.79$        \\
 			& $(2.91)$      & $(1.90)$      & $(1.89)$     & $(5.75)$     & $(6.35)$      & $(1.50)$      \\
-			seniority              & $0.08$        & $0.07$        & $-0.11$      & $-0.02$      & $-0.71^{***}$ & $-0.17^{*}$   \\
+			Seniority              & $0.08$        & $0.07$        & $-0.11$      & $-0.02$      & $-0.71^{***}$ & $-0.17^{*}$   \\
 			& $(0.12)$      & $(0.10)$      & $(0.13)$     & $(0.17)$     & $(0.15)$      & $(0.08)$      \\
-			freshman               & $-1.25$       & $0.01$        & $-0.13$      & $3.45^{*}$   & $3.76^{*}$    & $0.59$        \\
+			Freshman               & $-1.25$       & $0.01$        & $-0.13$      & $3.45^{*}$   & $3.76^{*}$    & $0.59$        \\
 			& $(1.43)$      & $(1.19)$      & $(2.02)$     & $(1.34)$     & $(1.77)$      & $(0.78)$      \\
-			bestgrosswart          & $0.09$        & $-0.06$       & $0.25^{*}$   & $0.11$       & $0.11$        & $0.17^{**}$   \\
+			Best Committee          & $0.09$        & $-0.06$       & $0.25^{*}$   & $0.11$       & $0.11$        & $0.17^{**}$   \\
 			& $(0.08)$      & $(0.08)$      & $(0.10)$     & $(0.09)$     & $(0.11)$      & $(0.05)$      \\
-			leader                 & $7.02^{*}$    & $2.00$        & $0.56$       & $0.38$       & $4.26$        & $3.17^{*}$    \\
+			Party Leader                 & $7.02^{*}$    & $2.00$        & $0.56$       & $0.38$       & $4.26$        & $3.17^{*}$    \\
 			& $(2.87)$      & $(1.95)$      & $(2.42)$     & $(2.42)$     & $(2.24)$      & $(1.23)$      \\
-			power                  & $1.09$        & $1.44$        & $-1.23$      & $-1.37$      & $-0.03$       & $-0.21$       \\
+			Power Committee                  & $1.09$        & $1.44$        & $-1.23$      & $-1.37$      & $-0.03$       & $-0.21$       \\
 			& $(1.02)$      & $(0.90)$      & $(1.31)$     & $(1.35)$     & $(1.41)$      & $(0.63)$      \\
-			chair                  & $2.61$        & $1.31$        &              &              &               & $1.30$        \\
+			Committee Chair                  & $2.61$        & $1.31$        &              &              &               & $1.30$        \\
 			& $(1.52)$      & $(1.35)$      &              &              &               & $(0.91)$      \\
 			(Intercept)            & $-18.03^{**}$ & $25.29^{***}$ & $-33.70$     & $11.17$      & $23.11^{**}$  & $47.81^{***}$ \\
 			& $(6.71)$      & $(7.32)$      & $(35.43)$    & $(8.06)$     & $(8.49)$      & $(10.27)$     \\

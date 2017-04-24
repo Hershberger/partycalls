@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  23 APR 2017 19:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  23 APR 2017 20:07
 entering extended mode
 **update_26apr.tex
 (update_26apr.tex
@@ -467,35 +467,35 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
  [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
-LaTeX Font Info:    Try loading font information for U+msa on input line 107.
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+LaTeX Font Info:    Try loading font information for U+msa on input line 98.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 107.
+LaTeX Font Info:    Try loading font information for U+msb on input line 98.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [4]
+) [3] [4]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.pdf, 
-id=79, 462.72874pt x 268.00125pt>
+id=77, 462.72874pt x 268.00125pt>
 File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.
 pdf Graphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.p
 df>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party
-_call_percent_both.pdf used on input line 115.
+_call_percent_both.pdf used on input line 120.
 (pdftex.def)             Requested size: 469.75502pt x 272.07358pt.
  [5 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.p
 df>]
-Overfull \hbox (20.47058pt too wide) in paragraph at lines 127--169
+Overfull \hbox (20.47058pt too wide) in paragraph at lines 132--174
  [] 
  []
 
 [6]
-Overfull \hbox (9.37996pt too wide) in paragraph at lines 179--225
+Overfull \hbox (9.37996pt too wide) in paragraph at lines 184--230
  [] 
  []
 
@@ -512,7 +512,7 @@ ation_lm.pdf Graphic file (type pdf)
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replica
 tion_lm.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-h
-eeds-figure2-replication_lm.pdf used on input line 234.
+eeds-figure2-replication_lm.pdf used on input line 239.
 (pdftex.def)             Requested size: 199.16928pt x 398.33975pt.
 
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf, id=112
@@ -522,7 +522,7 @@ aphic file (type pdf)
 
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-figure2-lm.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-figure2-lm.pdf used on input line 241.
+e-figure2-lm.pdf used on input line 246.
 (pdftex.def)             Requested size: 199.16928pt x 398.33975pt.
 
 [9 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/who-heeds-figure2-replicat
@@ -536,7 +536,7 @@ f-separate.pdf Graphic file (type pdf)
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff
 -separate.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-diff-in-diff-coeff-separate.pdf used on input line 256.
+e-diff-in-diff-coeff-separate.pdf used on input line 261.
 (pdftex.def)             Requested size: 284.52756pt x 284.54036pt.
  [11]
 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff.pdf
@@ -547,7 +547,7 @@ f.pdf Graphic file (type pdf)
 <use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coeff
 .pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e-diff-in-diff-coeff.pdf used on input line 263.
+e-diff-in-diff-coeff.pdf used on input line 268.
 (pdftex.def)             Requested size: 284.52756pt x 284.54036pt.
  [12 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-diff-in-diff-coef
 f-separate.pdf>] [13 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate-d
@@ -556,24 +556,28 @@ Overfull \vbox (36.60156pt too high) has occurred while \output is active []
 
 
 [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 612.
- [21] [22]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 612.
+Overfull \hbox (34.9466pt too wide) in paragraph at lines 521--565
+ [] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 622.
+[21] [22]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 622.
  (update_26apr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 612.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 612.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 622.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 622.
 Package rerunfilecheck Info: File `update_26apr.out' has not changed.
 (rerunfilecheck)             Checksum: 370CB77194F5D3F7D4B9F97C7BD2C59F;842.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 612.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 622.
  ) 
 Here is how much of TeX's memory you used:
  8240 strings out of 493698
- 121855 string characters out of 3144412
+ 121848 string characters out of 3144412
  234187 words of memory out of 3000000
- 11385 multiletter control sequences out of 15000+200000
+ 11384 multiletter control sequences out of 15000+200000
  19705 words of font info for 73 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,10n,38p,1143b,430s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,10n,38p,1130b,430s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKT
@@ -586,9 +590,9 @@ b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on update_26apr.pdf (22 pages, 216256 bytes).
+Output written on update_26apr.pdf (22 pages, 222567 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 58 named destinations out of 1000 (max. 500000)
+ 279 PDF objects out of 1000 (max. 8388607)
+ 59 named destinations out of 1000 (max. 500000)
  122 words of extra memory for PDF output out of 10000 (max. 10000000)
 
