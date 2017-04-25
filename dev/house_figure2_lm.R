@@ -6,6 +6,9 @@ options(stringsAsFactors = FALSE)
 # load data for analysis
 load("test_data/new_whoheeds13_lm.RData")
 new_whoheeds13 <- new_whoheeds13[drop == 0, ]
+new_whoheeds13[, vote_share := vote_share - mean(vote_share, na.rm = TRUE)]
+new_whoheeds13[is.na(vote_share) == TRUE, vote_share := 0]
+
 # whoheeds13 <- readstata13::read.dta13(
 #   "inst/extdata/who-heeds-replication-archive.dta")
 # setDT(whoheeds13)
@@ -15,7 +18,7 @@ new_whoheeds13 <- new_whoheeds13[drop == 0, ]
 # new_whoheeds13 <- merge(new_whoheeds13, whoheeds13, by = c("congress", "icpsr"))
 
 f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + pres_votepct + south + votepct + female + afam + latino +
+  pfrate100 + pres_vote_share + south + vote_share + female + afam + latino +
   seniority + freshman + bestgrosswart + leader +
   power + chair
 fm_extremism <- function(i, j) {
@@ -44,7 +47,7 @@ y.ticks <- c(-12, 0, 12)
 
 b <- B$extremism_maj#[-12]
 se <- SE$extremism_maj#[-12]
-plot(0, 0, type='n', ylim=c(-4, 20), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-4, 21), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Majority")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
@@ -56,7 +59,7 @@ segments(x, b - qnorm(.975) * se, x, b+qnorm(.975)*se, lwd=.9)
 
 b <- B$extremism_min#[-12]
 se <- SE$extremism_min#[-12]
-plot(0, 0, type='n', ylim=c(-4, 20), xlim=c(93, 112),
+plot(0, 0, type='n', ylim=c(-4, 21), xlim=c(93, 112),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)

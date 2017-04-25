@@ -261,6 +261,12 @@ new_whoheeds13[is.na(party_free_ideal_point) == TRUE, drop := 1]
 new_whoheeds13[, `:=`(c("fips", "statename", "dvp", "po1", "po2.",
   "state_alphabetical_order"), NULL)]
 
+# drop appointees
+new_whoheeds13[is.na(votepct) == TRUE, drop := 1]
+
+# party changers and special elections miscoded; correct them
+new_whoheeds13[vote_share < 50 & drop == 0, vote_share := 100 - vote_share]
+
 save(new_whoheeds13,
   file = "test_data/new_whoheeds13_lm.RData")
 
