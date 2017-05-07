@@ -46,7 +46,8 @@ senate_coding_record[congress %in% c(93:96, 100:103, 107, 110:112),
 
 
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
-  tr = up_for_reelection, y = pirate100 - pfrate, y1 = pirate100, y2 = pfrate100)]
+  tr = up_for_reelection, y = pirate100 - pfrate100,
+  y1 = pirate100, y2 = pfrate100)]
 setorder(DATA, stabb, congress, class)
 DATA <- merge(DATA,
   DATA[, .N, .(stabb, congress)],
@@ -306,7 +307,7 @@ hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls
   geom_point(aes(shape = as.factor(majority))) +
   scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
   scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
-  geom_smooth(method = "lm", se = FALSE) +
+  # geom_smooth(method = "lm", se = FALSE) +
   theme_classic()
 sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_calls,
   color = as.factor(majority))) +
@@ -317,7 +318,7 @@ sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_call
   geom_point(aes(shape = as.factor(majority))) +
   scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
   scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
-  geom_smooth(method = "lm", se = FALSE) +
+  # geom_smooth(method = "lm", se = FALSE) +
   theme_classic()
 fig3 <- arrangeGrob(hou_record_plot, sen_record_plot, ncol = 2)
 ggsave("plots/party_call_percent_both.pdf", fig3)

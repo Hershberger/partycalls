@@ -9,11 +9,10 @@ senate_data <- senate_data[drop == 0, ]
 senate_data[, vote_share := vote_share * 100]
 senate_data[, pres_vote_share := pres_vote_share * 100]
 
-f_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + pres_vote_share + south + vote_share +
-  female + afam + latino + up_for_reelection +
-  seniority + freshman + retiree + best_committee + leader +
-  power_committee + chair
+f_extremism <- pirate100 ~ ideological_extremism +   pfrate100 +
+  vote_share + pres_vote_share + up_for_reelection + retiree +
+  leader + chair + power + bestgrosswart +  female + afam + latino + south +
+  south + seniority + freshman
 
 texreg::screenreg(list(lm(f_extremism, senate_data[caucus == "Democrat" ]),
   lm(f_extremism, senate_data[caucus == "Republican"]),
