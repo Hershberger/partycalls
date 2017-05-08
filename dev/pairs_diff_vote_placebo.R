@@ -200,7 +200,7 @@ naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect_pi, .75)],
   boots[, quantile(boot_effect_pf, .75)],
   boots[, quantile(boot_placebo_pf, .75)])]
 
-pdf(file="plots/senate-diff-in-diff-coeff-vote-placebo.pdf", ## RENAME
+pdf(file="plots/senate-diff-coeff-vote-placebo.pdf", ## RENAME
   width = 4, height = 4, family = "Times")
 
 plot(0, 0, type='n', ylim=c(-2.25, 2.5), xlim=c(0.5, 4.5),

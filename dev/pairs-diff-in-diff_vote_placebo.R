@@ -5,7 +5,7 @@ load("test_data/senate_data_lm.RData")
 
 # select variables needed
 DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
-  seniority, tr = up_for_reelection, y = pirate100 - pfrate100)]
+  votes, tr = up_for_reelection, y = pirate100 - pfrate100)]
 setorder(DATA, stabb, congress, class)
 
 # make dems majority for congress 107
@@ -82,7 +82,7 @@ effect <- DATA[mean_tr == .5,
   sum(tr * y) - sum((1 - tr) * y), .(stabb, congress)][,
     mean(V1)]
 placebo <- DATA[mean_tr == 0,
-  sum((seniority > mean(seniority)) * y) - sum((seniority < mean(seniority)) * y),
+  sum((votes < mean(votes)) * y) - sum((votes > mean(votes)) * y),
   .(stabb, congress)][,
     mean(V1)]
 
@@ -101,7 +101,7 @@ boot <- function(i) {
     sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
       mean(V1)]
   boot_placebo <- boot_DATA[mean_tr == 0,
-    sum((seniority > mean(seniority)) * y) - sum((seniority < mean(seniority)) * y),
+    sum((votes < mean(votes)) * y) - sum((votes > mean(votes)) * y),
     .(boot_id, congress)][,
       mean(V1)]
   data.table(boot_effect, boot_placebo)
@@ -118,14 +118,14 @@ naive_difference <- data.table(test = c("Effect", "Placebo"),
 )
 
 DATA[, stabb_congress := paste(stabb, congress)]
-summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
-  DATA[mean_tr == .5]))
-summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
-  DATA[mean_tr == 0]))
-
-summary(lfe::felm(y ~ tr + factor(seat_pair_type) |
-    stabb_congress | 0 | stabb_congress,
-  DATA))
+# summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
+#   DATA[mean_tr == .5]))
+# summary(lfe::felm(y ~ tr | stabb_congress | 0 | stabb_congress,
+#   DATA[mean_tr == 0]))
+#
+# summary(lfe::felm(y ~ tr + factor(seat_pair_type) |
+#     stabb_congress | 0 | stabb_congress,
+#   DATA))
 
 
 DATA_1 <- DATA[tr == 1]
@@ -138,7 +138,8 @@ seat_type_effect <- DATA[mean_tr == .5, sum(tr * y) - sum((1 - tr) * y),
 setnames(seat_type_effect, "V1", "effect")
 seat_type_effect
 
-seat_type_placebo <- DATA[, sum((seniority > mean(seniority)) * y) - sum(((seniority) <= mean(seniority)) * y),
+seat_type_placebo <- DATA[, sum((votes < mean(votes)) * y) -
+    sum(((votes) > mean(votes)) * y),
   .(stabb, congress, seat_pair_type)][, mean(V1), .(seat_pair_type)]
 setnames(seat_type_placebo, "V1", "placebo")
 seat_type_placebo
@@ -192,14 +193,14 @@ naive_difference[, Lower_Bound_50 := c(boots[, quantile(boot_effect, .25)],
 naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect, .75)],
   boots[, quantile(boot_placebo, .75)])]
 
-pdf(file="plots/senate-diff-in-diff-coeff.pdf", ## RENAME
+pdf(file="plots/senate_diff_in_diff_vote_placebo.pdf", ## RENAME
   width = 4, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-1.8, 1), xlim=c(-0.5, 1.5),
+plot(0, 0, type='n', ylim=c(-1.8, 1.8), xlim=c(-0.5, 1.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, naive_difference$position, cex.axis = 1.1,
   labels = c("Reelection Treatment", "Placebo"))
-axis(2, c(-1.5, -1, -0.5, 0, 0.5), cex.axis = 1.1, labels = TRUE)
+axis(2, c(-1.5, -1, -0.5, 0, 0.5, 1, 1.5), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
 title(main="Party Call Rate Difference from Baseline",
   cex.main=1, line=0.75, font.main=2)
