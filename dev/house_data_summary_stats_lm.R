@@ -2,6 +2,8 @@ library(partycalls)
 load("test_data/new_whoheeds13_lm.RData")
 
 new_whoheeds13 <- new_whoheeds13[drop == 0,]
+new_whoheeds13[, vote_share := vote_share - mean(vote_share, na.rm = TRUE)]
+new_whoheeds13[is.na(vote_share) == TRUE, vote_share := 0]
 
 house_dem <- new_whoheeds13[dem == 1, ]
 house_rep <- new_whoheeds13[dem == 0, ]

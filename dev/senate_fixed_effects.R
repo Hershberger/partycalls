@@ -7,6 +7,14 @@ senate_data <- senate_data[drop == 0, ]
 senate_data[, vote_share := vote_share * 100]
 senate_data[, pres_vote_share := pres_vote_share * 100]
 
+senate_data[congress == 107 & caucus == "Democrat", maj := 1]
+senate_data[congress == 107 & caucus == "Republican", maj := 0]
+
+mod_a <- felm(pirate100 ~ ideological_extremism + pfrate100 + vote_share +
+    pres_vote_share + freshman + retiree  + best_committee + up_for_reelection +
+    power_committee + leader + chair | icpsrLegis + congress | 0 | icpsrLegis,
+  senate_data)
+
 mod1 <- felm(pirate100 ~ ideological_extremism + pfrate100 + vote_share +
   pres_vote_share + freshman + retiree  + best_committee + up_for_reelection +
   power_committee + leader + chair | icpsrLegis + congress | 0 | icpsrLegis,
@@ -27,8 +35,8 @@ mod4 <- felm(pirate100 ~ ideological_extremism + pfrate100 + vote_share +
   power_committee + leader | icpsrLegis + congress | 0 | icpsrLegis,
   senate_data[maj == 0])
 
-texreg::screenreg(list(mod1, mod2, mod3, mod4),
+texreg::screenreg(list(mod_a, mod1, mod2, mod3, mod4),
   reorder.coef = c(1:2, 8, 3:7, 9:11))
 
-texreg::texreg(list(mod1, mod2, mod3, mod4),
+texreg::texreg(list(mod_a, mod1, mod2, mod3, mod4),
   reorder.coef = c(1:2, 8, 3:7, 9:11))
