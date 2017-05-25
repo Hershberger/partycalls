@@ -70,7 +70,7 @@ differences <- data.table(test = c("Party Call Difference",
 
 difference_tex <- xtable(differences, auto = TRUE,
   caption = "Reelection and Response to Party Calls, Same-State Senator Differences",
-  digits = c(3, 3, 3, 3, 3, 3))
+  digits = c(3, 3, 3, 3, 3))
 print(difference_tex, include.rownames = FALSE,
   table.placement = "H", caption.placement = "top")
 
@@ -78,28 +78,21 @@ print(difference_tex, include.rownames = FALSE,
 differences[, position := 0]
 differences[test == "Party Free Difference", position := 1]
 differences[test == "Difference in Differences", position := 2]
-differences[, Lower_Bound_50 := c(boots[, quantile(boot_diff_pi, .25)],
-  boots[, quantile(boot_diff_pf, .25)],
-  boots[, quantile(boot_diff_in, .25)])]
-differences[, Upper_Bound_50 := c(boots[, quantile(boot_diff_pi, .75)],
-  boots[, quantile(boot_diff_pf, .75)],
-  boots[, quantile(boot_diff_in, .75)])]
+
 
 pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
   width = 5, height = 4, family = "Times")
 
 plot(0, 0, type='n', ylim=c(-2.1, .2), xlim=c(-0.5, 2.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
-axis(1, differences$position, cex.axis =.5,
-  labels = c("Party Call Rate", "Baseline", "Difference-in-Diffferences"))
+axis(1, differences$position, cex.axis =.8,
+  labels = c("Party Call Rate", "Baseline", "Party Call - Baseline"))
 axis(2, c(-2, -1.5, -1, -0.5, 0), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
 title(main="Same-State Pair Differences, Reelection Treatment",
   cex.main=.8, line=0.75, font.main=2)
 points(differences$position, differences$Estimate,
   pch=19, col="black", cex=.8)
-segments(differences$position, differences$Lower_Bound_50,
-  differences$position,  differences$Upper_Bound_50, lwd = 2.5)
 segments(differences$position, differences$Lower_Bound,
   differences$position,  differences$Upper_Bound, lwd = 1)
 
