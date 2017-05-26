@@ -14,17 +14,6 @@
   editor =    {Campbell, Colton C. and Rae, Nicol C.}
 }
 
-@Article{Canes-Wrone:2002,
-  author =  {Canes-Wrone, Brandice and Brady, David W. and Cogan, John F.},
-  title =   {Out of Step, Out of Office: Electoral Accountability and House Members' Voting},
-  journal = {American Political Science Review},
-  year =    {2002},
-  volume =  {96},
-  number =  {1},
-  pages =   {127-140},
-  month =   {March}
-}
-
 @Article{Carson:2010,
   author =  {Carson, Jamie L. and Koger, Gregory and Lebo, Matthew J. and Young, Everett},
   title =   {The Electoral Costs of Party Loyalty},
@@ -193,13 +182,6 @@
   volume =  {18},
   pages =   {261-282},
   month =   {May}
-}
-
-@Book{Lee:2016,
-  title =     {Insecure Majoirties: Congress and the Perpetual Campaign},
-  publisher = {University of Chicago Press},
-  year =      {2016},
-  author =    {Lee, Frances E.}
 }
 
 @Article{Levitt:1995,
@@ -389,13 +371,6 @@
   month =   {July}
 }
 
-@Book{Smith:2014,
-  title =     {The Senate Syndrome: The Evolution of Procedural Warfare in the Modern U.S. Senate},
-  publisher = {University of Oklahoma Press},
-  year =      {2014},
-  author =    {Smith, Steven S.}
-}
-
 @Article{Snyder:2000,
   author =  {Snyder, James M. Jr. and Groseclose, Tim},
   title =   {Estimating Party Influence in Congressional Roll-Call Voting},
@@ -423,17 +398,6 @@
   publisher = {Oxford University Press},
   year =      {2013},
   author =    {Theriault, Sean M}
-}
-
-@Article{Volden:2013,
-  author =  {Volden, Craig and Wiseman, Alan E. and Wittmer, Dana E.},
-  title =   {When Are Women More Effective Lawmakers Than Men?},
-  journal = {American Journal of Political Science},
-  year =    {2013},
-  volume =  {57},
-  number =  {2},
-  pages =   {326-341},
-  month =   {April}
 }
 
 @Article{Wiseman:2008,

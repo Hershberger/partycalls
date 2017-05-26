@@ -160,13 +160,13 @@ diff_2_1 = data.table(
 
 difference_3_2_tex <- xtable(diff_3_2, auto = TRUE,
   caption = "Differences Between Same-State Senators in 3rd and 2nd Congress in Term",
-  digits = c(3, 3, 3, 3, 3))
+  digits = c(3, 3, 3, 3, 3, 3))
 difference_3_1_tex <- xtable(diff_3_1, auto = TRUE,
   caption = "Differences Between Same-State Senators in  3rd and 1st Congress in Term",
-  digits = c(3, 3, 3, 3, 3))
+  digits = c(3, 3, 3, 3, 3, 3))
 difference_2_1_tex <- xtable(diff_2_1, auto = TRUE,
   caption = "Differences Between Same-State Senators in  2nd and 1st Congress in Term",
-  digits = c(3, 3, 3, 3, 3))
+  digits = c(3, 3, 3, 3, 3, 3))
 
 print(difference_3_2_tex, include.rownames = FALSE,
   table.placement = "H", caption.placement = "top")

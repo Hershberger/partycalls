@@ -86,7 +86,7 @@ pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
 plot(0, 0, type='n', ylim=c(-2.1, .2), xlim=c(-0.5, 2.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, differences$position, cex.axis =.8,
-  labels = c("Party Call Rate", "Baseline", "Party Call - Baseline"))
+  labels = c("Party Call Rate", "Baseline Rate", "Party Call - Baseline"))
 axis(2, c(-2, -1.5, -1, -0.5, 0), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
 title(main="Same-State Pair Differences, Reelection Treatment",
