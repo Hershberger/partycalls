@@ -13,24 +13,22 @@ senate_data[, pres_vote_share := pres_vote_share * 100]
 setnames(new_whoheeds13, c("bestgrosswart", "power"),
   c("best_committee", "power_committee"))
 
-hou_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 +
-  pres_vote_share + vote_share + south +
-  female + afam + latino +
-  seniority + freshman + best_committee + leader +
-  power_committee + chair
+hou_extremism <- pirate100 ~ ideological_extremism +  pfrate100 + vote_share +
+  pres_vote_share + leader +  chair + power_committee + best_committee +
+  female + afam + latino + south + seniority + freshman
 
-sen_extremism <- pirate100 ~ ideological_extremism +
-  pfrate100 + up_for_reelection +
-  pres_vote_share + vote_share + south +
-  female + afam + latino +
-  seniority + freshman + retiree + best_committee + leader +
-  power_committee + chair
+sen_extremism <- pirate100 ~ ideological_extremism +  pfrate100 + vote_share +
+  pres_vote_share + leader +  chair + power_committee + best_committee +
+  female + afam + latino + south + seniority + freshman + up_for_reelection
 
 texreg::screenreg(list(lm(hou_extremism, new_whoheeds13),
+  lm(hou_extremism, senate_data),
   lm(sen_extremism, senate_data)),
-  reorder.coef = c(2:17, 1))
+  reorder.coef = c(2:16, 1))
 
 texreg::texreg(list(lm(hou_extremism, new_whoheeds13),
+  lm(hou_extremism, senate_data),
   lm(sen_extremism, senate_data)),
-  reorder.coef = c(2:17, 1))
+  reorder.coef = c(2:16, 1))
+
+texreg::texreg(lm(sen_extremism2, senate_data))

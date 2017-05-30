@@ -83,7 +83,7 @@ differences[test == "Difference in Differences", position := 2]
 pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
   width = 5, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-2.1, .2), xlim=c(-0.5, 2.5),
+plot(0, 0, type='n', ylim=c(-2.2, .3), xlim=c(-0.5, 2.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, differences$position, cex.axis =.8,
   labels = c("Party Call Rate", "Baseline Rate", "Party Call - Baseline"))

@@ -602,6 +602,7 @@ senator_year_data[(class == 1 & congress %in% seq(1, 120, 3)) |
     (class == 2 & congress %in% seq(2, 120, 3)) |
     (class == 3 & congress %in% seq(3, 120, 3)),
   up_for_reelection := 1]
+senator_year_data[retiree == 1, up_for_reelection := 0]
 
 # select variables to keep
 senator_year_data <- senator_year_data[, .(
