@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  7 JUN 2017 10:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.3.29)  6 JUN 2017 13:01
 entering extended mode
-**senate_party_calls_draft10.tex
-(senate_party_calls_draft10.tex
+**update_07june.tex
+(update_07june.tex
 LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 68 languages loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -377,11 +377,7 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: subfigure package is loaded.
 )
-(senate_party_calls_draft10.aux
-
-LaTeX Warning: Label `' multiply defined.
-
-)
+(update_07june.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
@@ -424,7 +420,7 @@ LaTeX Info: Redefining \ref on input line 16.
 LaTeX Info: Redefining \pageref on input line 16.
 LaTeX Info: Redefining \nameref on input line 16.
 
-(senate_party_calls_draft10.out) (senate_party_calls_draft10.out)
+(update_07june.out) (update_07june.out)
 \@outlinefile=\write3
 
 *geometry* driver: auto-detecting
@@ -463,119 +459,101 @@ LaTeX Info: Redefining \nameref on input line 16.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 24.
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 24.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 24.
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 24.
+ [1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/diff_in_class_pair_retirees_i
+ncluded.pdf, id=19, 433.62pt x 289.08pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/diff_in_class_pair_retir
+ees_included.pdf Graphic file (type pdf)
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]pdfTeX warning (ext4): des
-tination with the same identifier (name{page.1}) has been already used, duplica
-te ignored
-<to be read again> 
-                   \relax 
-l.48 
-      [1]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.pdf, 
-id=68, 522.95375pt x 268.00125pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.
-pdf Graphic file (type pdf)
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/diff_in_class_pair_retire
+es_included.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/diff_
+in_class_pair_retirees_included.pdf used on input line 43.
+(pdftex.def)             Requested size: 341.43306pt x 227.63405pt.
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_both.p
-df>
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/party
-_call_percent_both.pdf used on input line 61.
-(pdftex.def)             Requested size: 469.75502pt x 240.74496pt.
- [2] [3 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/party_call_percent_bo
-th.pdf>] [4] [5]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-chambers-figure2.pdf, id
-=117, 578.16pt x 578.16pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-chambers-figure2.pd
-f Graphic file (type pdf)
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_diff_pairs.pdf, id=20,
+ 433.62pt x 289.08pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_diff_pairs.pdf Gr
+aphic file (type pdf)
 
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-chambers-figure2.pdf
->
-Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-
-chambers-figure2.pdf used on input line 129.
-(pdftex.def)             Requested size: 341.43306pt x 341.42903pt.
- [6 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-chambers-figure2.pdf
->]
-<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_difference_estimates.p
-df, id=135, 361.35pt x 289.08pt>
-File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_difference_estima
-tes.pdf Graphic file (type pdf)
-
-<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_difference_estimat
-es.pdf>
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_diff_pairs.pdf>
 Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
-e_difference_estimates.pdf used on input line 144.
-(pdftex.def)             Requested size: 341.43306pt x 273.14674pt.
- [7] [8 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_difference_est
-imates.pdf>] (senate_party_calls_draft10.bbl [9]) [10] [11] [12]
-Overfull \hbox (33.79933pt too wide) in paragraph at lines 267--300
- [] 
- []
+e_diff_pairs.pdf used on input line 50.
+(pdftex.def)             Requested size: 341.43306pt x 227.63405pt.
 
-[13] [14] [15] [16] [17] [18]
-Overfull \hbox (23.81642pt too wide) in paragraph at lines 536--578
- [] 
- []
+[2 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/diff_in_class_pair_retiree
+s_included.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_robust_se.p
+df, id=35, 433.62pt x 289.08pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_robust
+_se.pdf Graphic file (type pdf)
 
-[19]
-Overfull \hbox (12.7258pt too wide) in paragraph at lines 588--634
- [] 
- []
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_robust_
+se.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_reelection_robust_se.pdf used on input line 57.
+(pdftex.def)             Requested size: 341.43306pt x 227.63405pt.
+ [3 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_diff_pairs.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interaction
+_pi_robust_se.pdf, id=48, 433.62pt x 289.08pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_intera
+ction_pi_robust_se.pdf Graphic file (type pdf)
 
-[20]
-Overfull \vbox (13.5696pt too high) has occurred while \output is active []
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interac
+tion_pi_robust_se.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_reelection_interaction_pi_robust_se.pdf used on input line 64.
+(pdftex.def)             Requested size: 341.43306pt x 227.63405pt.
+ [4 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_robust_
+se.pdf>]
+<C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interaction
+_pf_robust_se.pdf, id=61, 433.62pt x 289.08pt>
+File: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_intera
+ction_pf_robust_se.pdf Graphic file (type pdf)
 
+<use C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interac
+tion_pf_robust_se.pdf>
+Package pdftex.def Info: C:/Users/Ethan/Documents/GitHub/partycalls/plots/senat
+e_reelection_interaction_pf_robust_se.pdf used on input line 71.
+(pdftex.def)             Requested size: 341.43306pt x 227.63405pt.
+ [5 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interac
+tion_pi_robust_se.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 78.
+ [6 <C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_reelection_interac
+tion_pf_robust_se.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 78.
 
-[21]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 685.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 685.
- (senate_party_calls_draft10.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 685.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 685.
-Package rerunfilecheck Info: File `senate_party_calls_draft10.out' has not chan
-ged.
-(rerunfilecheck)             Checksum: 9AF5E665697693BA2C85F59D39859411;312.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 685.
+(update_07june.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 78.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 78.
+Package rerunfilecheck Info: File `update_07june.out' has not changed.
+(rerunfilecheck)             Checksum: CF4B6BAD564B395CDC0CA0AEDD990FD2;114.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 78.
  ) 
 Here is how much of TeX's memory you used:
- 8253 strings out of 493698
- 121789 string characters out of 3144412
- 234187 words of memory out of 3000000
- 11398 multiletter control sequences out of 15000+200000
- 22211 words of font info for 82 fonts, out of 3000000 for 9000
+ 8086 strings out of 493698
+ 120134 string characters out of 3144412
+ 212187 words of memory out of 3000000
+ 11312 multiletter control sequences out of 15000+200000
+ 5447 words of font info for 20 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 36i,13n,38p,1857b,430s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmtt12.pfb>
-Output written on senate_party_calls_draft10.pdf (22 pages, 262840 bytes).
+ 36i,5n,38p,673b,389s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on update_07june.pdf (6 pages, 96832 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
- 59 named destinations out of 1000 (max. 500000)
- 48 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 108 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
+ 42 words of extra memory for PDF output out of 10000 (max. 10000000)
 

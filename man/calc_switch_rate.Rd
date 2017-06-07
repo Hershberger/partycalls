@@ -21,4 +21,3 @@ xxx
 \description{
 DETAIL
 }
-

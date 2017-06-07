@@ -20,17 +20,12 @@ DATA <- merge(DATA,
 DATA <- DATA[N == 2]
 DATA[, mean_tr := mean(tr), .(stabb, congress)]
 
-DATA[, y := y1 - y2]
-
 # Estimate Effects
 diff_pi <- DATA[mean_tr == .5,
   sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
     mean(V1)]
 diff_pf <- DATA[mean_tr == .5,
   sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
-    mean(V1)]
-diff_in <- DATA[mean_tr == .5,
-  sum(tr * y) - sum((1 - tr) * y), .(stabb, congress)][,
     mean(V1)]
 
 # Do inference
@@ -50,40 +45,34 @@ boot <- function(i) {
   boot_diff_pf <- boot_DATA[mean_tr == .5,
     sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
       mean(V1)]
-  boot_diff_in <- boot_DATA[mean_tr == .5,
-    sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
-      mean(V1)]
-  data.table(boot_diff_pi, boot_diff_pf, boot_diff_in)
+  data.table(boot_diff_pi, boot_diff_pf)
 }
 
 boots <- rbindlist(lapply(1:1000, boot))
 differences <- data.table(test = c("Party Call Difference",
-  "Party Free Difference", "Difference in Differences"),
+  "Party Free Difference"),
   Estimate = c(diff_pi, diff_pf, diff_in),
   Lower_Bound = c(boots[, quantile(boot_diff_pi, .025)],
-    boots[, quantile(boot_diff_pf, .025)],
-    boots[, quantile(boot_diff_in, .025)]),
+    boots[, quantile(boot_diff_pf, .025)]),
   Upper_Bound = c(boots[, quantile(boot_diff_pi, .975)],
-    boots[, quantile(boot_diff_pf, .975)],
-    boots[, quantile(boot_diff_in, .975)])
+    boots[, quantile(boot_diff_pf, .975)])
 )
 
-difference_tex <- xtable(differences, auto = TRUE,
-  caption = "Reelection and Response to Party Calls, Same-State Senator Differences",
-  digits = c(3, 3, 3, 3, 3))
-print(difference_tex, include.rownames = FALSE,
-  table.placement = "H", caption.placement = "top")
+# difference_tex <- xtable(differences, auto = TRUE,
+#   caption = "Reelection and Response to Party Calls, Same-State Senator Differences",
+#   digits = c(3, 3, 3, 3, 3))
+# print(difference_tex, include.rownames = FALSE,
+#   table.placement = "H", caption.placement = "top")
 
 # make coeff plot from effects
 differences[, position := 0]
 differences[test == "Party Free Difference", position := 1]
-differences[test == "Difference in Differences", position := 2]
 
 
 pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
   width = 5, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-2.2, .3), xlim=c(-0.5, 2.5),
+plot(0, 0, type='n', ylim=c(-2.2, .3), xlim=c(-0.5, 1.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, differences$position, cex.axis =.8,
   labels = c("Party Call Rate", "Baseline Rate", "Party Call - Baseline"))

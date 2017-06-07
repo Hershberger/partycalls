@@ -26,4 +26,3 @@ list of pvals or tvals and ideal points
 \description{
 To be used inside a call to code_party_calls
 }
-

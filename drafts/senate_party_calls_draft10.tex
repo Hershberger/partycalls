@@ -65,50 +65,49 @@ We find, as expected, that party calls are present in both the House and Senate.
 \noindent
 It is possible that parties are calling more because increased ideological purity within them makes a party call more effective, or because they need members to rally more to get their agendas through. We believe that the underlying cause of this trend merits further investigation, but initially take it as evidence of much discussed increased partisanship and polarization in recent decades \cite{Lee:2009, Lee:2016, Theriault:2013, Smith:2014}. This trend holds regardless of which party is in the majority in the chamber.
 
-Replications of the regression models of Minozzi \& Volden (shown in Tables 1 and 2) show the responsive extremists hypothesis to hold in our set of cases. This finding holds whether we consider all members together, or consider subsets by party or majority status. Below, in Figure 2, we show this to broadly hold when separate Congresses and majority party statuses are considered in each chamber.
+Replications of the regression models of Minozzi \& Volden (shown in Tables 1 and 2) show the responsive extremists hypothesis to hold in both chambers. Additionally, in both chambers we see that increased same-party presidential vote share is correlated with increased party call responsiveness. In a way, this captures the strength of a member's party in their state or district, and is thus not unexpected. We further note that female legislators are more responsive to party calls than their male counterparts. In an appendix, we show results broken down by party status and the clearest difference in women's responsiveness in both chambers is present when they are in the minority party. We take this finding as being in line with work that shows minority party women to be more focused than minority party men on legislative agendas \cite{Volden:2013}. We note that with the same set of controls in place as in the House that being up for reelection is associated with significantly reduced responsiveness to party calls.
 
-We expected that reelection would make members less responsive to the call of the party as they work to pivot to their districts when approaching reelection. We find that for all models categories that the sign is in the expected direction and that for all, save Democrats, it achieves statistical significance. Further, we should expect that those retiring are no longer beholden to their constituents and thus would not have this draw on their attention when the party calls. We find across all models that retirees' responsiveness to party calls takes a positive coefficient and for all, save Democrats, it is statistically significant. 
+We note that while African American legislators are significantly more responsive to party calls in the House, no such relationship is present in the Senate. However, during the period of our analysis there were very few African American Senators, so we attribute this more to traits specific to the specific set of African American Senators than to traits of African American legislators more generally. We further note that aspects related to committees (save being a committee chair) are not significant in either of the Senate cases, but are in the House model. We attribute this to higher selectivity in House committees than Senate committees. While an overwhelming majority of Senators are on a ``power committee'' only one in four members in the House are. Thus, it is within expectations that membership in various committees would be more meaningful to members and thus have a greater impact on whether they heed the party's call or not.
 
-We find that minority party women are substantially more responsive to party calls than their male counterparts in both chambers. Others have found that minority party women remain more focused on legislative agendas than their male counterparts \cite{Volden:2013}, and we take this finding as being in line with this account. While results for this are mixed, we find generally that increased same-party presidential vote share (an indicator of party strength in the district) increases responsiveness to party calls while increased personal vote share (an indicator of member popularity in the district) decreases responsiveness. However, this relationship does not present itself for Democrats. A number of factors complicate this relationship for Democrats, such as landslide presidential election losses and the presence of Southern Democrats early on who were more moderate than their copartisans.
-
-\begin{table}
+\begin{table}[H]
 	\begin{center}
-		\caption{Statistical models}
+		\caption{Extended Replication, Congresses 93-112}
+		\singlespacing
 		\begin{tabular}{l c c c }
 			\hline
 			& House & \multicolumn{2}{c}{Senate} \\
 			\hline
-			ideological\_extremism & $7.75^{***}$  & $6.29^{***}$  & $6.24^{***}$  \\
+			Ideological Extremism & $7.75^{***}$  & $6.29^{***}$  & $6.24^{***}$  \\
 			& $(0.13)$      & $(0.25)$      & $(0.25)$      \\
-			pfrate100              & $0.57^{***}$  & $0.73^{***}$  & $0.74^{***}$  \\
+			Baseline Rate of Voting with Party              & $0.57^{***}$  & $0.73^{***}$  & $0.74^{***}$  \\
 			& $(0.01)$      & $(0.02)$      & $(0.02)$      \\
-			vote\_share            & $-0.01$       & $0.03$        & $0.03$        \\
+			Vote Share            & $-0.01$       & $0.03$        & $0.03$        \\
 			& $(0.01)$      & $(0.02)$      & $(0.02)$      \\
-			pres\_vote\_share      & $0.03^{**}$   & $0.10^{***}$  & $0.10^{***}$  \\
+			Pres. Vote Share      & $0.03^{**}$   & $0.10^{***}$  & $0.10^{***}$  \\
 			& $(0.01)$      & $(0.02)$      & $(0.02)$      \\
-			leader                 & $1.81^{***}$  & $1.65^{**}$   & $1.64^{**}$   \\
+			Party Leader                 & $1.81^{***}$  & $1.65^{**}$   & $1.64^{**}$   \\
 			& $(0.50)$      & $(0.54)$      & $(0.54)$      \\
-			chair                  & $4.98^{***}$  & $2.09^{***}$  & $2.06^{***}$  \\
+			Committee Chair                  & $4.98^{***}$  & $2.09^{***}$  & $2.06^{***}$  \\
 			& $(0.46)$      & $(0.45)$      & $(0.45)$      \\
-			power\_committee       & $2.76^{***}$  & $-0.66$       & $-0.66$       \\
+			Power Committee       & $2.76^{***}$  & $-0.66$       & $-0.66$       \\
 			& $(0.23)$      & $(0.62)$      & $(0.62)$      \\
-			best\_committee        & $-0.17^{***}$ & $0.15$        & $0.15$        \\
+			Best Committee        & $-0.17^{***}$ & $0.15$        & $0.15$        \\
 			& $(0.02)$      & $(0.10)$      & $(0.10)$      \\
-			female                 & $1.17^{***}$  & $2.05^{**}$   & $2.03^{**}$   \\
+			Female                 & $1.17^{***}$  & $2.05^{**}$   & $2.03^{**}$   \\
 			& $(0.32)$      & $(0.64)$      & $(0.64)$      \\
-			afam                   & $1.90^{***}$  & $-4.56$       & $-4.67$       \\
+			African American                   & $1.90^{***}$  & $-4.56$       & $-4.67$       \\
 			& $(0.43)$      & $(2.49)$      & $(2.49)$      \\
-			latino                 & $3.27^{***}$  & $5.60^{**}$   & $5.66^{**}$   \\
+			Latino                 & $3.27^{***}$  & $5.60^{**}$   & $5.66^{**}$   \\
 			& $(0.51)$      & $(1.82)$      & $(1.82)$      \\
-			south                  & $-0.89^{***}$ & $0.62$        & $0.61$        \\
+			South                  & $-0.89^{***}$ & $0.62$        & $0.61$        \\
 			& $(0.21)$      & $(0.36)$      & $(0.36)$      \\
-			seniority              & $-0.05$       & $0.01$        & $0.01$        \\
+			Seniority              & $-0.05$       & $0.01$        & $0.01$        \\
 			& $(0.03)$      & $(0.04)$      & $(0.04)$      \\
-			freshman               & $0.78^{**}$   & $1.08$        & $0.81$        \\
+			Freshman               & $0.78^{**}$   & $1.08$        & $0.81$        \\
 			& $(0.29)$      & $(0.56)$      & $(0.57)$      \\
-			up\_for\_reelection    &               &               & $-0.94^{**}$  \\
+			Up for Reelection    &               &               & $-0.94^{**}$  \\
 			&               &               & $(0.36)$      \\
-			(Intercept)            & $31.78^{***}$ & $11.71^{***}$ & $11.94^{***}$ \\
+			Intercept            & $31.78^{***}$ & $11.71^{***}$ & $11.94^{***}$ \\
 			& $(1.30)$      & $(2.27)$      & $(2.27)$      \\
 			\hline
 			R$^2$                  & 0.46          & 0.63          & 0.63          \\
@@ -122,7 +121,7 @@ We find that minority party women are substantially more responsive to party cal
 	\end{center}
 \end{table}
 
-Finally, we consider ideological extremism as a predictor for member behavior in each chamber broken down by Congress and majority party status. Across such divisions the responsive extremists hypothesis broadly holds. We note in the House that ideological extremism takes a positive coefficient for all but 4 cases and in the Senate for all but 2. Further, in the House, all positive coefficients are statistically significant and in the Senate 29 of the positive coefficients are statistically significant and 1 of the negative coefficients is. This provides added confidence in the aggregate results above.
+We additionally consider ideological extremism as a predictor for member behavior in each chamber broken down by Congress and majority party status. Across such divisions the responsive extremists hypothesis broadly holds. We note in the House that ideological extremism takes a positive coefficient for all but 4 cases and in the Senate for all but 2. Further, in the House, all positive coefficients are statistically significant and in the Senate 29 of the positive coefficients are statistically significant and 1 of the negative coefficients is. This provides added confidence in the aggregate results above.
 
 \begin{figure}[H]
 	\centering
@@ -331,8 +330,8 @@ Variables were acquired from the Legislative Effectiveness Project (or construct
 		Baseline Rate of Voting with Party & 1,993 & 82.035 & 8.164 & 45.106 & 100.000 \\ 
 		Up for Reelection & 1,993 & 0.333 & 0.471 & 0 & 1 \\ 
 		Retiree & 1,993 & 0.059 & 0.235 & 0 & 1 \\ 
-		Vote Share & 1,993 & 0.612 & 0.099 & 0.500 & 1.000 \\ 
-		Pres. Vote Share & 1,993 & 0.521 & 0.097 & 0.201 & 0.780 \\ 
+		Vote Share & 1,993 & 61.244 & 9.865 & 50.006 & 100.000 \\ 
+		Pres. Vote Share & 1,993 & 52.131 & 9.745 & 20.063 & 77.965 \\ 
 		Party Leader & 1,993 & 0.099 & 0.299 & 0 & 1 \\ 
 		Committee Chair & 1,993 & 0.183 & 0.386 & 0 & 1 \\ 
 		Power Committee & 1,993 & 0.727 & 0.446 & 0 & 1 \\ 
@@ -521,135 +520,12 @@ Variables were acquired from the Legislative Effectiveness Project (or construct
 	\end{tabular} 
 \end{table} 
 
-% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Tue, May 16, 2017 - 12:20:33
-%\begin{table}[H] 
-%	\centering 
-%	\singlespacing
-%	\caption{House Summary Statistics, Democrats} 
-%	\label{} 
-%	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-%		\\[-1.8ex]\hline 
-%		\hline \\[-1.8ex] 
-%		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
-%		\hline \\[-1.8ex]  
-%		Party Free Ideal Point & 4,746 & $-$0.546 & 0.809 & $-$4.076 & 4.317 \\ 
-%		Party Call Response Rate & 4,746 & 86.290 & 12.110 & 8.021 & 100.000 \\ 
-%		Baseline Rate of Voting with Party & 4,746 & 86.996 & 7.214 & 0.000 & 100.000 \\ 
-%		Ideological Extremism & 4,746 & 0.546 & 0.809 & $-$4.317 & 4.076 \\ 
-%		Vote Share vs. Mean Vote Share & 4,746 & 1.319 & 9.905 & $-$15.727 & 31.353 \\
-%		Pres. Vote Share & 4,746 & 54.871 & 14.495 & 16.310 & 96.060 \\ 
-%		Party Leader & 4,746 & 0.034 & 0.182 & 0 & 1 \\ 
-%		Committee Chair & 4,746 & 0.062 & 0.240 & 0 & 1 \\
-%		Power Committee & 4,746 & 0.257 & 0.437 & 0 & 1 \\
-%		Best Committee & 4,746 & 13.832 & 6.398 & 0 & 22 \\
-%		Female & 4,746 & 0.114 & 0.317 & 0 & 1 \\ 
-%		African American & 4,746 & 0.112 & 0.316 & 0 & 1 \\ 
-%		Latino & 4,746 & 0.050 & 0.217 & 0 & 1 \\ 
-%		South & 4,746 & 0.289 & 0.453 & 0 & 1 \\ 		 
-%		Seniority & 4,746 & 5.752 & 4.376 & 1 & 29 \\ 
-%		Freshman & 4,746 & 0.140 & 0.347 & 0 & 1 \\ 
-%		\hline \\[-1.8ex] 
-%	\end{tabular} 
-%\end{table} 
-
-% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Tue, May 16, 2017 - 12:20:35
-%\begin{table}[H] 
-%	\centering 
-%	\singlespacing
-%	\caption{House Summary Stats, Republicans} 
-%	\label{} 
-%	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-%		\\[-1.8ex]\hline 
-%		\hline \\[-1.8ex] 
-%		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
-%		\hline \\[-1.8ex] 
-%		Party Free Ideal Point & 3,798 & 0.674 & 0.786 & $-$2.473 & 9.347 \\ 
-%		Ideological Extremism & 3,798 & 0.674 & 0.786 & $-$2.473 & 9.347 \\ 	
-%		Party Call Response Rate & 3,798 & 85.186 & 10.605 & 31.276 & 100.000 \\ 
-%		Baseline Rate of Voting with Party & 3,798 & 86.904 & 7.858 & 28.302 & 100.000 \\
-%		Vote Share vs. Mean Vote Share & 3,798 & $-$1.648 & 7.801 & $-$15.707 & 25.673 \\
-%		Pres. Vote Share & 3,798 & 58.710 & 8.534 & 23.470 & 86.830 \\
-%		Party Leader & 3,798 & 0.039 & 0.193 & 0 & 1 \\ 
-%		Committee Chair & 3,798 & 0.037 & 0.189 & 0 & 1 \\ 
-%		Power Committee & 3,798 & 0.251 & 0.434 & 0 & 1 \\ 
-%		Best Committee & 3,798 & 13.810 & 6.349 & 0 & 22 \\ 
-%		Female & 3,798 & 0.069 & 0.254 & 0 & 1 \\ 
-%		African American & 3,798 & 0.002 & 0.049 & 0 & 1 \\ 
-%		Latino & 3,798 & 0.016 & 0.126 & 0 & 1 \\ 
-%		South & 3,798 & 0.304 & 0.460 & 0 & 1 \\
-%		Seniority & 3,798 & 4.805 & 3.543 & 1 & 21 \\  
-%		Freshman & 3,798 & 0.176 & 0.381 & 0 & 1 \\		 
-%		\hline \\[-1.8ex] 
-%	\end{tabular} 
-%\end{table} 
-
-% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Tue, May 16, 2017 - 12:20:37
-%\begin{table}[H] 
-%	\centering 
-%	\singlespacing
-%	\caption{House Summary Statistics, Majority Party} 
-%	\label{} 
-%	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-%		\\[-1.8ex]\hline 
-%		\hline \\[-1.8ex] 
-%		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \%multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
-%		\hline \\[-1.8ex]  
-%		Party Free Ideal Point & 4,898 & $-$0.153 & 0.957 & $-$4.076 & 9.347 \\  
-%		Ideological Extremism & 4,898 & 0.526 & 0.814 & $-$4.317 & 9.347 \\ 
-%		Party Call Response Rate & 4,898 & 87.607 & 11.437 & 8.021 & 100.000 \\ 
-%		Baseline Rate of Voting with Party & 4,898 & 87.071 & 7.584 & 0.000 & 100.000 \\
-%	 	Vote Share vs. Mean Vote Share & 4,898 & 0.518 & 9.087 & $-$15.727 & 31.243 \\ 
-%	 	Pres. Vote Share & 4,898 & 52.854 & 12.457 & 16.310 & 96.060 \\
-%	 	Party Leader & 4,898 & 0.030 & 0.170 & 0 & 1 \\ 
-%	 	Committee Chair & 4,898 & 0.088 & 0.284 & 0 & 1 \\ 
-%	 	Power Committee & 4,898 & 0.275 & 0.447 & 0 & 1 \\ 
-%	 	Best Committee & 4,898 & 14.133 & 6.333 & 0 & 22 \\ 
-%		Female & 4,898 & 0.082 & 0.274 & 0 & 1 \\ 
-%		African American & 4,898 & 0.060 & 0.238 & 0 & 1 \\ 
-%		Latino & 4,898 & 0.032 & 0.176 & 0 & 1 \\  
-%		South & 4,898 & 0.323 & 0.468 & 0 & 1 \\
-%		Seniority & 4,898 & 5.390 & 4.207 & 1 & 28 \\   
-%		Freshman & 4,898 & 0.166 & 0.372 & 0 & 1 \\ 
-%		\hline \\[-1.8ex] 
-%	\end{tabular} 
-%\end{table} 
-
-% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Tue, May 16, 2017 - 12:20:39
-%\begin{table}[H] 
-%	\centering 
-%	\singlespacing
-%	\caption{House Summary Statistics, Minority Party} 
-%	\label{} 
-%	\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
-%		\\[-1.8ex]\hline 
-%		\hline \\[-1.8ex] 
-%		Statistic & \multicolumn{1}{c}{N} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{St. Dev.} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} \\ 
-%		\hline \\[-1.8ex] 
-%		Party Free Ideal Point & 3,646 & 0.197 & 1.028 & $-$3.524 & 4.084 \\ 
-%		Ideological Extremism & 3,646 & 0.706 & 0.773 & $-$1.756 & 4.084 \\ 
-%		Party Call Response Rate & 3,646 & 83.371 & 11.079 & 20.077 & 100.000 \\ 
-%		Baseline Rate of Voting with Party & 3,646 & 86.800 & 7.400 & 38.889 & 100.000 \\ 
-%		Vote Share vs. Mean Vote Share & 3,646 & $-$0.696 & 9.188 & $-$15.717 & 31.353 \\
-%		Pres. Vote Share & 3,646 & 61.580 & 10.284 & 23.470 & 96.050 \\ 
-%		Party Leader & 3,646 & 0.045 & 0.207 & 0 & 1 \\ 
-%		Committee Chair & 3,646 & 0.000 & 0.000 & 0 & 0 \\ 
-%		Power Committee & 3,646 & 0.227 & 0.419 & 0 & 1 \\ 
-%		Best Committee & 3,646 & 13.404 & 6.410 & 0 & 22 \\ 
-%		Female & 3,646 & 0.110 & 0.313 & 0 & 1 \\ 
-%		African American & 3,646 & 0.067 & 0.251 & 0 & 1 \\ 
-%		Latino & 3,646 & 0.039 & 0.193 & 0 & 1 \\ 
-%		South & 3,646 & 0.259 & 0.438 & 0 & 1 \\		
-%		Seniority & 3,646 & 5.251 & 3.838 & 1 & 29 \\  
-%		Freshman & 3,646 & 0.142 & 0.349 & 0 & 1 \\ 		 
-%		\hline \\[-1.8ex] 
-%	\end{tabular} 
-%\end{table} 
 
 \subsection*{Other Tables and Figures}
+
+Here we present results from regression models in the House and Senate which separately model by party or majority status. We expected that reelection would make members less responsive to the call of the party as they work to pivot to their districts when approaching reelection. We find that for all models categories that the sign is in the expected direction and that for all, save Democrats, it achieves statistical significance. Further, we should expect that those retiring are no longer beholden to their constituents and thus would not have this draw on their attention when the party calls. We find across all models that retirees' responsiveness to party calls takes a positive coefficient and for all, save Democrats, it is statistically significant. 
+
+We find that minority party women are substantially more responsive to party calls than their male counterparts in both chambers. Others have found that minority party women remain more focused on legislative agendas than their male counterparts \cite{Volden:2013}, and we take this finding as being in line with this account. While results for this are mixed, we find generally that increased same-party presidential vote share (an indicator of party strength in the district) increases responsiveness to party calls while increased personal vote share (an indicator of member popularity in the district) decreases responsiveness. However, this relationship does not present itself for Democrats. A number of factors complicate this relationship for Democrats, such as landslide presidential election losses and the presence of Southern Democrats early on who were more moderate than their copartisans.
 
 \begin{table}[H]
 	\begin{center}

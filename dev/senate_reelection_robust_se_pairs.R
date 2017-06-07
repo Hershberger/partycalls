@@ -89,7 +89,7 @@ axis(1, ests$position, cex.axis = .7,
     "Cong. 2-1 \n Party Calls", "Party Free"))
 axis(2, c(-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
-title(main = "Estimated Response Difference for Reelection Proximity")
+title(main = "Estimated Response Difference by Congress in Term")
 points(ests$position, ests$est,
   pch=19, col="black", cex=.8)
 segments(ests$position, ests$lower,

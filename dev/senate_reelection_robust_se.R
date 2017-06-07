@@ -70,6 +70,31 @@ pf21 <- data.table(est = mod_pf21$coefficients["tr"], lower = mod_pf21$ci[[2]],
 ests <- rbind(pi32, pf32, pi31, pf31, pi21, pf21)
 ests
 
+z_test2 <- function(a, b, var_a, var_b){
+  n_a = length(a)
+  n_b = length(b)
+  zeta = (mean(a) - mean(b)) / (sqrt(var_a/n_a + var_b/n_b))
+  return(zeta)
+}
+
+mod_pi32_robust <- coeftest(mod_pi32, vcov = sandwich)
+mod_pi31_robust <- coeftest(mod_pi31, vcov = sandwich)
+mod_pi21_robust <- coeftest(mod_pi21, vcov = sandwich)
+
+z_test2(mod_pi32_robust[[2]], mod_pi21_robust[[2]],
+  (mod_pi32_robust[[4]])^2, (mod_pi21_robust[[4]])^2)
+z_test2(mod_pi31_robust[[2]], mod_pi21_robust[[2]],
+  (mod_pi31_robust[[4]])^2, (mod_pi21_robust[[4]])^2)
+
+mod_pf32_robust <- coeftest(mod_pf32, vcov = sandwich)
+mod_pf31_robust <- coeftest(mod_pf31, vcov = sandwich)
+mod_pf21_robust <- coeftest(mod_pf21, vcov = sandwich)
+
+z_test2(mod_pf32_robust[[2]], mod_pf21_robust[[2]],
+  (mod_pf32_robust[[4]])^2, (mod_pf21_robust[[4]])^2)
+z_test2(mod_pf31_robust[[2]], mod_pf21_robust[[2]],
+  (mod_pf31_robust[[4]])^2, (mod_pf21_robust[[4]])^2)
+
 # coef plot
 pdf(file = "plots/senate_reelection_robust_se.pdf", width = 6,
   height = 4, family = "Times")
@@ -82,7 +107,7 @@ axis(1, ests$position, cex.axis = .7,
     "Cong. 2-1 \n Party Calls", "Party Free"))
 axis(2, c(-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
-title(main = "Estimated Response Difference for Reelection Proximity")
+title(main = "Estimated Response Difference by Congress in Term")
 points(ests$position, ests$est,
   pch=19, col="black", cex=.8)
 segments(ests$position, ests$lower,
