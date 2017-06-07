@@ -51,7 +51,7 @@ boot <- function(i) {
 boots <- rbindlist(lapply(1:1000, boot))
 differences <- data.table(test = c("Party Call Difference",
   "Party Free Difference"),
-  Estimate = c(diff_pi, diff_pf, diff_in),
+  Estimate = c(diff_pi, diff_pf),
   Lower_Bound = c(boots[, quantile(boot_diff_pi, .025)],
     boots[, quantile(boot_diff_pf, .025)]),
   Upper_Bound = c(boots[, quantile(boot_diff_pi, .975)],
@@ -75,7 +75,7 @@ pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
 plot(0, 0, type='n', ylim=c(-2.2, .3), xlim=c(-0.5, 1.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
 axis(1, differences$position, cex.axis =.8,
-  labels = c("Party Call Rate", "Baseline Rate", "Party Call - Baseline"))
+  labels = c("Party Call Rate", "Baseline Rate"))
 axis(2, c(-2, -1.5, -1, -0.5, 0), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
 title(main="Same-State Pair Differences, Reelection Treatment",

@@ -81,6 +81,8 @@ We note that while African American legislators are significantly more responsiv
 			& $(0.13)$      & $(0.25)$      & $(0.25)$      \\
 			Baseline Rate of Voting with Party              & $0.57^{***}$  & $0.73^{***}$  & $0.74^{***}$  \\
 			& $(0.01)$      & $(0.02)$      & $(0.02)$      \\
+			Up for Reelection    &               &               & $-0.94^{**}$  \\
+			&               &               & $(0.36)$      \\
 			Vote Share            & $-0.01$       & $0.03$        & $0.03$        \\
 			& $(0.01)$      & $(0.02)$      & $(0.02)$      \\
 			Pres. Vote Share      & $0.03^{**}$   & $0.10^{***}$  & $0.10^{***}$  \\
@@ -105,8 +107,6 @@ We note that while African American legislators are significantly more responsiv
 			& $(0.03)$      & $(0.04)$      & $(0.04)$      \\
 			Freshman               & $0.78^{**}$   & $1.08$        & $0.81$        \\
 			& $(0.29)$      & $(0.56)$      & $(0.57)$      \\
-			Up for Reelection    &               &               & $-0.94^{**}$  \\
-			&               &               & $(0.36)$      \\
 			Intercept            & $31.78^{***}$ & $11.71^{***}$ & $11.94^{***}$ \\
 			& $(1.30)$      & $(2.27)$      & $(2.27)$      \\
 			\hline
@@ -127,7 +127,7 @@ We additionally consider ideological extremism as a predictor for member behavio
 	\centering
 	\caption{Ideology and Responsiveness to Party Calls, Congresses 93-112}
 	\includegraphics[width = 12cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/both-chambers-figure2.pdf}
-	\fnote{\textit{Note}: This coefficient plot is produced by the same formula shown in the House and Senate regression tables with results decomposed by individual Congresses for the Majority and Minority parties. Coefficients shown are for the effect of ideological extremism on party free votes in relation to party call votes. 50\% and 95\% confidence intervals are shown from the points.}
+	\fnote{\textit{Note}: This coefficient plot is produced by the same formula shown in the House and Senate regression tables with results decomposed by individual Congresses for the Majority and Minority parties. Coefficients shown are for the effect of ideological extremism on party free votes in relation to party call votes. 95\% confidence intervals are shown from the points.}
 \end{figure} 
 
 The models we have used in replicating \cite{Minozzi:2013} show correlation-based analyses of relationships between member traits and responsiveness to party calls. While they are not causal, they generate causal hypotheses. For instance, it now allows us to turn to considerations of whether being up for reelection causes a change in behavior on party call votes and only these votes. In doing so, we seek not only to further demonstrate the nature of this relationship, but also to demonstrate the usefulness of party call analysis more generally.
@@ -142,7 +142,7 @@ To test this, we estimate models which rely on same-state Senator pairs when one
 	\centering
 	\caption{Voting Behavior Changes for Senators up for Reelection}
 	\includegraphics[width = 12cm]{C:/Users/Ethan/Documents/GitHub/partycalls/plots/senate_difference_estimates.pdf}
-	\fnote{\textit{Note}: This coefficient plot is produced by a paired differences model which uses same-state Senators as a natural pairing. Estimates shown are the difference in responsiveness to party calls, baseline rate of voting with the party, and the difference in these differences. Bootstrapped 50\% and 95\% confidence intervals are shown.}
+	\fnote{\textit{Note}: This coefficient plot is produced by a paired differences model which uses same-state Senators as a natural pairing. Estimates shown are the difference in responsiveness to party calls, baseline rate of voting with the party, and the difference in these differences. Bootstrapped 95\% confidence intervals are shown.}
 \end{figure}
 
 We find member responsiveness to party calls declines, on average, about 1.5\% when they are up for reelection. However, their baseline rate of voting with the party is in line with what would be expected otherwise and the difference relative to baseline rate is about 1.25\%. During the period of analysis, 52\% of votes are classified as party calls and the average rate of responsiveness to party calls is 85\%. The average rate of voting with the party on non-party call votes is 82\%. Thus, while there is still an effect of the call of the party during a period of reelection, the induced preferences of the constituents reduces its impact.
