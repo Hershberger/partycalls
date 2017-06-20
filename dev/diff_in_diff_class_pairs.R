@@ -110,12 +110,6 @@ boots_3_2 <- rbindlist(lapply(1:1000, boot_3_2))
 boots_3_1 <- rbindlist(lapply(1:1000, boot_3_1))
 boots_2_1 <- rbindlist(lapply(1:1000, boot_2_1))
 
-# check confidence interval percents
-mean(boots_3_2$boot_pi_diff <= diff_pi_2_1)
-mean(boots_3_2$boot_pf_diff <= diff_pf_2_1)
-
-mean(boots_3_1$boot_pi_diff <= diff_pi_2_1)
-mean(boots_3_1$boot_pf_diff <= diff_pf_2_1)
 
 # make tables with estimates and confidence intervals
 diff_3_2 = data.table(
@@ -125,7 +119,9 @@ diff_3_2 = data.table(
   Lower_CI = c(boots_3_2[, quantile(boot_pi_diff, .05)],
     boots_3_2[, quantile(boot_pf_diff, .05)]),
   Upper_CI = c(boots_3_2[, quantile(boot_pi_diff, .95)],
-    boots_3_2[, quantile(boot_pf_diff, .95)])
+    boots_3_2[, quantile(boot_pf_diff, .95)]),
+  below_zero = c(mean(boots_3_2$boot_pi_diff < 0),
+    mean(boots_3_2$boot_pf_diff < 0))
 )
 
 diff_3_1 = data.table(
@@ -135,7 +131,9 @@ diff_3_1 = data.table(
   Lower_CI = c(boots_3_1[, quantile(boot_pi_diff, .05)],
     boots_3_1[, quantile(boot_pf_diff, .05)]),
   Upper_CI = c(boots_3_1[, quantile(boot_pi_diff, .95)],
-    boots_3_1[, quantile(boot_pf_diff, .95)])
+    boots_3_1[, quantile(boot_pf_diff, .95)]),
+  below_zero = c(mean(boots_3_1$boot_pi_diff < 0),
+    mean(boots_3_1$boot_pf_diff < 0))
 )
 
 diff_2_1 = data.table(
@@ -145,7 +143,9 @@ diff_2_1 = data.table(
   Lower_CI = c(boots_2_1[, quantile(boot_pi_diff, .05)],
     boots_2_1[, quantile(boot_pf_diff, .05)]),
   Upper_CI = c(boots_2_1[, quantile(boot_pi_diff, .95)],
-    boots_2_1[, quantile(boot_pf_diff, .95)])
+    boots_2_1[, quantile(boot_pf_diff, .95)]),
+  below_zero = c(mean(boots_2_1$boot_pi_diff < 0),
+    mean(boots_2_1$boot_pf_diff < 0))
 )
 
 diff <- rbind(diff_3_2, diff_3_1, diff_2_1)
@@ -173,3 +173,7 @@ segments(diff$position, diff$Lower_CI,
 
 dev.off()
 
+diff[, position := NULL]
+diff_tex <- xtable(diff, auto = TRUE)
+print(diff_tex, include.rownames = FALSE,
+  table.placement = "H", caption.placement = "top")

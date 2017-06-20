@@ -55,7 +55,11 @@ differences <- data.table(test = c("Party Call Difference",
   Lower_Bound = c(boots[, quantile(boot_diff_pi, .025)],
     boots[, quantile(boot_diff_pf, .025)]),
   Upper_Bound = c(boots[, quantile(boot_diff_pi, .975)],
-    boots[, quantile(boot_diff_pf, .975)])
+    boots[, quantile(boot_diff_pf, .975)]),
+  Lower_50 = c(boots[, quantile(boot_diff_pi, 0.25)],
+    boots[, quantile(boot_diff_pf, 0.25)]),
+  Upper_50 = c(boots[, quantile(boot_diff_pi, 0.75)],
+    boots[, quantile(boot_diff_pf, 0.75)])
 )
 
 # difference_tex <- xtable(differences, auto = TRUE,
@@ -84,5 +88,7 @@ points(differences$position, differences$Estimate,
   pch=19, col="black", cex=.8)
 segments(differences$position, differences$Lower_Bound,
   differences$position,  differences$Upper_Bound, lwd = 1)
+segments(differences$position,
+  differences$Lower_50, differences$position, differences$Upper_50, lwd=2)
 
 dev.off()

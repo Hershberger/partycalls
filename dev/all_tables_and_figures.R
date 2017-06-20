@@ -303,7 +303,7 @@ hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls
   ylim(30, 90) +
   xlab("Congress") +
   ylab("Party Call Percent") +
-  labs(title = "Party Call Percent in the House") +
+  labs(title = "U.S. House of Represenatives") +
   geom_point(aes(shape = as.factor(majority))) +
   scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
   scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
@@ -314,7 +314,7 @@ sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_call
   ylim(30, 90) +
   xlab("Congress") +
   ylab("") +
-  labs(title = "Party Call Percent in the Senate") +
+  labs(title = "U.S. Senate") +
   geom_point(aes(shape = as.factor(majority))) +
   scale_shape_manual("Majority Party",values = c(16, 17), guide = FALSE) +
   scale_color_manual("Majority Party",values = c("blue3", "red3"), guide = FALSE) +
