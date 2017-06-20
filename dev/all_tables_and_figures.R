@@ -211,93 +211,39 @@ check_signs <- function(rc)
 
 # # Main Paper
 
+# Make Table 1
+load("test_data/new_whoheeds13_lm.RData")
+new_whoheeds13 <- new_whoheeds13[drop == 0, ]
+new_whoheeds13[is.na(vote_share), vote_share := 100]
+load("test_data/senate_data_lm.RData")
+senate_data <- senate_data[drop == 0, ]
+senate_data[, vote_share := vote_share * 100]
+senate_data[, pres_vote_share := pres_vote_share * 100]
+
+setnames(new_whoheeds13, c("bestgrosswart", "power"),
+  c("best_committee", "power_committee"))
+
+hou_extremism <- pirate100 ~ ideological_extremism +  pfrate100 + vote_share +
+  pres_vote_share + leader +  chair + power_committee + best_committee +
+  female + afam + latino + south + seniority + freshman
+
+sen_extremism <- pirate100 ~ ideological_extremism +  pfrate100 + vote_share +
+  pres_vote_share + leader +  chair + power_committee + best_committee +
+  female + afam + latino + south + seniority + freshman + up_for_reelection
+
+texreg::screenreg(list(lm(hou_extremism, new_whoheeds13),
+  lm(hou_extremism, senate_data),
+  lm(sen_extremism, senate_data)),
+  reorder.coef = c(2:16, 1))
+
+texreg::texreg(list(lm(hou_extremism, new_whoheeds13),
+  lm(hou_extremism, senate_data),
+  lm(sen_extremism, senate_data)),
+  reorder.coef = c(2:16, 1))
+
+texreg::texreg(lm(sen_extremism2, senate_data))
 
 # Make Figure 1
-hou_dem_base_plot <- ggplot(new_whoheeds13[dem == 1, ],
-  aes(ideological_extremism, pfrate100)) + ylim(0, 100) +
-  geom_point(color = "blue2", shape = 16, alpha = .25) +
-  geom_smooth(method=loess, color = "gray30") +
-  ggtitle("Democrats") +
-  labs(x = "", y = "Baseline Party Rate") + theme_classic()
-
-hou_rep_base_plot <- ggplot(new_whoheeds13[dem == 0 & ideological_extremism < 5, ],
-  aes(ideological_extremism, pfrate100)) + ylim(0, 100) +
-  geom_point(color = "red2", shape = 16, alpha = .25) +
-  geom_smooth(method=loess, color = "gray30") +
-  ggtitle("Republicans") +
-  labs(x = "", y = "") + theme_classic()
-
-hou_dem_call_plot <- ggplot(new_whoheeds13[dem == 1, ],
-  aes(ideological_extremism, pirate100)) + ylim(0, 100) +
-  geom_point(color = "blue2", shape = 16, alpha = .25) +
-  geom_smooth(method=loess, color = "gray30") +
-  ggtitle("") +
-  labs(x = "Ideological Extremism", y = "Party Call Rate") + theme_classic()
-
-hou_rep_call_plot <- ggplot(new_whoheeds13[dem == 0 & ideological_extremism < 5, ],
-  aes(ideological_extremism, pirate100)) + ylim(0, 100) +
-  geom_point(color = "red2", shape = 16, alpha = .25) +
-  geom_smooth(method=loess, color = "gray30") +
-  labs(x = "Ideological Extremism", y = "") + theme_classic()
-
-fig1 <- arrangeGrob(hou_dem_base_plot, hou_rep_base_plot, hou_dem_call_plot,
-  hou_rep_call_plot, ncol = 2, nrow = 2)
-ggsave("plots/house_responsiveness_plot.pdf", fig1)
-
-
-# Make Figure 2
-sen_dem_base_plot <- ggplot(senate_data[caucus == "Democrat",],
-  aes(ideological_extremism, pfrate100)) + ylim(0, 100) +
-  geom_point(color = "blue2", shape = 16, alpha = .5) +
-  geom_smooth(method = loess, color = "gray30") +
-  ggtitle("Democrats") +
-  labs(x = "", y = "Baseline Rate") +
-  theme_classic()
-
-sen_rep_base_plot <- ggplot(senate_data[caucus == "Republican",],
-  aes(ideological_extremism, pfrate100)) + ylim(0, 100) +
-  geom_point(color = "red2", shape = 16, alpha = .5) +
-  geom_smooth(method = loess, color = "gray30") +
-  ggtitle("Republicans") +
-  labs(x = "", y = "") +
-  theme_classic()
-
-sen_dem_call_plot <- ggplot(senate_data[caucus == "Democrat",],
-  aes(ideological_extremism, pirate100)) + ylim(0, 100) +
-  geom_point(color = "blue2", shape = 16, alpha = .5) +
-  geom_smooth(method = loess, color = "gray30") +
-  labs(x = "Ideological Extremism", y = "Party Call Rate") +
-  theme_classic()
-
-sen_rep_call_plot <- ggplot(senate_data[caucus == "Republican",],
-  aes(ideological_extremism, pirate100)) + ylim(0, 100) +
-  geom_point(color = "red2", shape = 16, alpha = .5) +
-  geom_smooth(method = loess, color = "gray30") +
-  labs(x = "Ideological Extremism", y = "") +
-  theme_classic()
-
-fig2 <- arrangeGrob(sen_dem_base_plot, sen_rep_base_plot, sen_dem_call_plot,
-  sen_rep_call_plot, ncol = 2, nrow = 2)
-ggsave("plots/senate_responsiveness_plot.pdf", fig2)
-
-
-# Make Table 1
-texreg::texreg(list(
-  lm(hou_extremism, new_whoheeds13[dem == 1]),
-  lm(hou_extremism, new_whoheeds13[dem == 0]),
-  lm(hou_extremism, new_whoheeds13[majority == 1]),
-  lm(hou_extremism, new_whoheeds13[majority == 0])
-), reorder.coef = c(2:3, 6, 4, 5, 7:15, 1))
-
-
-# Make Table 2
-texreg::texreg(list(lm(sen_extremism, senate_data[caucus == "Democrat"]),
-  lm(sen_extremism, senate_data[caucus == "Republican"]),
-  lm(sen_extremism, senate_data[maj == 1]),
-  lm(sen_extremism, senate_data[maj == 0])),
-  reorder.coef = c(2:3, 10, 6, 4, 5, 7:9, 11:17, 1))
-
-# Make Figure 3
 hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls,
   color = as.factor(majority))) +
   ylim(30, 90) +
@@ -323,103 +269,35 @@ sen_record_plot <- ggplot(senate_coding_record, aes(congress, percent_party_call
 fig3 <- arrangeGrob(hou_record_plot, sen_record_plot, ncol = 2)
 ggsave("plots/party_call_percent_both.pdf", fig3)
 
-# Make Figure 4
-set.seed(98037298)
-DATA[, rand := runif(nrow(DATA))]
+# Make Figure 2
+# select variables needed
+DATA <- senate_data[!is.na(pirate100), .(congress, stabb, class, caucus, maj,
+  votes, tr = up_for_reelection, y1 = pirate100, y2 = pfrate100)]
+setorder(DATA, stabb, congress, class)
 
-effect_pi <- DATA[mean_tr == .5,
+# make dems majority for congress 107
+DATA[congress == 107 & caucus == "Democrat", maj := 1]
+DATA[congress == 107 & caucus == "Republican", maj := 0]
+
+# subset to cases with two senators, one treated, one control
+DATA <- merge(DATA,
+  DATA[, .N, .(stabb, congress)],
+  by = c("stabb", "congress"),
+  all.x = TRUE)
+DATA <- DATA[N == 2]
+DATA[, mean_tr := mean(tr), .(stabb, congress)]
+
+# Estimate Effects
+diff_pi <- DATA[mean_tr == .5,
   sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
     mean(V1)]
-placebo_pi <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
-  .(stabb, congress)][,
-    mean(V1)]
-
-effect_pf <- DATA[mean_tr == .5,
+diff_pf <- DATA[mean_tr == .5,
   sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
     mean(V1)]
-placebo_pf <- DATA[mean_tr == 0,
-  sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
-  .(stabb, congress)][,
-    mean(V1)]
 
+# Do inference
+# bootstrap by state
 states <- DATA[, unique(stabb)]
-
-boot1 <- function(i) {
-  boot_states <- sample(states, replace = TRUE)
-  boot_DATA <- rbindlist(lapply(seq_along(boot_states), function(boot_id) {
-    boot_DATA <- DATA[stabb == boot_states[boot_id]]
-    boot_DATA[, boot_id := boot_id]
-    boot_DATA
-  }))
-  boot_effect_pi <- boot_DATA[mean_tr == .5,
-    sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
-      mean(V1)]
-  boot_DATA[, rand := runif(nrow(boot_DATA))]
-  boot_placebo_pi <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y1) - sum((rand < mean(rand)) * y1),
-    .(boot_id, congress)][,
-      mean(V1)]
-  boot_effect_pf <- boot_DATA[mean_tr == .5,
-    sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
-      mean(V1)]
-  boot_placebo_pf <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y2) - sum((rand < mean(rand)) * y2),
-    .(boot_id, congress)][,
-      mean(V1)]
-
-  data.table(boot_effect_pi, boot_placebo_pi, boot_effect_pf, boot_placebo_pf)
-}
-
-boots <- rbindlist(lapply(1:1000, boot1))
-naive_difference1 <- data.table(test = c("Effect", "Placebo", "Effect", "Placebo"),
-  DV = c("pirate100", "pirate100", "pfrate100", "pfrate100"),
-  Estimate = c(effect_pi, placebo_pi, effect_pf, placebo_pf),
-  Lower_Bound = c(boots[, quantile(boot_effect_pi, .025)],
-    boots[, quantile(boot_placebo_pi, .025)],
-    boots[, quantile(boot_effect_pf, .025)],
-    boots[, quantile(boot_placebo_pf, .025)]),
-  Upper_Bound = c(boots[, quantile(boot_effect_pi, .975)],
-    boots[, quantile(boot_placebo_pi, .975)],
-    boots[, quantile(boot_effect_pf, .975)],
-    boots[, quantile(boot_placebo_pf, .975)])
-)
-
-naive_difference1[, placement := c(1:4)]
-
-naive_difference1[, Lower_Bound_50 := c(boots[, quantile(boot_effect_pi, .25)],
-  boots[, quantile(boot_placebo_pi, .25)],
-  boots[, quantile(boot_effect_pf, .25)],
-  boots[, quantile(boot_placebo_pf, .25)])]
-naive_difference1[, Upper_Bound_50 := c(boots[, quantile(boot_effect_pi, .75)],
-  boots[, quantile(boot_placebo_pi, .75)],
-  boots[, quantile(boot_effect_pf, .75)],
-  boots[, quantile(boot_placebo_pf, .75)])]
-
-pdf(file="plots/senate-diff-in-diff-coeff-separate.pdf",
-  width = 4, height = 4, family = "Times")
-
-plot(0, 0, type='n', ylim=c(-2.25, 1.5), xlim=c(0.5, 4.5),
-  cex.lab=1.1, xaxt="n", yaxt="n", xlab="", ylab="Effect")
-axis(1, naive_difference1$placement, cex.axis = .5,
-  labels = c("Party Calls, Reelection", "Placebo",
-    "Baseline, Reelection", "Placebo"))
-axis(2, c(-1.5, -1, -.5, 0, 0.5, 1), cex.axis = 1.1, labels = TRUE)
-abline(h=0, col="gray55", xpd=FALSE)
-title(main="Party Call and Baseline Rate",
-  cex.main=1, line=0.75, font.main=2)
-points(naive_difference1$placement, naive_difference1$Estimate,
-  pch=19, col="black", cex=.8)
-# segments(naive_difference1$placement, naive_difference1$Lower_Bound_50,
-# naive_difference1$placement,  naive_difference1$Upper_Bound_50, lwd = 2.5)
-segments(naive_difference1$placement, naive_difference1$Lower_Bound,
-  naive_difference1$placement,  naive_difference1$Upper_Bound, lwd = 1)
-
-dev.off()
-
-
-# Make Figure 5
-set.seed(98037298)
 
 boot <- function(i) {
   boot_states <- sample(states, replace = TRUE)
@@ -428,51 +306,51 @@ boot <- function(i) {
     boot_DATA[, boot_id := boot_id]
     boot_DATA
   }))
-  boot_effect <- boot_DATA[mean_tr == .5,
-    sum(tr * y) - sum((1 - tr) * y), .(boot_id, congress)][,
+  boot_diff_pi <- boot_DATA[mean_tr == .5,
+    sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
       mean(V1)]
-  boot_DATA[, rand := runif(nrow(boot_DATA))]
-  boot_placebo <- boot_DATA[mean_tr == 0,
-    sum((rand > mean(rand)) * y) - sum((rand < mean(rand)) * y),
-    .(boot_id, congress)][,
+  boot_diff_pf <- boot_DATA[mean_tr == .5,
+    sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
       mean(V1)]
-  data.table(boot_effect, boot_placebo)
+  data.table(boot_diff_pi, boot_diff_pf)
 }
 
 boots <- rbindlist(lapply(1:1000, boot))
-naive_difference <- data.table(test = c("Effect", "Placebo"),
-  DV = "pirate100 - pfrate100",
-  Estimate = c(effect, placebo),
-  Lower_Bound = c(boots[, quantile(boot_effect, .025)],
-    boots[, quantile(boot_placebo, .025)]),
-  Upper_Bound = c(boots[, quantile(boot_effect, .975)],
-    boots[, quantile(boot_placebo, .975)])
+differences <- data.table(test = c("Party Call Difference",
+  "Party Free Difference"),
+  Estimate = c(diff_pi, diff_pf),
+  Lower_Bound = c(boots[, quantile(boot_diff_pi, .025)],
+    boots[, quantile(boot_diff_pf, .025)]),
+  Upper_Bound = c(boots[, quantile(boot_diff_pi, .975)],
+    boots[, quantile(boot_diff_pf, .975)]),
+  Lower_50 = c(boots[, quantile(boot_diff_pi, 0.25)],
+    boots[, quantile(boot_diff_pf, 0.25)]),
+  Upper_50 = c(boots[, quantile(boot_diff_pi, 0.75)],
+    boots[, quantile(boot_diff_pf, 0.75)])
 )
 
-naive_difference[, position := 0]
-naive_difference[test == "Placebo", position := 1]
-naive_difference[, Lower_Bound_50 := c(boots[, quantile(boot_effect, .25)],
-  boots[, quantile(boot_placebo, .25)])]
-naive_difference[, Upper_Bound_50 := c(boots[, quantile(boot_effect, .75)],
-  boots[, quantile(boot_placebo, .75)])]
+# make coeff plot from effects
+differences[, position := 0]
+differences[test == "Party Free Difference", position := 1]
 
-pdf(file="plots/senate-diff-in-diff-coeff.pdf",
-  width = 4, height = 4, family = "Times")
 
-plot(0, 0, type='n', ylim=c(-1.8, 1), xlim=c(-0.5, 1.5),
+pdf(file="plots/senate_difference_estimates.pdf", ## RENAME
+  width = 5, height = 4, family = "Times")
+
+plot(0, 0, type='n', ylim=c(-2.2, .3), xlim=c(-0.5, 1.5),
   cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Effect")
-axis(1, naive_difference$position, cex.axis = 1.1,
-  labels = c("Reelection Treatment", "Placebo"))
-axis(2, c(-1.5, -1, -0.5, 0, 0.5), cex.axis = 1.1, labels = TRUE)
+axis(1, differences$position, cex.axis =.8,
+  labels = c("Party Call Rate", "Baseline Rate"))
+axis(2, c(-2, -1.5, -1, -0.5, 0), cex.axis = 1.1, labels = TRUE)
 abline(h=0, col="gray55", xpd=FALSE)
-title(main="Party Call Rate Difference from Baseline",
-  cex.main=1, line=0.75, font.main=2)
-points(naive_difference$position, naive_difference$Estimate,
+title(main="Same-State Pair Differences, Reelection Treatment",
+  cex.main=.8, line=0.75, font.main=2)
+points(differences$position, differences$Estimate,
   pch=19, col="black", cex=.8)
-segments(naive_difference$position, naive_difference$Lower_Bound_50,
-  naive_difference$position,  naive_difference$Upper_Bound_50, lwd = 2.5)
-segments(naive_difference$position, naive_difference$Lower_Bound,
-  naive_difference$position,  naive_difference$Upper_Bound, lwd = 1)
+segments(differences$position, differences$Lower_Bound,
+  differences$position,  differences$Upper_Bound, lwd = 1)
+segments(differences$position,
+  differences$Lower_50, differences$position, differences$Upper_50, lwd=2)
 
 dev.off()
 

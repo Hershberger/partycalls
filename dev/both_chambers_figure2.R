@@ -89,7 +89,7 @@ segments(x, b_s - qnorm(.975) * se_s, x, b_s + qnorm(.975) * se_s, lwd=.9)
 b_h <- B_h$extremism_min#[-12]
 se_h <- SE_h$extremism_min#[-12]
 plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="Minority")
+  cex.lab=1.15, xaxt="n", yaxt="n", xlab="Congress", ylab="Minority")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
@@ -101,7 +101,7 @@ segments(x, b_h - qnorm(.975) * se_h, x, b_h + qnorm(.975) * se_h, lwd=.9)
 b_s <- B_s$extremism_min#[-15]
 se_s <- SE_s$extremism_min#[-15]
 plot(0, 0, type='n', ylim=c(-8, 24), xlim=c(93, 112),
-  cex.lab=1.15, xaxt="n", yaxt="n", xlab="", ylab="")
+  cex.lab=1.15, xaxt="n", yaxt="n", xlab="Congress", ylab="")
 axis(1, x.ticks, cex.axis=1.1, labels=TRUE, xpd=TRUE)
 axis(2, y.ticks, cex.axis=1.1, labels=TRUE)
 abline(h=0, col="gray", xpd=FALSE)
