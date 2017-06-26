@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {}Detailing the New Sorting Algorithm}{A1}{section*.11}
+\contentsline {section}{\numberline {}Methodology for Senate Reelection Section}{A3}{section*.16}
+\contentsline {section}{\numberline {}Summary Statistics}{A5}{section*.19}
+\contentsline {section}{\numberline {}Other Tables and Figures}{A9}{section*.24}
