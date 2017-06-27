@@ -1,9 +1,7 @@
 library(partycalls)
 library(ggplot2)
-library(gridExtra)
-library(xtable)
-
 library(extrafont)
+library(Cairo)
 loadfonts()
 
 # load data for analysis
@@ -53,8 +51,8 @@ senate_coding_record[, chamber := "Senate"]
 coding_record <- rbind(house_coding_record, senate_coding_record)
 
 
-pdf(file = "drafts/party_call_percent_both.pdf",
-  width = 6, height = 6)
+cairo_pdf(file = "drafts/party_call_percent_both.pdf",
+   width = 6, height = 6)
 ggplot(coding_record, aes(congress, percent_party_calls,
   color = as.factor(majority))) +
   ylim(30, 90) +
@@ -68,13 +66,10 @@ ggplot(coding_record, aes(congress, percent_party_calls,
   # geom_smooth(method = "lm", se = FALSE) +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5),
-    text = element_text(family = "CM Roman"),
+    text = element_text(family = "Linux Libertine"),
     legend.position = "none") +
   facet_wrap(~ chamber)
 dev.off()
-embed_fonts("drafts/party_call_percent_both.pdf",
-  outfile = "drafts/party_call_percent_both.pdf")
-
 
 
 # load data for analysis
@@ -164,7 +159,7 @@ results[maj == "Minority" & chamber == "Senate" &
   party := "Democrat"]
 
 
-pdf(file="drafts/both-chambers-figure2.pdf", ## RENAME
+cairo_pdf(file="drafts/both-chambers-figure2.pdf", ## RENAME
   width = 6, height = 6)
 ggplot(results, aes(Congress, Estimate, color = party, shape = party)) +
   geom_hline(yintercept = 0, color = "gray", linetype = 3) +
@@ -177,16 +172,10 @@ ggplot(results, aes(Congress, Estimate, color = party, shape = party)) +
   scale_size_continuous(limits = c(2, 3)) +
   ylab("Coefficient on Ideological Extremism") +
   theme(plot.title = element_text(hjust = 0.5),
-    text = element_text(family = "CM Roman"),
+    text = element_text(family = "Linux Libertine"),
     strip.text = element_text(size = 12),
     legend.position = "none")
 dev.off()
-
-embed_fonts("drafts/both-chambers-figure2.pdf",
-  outfile = "drafts/both-chambers-figure2.pdf")
-
-
-
 
 # Make Figure 3
 # select variables needed
@@ -260,7 +249,7 @@ differences[, test := factor(test, levels = test)]
 
 
 
-pdf(file="drafts/senate_difference_estimates.pdf",
+cairo_pdf(file="drafts/senate_difference_estimates.pdf",
   width = 5, height = 4)
 ggplot(differences, aes(test, Estimate)) +
   theme_minimal() +
@@ -268,10 +257,10 @@ ggplot(differences, aes(test, Estimate)) +
   geom_errorbar(aes(ymin = Lower_Bound, ymax = Upper_Bound), width = 0, size = .75) +
   geom_errorbar(aes(ymin = Lower_50, ymax = Upper_50), width = 0, size = 1.5) +
   geom_point(size = 4) +
-  xlab("") + ylab("") +
+  xlab("") + ylab("Reelection Difference in Same-State Senators") +
   ggtitle(paste0("Reelection Limits Responsiveness to Party Calls")) +
   theme(plot.title = element_text(hjust = 0.5),
-    text = element_text(family = "CM Roman", size = 12))
+    text = element_text(family = "Linux Libertine", size = 12))
 
 dev.off()
 

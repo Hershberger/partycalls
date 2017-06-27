@@ -205,6 +205,7 @@ check_signs <- function(rc)
   regs[party_t <= 0, party_coef := "negative"]
   regs[, ideal_coef := "positive"]
   regs[ideal_t <= 0, ideal_coef := "negative"]
+
   regs
 }
 
@@ -371,14 +372,14 @@ xtable(coef_signs)
 
 
 # Make Table 6
-regs <- list()
+sen_regs <- list()
 for (i in 93:112) {
   cat("*** working on congress", i, "\n")
-  regs[[paste0("sen", i)]] <- check_signs(senate_party_calls[[paste0("sen", i)]])
+  sen_regs[[paste0("sen", i)]] <- check_signs(senate_party_calls[[paste0("sen", i)]])
 }
-regs <- rbindlist(regs)
-coef_signs <- table(regs$party_coef, regs$ideal_coef) / length(regs$vt)
-xtable(coef_signs)
+sen_regs <- rbindlist(sen_regs)
+sen_coef_signs <- table(sen_regs$party_coef, sen_regs$ideal_coef) / length(sen_regs$vt)
+xtable::xtable(sen_coef_signs)
 
 
 # Make Tables 7 & 8
