@@ -18,3 +18,4 @@ vector of elements in either x or y but not both
 The symmetric difference is defined as the set difference between the
 union of two sets and the intersection of those sets.
 }
+

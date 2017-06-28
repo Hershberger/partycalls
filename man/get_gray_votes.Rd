@@ -19,3 +19,4 @@ character string of vote IDs, based on KH Data index
 Examines the last n_iterations of classifier iterations and codes any
 vote that wasn't always a party call or always a noncall as a gray vote.
 }
+

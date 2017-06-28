@@ -242,7 +242,7 @@ texreg::texreg(list(lm(hou_extremism, new_whoheeds13),
   lm(sen_extremism, senate_data)),
   reorder.coef = c(2:16, 1))
 
-texreg::texreg(lm(sen_extremism2, senate_data))
+texreg::texreg(lm(sen_extremism, senate_data))
 
 # Make Figure 1
 hou_record_plot <- ggplot(house_coding_record, aes(congress, percent_party_calls,
@@ -361,15 +361,22 @@ dev.off()
 
 
 # Make Table 5
-regs1 <- list()
+hou_regs <- list()
 for (i in 93:112) {
   cat("*** working on congress", i, "\n")
-  regs1[[paste0("hou", i)]] <- check_signs(house_party_calls[[paste0("hou", i)]])
+  hou_regs[[paste0("hou", i)]] <- check_signs(house_party_calls[[paste0("hou", i)]])
 }
-regs1 <- rbindlist(regs)
-coef_signs <- table(regs$party_coef, regs$ideal_coef) / length(regs$vt)
+hou_regs <- rbindlist(hou_regs)
+coef_signs <- hou_regs[, table(party_coef, ideal_coef)] / nrow(hou_regs)
 xtable(coef_signs)
 
+hou_coef_signs_calls_only <-
+  hou_regs[abs(party_t) > qnorm(.975), table(party_coef, ideal_coef)]
+
+hou_coef_signs_noncalls_only <-
+  hou_regs[abs(party_t) < qnorm(.975), table(party_coef, ideal_coef)] /
+  nrow(hou_regs[abs(party_t) < qnorm(.975)])
+xtable::xtable(hou_coef_signs_noncalls_only)
 
 # Make Table 6
 sen_regs <- list()
@@ -381,6 +388,17 @@ sen_regs <- rbindlist(sen_regs)
 sen_coef_signs <- table(sen_regs$party_coef, sen_regs$ideal_coef) / length(sen_regs$vt)
 xtable::xtable(sen_coef_signs)
 
+
+sen_coef_signs_calls_only <-
+  sen_regs[abs(party_t) > qnorm(.975), table(party_coef, ideal_coef)] /
+  nrow(sen_regs[abs(party_t) > qnorm(.975)])
+xtable::xtable(sen_coef_signs_calls_only)
+
+
+sen_coef_signs_noncalls_only <-
+  sen_regs[abs(party_t) < qnorm(.975), table(party_coef, ideal_coef)] /
+  nrow(sen_regs[abs(party_t) < qnorm(.975)])
+xtable::xtable(sen_coef_signs_noncalls_only)
 
 # Make Tables 7 & 8
 naive_difference1[, placement := NULL]

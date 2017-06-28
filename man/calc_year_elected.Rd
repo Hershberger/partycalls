@@ -23,3 +23,4 @@ class 2: up for reelection in 1966, 1972, 1978, 1984, 1990, 1996, 2002, 2008,
 class 3: up for reelection in 1968, 1974, 1980, 1986, 1992, 1998, 2004, 2010,
  2016; congresses in seq(93, 114, 3)
 }
+
