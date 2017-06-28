@@ -246,112 +246,92 @@ ggplot(congress_by_congress_results,
 dev.off()
 
 #------------------------------------------------------------------------------#
-# Figure 3
+# Make Reelection Data
 #------------------------------------------------------------------------------#
 
-# select variables needed
-DATA <- senate_data[!is.na(responsiveness_to_party_calls),
-  .(congress, x = ideological_extremism, stabb, class, caucus, majority, votes,
-    tr = up_for_reelection,
-    y1 = responsiveness_to_party_calls,
-    y2 = baseline_rate)]
-setorder(DATA, stabb, congress, class)
+reelection_data <- senate_data[!is.na(responsiveness_to_party_calls)]
+setorder(reelection_data, stabb, icpsrLegis, congress)
 
-# subset to cases with two senators, one treated, one control
-DATA <- merge(DATA,
-  DATA[, .N, .(stabb, congress)],
+# subset to cases with two senators, make indicator for mean treatment
+reelection_data <- merge(reelection_data,
+  reelection_data[, .N, .(stabb, congress)],
   by = c("stabb", "congress"),
   all.x = TRUE)
-DATA <- DATA[N == 2]
-DATA[, mean_tr := mean(tr), .(stabb, congress)]
-names(DATA)
+reelection_data <- reelection_data[N == 2]
+reelection_data[, mean_up_for_reelection := mean(up_for_reelection), .(stabb, congress)]
 
-# Estimate Effects
-diff_responsiveness <- DATA[mean_tr == .5,
-  sum(tr * y1) - sum((1 - tr) * y1), .(stabb, congress)][,
-    mean(V1)]
-diff_baseline <- DATA[mean_tr == .5,
-  sum(tr * y2) - sum((1 - tr) * y2), .(stabb, congress)][,
-    mean(V1)]
+# add lagged ideological extremism
+reelection_data <- merge(
+  reelection_data,
+  reelection_data[, .(congress = congress + 1,
+    lag_congress = congress, icpsrLegis,
+    lag_responsiveness_to_party_calls = responsiveness_to_party_calls,
+    lag_baseline_rate = baseline_rate,
+    lag_ideological_extremism = ideological_extremism)],
+  by = c("congress", "icpsrLegis"),
+  all.x = TRUE)
 
+reelection_data[, more_senior :=
+    ifelse(rep(sd(seniority) == 0, 2), 0, as.numeric(seniority == max(seniority))),
+  .(stabb, congress)]
+reelection_data[, mean_more_senior := mean(more_senior), .(stabb, congress)]
+reelection_data[, stabb_congress := paste(stabb, congress)]
 
+#------------------------------------------------------------------------------#
+# tab-reelection
+#------------------------------------------------------------------------------#
+models <- list(
+  lfe::felm(responsiveness_to_party_calls ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    DATA[mean_up_for_reelection == .5]),
+  lfe::felm(baseline_rate ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    DATA[mean_up_for_reelection == .5]),
+  lfe::felm(responsiveness_to_party_calls ~ up_for_reelection +
+      lag_responsiveness_to_party_calls +
+      lag_ideological_extremism +
+      lag_baseline_rate +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    DATA[mean_up_for_reelection == .5]),
+  lfe::felm(baseline_rate ~ up_for_reelection +
+      lag_responsiveness_to_party_calls +
+      lag_ideological_extremism +
+      lag_baseline_rate +
+      lag_ideological_extremism +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    DATA[mean_up_for_reelection == .5])
+)
+texreg::texreg(models,
+  custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
+  custom.coef.names = fix_coef_names(models))
 
-DATA[, stabb_congress := paste(stabb, congress)]
-summary(mgcv::gam(y1 ~ tr + s(x) + s(y2) + s(votes) +
-    factor(stabb_congress) +
-    caucus + majority,
-  data = DATA))
-
-summary(lfe::felm(y1 ~ tr +
-    caucus * majority |
-    stabb_congress | 0 | stabb_congress,
-  DATA))
-summary(lfe::felm(y2 ~ tr +
-    caucus * majority |
-    stabb_congress | 0 | stabb_congress,
-  DATA))
-summary(lfe::felm(x ~ tr +
-    caucus * majority |
-    stabb_congress | 0 | stabb_congress,
-  DATA))
-
-model_y <- lm(y1 ~ tr + x, DATA)
-model_m <- lm(x ~ tr, DATA)
-out <- mediation::mediate(model.m = model_m, model.y = model_y, treat = "tr", mediator = "x")
-
-
-# bootstrap by state
-states <- DATA[, unique(stabb)]
-
-boot <- function(i) {
-  boot_states <- sample(states, replace = TRUE)
-  boot_DATA <- rbindlist(lapply(seq_along(boot_states), function(boot_id) {
-    boot_DATA <- DATA[stabb == boot_states[boot_id]]
-    boot_DATA[, boot_id := boot_id]
-    boot_DATA
-  }))
-  boot_diff_responsiveness <- boot_DATA[mean_tr == .5,
-    sum(tr * y1) - sum((1 - tr) * y1), .(boot_id, congress)][,
-      mean(V1)]
-  boot_diff_baseline <- boot_DATA[mean_tr == .5,
-    sum(tr * y2) - sum((1 - tr) * y2), .(boot_id, congress)][,
-      mean(V1)]
-  data.table(boot_diff_pi, boot_diff_pf)
-}
-
-# boots <- rbindlist(lapply(1:1000, boot))
-# save(boots, file = "drafts/boots.RData")
-load("drafts/boots.RData")
-
+#------------------------------------------------------------------------------#
+# Figure 3
+#------------------------------------------------------------------------------#
 differences <- data.table(
   test = c(
     "Party Calls",
     "Party-Free Votes"),
   Estimate = c(
-    diff_responsiveness,
-    diff_baseline),
-  Lower_Bound = c(
-    boots[, quantile(boot_diff_responsiveness, .025)],
-    boots[, quantile(boot_diff_baseline, .025)]),
-  Upper_Bound = c(
-    boots[, quantile(boot_diff_responsiveness, .975)],
-    boots[, quantile(boot_diff_baseline, .975)]),
-  Lower_50 = c(
-    boots[, quantile(boot_diff_responsiveness, 0.25)],
-    boots[, quantile(boot_diff_baseline, 0.25)]),
-  Upper_50 = c(
-    boots[, quantile(boot_diff_responsiveness, 0.75)],
-    boots[, quantile(boot_diff_baseline, 0.75)])
-)
+    coef(models[[3]])["up_for_reelection"],
+    coef(models[[4]])["up_for_reelection"]),
+  SE = c(
+    vcov(models[[3]])["up_for_reelection", "up_for_reelection"] ^ .5,
+    vcov(models[[4]])["up_for_reelection", "up_for_reelection"] ^ .5))
 
-# make coeff plot from effects
-# differences[, position := 0]
-# differences[test == "Party Free Difference", position := 1]
-#
-# differences[, test := gsub(" Difference", "", test)]
+differences[, Lower_Bound := Estimate + qnorm(.025) * SE]
+differences[, Upper_Bound := Estimate + qnorm(.975) * SE]
+differences[, Lower_50 := Estimate + qnorm(.25) * SE]
+differences[, Upper_50 := Estimate + qnorm(.75) * SE]
 differences[, test := factor(test, levels = test)]
-
-
 
 cairo_pdf(file="drafts/senate_difference_estimates.pdf",
   width = 5, height = 4)
@@ -365,9 +345,4 @@ ggplot(differences, aes(test, Estimate)) +
   ggtitle(paste0("Reelection Limits Responsiveness to Party Calls")) +
   theme(plot.title = element_text(hjust = 0.5),
     text = element_text(family = "Linux Libertine", size = 12))
-
 dev.off()
-
-embed_fonts("drafts/senate_difference_estimates.pdf",
-  outfile = "drafts/senate_difference_estimates.pdf")
-
