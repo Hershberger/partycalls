@@ -39,7 +39,7 @@ setnames(senate_data,
 setnames(senate_data, old_names, new_names)
 senate_data[congress == 107, majority := dem]
 
-# drop Jeffords from 107?
+# drop Jeffords from 107
 senate_data <- senate_data[!(congress == 107 & icpsrLegis %in% c(14240, 94240))]
 
 house_coding_record <- data.table(congress = 93:112)

@@ -10,6 +10,7 @@
 \usepackage{enumerate}
 \usepackage{morefloats}
 \usepackage[skip = 2pt]{caption}
+\usepackage{natbib}
 \usepackage[flushleft]{threeparttable}
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
@@ -17,7 +18,6 @@
 \usepackage{setspace}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
-\usepackage{natbib}
 
 \newcommand\fnote[1]{\captionsetup{font=normalsize}\caption*{#1}}
 
@@ -29,7 +29,9 @@
 
 \makeatother
 
+\renewcommand{\headrulewidth}{0pt}
 \def\citeapos#1{\citeauthor{#1}'s (\citeyear{#1})} % possessive citation
+\bibpunct{(}{)}{;}{a}{}{,}
 
 \begin{document}
 
@@ -203,12 +205,11 @@ Based on the logic above, we expect that the Senator \textit{Up for Reelection} 
 \centering
 \includegraphics[width = 12cm]{senate_difference_estimates.pdf}
 
-\caption{Senators up for reelection are less responsive to party calls.
-This figure summarizes fixed effects models of same-state Senator pairs in which one is \textit{Up for Reelection}. Estimates are differences in \textit{Responsiveness} to party calls and the \textit{Baseline Rate} of voting with the party, with 50\% and 95\% confidence intervals based on clustered standard errors.
+\caption{Senators up for reelection are less responsive to party calls, yet there is no evidence that reelection affects \textit{Baseline Rate} of voting with the party.  This figure summarizes fixed effects models of same-state Senator pairs in which one is \textit{Up for Reelection}.  Estimates are differences in \textit{Responsiveness} to party calls and the \textit{Baseline Rate} of voting with the party, with 50\% and 95\% confidence intervals based on clustered standard errors.
 \label{fig-reelection-responsiveness}}
 \end{figure}
 
-Figure~\ref{fig-reelection-responsiveness} shows that \textit{Responsiveness} to party calls declines, on average, about 1.3\% when they are \textit{Up for Reelection}.\footnote{\doublespacing\normalsize  In an alternative approach, we compare all three possibilities for same-state Senator pairs based on proximity to upcoming election.  Comparing those \textit{Up for Reelection} to those in the first Congress after election shows a similar effect to that in Figure~\ref{fig-reelection-responsiveness}.  Likewise, comparing those \textit{Up for Reelection} to those in the middle two years of their six-year term reveals lower \textit{Responsiveness} for those \textit{Up for Reelection}.  In contrast, comparing same-state Senators, neither of whom are \textit{Up for Reelection}, we find no difference in \textit{Responsiveness}.  Across all three cases, we find no differences in their \textit{Baseline Rate}, which acts as a design test.}  However, their \textit{Baseline Rate} of voting with the party is unchanged by electoral considerations, which serves to validate our design insofar as such an effect was unexpected and inconsistent with the party calls theory.  During the period of analysis, the average \textit{Responsiveness} to party calls is 85\%. Across the 365 party-call votes in the average Senate, a Senator not \textit{Up for Reelection} therefore averages 53 defections from her party.  In contrast, those \textit{Up for Reelection} defect from party calls 58 times on average, almost a ten percent increase.  Such deviations may limit the party's effectiveness in lawmaking and in developing a coherent brand.  But they offer the election-seeking Senator an opportunity to build her support and reputation back home.
+Figure~\ref{fig-reelection-responsiveness} shows that \textit{Responsiveness} to party calls declines an average of about 1.3\% when a Senator is \textit{Up for Reelection}.\footnote{\doublespacing\normalsize  In an alternative approach, we compare all three possibilities for same-state Senator pairs based on proximity to upcoming election.  Comparing those \textit{Up for Reelection} to those in the first Congress after election shows a similar effect to that in Figure~\ref{fig-reelection-responsiveness}.  Likewise, comparing those \textit{Up for Reelection} to those in the middle two years of their six-year term reveals lower \textit{Responsiveness} for those \textit{Up for Reelection}.  In contrast, comparing same-state Senators neither of whom are \textit{Up for Reelection}, we find no difference in \textit{Responsiveness}, treating the more senior Senator as the one closer to election.  Across all three cases, we find no differences in their \textit{Baseline Rate}, which acts as a design test.}  However, their \textit{Baseline Rate} of voting with the party is unchanged by electoral considerations, which serves to validate our design insofar as such an effect was unexpected and inconsistent with the party calls theory.  During the period of analysis, the average \textit{Responsiveness} to party calls is 85\%. Across the 365 party-call votes in the average Senate, a Senator not \textit{Up for Reelection} therefore averages 53 defections from her party.  In contrast, those \textit{Up for Reelection} defect from party calls 58 times on average, almost a ten percent increase.  Such deviations may limit the party's effectiveness in lawmaking and in developing a coherent brand.  But they offer the election-seeking Senator an opportunity to build her support and reputation back home.
 
 \subsection*{Conclusion}
 
@@ -218,7 +219,7 @@ One especially noteworthy finding is therefore the nature of the relationship we
 
 We further showed the value of party calls as a tool for studying legislative behavior.  We found that reelection reduced member responsiveness to party calls.  Under electoral threat, constituent preferences are front and center in Senators' minds, and thus we hypothesized---and found---that members up for reelection are less responsive to the party. This finding shows one of the limits to the party-building efforts inherent in party calls.
 
-\clearpage
+\newpage
 
 %------------------------------------------------------------------------------%
 \bibliography{senate}
