@@ -170,17 +170,18 @@ texreg::texreg(models, override.se = ses, override.pvalues = pvals,
 # Figure 1
 #------------------------------------------------------------------------------#
 cairo_pdf(file = "drafts/party_call_percent_both.pdf",
-  width = 6, height = 6)
+  width = 6.5, height = 4)
 ggplot(coding_record, aes(congress, percent_party_calls,
   color = as.factor(majority))) +
   ylim(30, 90) +
   xlab("Congress") +
   ylab("Percentage of Votes") +
   ggtitle("Frequency of Party Calls over Time") +
-  geom_point(aes(shape = as.factor(majority), size = ifelse(majority == "Democrat", 3, 2.25))) +
+  geom_point(aes(shape = as.factor(majority),
+    size = ifelse(majority == "Democrat", 2, 1.25))) +
   scale_shape_manual("Majority Party", values = c(16, 17), guide = FALSE) +
   scale_color_manual("Majority Party", values = c("blue3", "red3"), guide = FALSE) +
-  scale_size_continuous(limits = c(2, 3)) +
+  scale_size_continuous(limits = c(1, 3)) +
   # geom_smooth(method = "lm", se = FALSE) +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5),
@@ -227,7 +228,7 @@ congress_by_congress_results[maj == "Minority" & chamber == "Senate" &
   party := "Democrat"]
 
 cairo_pdf(file="drafts/both-chambers-figure2.pdf", ## RENAME
-  width = 6, height = 6)
+  width = 6, height = 4)
 ggplot(congress_by_congress_results,
   aes(Congress, Estimate, color = party, shape = party)) +
   geom_hline(yintercept = 0, color = "gray", linetype = 3) +
@@ -237,7 +238,7 @@ ggplot(congress_by_congress_results,
   facet_grid(maj ~ chamber, scales = "free") +
   theme_minimal() +
   scale_color_manual(values = c("Democrat" = "blue3", "Republican" = "red3")) +
-  scale_size_continuous(limits = c(2, 3)) +
+  scale_size_continuous(limits = c(2, 4)) +
   ylab("Coefficient on Ideological Extremism") +
   theme(plot.title = element_text(hjust = 0.5),
     text = element_text(family = "Linux Libertine"),

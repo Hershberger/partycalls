@@ -66,7 +66,7 @@
 
 %------------------------------------------------------------------------------%
 \subsection*{Appendix A: Classifying Party Calls}
-\addcontentsline{toc}{section}{\protect\numberline{}Classifying Party Calls}%
+\addcontentsline{toc}{section}{\protect\numberline{}Appendix A: Classifying Party Calls}%
 %------------------------------------------------------------------------------%
 
 As in \cite{Minozzi:2013}, we use an algorithm to classify votes as ``party calls''---that is, whether votes are predicted by party membership even after controlling for ideology.  We classify the complement of votes as ``party free,'' and we use them to estimate ideal points absent party influence.  The classification algorithm is iterative.  In each iteration of the algorithm, ideal points are estimated based only on the votes which were classified as ``party free'' in the previous iteration.  All votes are then regressed on ideal points and party membership, and votes are re-categorized based on the explanatory power of party in these regressions.  To begin the process we need an initial classification, and so ideal points in the first iteration are estimated using lopsided votes (which have more than 65\% or less than 35\% of members of the chamber voting on the same side).  We then use a 15 iteration ``burn-in'' period for each Congress.  During this early period, many votes switch categories from iteration to iteration.  This number of switchers also declines rapidly in these early iterations.  After burn-in, the algorithm continues until either (1) the number of votes that switch classifications stops declining, or (2) until there are fewer than 5 votes that switch.  Once either condition is met, it continues for an additional 15 iterations.  Finally, we use the last five iterations to provide a final classification of votes. During these final iterations, any vote that does not switch is classified in its appropriate category.  Any vote which does switch is dropped from further analysis, on the basis that these votes could not be credibly classified.
@@ -141,7 +141,7 @@ Party Free Only\\
 
 %------------------------------------------------------------------------------%
 \subsection*{Appendix B: Summary Statistics}
-\addcontentsline{toc}{section}{\protect\numberline{}Summary Statistics}%
+\addcontentsline{toc}{section}{\protect\numberline{}Appendix B: Summary Statistics}%
 %------------------------------------------------------------------------------%
 
 Here we give descriptions of report summary tables of the variables used in our paper. Members are grouped either as Democrats or Republicans, with independents being grouped with the party they caucus with in each chamber. The data are constructed with observations for members in each Congress they were present in. Values are according to member status in each Congress. Members who changed parties have multiple observations in the Congress which they did so to have observations for them in each. In each chamber, \textit{Majority} is an indicator variable for if a members' party is in the majority during a Congress, which is used to divide results and summary statistics.\footnote{\doublespacing\normalsize Each party held the majority for a portion of the $107^{\text{th}}$ Senate, with Democrats in control for most of the term.  Therefore, for the purposes of analyses, Democrats were coded as the majority of this term.  This decision does not meaningfully affect the inferences in the paper.}
@@ -236,7 +236,7 @@ Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
 
 %------------------------------------------------------------------------------%
 \subsection*{Supplemental Appendix C: Regression Models of Responsiveness}
-\addcontentsline{toc}{section}{\protect\numberline{}Regression Models of Responsiveness}%
+\addcontentsline{toc}{section}{\protect\numberline{}Appendix C: Regression Models of Responsiveness}%
 %------------------------------------------------------------------------------%
 
 In this appendix, we present results from regression models in the House and Senate which model \textit{Responsiveness} to party calls separately by party and majority status.  Table~\ref{tab-house-models} presents results for the House, and Table~\ref{tab-senate-models} those for the Senate.
@@ -365,7 +365,7 @@ $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
 
 %------------------------------------------------------------------------------%
 \subsection*{Supplemental Appendix D: Senate Reelection Fixed Effects Models}
-\addcontentsline{toc}{section}{\protect\numberline{}Senate Reelection Fixed Effects Models}%
+\addcontentsline{toc}{section}{\protect\numberline{}Appendix D: Senate Reelection Fixed Effects Models}%
 %------------------------------------------------------------------------------%
 
 To better test the role of reelection, we use same-state senators as a natural pairing.  Table~\ref{tab-reelection} presents the results of fixed effects regression models which were summarized in Figure~2 in the main text.  The first two models include no control variables beyond the fixed effects, while the latter two also adjust for relevant control variables including lagged values of \textit{Responsiveness} to party calls, \textit{Ideological Extremism}, and \textit{Baseline Rate} of voting with the party.

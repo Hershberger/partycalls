@@ -36,30 +36,40 @@
 \begin{document}
 
 \bibliographystyle{apsr}
+\let\OLDthebibliography\thebibliography
+% \renewcommand\thebibliography[1]{
+%   \OLDthebibliography{#1}
+%   \setlength{\parskip}{0pt}
+%   \setlength{\itemsep}{1pt}
+% }
 
-\title{Party Calls and Reelection in the U.S. Senate\thanks{
-We would like to thank Andrew Podob for reviewing a draft of this paper.
-ADD FURTHER ACKNOWLEDGEMENTS?}
+\title{Party Calls and Reelection in the U.S. Senate%\thanks{
+% We would like to thank Andrew Podob for reviewing a draft of this paper.
+%ADD FURTHER ACKNOWLEDGEMENTS?
+%}
 }
 
-\author{
-  Ethan Hershberger\thanks{
-    \small Ohio State University
-  }\quad
-  William Minozzi$^\dagger$\quad
-  Craig Volden\thanks{
-    \small University of Virginia
-  }\\
-}
+% \author{
+  % Ethan Hershberger\thanks{
+  %   \small Ohio State University
+  % }\quad
+  % William Minozzi$^\dagger$\quad
+  % Craig Volden\thanks{
+  %   \small University of Virginia
+  % }\\
+% }
 
 \date{\today}
 
 \maketitle
 
+\thispagestyle{empty}
+\setcounter{page}{0}
+
 \begin{center}
 
 \vspace{.1in}
-Word Count: XXXX
+% Word Count: XXXX
 \end{center}
 \vspace{.25in}
 
@@ -70,7 +80,6 @@ Word Count: XXXX
 \end{abstract}
 
 \clearpage
-\setcounter{page}{1}
 
 \doublespacing
 
@@ -89,28 +98,34 @@ In addition to extending the examination of party calls to the Senate, we expand
 \subsection*{Party Calls in the Senate}
 %------------------------------------------------------------------------------%
 
-To explore party calls, MV use a two-step process, first dividing floor votes into ``party-free votes'' and ``party calls,'' and then examining which legislators are most responsive to party calls beyond their baseline partisan support on party-free votes.  Identifying party calls is itself a difficult classification problem, requiring researchers to identify a strong party-based voting pattern apart from that produced by ideological differences alone.  We mimic the iterative approach in MV that produces the list of party-call votes and simultaneously generates party-free ideal points for each legislator.\footnote{\doublespacing\normalsize Minor modifications were made to adapt this method to the Senate and to reduce computational burdens (see Supplemental Appendix A).}
+To explore party calls, MV use a two-step process, first dividing floor votes into ``party-free votes'' and ``party calls,'' and then examining which legislators are most responsive to party calls beyond their baseline partisan support on party-free votes.  Identifying party calls is a difficult classification problem requiring researchers to identify a strong party-based voting pattern apart from that produced by ideological differences alone.  We mimic the approach in MV that produces the list of party-call votes and simultaneously generates party-free ideal points for each legislator.\footnote{\doublespacing\normalsize Minor modifications were made to adapt this method to the Senate and to reduce computational burdens (see Supplemental Appendix A).}
 
-As detailed in the Supplemental Appendix A, the party calls identified through this process broadly reflect properties expected of partisan votes.  For example, party calls tend to drive a further wedge between Democrats and Republicans who are already initially separated on ideological grounds.  Moreover, party calls are more likely to occur among close votes than lopsided votes, perhaps because the close votes offer greater opportunity for parties to differentiate themselves.  In total, these patterns lend confidence that our classification of party-call votes is meaningful in capturing broad and consistent underlying behavior.
+The party calls identified through this process broadly reflect properties expected of partisan votes (see Supplemental Appendix A for details).  For example, party calls tend to drive a further wedge between Democrats and Republicans who are already initially separated on ideological grounds.  Moreover, party calls are more likely to occur among close votes than lopsided votes, perhaps because the close votes offer greater opportunity for parties to differentiate themselves.  In total, these patterns lend confidence that our classification of party-call votes is meaningful in capturing broad and consistent underlying behavior.
 
-Figure~\ref{fig-party-calls-over-time} illustrates the percentage of party calls among all votes in the House and Senate.  Across both chambers, the use of party calls has been steadily increasing over time.\footnote{\doublespacing\normalsize Because of the different threshold for identifying party calls across chambers, as well as their different membership sizes, direct House-Senate comparisons in the proportion of party-call votes would be inappropriate.
-% do we need to say this?
-}  It is possible that parties are calling more because partisan ideological alignment has made party calls more effective, or because parties need members to rally more to get their agendas through a heavily gridlocked Congress.  We believe that the underlying cause of this trend merits further investigation, but take it as consistent with the much discussed increased partisanship and polarization in recent decades (e.g., \cite{Aldrich:2000, Lee:2009, Lee:2016, Theriault:2013, Smith:2014}). This trend holds regardless of which party is in the majority in the chamber.
-
-\begin{figure}[p]
+\begin{figure}[t]
 \centering
-\includegraphics[width = \textwidth]{party_call_percent_both.pdf}
+\includegraphics{party_call_percent_both.pdf}
 \caption{Party calls as a percentage of all votes, 1973-2012.
-This figure shows the percentage of votes classified as party calls per Congress in each chamber. Blue circles denote Democrat-majority Congresses while Red triangles denote Republican-majority Congresses.
+This figure shows the percentage of votes classified as party calls per Congress in each chamber. Circles denote Democrat-majority chambers while triangles denote Republican-majority chambers.
 \label{fig-party-calls-over-time}}
 \end{figure}
 
-Fundamental to the theory of party calls is the idea that substantial partisan activity in Congress is designed to align members who might otherwise wander away from the party for idiosyncratic reasons, rather than solely winning close votes. As such, those most responsive to party calls are the extremists who benefit from coherent party positions, rather than cross-pressured, fence-sitting moderates.  To test this ``responsive extremists hypothesis,'' we run a series of linear models of \textit{Responsiveness} to party calls, legislator's percentage support for the party position on party-call votes.  Throughout, we cluster observations by legislator and congress to account for possible dependence.  Table~\ref{tab-responsiveness-regressions} shows that the responsive extremists hypothesis holds up well in the extended period over which we examine the House, and nearly as prominently in the Senate.
+Figure~\ref{fig-party-calls-over-time} illustrates the percentage of party calls among all votes in the House and Senate.  Across both chambers, the use of party calls has been steadily increasing over time.\footnote{\doublespacing\normalsize
+Differences across chambers based on membership size render
+% Because of the different threshold for identifying party calls across chambers, as well as their different membership sizes,
+direct House-Senate comparisons in the proportion of party-call votes
+%would be
+inappropriate.
+% do we need to say this?
+}  It is possible that parties are calling more because partisan ideological alignment has made party calls more effective, or because parties need members to rally more to get their agendas through a heavily gridlocked Congress.  We believe that the underlying cause of this trend merits further investigation, but take it as consistent with the much discussed increased partisanship and polarization in recent decades \citep[e.g.,][]{Aldrich:2000, Lee:2009, Lee:2016, Theriault:2013, Smith:2014}. This trend holds regardless of which party is in the majority in the chamber.
+
+
+Fundamental to the theory of party calls is the idea that much partisan activity in Congress works to align members who might otherwise wander away from the party for idiosyncratic reasons, rather than solely winning close votes. As such, those most responsive to party calls are the extremists who benefit from coherent party positions, rather than cross-pressured, fence-sitting moderates.  To test this ``responsive extremists hypothesis,'' we run a series of linear models of \textit{Responsiveness} to party calls, legislator's percentage support for the party position on party-call votes.  Throughout, we cluster observations by legislator and congress to account for possible dependence.  Table~\ref{tab-responsiveness-regressions} shows that the responsive extremists hypothesis holds up well in the extended period over which we examine the House, and nearly as prominently in the Senate.
 
 \begin{table}[!htbp]
 \centering
 \begin{threeparttable}
-\caption{Models of Responsiveness to Party Calls, 1973-2012}
+\caption{Models of \textit{Responsiveness}, 1973-2012}
 \label{tab-responsiveness-regressions}
 \singlespacing
 \begin{tabular}{l c c c }
@@ -160,30 +175,31 @@ RMSE                  & 8.44         & 6.98         & 6.97          \\
 \end{tabular}
 \begin{tablenotes}
    \item
-   The table presents linear models of \textit{Responsiveness to Party Calls},
+   The table presents linear models of \textit{Responsiveness} to Party Calls,
    from the 93$^{\text{rd}}$-112$^{\text{th}}$ Congresses (1973-2012).
-  Standard errors are clustered by Congress and by member
+  Standard errors are clustered by Congress and member.\\
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
 % didn't MV include retiree?
-We include all of the control variables used by MV, notably accounting for the \textit{Baseline Rate} of voting with the party on party-free votes.\footnote{\doublespacing\normalsize See Supplemental Appendix B for descriptions and summary statistics for all variables.}  Although some House-Senate differences emerge, such as for Southerners or those on power committees, many broad patterns are consistent across institutions.\footnote{\doublespacing\normalsize Given the small size of the Senate, most members are included in one of the top committees, limiting the variance that allowed patterns based on committee assignments to be discerned in the House.}  For example, positive coefficients show \textit{Party Leaders} and \textit{Committee Chairs} to be understandably highly responsive to party calls.
+We include the control variables from MV, notably accounting for the \textit{Baseline Rate} of voting with the party on party-free votes.\footnote{\doublespacing\normalsize See Supplemental Appendix B for descriptions and summary statistics for all variables.}  Although some House-Senate differences emerge, such as for Southerners or those on power committees, the broad patterns are consistent across institutions.\footnote{\doublespacing\normalsize Given the small size of the Senate, most members are on one of the top committees, limiting the variance that allowed patterns based on committee assignments to be discerned in the House.}  For example, positive coefficients show \textit{Party Leaders} and \textit{Committee Chairs} to be highly responsive to party calls.
 
-As shown by the coefficients on \textit{Ideological Extremism}, and in strong support of the theory of party calls, each one-standard-deviation increase in that variable is associated with a nearly eight-percentage-point increase in \textit{Responsiveness} in the House, and more than a six-percentage-point rise in the Senate.\footnote{\doublespacing\normalsize These effect sizes are consistent with those uncovered by MV in the House between 1973 and 2006.}  This party alignment extends above and beyond the baseline support on party-free votes.
+As shown by the coefficients on \textit{Ideological Extremism} and in strong support of the theory of party calls, each one standard deviation increase in that variable is associated with a nearly eight percentage point increase in \textit{Responsiveness} in the House, and more than six points in the Senate.\footnote{\doublespacing\normalsize The effect sizes are similar with those uncovered by MV in the House between 1973 and 2006.}  This party alignment extends above and beyond the baseline support on party-free votes.
 
 The pattern of ideological extremists being more responsive to party calls than moderates holds for both Democrats and Republicans, for both those in the majority party and those in the minority party (see Supplemental Appendix C for details). This robust support is illustrated in Figure~\ref{fig-extremism-responsiveness} based on separate regressions for each party in each Congress, which is a tough test of the responsive extremists hypothesis, especially given the small membership of the Senate. In the House, \textit{Ideological Extremism} takes a positive coefficient for all but four cases, and in the Senate for all but two. Further, in the House, all positive coefficients are statistically significant; in the Senate, 29 of the 38 positive coefficients are statistically significant, while only one negative coefficient is. These results add confidence to the aggregate findings above.
 
-\begin{figure}[!htbp]
+\begin{figure}[t]
 \centering
 \includegraphics{both-chambers-figure2.pdf}
 \caption{Extremists are responsive to party calls in both chambers.
-This coefficient plot is produced by the same formula shown in the House and Senate regression table with results decomposed for the majority and minority parties in each of the 93$^{\text{rd}}$-112$^{\text{th}}$ Congresses (1973-2012). Coefficients shown are for the effect of ideological extremism on party-call votes, with both 50\% and 95\% confidence intervals shown.
+This coefficient plot is produced by the same formula shown in the House and Senate regression table with results decomposed for the majority and minority parties in each of the 93$^{\text{rd}}$-112$^{\text{th}}$ Congresses (1973-2012).
+Circles denote Democrat-majority chambers while triangles denote Republican-majority chambers, and both indicate coefficient estimates for \textit{Ideological Extremism} in regressions of \emph{Responsiveness} to party calls, with both 50\% and 95\% confidence intervals shown.
 \label{fig-extremism-responsiveness}}
 \end{figure}
 
-In sum, the results reported here offer a coherent portrait of party calls in both chambers of the U.S. Congress. Party-call votes are widespread and increasing over the past four decades. They divide Democrats from Republicans, but especially draw ideologically extreme party members toward a unified partisan position.
+These results paint a coherent portrait of party calls in both chambers of the U.S. Congress. Party-call votes are widespread, have increased over the past four decades, and divide Democrats from Republicans. But most importantly, these votes draw \emph{ideologically extreme} members---rather than moderates---toward the unified partisan position.
 
 Beyond uncovering such a systematic and important partisan process in Congress, the party calls identified here offer the potential to significantly enhance scholarly exploration of parties in the Senate. New research based on party calls could contribute to a fuller understanding of partisan practices and norms spreading from the House to the Senate \citep[e.g.,][]{Theriault:2013}, of the role of partisanship in advancing and overcoming filibusters \citep[e.g.,][]{Wawro:2004}, and of electoral constraints on partisan behavior \citep[e.g.,][]{Levitt:1996}, to name a few opportunities.
 
@@ -194,14 +210,12 @@ To illustrate the usefulness of party calls, we tackle the last of these possibi
 %------------------------------------------------------------------------------%
 
 We argue that Senators up for reelection will be more attuned to their electoral needs than to broad party interests. Put simply, they will use some party-call votes to improve their personal---rather than the party---brand
-\citep[e.g.,][]{Canes-Wrone:2002, Carson:2010}.  We detected evidence consistent with such a pattern above.
-
-As an alternative test, we build a design on same-state Senator pairs in which one Senator is \textit{Up for Reelection} at the end of the Congress.  These pairings are ideal because same-state Senators are elected by the same constituents, but not at the same time, allowing us to estimate the effects of being \textit{Up for Reelection} using a model with fixed effects for each state-Congress pair.  We further control for all relevant covariates and adjust for lagged \textit{Ideological Extremism}, \textit{Responsiveness}, and \textit{Baseline Rate}; similar results hold if these control variables are omitted.
+\citep[e.g.,][]{Canes-Wrone:2002, Carson:2010}.  We detected evidence consistent with such a pattern above, but as a more targeted test, we build a design on same-state Senator pairs in which one Senator is \textit{Up for Reelection} at the end of the Congress.  These pairings are ideal because same-state Senators are elected by the same constituents, but not at the same time, allowing us to estimate the effects of being \textit{Up for Reelection} using a model with fixed effects for each state-Congress pair.  We further control for all relevant covariates and adjust for lagged \textit{Ideological Extremism}, \textit{Responsiveness}, and \textit{Baseline Rate}. Similar results hold if these control variables are omitted (see Supplemental Appendix D).
 %Given this design, any additional differences apart from reelection between members from the same state should cancel each other out across Senators and over time, limiting the possibility of spuriously significant findings.
 % not sure I think this is right...
 Based on the logic above, we expect that the Senator \textit{Up for Reelection} will be have lower \textit{Responsiveness} to party calls than her same-state Senate partner.  In contrast, we expect no difference between the \textit{Baseline Rate} of voting with the party on party-free votes, which therefore comprises a test of our design. See Supplemental Appendix D for details.
 
-\begin{figure}[!htbp]
+\begin{figure}[t]
 \centering
 \includegraphics[width = 12cm]{senate_difference_estimates.pdf}
 
@@ -209,17 +223,18 @@ Based on the logic above, we expect that the Senator \textit{Up for Reelection} 
 \label{fig-reelection-responsiveness}}
 \end{figure}
 
-Figure~\ref{fig-reelection-responsiveness} shows that \textit{Responsiveness} to party calls declines an average of about 1.3\% when a Senator is \textit{Up for Reelection}.\footnote{\doublespacing\normalsize  In an alternative approach, we compare all three possibilities for same-state Senator pairs based on proximity to upcoming election.  Comparing those \textit{Up for Reelection} to those in the first Congress after election shows a similar effect to that in Figure~\ref{fig-reelection-responsiveness}.  Likewise, comparing those \textit{Up for Reelection} to those in the middle two years of their six-year term reveals lower \textit{Responsiveness} for those \textit{Up for Reelection}.  In contrast, comparing same-state Senators neither of whom are \textit{Up for Reelection}, we find no difference in \textit{Responsiveness}, treating the more senior Senator as the one closer to election.  Across all three cases, we find no differences in their \textit{Baseline Rate}, which acts as a design test.}  However, their \textit{Baseline Rate} of voting with the party is unchanged by electoral considerations, which serves to validate our design insofar as such an effect was unexpected and inconsistent with the party calls theory.  During the period of analysis, the average \textit{Responsiveness} to party calls is 85\%. Across the 365 party-call votes in the average Senate, a Senator not \textit{Up for Reelection} therefore averages 53 defections from her party.  In contrast, those \textit{Up for Reelection} defect from party calls 58 times on average, almost a ten percent increase.  Such deviations may limit the party's effectiveness in lawmaking and in developing a coherent brand.  But they offer the election-seeking Senator an opportunity to build her support and reputation back home.
+Figure~\ref{fig-reelection-responsiveness} shows that \textit{Responsiveness} to party calls declines an average of about 1.3\% when a Senator is \textit{Up for Reelection}.  However, their \textit{Baseline Rate} of voting with the party is unchanged by electoral considerations,
+an anticipated null finding that bolsters our confidence in the validity of this research design.\footnote{\doublespacing\normalsize  In an alternative approach, we compared all three possibilities for same-state Senator pairs based on proximity to upcoming election.  Comparing those \textit{Up for Reelection} to those in the first Congress after election shows a similar effect to that in Figure~\ref{fig-reelection-responsiveness}.  Likewise, comparing those \textit{Up for Reelection} to those in the middle two years of their six-year term reveals lower \textit{Responsiveness} for those \textit{Up for Reelection}.  In contrast, comparing same-state Senators neither of whom are \textit{Up for Reelection}, we find no difference in \textit{Responsiveness}, treating the more senior Senator as the one closer to election.  Across all three cases, we find no differences in their \textit{Baseline Rate}.}
+% which serves to validate our design insofar as such an effect was unexpected and inconsistent with the party calls theory.
+During the period of analysis, the average \textit{Responsiveness} to party calls is 85\%. Across the 365 party-call votes in the average Senate, a Senator not \textit{Up for Reelection} therefore averages 53 defections from her party.  In contrast, those \textit{Up for Reelection} defect from party calls 58 times on average, almost a ten percent increase.  Such deviations may limit the party's effectiveness in both lawmaking and brand development.  But they offer the election-seeking Senator an opportunity to build her support and reputation back home.
 
 \subsection*{Conclusion}
 
 In this paper, we established that legislators respond to party calls in the Senate as they do in the House. In both chambers, party calls have become more prominent over the past forty years.  In line with expectations, when leaders issue party calls, legislators align with their party, with the greatest effect being among ideological extremists.
 
-One especially noteworthy finding is therefore the nature of the relationship we uncover between party and ideology.  In contrast to \citeapos{Krehbiel:1993} view that partisanship is often merely a reflection of ideology, or \citeapos{Lee:2009} view that party extends well beyond ideology, we find party and ideology to be largely complementary yet distinct.  When the party calls its members together, those who benefit the most---typically ideological extremists---respond most vigorously to the call.
+One especially noteworthy finding is the nature of the relationship we uncover between party and ideology.  In contrast to \citeapos{Krehbiel:1993} view that partisanship is often merely a reflection of ideology, or \citeapos{Lee:2009} view that party extends well beyond ideology, we find party and ideology to be largely complementary yet distinct.  When the party calls its members together, those who benefit the most---typically ideological extremists---respond most vigorously to the call.
 
 We further showed the value of party calls as a tool for studying legislative behavior.  We found that reelection reduced member responsiveness to party calls.  Under electoral threat, constituent preferences are front and center in Senators' minds, and thus we hypothesized---and found---that members up for reelection are less responsive to the party. This finding shows one of the limits to the party-building efforts inherent in party calls.
-
-\newpage
 
 %------------------------------------------------------------------------------%
 \bibliography{senate}
