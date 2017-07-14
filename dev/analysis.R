@@ -184,8 +184,11 @@ ggplot(coding_record, aes(congress, percent_party_calls,
   scale_size_continuous(limits = c(1, 3)) +
   # geom_smooth(method = "lm", se = FALSE) +
   theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5),
+  theme(
+    panel.border = element_rect(color = "gray", fill = NA),
+    plot.title = element_text(hjust = 0.5),
     text = element_text(family = "Linux Libertine"),
+    strip.text = element_text(size = 12),
     legend.position = "none") +
   facet_wrap(~ chamber)
 dev.off()
@@ -240,7 +243,10 @@ ggplot(congress_by_congress_results,
   scale_color_manual(values = c("Democrat" = "blue3", "Republican" = "red3")) +
   scale_size_continuous(limits = c(2, 4)) +
   ylab("Coefficient on Ideological Extremism") +
-  theme(plot.title = element_text(hjust = 0.5),
+  ggtitle("Ideological Extremists Are More Responsive to Party Calls") +
+  theme(
+    panel.border = element_rect(fill = NA, color = "gray"),
+    plot.title = element_text(hjust = 0.5),
     text = element_text(family = "Linux Libertine"),
     strip.text = element_text(size = 12),
     legend.position = "none")
@@ -284,10 +290,10 @@ reelection_data[, stabb_congress := paste(stabb, congress)]
 models <- list(
   lfe::felm(responsiveness_to_party_calls ~ up_for_reelection |
       stabb_congress | 0 | icpsrLegis + congress,
-    DATA[mean_up_for_reelection == .5]),
+    reelection_data[mean_up_for_reelection == .5]),
   lfe::felm(baseline_rate ~ up_for_reelection |
       stabb_congress | 0 | icpsrLegis + congress,
-    DATA[mean_up_for_reelection == .5]),
+    reelection_data[mean_up_for_reelection == .5]),
   lfe::felm(responsiveness_to_party_calls ~ up_for_reelection +
       lag_responsiveness_to_party_calls +
       lag_ideological_extremism +
@@ -297,7 +303,7 @@ models <- list(
       best_committee + female + african_american + latino +
       seniority |
       stabb_congress | 0 | icpsrLegis + congress,
-    DATA[mean_up_for_reelection == .5]),
+    reelection_data[mean_up_for_reelection == .5]),
   lfe::felm(baseline_rate ~ up_for_reelection +
       lag_responsiveness_to_party_calls +
       lag_ideological_extremism +
@@ -308,7 +314,7 @@ models <- list(
       best_committee + female + african_american + latino +
       seniority |
       stabb_congress | 0 | icpsrLegis + congress,
-    DATA[mean_up_for_reelection == .5])
+    reelection_data[mean_up_for_reelection == .5])
 )
 texreg::texreg(models,
   custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
@@ -344,6 +350,8 @@ ggplot(differences, aes(test, Estimate)) +
   geom_point(size = 4) +
   xlab("") + ylab("Reelection Difference in Same-State Senators") +
   ggtitle(paste0("Reelection Limits Responsiveness to Party Calls")) +
-  theme(plot.title = element_text(hjust = 0.5),
+  theme(
+    panel.border = element_rect(fill = NA, color = "gray"),
+    plot.title = element_text(hjust = 0.5),
     text = element_text(family = "Linux Libertine", size = 12))
 dev.off()
