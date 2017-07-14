@@ -91,5 +91,7 @@ fix_coef_names <- function(models)
   coef_names <- unique(unlist(sapply(lapply(models, coef), names)))
   coef_names <- gsub("_", " ", coef_names)
   coef_names <- gsub("\\(|\\)", "", coef_names)
+  coef_names <- gsub("chair", "committee chair", coef_names)
+  coef_names <- gsub("leader", "party leader", coef_names)
   capitalize(coef_names)
 }

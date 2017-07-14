@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  14 JUL 2017 10:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  14 JUL 2017 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -712,11 +712,11 @@ Package pdftex.def Info: party_call_percent_both.pdf used on input line 132.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 12.0pt on input line 148.
  [2] [3 <./party_call_percent_both.pdf>]
-[4] <both-chambers-figure2.pdf, id=93, 433.62pt x 289.08pt>
+[4] <both-chambers-figure2.pdf, id=92, 433.62pt x 289.08pt>
 File: both-chambers-figure2.pdf Graphic file (type pdf)
 
 <use both-chambers-figure2.pdf>
-Package pdftex.def Info: both-chambers-figure2.pdf used on input line 220.
+Package pdftex.def Info: both-chambers-figure2.pdf used on input line 219.
 (pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
  [5] [6 <./both-chambers-figure2.pdf>]
 <senate_difference_estimates.pdf, id=128, 361.35pt x 289.08pt>
@@ -743,7 +743,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
 Here is how much of TeX's memory you used:
  11151 strings out of 493089
  173916 string characters out of 6134842
- 281060 words of memory out of 5000000
+ 281003 words of memory out of 5000000
  14389 multiletter control sequences out of 15000+600000
  86038 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -760,7 +760,7 @@ cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 r8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
 pfb>
-Output written on senate_party_calls.pdf (11 pages, 331325 bytes).
+Output written on senate_party_calls.pdf (11 pages, 331405 bytes).
 PDF statistics:
  211 PDF objects out of 1000 (max. 8388607)
  179 compressed objects within 2 object streams
