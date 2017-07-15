@@ -176,6 +176,38 @@ FUNCTION {quote}
 
 INTEGERS { nameptr namesleft numnames }
 
+
+FUNCTION {format.rem.editor.names}
+{ 's :=
+  'f :=
+  #2 'nameptr :=
+  s num.names$ 'numnames :=
+  numnames #1 - 'namesleft :=
+    { namesleft #0 > }
+    { s nameptr f format.name$ 't :=
+      nameptr #1 >
+	{ namesleft #1 >
+	    { ", " * t * }
+	    { t "others" =
+		{ " et~al." * }
+		{ numnames #2 >
+			{ ", and " * t * }
+			{ " and " * t * }
+			if$
+		}
+	      if$
+	    }
+	  if$
+	}
+	't
+      if$
+      nameptr #1 + 'nameptr :=
+      namesleft #1 - 'namesleft :=
+    }
+  while$
+}
+
+
 FUNCTION {format.rem.names}
 { 's :=
   'f :=
@@ -231,9 +263,12 @@ FUNCTION {format.editors}
 FUNCTION {format.editors.reverse}
 { editor empty$
     { "" }
-    { ", ed. "
+    { editor num.names$ #1 >
+	{ ", eds. " * }
+	{ ", ed. " * }
+      if$
       editor #1 "{ff }{vv~}{ll}{, jj}" format.name$ *
-      "{ff }{vv~}{ll}{, jj}" editor format.rem.names
+      "{ff }{vv~}{ll}{, jj}" editor format.rem.editor.names
     }
   if$
 }
@@ -359,8 +394,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-	{ "pp.~" pages n.dashify * }
-	{ "p.~" pages * }
+	{ " " pages n.dashify * }
+	{ " " pages * }
       if$
     }
   if$
@@ -405,7 +440,7 @@ FUNCTION {format.vol.mon.num.pages}
 
 FUNCTION {format.chapter.pages}
 { chapter empty$
-    'format.pages
+    { ", " * format.pages * }
     { type empty$
 	{ "chapter" }
 	{ type "l" change.case$ }
