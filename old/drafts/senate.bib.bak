@@ -1,0 +1,448 @@
+% Encoding: UTF-8
+
+@Article{Aldrich:2000,
+  author =  {Aldrich, John H. and Rohde, David W.},
+  title =   {The Logic of Conditional Party Government: Revisiting the Electoral Connection},
+  journal = {PIPC},
+  year =    {2000}
+}
+
+@Book{Campbell:2001,
+  title =     {The Contentious Senate},
+  publisher = {Rowman \& Littlefield Publishers, Inc.},
+  year =      {2001},
+  editor =    {Campbell, Colton C. and Rae, Nicol C.}
+}
+
+@Article{Canes-Wrone:2002,
+  author =  {Canes-Wrone, Brandice and Brady, David W. and Cogan, John F.},
+  title =   {Out of Step, Out of Office: Electoral Accountability and House Members' Voting},
+  journal = {American Political Science Review},
+  year =    {2002},
+  volume =  {96},
+  number =  {1},
+  pages =   {127-140},
+  month =   {March}
+}
+
+@Article{Carson:2010,
+  author =  {Carson, Jamie L. and Koger, Gregory and Lebo, Matthew J. and Young, Everett},
+  title =   {The Electoral Costs of Party Loyalty},
+  journal = {American Journal of Political Science},
+  year =    {2010},
+  volume =  {54},
+  number =  {3},
+  pages =   {598-616},
+  month =   {July}
+}
+
+@Article{Clinton:2004,
+  author =  {Clinton, Joshua and Jackman, Simon and Rivers, Douglas},
+  title =   {The Statistical Analysis of Roll-Call Data},
+  journal = {American Political Science Review},
+  year =    {2004},
+  volume =  {98},
+  number =  {2},
+  pages =   {355-370}
+}
+
+@Book{Cox:2005,
+  title =     {Setting the Agenda: Responsible Party Government in the US House of Representatives},
+  publisher = {Cambridge University Press},
+  year =      {2005},
+  author =    {Cox, Gary W. and McCubbins, Matthew D.}
+}
+
+@Article{Cox:2010,
+  author =  {Cox, Gary W. and Kousser, Thad and McCubbins, Matthew D.},
+  title =   {Party Power or Preferences? Quasi-Experimental Evidence from American State Legislatures},
+  journal = {Journal of Politics},
+  year =    {2010},
+  volume =  {72},
+  number =  {3},
+  pages =   {799-811},
+  month =   {July}
+}
+
+@Article{Fowler:2006,
+  author =  {Fowler, James H.},
+  title =   {Connecting the Congress: A Study of Cosponsorship Networks},
+  journal = {Political Analysis},
+  year =    {2006},
+  volume =  {14},
+  number =  {4},
+  pages =   {456-487},
+  month =   {Autumn}
+}
+
+@Article{Fraga:2016,
+  author =  {Fraga, Bernard L},
+  title =   {Redistricting and the Causal Impact of Race on Turnout},
+  journal = {Journal of Politics},
+  year =    {2016},
+  volume =  {78},
+  number =  {1},
+  pages =   {19-34}
+}
+
+@Article{Gailmard:2007,
+  author =  {Gailmard, Sean and Jenkins, Jeffery A},
+  title =   {Negative Agenda Control in the Senate and House: Fingerprints of Majority Party Power},
+  journal = {Journal of Politics},
+  year =    {2007},
+  volume =  {69},
+  number =  {3},
+  pages =   {689-700},
+  month =   {June}
+}
+
+@Article{Hall:2013,
+  author =  {Hall, Andrew B. and Shepsle, Kenneth A.},
+  title =   {The Changing Value of Seniority in the U.S. House: Conditional Party Government Revised},
+  journal = {Journal of Politics},
+  year =    {2013},
+  volume =  {76},
+  number =  {1},
+  pages =   {98-113},
+  month =   {January}
+}
+
+@Article{Jenkins:2012,
+  author =  {Jenkins, Jeffery A. and Monroe, Nathan W.},
+  title =   {Buying Negative Agenda Control in the U.S. House},
+  journal = {American Journal of Political Science},
+  year =    {2012},
+  volume =  {56},
+  number =  {4},
+  pages =   {897-912},
+  month =   {October}
+}
+
+@Article{King:2016,
+  author =  {King, Aaron S and Orlando, Frank J and Rohde, David},
+  title =   {Setting the Table: Majority Party Effects in the United States Senate},
+  journal = {Congress \& the Presidency},
+  year =    {2016},
+  volume =  {43},
+  number =  {1},
+  pages =   {55-81}
+}
+
+@Book{Koger:2010,
+  title =     {Filibustering: A Political History of Obstruction in the House and Senate},
+  publisher = {Chicago: University of Chicago Press},
+  year =      {2010},
+  author =    {Koger, Gregory}
+}
+
+@Article{Krehbiel:1993,
+  author =  {Krehbiel, Keith},
+  title =   {Where's the Party?},
+  journal = {British Journal of Political Science},
+  year =    {1993},
+  volume =  {23},
+  number =  {2},
+  pages =   {235-266}
+}
+
+@Article{Lee:2008,
+  author =  {Lee, Frances E},
+  title =   {Agreeing to disagree: Agenda content and Senate partisanship, 1981–2004},
+  journal = {Legislative Studies Quarterly},
+  year =    {2008},
+  volume =  {33},
+  number =  {2},
+  pages =   {199-222},
+  month =   {May}
+}
+
+@Article{Lee:2008a,
+  author =  {Lee, Frances E},
+  title =   {Agreeing to Disagree: Agenda Content and Senate Partisanship, 1981–2004},
+  journal = {Legislative Studies Quarterly},
+  year =    {2008},
+  volume =  {33},
+  number =  {2},
+  pages =   {199-222},
+  month =   {May}
+}
+
+@Article{Lee:2008b,
+  author =  {Lee, Frances E},
+  title =   {Dividers, Not Uniters: Presidential Leadership and Senate Partisanship, 1981–2004},
+  journal = {Journal of Politics},
+  year =    {2008},
+  volume =  {70},
+  number =  {4},
+  pages =   {914-928},
+  month =   {October}
+}
+
+@Book{Lee:2009,
+  title =     {Beyond Ideology},
+  publisher = {The University of Chicago Press},
+  year =      {2009},
+  author =    {Lee, Frances E}
+}
+
+@Article{Lee:2015,
+  author =  {Lee, Frances E},
+  title =   {How Party Polarization Affects Governance},
+  journal = {Annual Review of Political Science},
+  year =    {2015},
+  volume =  {18},
+  pages =   {261-282},
+  month =   {May}
+}
+
+@Book{Lee:2016,
+  title =     {Insecure Majoirties: Congress and the Perpetual Campaign},
+  publisher = {University of Chicago Press},
+  year =      {2016},
+  author =    {Lee, Frances E.}
+}
+
+@Article{Levitt:1995,
+  author =  {Levitt, Steven and Snyder, James M. Jr.},
+  title =   {Political Parties and the Distribution of Federal Outlays},
+  journal = {American Journal of Political Science},
+  year =    {1995},
+  volume =  {39},
+  number =  {4},
+  pages =   {958-980}
+}
+
+@Article{Levitt:1996,
+  author =  {Levitt, Steven},
+  title =   {How Do Senators Vote? Disentangling the Role of Voter Preferences, Party Affiliation, and Senator Ideology},
+  journal = {American Economic Review},
+  year =    {1996},
+  volume =  {86},
+  number =  {3},
+  pages =   {425-441},
+  month =   {June}
+}
+
+@Book{Mayhew:1974,
+  title =     {Congress: The Electoral Connection},
+  publisher = {New Haven: Yale University Press},
+  year =      {1974},
+  author =    {Mayhew, David}
+}
+
+@Article{McCarty:2001,
+  author =  {McCarty, Nolan and Poole, Keith T. and Rosenthal, Howard},
+  title =   {The Hunt for Party Discipline in Congress},
+  journal = {American Political Science Review},
+  year =    {2001},
+  volume =  {95},
+  number =  {3},
+  pages =   {673-687}
+}
+
+@Article{Minozzi:2013,
+  author =  {Minozzi, William and Volden, Craig},
+  title =   {Who Heeds the Party Call in Congress},
+  journal = {Journal of Politics},
+  year =    {2013},
+  volume =  {75},
+  number =  {3},
+  pages =   {787-802},
+  month =   {July}
+}
+
+@Book{Monroe:2008,
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:10,
+  chapter =   {Minority-Party Power in the Senate and House of Representatives},
+  pages =     {181-197},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Gailmard, Sean and Jenkins, Jeffery A},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:11,
+  chapter =   {Catch-22: Cloture, Energy Policy, and the LImits of Conditional Party Government},
+  pages =     {198-228},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Oppenheimer, Bruce I and Hetherington, Marc J},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:12,
+  chapter =   {Distributive and Partisan Politics in the U.S. Senate: An Exploration of Earmarks},
+  pages =     {229-251},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Crespin, Michael H and Finocchiaro, Charles I},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:2,
+  chapter =   {Electoral Accountability, Party Loyalty, and Roll-Call Voting in the U.S. Senate},
+  pages =     {23-38},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Carson, Jamie L.},
+  editor =    {Monroe, Nathan W. and Roberts, Jason M. and Rohde, David W.}
+}
+
+@InBook{Monroe:2008:3,
+  chapter =   {Party and Constituency in the U.S. Senate, 1933-2004},
+  pages =     {39-51},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Aldrich, John and Brady, Michael and De Marchi, Scott and McDonald, Ian and Nyhan, Brendan and Rohde, David W. and Tofias, Michael},
+  editor =    {Monroe, Nathan W. and Roberts, Jason M. and Rohde, David W.}
+}
+
+@InBook{Monroe:2008:4,
+  chapter =   {Scoring the Senate: Scorecards, Parties, and Roll-Call Votes},
+  pages =     {52-70},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Roberts, Jason M. and Bell, Lauren C.},
+  editor =    {Monroe, Nathan W. and Roberts, Jason M. and Rohde, David W.}
+}
+
+@InBook{Monroe:2008:5,
+  chapter =   {The Senate Whip System: An Exploration},
+  pages =     {73-99},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Bradbury, Erin M. and Davidson, Ryan A. and Evans, C. Lawrence},
+  editor =    {Monroe, Nathan W and Roberts, Jason M. and Rohde, David W.}
+}
+
+@InBook{Monroe:2008:6,
+  chapter =   {Party Loyalty and Discipline in the Individualistic Senate},
+  pages =     {100-120},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Pearson, Kathryn},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:7,
+  chapter =   {Make Way for the Party: The Rise and Fall of the Senate National Security Committees, 1947-2006},
+  pages =     {121-141},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Fowler, Linda L. and Law, R. Bryan},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:8,
+  chapter =   {Agenda Influence and Tabling Motions in the U.S. Senate},
+  pages =     {142-158},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Hartog, Chris D and Monroe, Nathan W.},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@InBook{Monroe:2008:9,
+  chapter =   {Filibustering and Majority Rule in the Senate: The Contest over Judicial Nominations, 2003-2005},
+  pages =     {159-177},
+  title =     {Why Not Parties? Party Effects in the United States Senate},
+  publisher = {The University of Chicago Press},
+  year =      {2008},
+  author =    {Koger, Gregory W.},
+  editor =    {Monroe, Nathan W and Roberts, Jason M and Rohde, David W}
+}
+
+@Article{Poole:1985,
+  author =  {Poole, Keith T. and Rosenthal, Howard},
+  title =   {A Spatial Model for Legislative Roll Call Analysis},
+  journal = {American Journal of Political Science},
+  year =    {1985},
+  volume =  {35},
+  number =  {2},
+  pages =   {357-84}
+}
+
+@Article{Schiller:2013,
+  author =  {Schiller, Wendy J. and Stewart III, Charles and Xiong, Benjamin},
+  title =   {U.S. Senate Elections before the 17th Amendment: Political Party Cohesion and Conflict 1871–1913},
+  journal = {Journal of Politics},
+  year =    {2013},
+  volume =  {75},
+  number =  {3},
+  pages =   {835-847},
+  month =   {July}
+}
+
+@Book{Smith:2014,
+  title =     {The Senate Syndrome: The Evolution of Procedural Warfare in the Modern U.S. Senate},
+  publisher = {University of Oklahoma Press},
+  year =      {2014},
+  author =    {Smith, Steven S.}
+}
+
+@Article{Snyder:2000,
+  author =  {Snyder, James M. Jr. and Groseclose, Tim},
+  title =   {Estimating Party Influence in Congressional Roll-Call Voting},
+  journal = {American Journal of Political Science},
+  year =    {2000},
+  volume =  {44},
+  number =  {2},
+  pages =   {193-211},
+  month =   {April}
+}
+
+@Article{Theriault:2011,
+  author =  {Theriault, Sean M.},
+  title =   {The Gingrich Senators and Party Polarization in the US Senate},
+  journal = {Journal of Politics},
+  year =    {2011},
+  volume =  {73},
+  number =  {4},
+  pages =   {1011-1024},
+  month =   {October}
+}
+
+@Book{Theriault:2013,
+  title =     {The Gingrich Senators: The Roots of Partisan Warfare in Congress},
+  publisher = {Oxford University Press},
+  year =      {2013},
+  author =    {Theriault, Sean M}
+}
+
+@Article{Volden:2013,
+  author =  {Volden, Craig and Wiseman, Alan E. and Wittmer, Dana E.},
+  title =   {When Are Women More Effective Lawmakers Than Men?},
+  journal = {American Journal of Political Science},
+  year =    {2013},
+  volume =  {57},
+  number =  {2},
+  pages =   {326-341},
+  month =   {April}
+}
+
+@Article{Wiseman:2008,
+  author =    {Wiseman, Alan E and Wright, John R},
+  title =     {The legislative median and partisan policy},
+  journal =   {Journal of Theoretical Politics},
+  year =      {2008},
+  volume =    {20},
+  number =    {1},
+  pages =     {5--29},
+  publisher = {Sage Publications}
+}

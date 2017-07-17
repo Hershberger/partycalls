@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1.25in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\begin{document}
+
+
+In the last week I have been working to solve the following problems, the first of which I had set out to correct and the other I had discovered along the way:
+
+\begin{enumerate}
+	\item In general the sorting algorithm is producing more gray votes than desired and this is especially the case in sessions 102, 103, 104, 106, 107, 109.
+	
+	\item In those sessions which the gray vote count was especially high, the results of the algorithm were responsive to the seed that was set to an unacceptable degree.
+\end{enumerate}
+
+William found that switching from a t-value threshold of 2.32 to a p-value threshold of .01 solves the issue with session 104. The solution I implemented for issue 2 was to have the number of votes switched increase over the course of the first 10 iterations at which point it then began to decrease. The graphic below shows the change in terms of percentage of votes which are switched per iteration with the old parameter on the left and the new parameter on the right:
+
+\includegraphics[width = \textwidth]{simulated_annealing.pdf}
+
+\noindent
+Testing on the 109th session, the number of gray votes was reduced to approximately 20\% for any seed set, while before it had gone as high as 35\% for some seed selections. In the figures we discussed last week, the 109th gray vote total was 29\%.
+
+The next attempted change was explicitly sampling from the gray votes in addition to the other random sampling. I was unsure if this would work so I tested it with sessions we had gotten to settle down and found that this kept them from doing so. 
+
+I am presently working out a way of either sampling from the gray votes or explicitly putting them in the calls or noncalls. When the algorithm is failing to settle down, the gray votes are switching between setting party free ideal points or not based on if they are coded as calls or noncalls in a particular session. So, if the problem is that some when used to calculate ideal points push the others out of significance and vice versa splitting them up could reduce their number. Alternatively, using all or none of them to calculate party free ideal points could lead to the algorithm settling down.
+
+
+
+
+	
+\end{document}

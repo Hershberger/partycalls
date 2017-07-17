@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib, array, multirow, hyperref}
+\usepackage{amsfonts, bm} 
+\usepackage{dcolumn}
+\usepackage{subfigure, float} 
+\usepackage[margin=1in]{geometry} 
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{morefloats}
+\usepackage{caption}
+\newcolumntype{d}[1]{D{.}{.}{#1}} 
+
+\newcommand\fnote[1]{\captionsetup{font=small}\caption*{#1}}
+
+\begin{document}
+
+\section{Overview}
+
+At our previous meeting we decided to:
+
+\begin{itemize}
+	
+	\item Get differences between Senate pairs based on their place in the term
+	
+	\item Add title page to draft
+	
+	\item Drop tests other than differences from the current draft
+	
+	\item Fix tables and figures in the draft
+	
+	\item Make reference to correlational/causal inference in reference to tests included in draft
+	
+\end{itemize}
+
+The first of these is shown below, the rest are in the appropriate places of the paper draft for this week.
+
+\section{Paired Differences, Place in Term}
+
+Below are tables for the difference tests of Senator pairs broken down by place in term. The included 95\% one-tailed confidence intervals were produced by bootstrapping by state and Congress. Taken individually, the results for pairs are generally within our expectations, but viewed together we find that the confidence intervals for Senators up for reelection compared in either set of tests overlaps with that of the difference between Senators in the 2nd Congress of a term with those in the 1st congress in a term.
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Fri May 26 11:13:39 2017
+\begin{table}[H]
+	\centering
+	\caption{Differences Between Same-State Senators in 3rd and 2nd Congress in Term} 
+	\begin{tabular}{llrrr}
+		\hline
+		Group & Test & Estimate & Lower\_CI & Upper\_CI \\ 
+		\hline
+		Term Parts 3 and 2 & Party Call Diff & -1.704 & -4.615 & -0.838 \\ 
+		Term Parts 3 and 2 & Party Free Diff & -0.774 & -2.601 & 0.205 \\ 
+		Term Parts 3 and 2 & Diff-in-Diff & -0.930 & -2.714 & -0.192 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Fri May 26 11:13:57 2017
+\begin{table}[H]
+	\centering
+	\caption{Differences Between Same-State Senators in  3rd and 1st Congress in Term} 
+	\begin{tabular}{llrrr}
+		\hline
+		Group & Test & Estimate & Lower\_CI & Upper\_CI \\ 
+		\hline
+		Term Parts 3 and 1 & Party Call Diff & -1.436 & -4.224 & -0.520 \\ 
+		Term Parts 3 and 1 & Party Free Diff & 0.169 & -1.093 & 1.575 \\ 
+		Term Parts 3 and 1 & Diff-in-Diff & -1.605 & -3.907 & -1.226 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+% latex table generated in R 3.3.2 by xtable 1.8-2 package
+% Fri May 26 11:14:09 2017
+\begin{table}[H]
+	\centering
+	\caption{Differences Between Same-State Senators in  2nd and 1st Congress in Term} 
+	\begin{tabular}{llrrr}
+		\hline
+		Group & Test & Estimate & Lower\_CI & Upper\_CI \\ 
+		\hline
+		Term Parts 2 and 1 & Party Call Diff & -0.867 & -2.970 & 0.262 \\ 
+		Term Parts 2 and 1 & Party Free Diff & -0.607 & -2.297 & 0.415 \\ 
+		Term Parts 2 and 1 & Diff-in-Diff & -0.260 & -1.608 & 0.836 \\ 
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+\end{document}

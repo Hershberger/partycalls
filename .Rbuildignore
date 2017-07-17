@@ -1,11 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^inst
-^dev
-^drafts
-^plots
-^test_data
-^tests
 ^package
 ^old
-^old_senatePartyCalls
+^draft
+^results

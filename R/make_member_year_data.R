@@ -21,7 +21,7 @@ make_member_year_data <- function(congress, roll_calls_object_list,
   setDT(ld)
   votes <- rc$votes
   votes <- melt(votes)
-  setDT(votes)
+  data.table::setDT(votes)
   setnames(votes, c("mc", "vote_id", "vote"))
   votes <- merge(votes, ld, by = "mc")
   # make responsiveness data

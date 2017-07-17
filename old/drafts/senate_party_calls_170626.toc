@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {}Classifying Party Calls}{A1}{section*.11}
+\contentsline {section}{\numberline {}Methodology for Senate Reelection Section}{A4}{section*.16}
+\contentsline {section}{\numberline {}Summary Statistics}{A6}{section*.19}
+\contentsline {section}{\numberline {}Regression Models of Responsiveness}{A10}{section*.24}
