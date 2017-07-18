@@ -66,7 +66,12 @@
 \addcontentsline{toc}{section}{\protect\numberline{}Appendix A: Classifying Party Calls}%
 %------------------------------------------------------------------------------%
 
-As in \cite{Minozzi:2013}, we use an algorithm to classify votes as ``party calls''---that is, whether votes are predicted by party membership even after controlling for ideology.  We classify the complement of votes as ``party free,'' and we use them to estimate ideal points absent party influence.  The classification algorithm is iterative.  In each iteration of the algorithm, ideal points are estimated based only on the votes which were classified as ``party free'' in the previous iteration.  All votes are then regressed on ideal points and party membership, and votes are re-categorized based on the explanatory power of party in these regressions.  To begin the process we need an initial classification, and so ideal points in the first iteration are estimated using lopsided votes (which have more than 65\% or less than 35\% of members of the chamber voting on the same side).  We then use a 15 iteration ``burn-in'' period for each Congress.  During this early period, many votes switch categories from iteration to iteration.  This number of switchers also declines rapidly in these early iterations.  After burn-in, the algorithm continues until either (1) the number of votes that switch classifications stops declining, or (2) until there are fewer than 5 votes that switch.  Once either condition is met, the algorithm continues for an additional 15 iterations.  Finally, we use the last five iterations to provide a final classification of votes. During these final iterations, any vote that does not switch is classified in its appropriate category.  Any vote that does switch is dropped from further analysis, on the basis that these votes could not be credibly classified.
+As in \cite{Minozzi:2013}, we use an algorithm to classify votes as ``party calls''---that is, whether votes are predicted by party membership even after controlling for ideology.  We classify votes as ``party free'' if, in turn, they are \textit{not} reliably predicted by party membership, and we use those ``party free'' votes to estimate ideal points absent party influence.
+
+The classification algorithm is iterative.  In each iteration of the algorithm, ideal points are estimated based only on the votes which were classified as ``party free'' in the previous iteration.  All votes are then regressed on ideal points and party membership, and votes are re-categorized based on the explanatory power of party in these regressions.  To begin the process we need an initial classification, and so ideal points in the first iteration are estimated using lopsided votes (which have more than 65\% or less than 35\% of members of the chamber voting on the same side).  We then use a 15 iteration ``burn-in'' period for each Congress.
+During this early period, many votes switch categories from iteration to iteration.
+The number of switchers declines rapidly in these early iterations.
+After burn-in, the algorithm continues until either (1) the number of votes that switch classifications stops declining, or (2) there are fewer than five votes that switch.  Once either condition is met, the algorithm continues for an additional 15 iterations.  Finally, we use the last five iterations to provide a final classification of votes. During these final iterations, any vote that does not switch is classified in its appropriate category.  Any vote that does switch is dropped from further analysis, on the basis that these votes could not be credibly classified.
 
 Our algorithm departs from MV's in a few ways, most of them minor.  However, a key change was the use of the \textsf{binIRT} command from the \textsf{R} package \textsf{emIRT} \citep{Imai:2016} to estimate ideal points, replacing the \textsf{ideal} command from the \textsf{R} package \textsf{pscl} \citep{Jackman:2015} used by MV.  The \textsf{binIRT} function is considerably faster than \textsf{ideal}, and by using it, we were able to test a much wider variety of alternative specifications to the original algorithm.
 
@@ -74,16 +79,16 @@ The results of these alternative specifications culminated in a few alterations 
 Throughout, to ensure continuity of method, we vetted alternatives by re-estimating the results from MV.
 Those results are remarkably robust to the alternatives we explored.
 Such robustness notwithstanding, we elected to make two minor changes.
+
 The original classification algorithm used logistic regression to predict votes,
 meaning that party-line votes suffered from separation, which was resolved using
 a bias-reducing logit designed for that purpose \citep{Zorn:2005}.
 In this paper's classification method, we used linear models of roll call votes
 instead.
-[CRAIG, PLEASE READ THIS RATIONALE AND COMMENT/CHANGE/ETC. THE ISSUE IS THAT THEY COMPLICATE THE LATER DISCUSSION OF MATCHING SIGNS.]
 The classification based on linear models improved
 on the bias-reduced logit-based method in three different ways.
 First, classification using the linear model decreased the proportion of
-unclassifiable ``gray'' votes from classification using the bias-reduced logit,
+unclassifiable votes from classification using the bias-reduced logit,
 from $9\%$ to $3\%$ in the House and
 from $2\%$ to $0.4\%$ in the Senate.
 Second, party call classification based on linear models increased the positive
@@ -96,18 +101,11 @@ signs.
 If party calls work to align party and ideology, then their signs should
 match at higher rates than those of non-party calls.
 The difference in match rates between party calls and non-calls therefore
-constitutes a measure of convergent validity.
-Although both methods (classification based on linear models vs. bias-reduced
-logits) yielded improvments in this match rate difference,
-linear models proved the better of the two,
-moving from a difference $-14\%$ to $37\%$ in the House,
-and from a difference of $-19\%$ to $26\%$ in the Senate.
+constitutes a measure of convergent validity and therefore permits a comparison
+of the two classification methods.
+Again, linear models proved the better of the two.
 We return to these criteria below to more fully evaluate the method used
 in the paper.
-Regardless of the choice (linear models or bias-reduced logits), models of the
-resulting \textit{Responsiveness} scores (such as those in Table 1 in the main
-text) yielded similar coefficients and inferences for \textit{Ideological
-Extremism}, \textit{Up for Reelection}, and other covariates.
 
 The second minor change to MV's classification method was that the original algorithm classified votes as ``party calls'' if the $p$-value on the party indicator in a regression of a roll call vote was smaller than $0.01$.  However, the House roll call data features many more votes cast per roll call than the Senate, since the lower chamber is much larger.  As such, the threshold of $0.01$ eventuated in classifying few
 Senate votes as party calls, essentially because of the smaller $n$.
@@ -116,9 +114,9 @@ For reference, in the House, the $0.01$ threshold coded about $65\%$ of classifi
 We explored a variety of alternative $p$-value thresholds and settled on $0.05$ for the Senate (keeping $p = 0.01$ for the House), as it
 increased the fraction of classifiable votes coded as party calls to $52\%$.
 
-We also explored a variety of alternatives to the algorithm used here, but ultimately rejected them in order to maintain as much consistency with MV as possible.  These included using random initial classifications of votes, adding a ``simulated annealing''-style heating and cooling schedule to categorizations, and alternative stopping rules.  We found that none of these alternatives significantly altered the results presented in the paper, nor did they improve convergent validity, and therefore we elected to use an algorithm that closely matched the early effort.
+We also explored a variety of alternatives to the algorithm used here, but ultimately rejected them in order to maintain as much consistency with MV as possible.  These included using random initial classifications of votes, adding a ``simulated annealing''-style heating and cooling schedule, and alternative stopping rules.  We found that none of these alternatives significantly altered the results presented in the paper, nor did they improve convergent validity, and therefore we elected to use an algorithm that closely matched the early effort.
 
-Finally, with this algorithm in hand, we probed for differences in vote classifications using the criteria described briefly above.  First, we broke down votes by close/lopsideness and classification as party calls/party free.  Table~\ref{tab-close-lop} shows these comparisons for each chamber. In each panel, there is a notable, though far from perfect, correlation between close votes and party calls.  This correlation is higher in the House ($0.51$) than in the Senate ($0.45$), but the two are remarkably close.  We take this as prima facie evidence that the classification algorithm is at work on similar data-generating processes.
+Finally, with this algorithm in hand, we probed for differences in vote classifications using the criteria described briefly above.  First, we broke down votes by close/lopsideness and classification as party calls/party free.  Table~\ref{tab-close-lop} shows these comparisons for each chamber. In each panel, there is a notable, though far from perfect, correlation between close votes and party calls.  This correlation is higher in the House ($0.51$) than in the Senate ($0.44$), but the two are remarkably close.  We take this as prima facie evidence that the classification algorithm is at work on similar data-generating processes.
 
 \begin{table}[!htbp]
 \centering
@@ -127,14 +125,12 @@ Finally, with this algorithm in hand, we probed for differences in vote classifi
 \caption{Party Calls and Close/Lopsided Votes}
 \label{tab-close-lop}
 \begin{tabular}{l cc|cc}
-% house half of table comes from analyze_vote_coding_house_lm.R
-% senate half of table comes from analyze_vote_coding_senate_lm.R
 \hline
 &\multicolumn{2}{c}{\underline{House}}&\multicolumn{2}{c}{\underline{Senate}}\\
-         & Party Call      & Party Free      & Party Call      & Party Free \\
+         & Party Free      & Party Call      & Party Free      & Party Call      \\
 \hline
-Lopsided & $4248$ $(20\%)$ & $6122$ $(29\%)$ & $2068$ $(15\%)$ & $4870$ $(35\%)$ \\
-Close    & $9305$ $(45\%)$ & $1091$ $(5\%)$  & $5228$ $(37\%)$ & $1857$ $(13\%)$ \\
+Close    & $1091$ $( 5\%)$& $9305$ $(45\%)$& $1857$ $(13\%)$& $5228$ $(37\%)$\\
+Lopsided & $6122$ $(29\%)$& $4248$ $(20\%)$& $4870$ $(35\%)$& $2068$ $(15\%)$\\
 \hline
 \end{tabular}
 \begin{tablenotes}
@@ -144,9 +140,8 @@ Close    & $9305$ $(45\%)$ & $1091$ $(5\%)$  & $5228$ $(37\%)$ & $1857$ $(13\%)$
 \end{threeparttable}
 \end{table}
 
-Next, we focus on whether party influence exacerbates or moderates ideological tendencies.  In the regression models we use to classify votes, both ideal points and party are included as predictors of roll call behavior.  We can therefore compare the signs on the coefficients of these variables to understand how the two variables interact on the average vote.  Perhaps unsurprisingly, we find that the two coefficients have the same sign a majority of the time, regardless of chamber (see top third of Table~\ref{tab-sorting}).  Interestingly, we further find that party calls explain most of this relationship; similar signs appear for party and ideal points for about 75\% of party calls (middle of Table~\ref{tab-sorting}), yet less than 50\% of non-calls (bottom of Table~\ref{tab-sorting}).  We interpret this evidence as consistent with the idea that party calls typically act to attract extremists back into the party fold.
-[WILLIAM -- HOW SO?  ISN'T THE POINT THAT THERE ARE PARTY EFFECTS ABOVE AND BEYOND (BUT CONSISTENT WITH) IDEOLOGICAL SORTING?]
-[CRAIG -- LET'S TALK ABOUT THIS ONE.]
+Next, we focus on whether party influence exacerbates or moderates ideological tendencies.  In the regression models we use to classify votes, both ideal points and party are included as predictors of roll call behavior.  We can therefore compare the signs on the coefficients of these variables to understand how the two variables interact on the average vote.  Perhaps unsurprisingly, we find that the two coefficients have the same sign a majority of the time, regardless of chamber (see top third of Table~\ref{tab-sorting}).  Interestingly, we further find that party calls explain most of this relationship; similar signs appear for party and ideal points for about 75\% of party calls (middle of Table~\ref{tab-sorting}), yet less than 50\% of non-calls (bottom of Table~\ref{tab-sorting}).
+We interpret this evidence as consistent with the model of party calls advanced in \cite{Minozzi:2013}.
 
 \begin{table}[!htbp]
 \centering
@@ -163,18 +158,18 @@ Next, we focus on whether party influence exacerbates or moderates ideological t
 \hline
 All Votes \\
 \hline
-($-$) Party & $8127$ $(39\%)$ & $2888$ $(14\%)$ & $4581$ $(33\%)$ & $2244$ $(16\%)$ \\
-($+$) Party & $3394$ $(16\%)$ & $6357$ $(31\%)$ & $3188$ $(23\%)$ & $4010$ $(29\%)$ \\
+($-$) Party & $8127$ $(39\%)$& $2888$ $(14\%)$& $4581$ $(33\%)$& $2244$ $(16\%)$\\
+($+$) Party & $3394$ $(16\%)$& $6357$ $(31\%)$& $3188$ $(23\%)$& $4010$ $(29\%)$\\
 \hline
 Party Calls Only\\
 \hline
-($-$) Party & $6166$ $(45\%)$ & $1042$ $(8\%)$ & $2807$ $(38\%)$ & $793$ $(11\%)$ \\
-($+$) Party & $1312$ $(10\%)$ & $5033$ $(37\%)$ & $1129$ $(15\%)$ & $2567$ $(35\%)$ \\
+($-$) Party $6166$ $(45\%)$& $1042$ $( 8\%)$& $2807$ $(38\%)$& $793$ $(11\%)$\\
+($+$) Party $1312$ $(10\%)$& $5033$ $(37\%)$& $1129$ $(15\%)$& $2567$ $(35\%)$\\
 \hline
 Party Free Only\\
 \hline
-($-$) Party & $1961$ $(27\%)$ & $1846$ $(26\%)$ & $1774$ $(26\%)$ & $1451$ $(22\%)$ \\
-($+$) Party & $2082$ $(29\%)$ & $1324$ $(18\%)$ & $2059$ $(31\%)$ & $1443$ $(21\%)$ \\
+($-$) Party & $1961$ $(27\%)$& $1846$ $(26\%)$& $1774$ $(26\%)$& $1451$ $(22\%)$\\
+($+$) Party & $2082$ $(29\%)$& $1324$ $(18\%)$& $2059$ $(31\%)$& $1443$ $(21\%)$\\
 \hline
 \end{tabular}
 \begin{tablenotes}
@@ -194,7 +189,9 @@ Party Free Only\\
 \addcontentsline{toc}{section}{\protect\numberline{}Appendix B: Summary Statistics}%
 %------------------------------------------------------------------------------%
 
-Here we give descriptions and report summary tables of the variables used in our paper. Members are grouped either as Democrats or Republicans, with independents being grouped with the party they caucus with in each chamber. The data are constructed with observations for members in each Congress they were present in. Values are according to member status in each Congress. Members who changed parties have multiple observations in the Congress which they did so to have observations for them in each. In each chamber, \textit{Majority} is an indicator variable for if a member's party is in the majority during a Congress, which is used to divide results and summary statistics.\footnote{\doublespacing\normalsize Each party held the majority for a portion of the $107^{\text{th}}$ Senate, with Democrats in control for most of the term.  Therefore, for the purposes of analyses, Democrats were coded as the majority of this term.  This decision does not meaningfully affect the inferences in the paper.}
+Here we give descriptions and report summary tables of the variables used in our paper. Members are grouped either as Democrats or Republicans, with independents being grouped with the party they caucus with in each chamber. The data are constructed with observations for members in each Congress they were present in. Values are according to member status in each Congress.
+Members who switched parties have one observation per party membership.
+In each chamber, \textit{Majority} is an indicator variable for if a member's party is in the majority during a Congress, which is used to divide results and summary statistics.\footnote{\doublespacing\normalsize Each party held the majority for a portion of the $107^{\text{th}}$ Senate, with Democrats in control for most of the term.  Therefore, for the purposes of analyses, Democrats were coded as the majority of this term.  This decision does not meaningfully affect the inferences in the paper.}
 
 The bulk of the data were provided by the Legislative Effectiveness Project \citep{Volden:2014} or constructed from those data, with a few exceptions. Keith Poole furnished the roll call data.  Committee data for all Senate terms and the $110^{\text{th}}$-$112^{\text{th}}$ in the House are from Charles Stewart's Congressional data page, with committee value ranks based on \cite{Groseclose:1998}.
 Committee data from the $93^{\text{rd}}$-$109^{\text{th}}$ House come from the replication data for MV.  House elections data were provided to us by Gary Jacobson, and Senate elections data come from Dave Leip's U.S. Election Atlas.
@@ -256,18 +253,18 @@ Freshman                           & $0.11$  & $0.32$ & $0$ & $1$ \\
 Variable                           & Mean   & SD     & Min     & Max \\
 \hline \\[-1.8ex]
 Responsiveness                     & $85.8$ & $11.5$ & $8.0$ & $100$ \\
-Party Free Ideal Point             & $0.00$ & $1.00$ & $-4.08$ & $9.35$ \\
-Ideological Extremism              & $0.60$ & $0.80$ & $-4.32$ & $9.35$ \\
+Party Free Ideal Point             & $0.00$ & $1.00$ & $-4.05$ & $9.35$ \\
+Ideological Extremism              & $0.60$ & $0.80$ & $-4.31$ & $9.35$ \\
 Baseline Rate                      & $87.0$ & $ 7.5$ & $0$     & $100$ \\
 Vote Share                         & $67.4$ & $11.8$ & $50$    & $100$\\
 Pres. Vote Share                   & $56.6$ & $12.4$ & $16.3$  & $96.1$ \\
 Party Leader                       & $0.04$ & $0.19$ & $0$     & $1$ \\
 Committee Chair                    & $0.05$ & $0.22$ & $0$     & $1$ \\
-Power Committee                    & $0.26$ & $0.44$ & $0$     & $1$ \\
+Power Committee                    & $0.25$ & $0.44$ & $0$     & $1$ \\
 Best Committee                     & $13.8$ & $ 6.4$ & $0$     & $22$ \\
 Female                             & $0.09$ & $0.29$ & $0$     & $1$ \\
 African American                   & $0.06$ & $0.24$ & $0$     & $1$ \\
-Latino                             & $0.04$ & $0.18$ & $0$     & $1$ \\
+Latino                             & $0.03$ & $0.18$ & $0$     & $1$ \\
 South                              & $0.30$ & $0.46$ & $0$     & $1$ \\
 Seniority                          & $5.33$ & $4.05$ & $1$     & $29$ \\
 Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
@@ -275,7 +272,7 @@ Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
 \end{tabular}
 \begin{tablenotes}
    \item
-   Num. Obs. $= 8,544$.
+   Num. Obs. $= 8,540$.
  \end{tablenotes}
 \end{threeparttable}
 \end{table}
@@ -312,9 +309,9 @@ Baseline Rate         & $0.57^{***}$ & $0.63^{***}$ & $0.41^{*}$   & $0.51^{**}$
                       & $(0.12)$     & $(0.09)$     & $(0.19)$     & $(0.16)$      & $(0.08)$     \\
 Vote Share            & $-0.01$      & $-0.05$      & $0.02$       & $-0.13^{***}$ & $-0.05$      \\
                       & $(0.03)$     & $(0.03)$     & $(0.04)$     & $(0.04)$      & $(0.04)$     \\
-Pres. Vote Share      & $0.03$       & $0.10$       & $-0.10$      & $0.21^{*}$    & $0.16^{*}$   \\
+Pres Vote Share       & $0.03$       & $0.10$       & $-0.10$      & $0.21^{*}$    & $0.16^{*}$   \\
                       & $(0.08)$     & $(0.06)$     & $(0.10)$     & $(0.09)$      & $(0.08)$     \\
-Party Leader          & $1.81^{**}$  & $1.96^{**}$  & $2.80^{**}$  & $2.61^{***}$  & $1.83^{*}$   \\
+Party Leader          & $1.80^{**}$  & $1.96^{**}$  & $2.77^{**}$  & $2.61^{***}$  & $1.80^{*}$   \\
                       & $(0.56)$     & $(0.73)$     & $(0.99)$     & $(0.56)$      & $(0.81)$     \\
 Committee Chair       & $4.98^{***}$ & $2.49^{**}$  & $9.72^{***}$ & $1.85^{***}$  &              \\
                       & $(0.95)$     & $(0.92)$     & $(2.02)$     & $(0.56)$      &              \\
@@ -322,25 +319,25 @@ Power Committee       & $2.76^{***}$ & $1.83^{***}$ & $2.93^{**}$  & $3.00^{***}
                       & $(0.76)$     & $(0.44)$     & $(0.96)$     & $(0.87)$      & $(0.82)$     \\
 Best Committee        & $-0.17$      & $-0.04$      & $-0.24$      & $-0.18$       & $-0.17$      \\
                       & $(0.10)$     & $(0.05)$     & $(0.13)$     & $(0.11)$      & $(0.11)$     \\
-Female                & $1.17$       & $0.56$       & $-0.08$      & $-0.02$       & $2.18^{**}$  \\
+Female                & $1.17$       & $0.56$       & $-0.10$      & $-0.02$       & $2.17^{**}$  \\
                       & $(0.63)$     & $(0.53)$     & $(1.50)$     & $(0.66)$      & $(0.77)$     \\
-African American      & $1.90$       & $-0.47$      & $5.12^{***}$ & $-2.80$       & $3.13$       \\
-                      & $(1.36)$     & $(1.08)$     & $(1.31)$     & $(1.77)$      & $(1.77)$     \\
-Latino                & $3.27^{**}$  & $1.78$       & $2.33$       & $2.97^{**}$   & $3.00^{*}$   \\
-                      & $(1.16)$     & $(1.07)$     & $(1.71)$     & $(0.93)$      & $(1.50)$     \\
-South                 & $-0.89$      & $-2.47^{**}$ & $3.56^{***}$ & $-1.77^{**}$  & $-0.54$      \\
-                      & $(0.54)$     & $(0.85)$     & $(0.78)$     & $(0.59)$      & $(0.89)$     \\
-Seniority             & $-0.05$      & $0.05$       & $-0.34^{*}$  & $0.03$        & $0.00$       \\
+African American      & $1.90$       & $-0.47$      & $5.13^{***}$ & $-2.80$       & $3.13$       \\
+                      & $(1.36)$     & $(1.08)$     & $(1.30)$     & $(1.77)$      & $(1.77)$     \\
+Latino                & $3.25^{**}$  & $1.76$       & $2.34$       & $2.97^{**}$   & $2.97^{*}$   \\
+                      & $(1.16)$     & $(1.08)$     & $(1.71)$     & $(0.93)$      & $(1.51)$     \\
+South                 & $-0.88$      & $-2.47^{**}$ & $3.56^{***}$ & $-1.77^{**}$  & $-0.53$      \\
+                      & $(0.54)$     & $(0.85)$     & $(0.77)$     & $(0.59)$      & $(0.89)$     \\
+Seniority             & $-0.05$      & $0.05$       & $-0.33^{*}$  & $0.03$        & $0.01$       \\
                       & $(0.06)$     & $(0.06)$     & $(0.14)$     & $(0.07)$      & $(0.10)$     \\
-Freshman              & $0.79$       & $-0.07$      & $1.19$       & $0.22$        & $-0.09$      \\
-                      & $(0.67)$     & $(0.53)$     & $(1.01)$     & $(0.51)$      & $(0.54)$     \\
-Intercept             & $31.78^{**}$ & $25.12^{**}$ & $52.02^{*}$  & $38.87^{*}$   & $17.12^{*}$  \\
-                      & $(11.78)$    & $(8.49)$     & $(20.32)$    & $(15.37)$     & $(8.59)$     \\
+Freshman              & $0.79$       & $-0.07$      & $1.20$       & $0.22$        & $-0.08$      \\
+                      & $(0.67)$     & $(0.53)$     & $(1.01)$     & $(0.51)$      & $(0.55)$     \\
+Intercept             & $31.78^{**}$ & $25.13^{**}$ & $52.03^{*}$  & $38.87^{*}$   & $17.13^{*}$  \\
+                      & $(11.78)$    & $(8.49)$     & $(20.32)$    & $(15.37)$     & $(8.60)$     \\
 \hline
-R$^2$                 & 0.46         & 0.63         & 0.30         & 0.57          & 0.48         \\
+R$^2$                 & 0.46         & 0.63         & 0.30         & 0.57          & 0.47         \\
 Adj. R$^2$            & 0.46         & 0.63         & 0.30         & 0.57          & 0.47         \\
-Num. obs.             & 8544         & 4746         & 3798         & 4898          & 3646         \\
-RMSE                  & 8.44         & 7.35         & 8.87         & 7.50          & 8.04         \\
+Num. obs.             & 8540         & 4743         & 3797         & 4897          & 3643         \\
+RMSE                  & 8.44         & 7.36         & 8.87         & 7.50          & 8.04         \\
 \hline
 \end{tabular}
 \begin{tablenotes}
@@ -424,7 +421,7 @@ In both the figure and the table, the only observations included are those
 same-state pairs in which (only) one member is up for reelection.
 The first two models include no control variables beyond the fixed effects, while the latter two also adjust for relevant control variables including lagged values of \textit{Responsiveness} to party calls, \textit{Ideological Extremism}, and \textit{Baseline Rate} of voting with the party.
 
-Across both sets of findings in the table, we see Senators up for reelection being significantly less responsive to party calls than are those who are not up for reelection.  Moreover, on the party-free votes, there is no significant difference across same-state Senators.  Lacking a party call on such votes, those up for reelection are not placed in a difficult position of choosing between the party are their constituents.
+Across both sets of findings in the table, we see Senators up for reelection being significantly less responsive to party calls than are those who are not up for reelection.  Moreover, on the party-free votes, there is no significant difference across same-state Senators.  Lacking a party call on such votes, those up for reelection are not placed in a difficult position of choosing between the party and their constituents.
 
 \begin{table}[!htbp]
 \centering

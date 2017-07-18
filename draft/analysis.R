@@ -37,68 +37,6 @@ texreg::texreg(models, override.se = ses, override.pvalues = pvals,
   reorder.coef = c(2, 3, 16, 4:15, 1))
 
 #------------------------------------------------------------------------------#
-# tab-house-models
-#------------------------------------------------------------------------------#
-models <- list(
-  lm(formula1, house_data),
-  lm(formula1, house_data[dem == 1]),
-  lm(formula1, house_data[dem == 0]),
-  lm(formula1, house_data[majority == 1]),
-  lm(update.formula(formula1, . ~ . - chair), house_data[majority == 0]))
-ses <- list(
-  robust_se(models[[1]],
-    house_data[, congress],
-    house_data[, icpsrLegis]),
-  robust_se(models[[2]],
-    house_data[dem == 1, congress],
-    house_data[dem == 1, icpsrLegis]),
-  robust_se(models[[3]],
-    house_data[dem == 0, congress],
-    house_data[dem == 0, icpsrLegis]),
-  robust_se(models[[4]],
-    house_data[majority == 1, congress],
-    house_data[majority == 1, icpsrLegis]),
-  robust_se(models[[5]],
-    house_data[majority == 0, congress],
-    house_data[majority == 0, icpsrLegis]))
-pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
-  SIMPLIFY = FALSE)
-texreg::texreg(models, override.se = ses, override.pvalues = pvals,
-  custom.coef.names = fix_coef_names(models),
-  reorder.coef = c(2:15, 1))
-
-#------------------------------------------------------------------------------#
-# tab-senate-models
-#------------------------------------------------------------------------------#
-models <- list(
-  lm(formula2, senate_data),
-  lm(formula2, senate_data[dem == 1]),
-  lm(formula2, senate_data[dem == 0]),
-  lm(formula2, senate_data[majority == 1]),
-  lm(update.formula(formula2, . ~ . - chair), senate_data[majority == 0]))
-ses <- list(
-  robust_se(models[[1]],
-    senate_data[, congress],
-    senate_data[, icpsrLegis]),
-  robust_se(models[[2]],
-    senate_data[dem == 1, congress],
-    senate_data[dem == 1, icpsrLegis]),
-  robust_se(models[[3]],
-    senate_data[dem == 0, congress],
-    senate_data[dem == 0, icpsrLegis]),
-  robust_se(models[[4]],
-    senate_data[majority == 1, congress],
-    senate_data[majority == 1, icpsrLegis]),
-  robust_se(models[[5]],
-    senate_data[majority == 0, congress],
-    senate_data[majority == 0, icpsrLegis]))
-pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
-  SIMPLIFY = FALSE)
-texreg::texreg(models, override.se = ses, override.pvalues = pvals,
-  custom.coef.names = fix_coef_names(models),
-  reorder.coef = c(2:3, 16, 4:15, 1))
-
-#------------------------------------------------------------------------------#
 # Figure 1
 #------------------------------------------------------------------------------#
 cairo_pdf(file = "draft/party-calls-over-time.pdf",
@@ -130,7 +68,7 @@ dev.off()
 # Figure 2
 #------------------------------------------------------------------------------#
 house_results <- house_data[, as.list(summary(
-    lm(formula1, data = .SD), vcov = sandwich::vcovHC(type = "HC1"))$
+  lm(formula1, data = .SD), vcov = sandwich::vcovHC(type = "HC1"))$
     coef["ideological_extremism", 1:2]),
   .(Congress = congress, majority)]
 senate_results <- senate_data[, as.list(summary(
@@ -151,16 +89,20 @@ congress_by_congress_results[,
 congress_by_congress_results[maj == "Majority", party := "Democrat"]
 congress_by_congress_results[maj == "Minority", party := "Republican"]
 congress_by_congress_results[maj == "Majority" & chamber == "House" &
-    Congress %in% house_coding_record[majority == "Republican", congress],
+    Congress %in% coding_record[chamber == "House" & majority == "Republican",
+      congress],
   party := "Republican"]
 congress_by_congress_results[maj == "Minority" & chamber == "House" &
-    Congress %in% house_coding_record[majority == "Republican", congress],
+    Congress %in% coding_record[chamber == "House" & majority == "Republican",
+      congress],
   party := "Democrat"]
 congress_by_congress_results[maj == "Majority" & chamber == "Senate" &
-    Congress %in% senate_coding_record[majority == "Republican", congress],
+    Congress %in% coding_record[chamber == "Senate" & majority == "Republican",
+      congress],
   party := "Republican"]
 congress_by_congress_results[maj == "Minority" & chamber == "Senate" &
-    Congress %in% senate_coding_record[majority == "Republican", congress],
+    Congress %in% coding_record[chamber == "Senate" & majority == "Republican",
+      congress],
   party := "Democrat"]
 
 cairo_pdf(file = "draft/extremism-responsiveness.pdf", ## RENAME
@@ -293,7 +235,101 @@ ggplot(differences, aes(test, Estimate)) +
 dev.off()
 
 #------------------------------------------------------------------------------#
-# Summary Stats
+# Supplemetal Appendix A: Vote Classification Analysis for Senate
+#------------------------------------------------------------------------------#
+# for the House
+if (!file.exists("results/vote_coding_house_lm.RData")) {
+  vote_coding_house_lm <- rbindlist(lapply(93:112, function(i) {
+    cat("\r working on congress", i)
+    out <- check_signs(house_party_calls[[paste0("hou", i)]])
+    X <- house_party_calls[[paste0("hou", i)]]$voteMargins
+    cbind(out, data.table(
+      congress = i,
+      party_call = house_party_calls[[paste0("hou", i)]]$party_call_coding$coding,
+      close_vote = ifelse(
+        X[, 4] / (X[, 1] + X[, 2]) <= .35,
+        "lop", "close")
+    ))
+  }))
+
+  save(vote_coding_house_lm, file = "results/vote_coding_house_lm.RData")
+} else {
+  load("results/vote_coding_house_lm.RData")
+}
+
+# for the senate
+if (!file.exists("results/vote_coding_senate_lm.RData")) {
+  vote_coding_senate_lm <- rbindlist(lapply(93:112, function(i) {
+    cat("\r working on congress", i)
+    out <- check_signs(senate_party_calls[[paste0("sen", i)]])
+    X <- senate_party_calls[[paste0("sen", i)]]$voteMargins
+    cbind(out, data.table(
+      congress = i,
+      party_call = senate_party_calls[[paste0("sen", i)]]$party_call_coding$coding,
+      close_vote = ifelse(
+        X[, 4] / (X[, 1] + X[, 2]) <= .35,
+        "lop", "close")
+    ))
+  }))
+  save(vote_coding_senate_lm, file = "results/vote_coding_senate_lm.RData")
+} else {
+  load("results/vote_coding_senate_lm.RData")
+}
+
+# rates of "gray" votes
+vote_coding_house_lm[, mean(party_call == "gray")]
+vote_coding_senate_lm[, mean(party_call == "gray")]
+
+# make tables
+calc_percentages <- function(tab) {
+  perc_tab <- paste0("$(", sprintf("%2.0f", 100 * tab / sum(tab)), "\\%)$")
+  tab[1, 1] <- paste0(" $", tab[1, 1], "$ ", perc_tab[1])
+  tab[2, 1] <- paste0(" $", tab[2, 1], "$ ", perc_tab[2])
+  tab[1, 2] <- paste0(" $", tab[1, 2], "$ ", perc_tab[3])
+  tab[2, 2] <- paste0(" $", tab[2, 2], "$ ", perc_tab[4])
+  unname(tab)
+}
+
+# tab-close-lop
+cat(paste0(apply(
+  cbind(
+    vote_coding_house_lm[party_call != "gray",
+      calc_percentages(table(close_vote, party_call))],
+    vote_coding_senate_lm[party_call != "gray",
+      calc_percentages(table(close_vote, party_call))]
+  ), 1, paste0, collapse = "&"), "\\\\\n"))
+
+# tab-sorting
+cat(paste0(apply(
+  rbind(
+    cbind(
+      c("($-$) Party ", "($+$) Party "),
+      vote_coding_house_lm[party_call %in% c("party call", "noncall"),
+        calc_percentages(table(party_coef, ideal_coef))],
+      vote_coding_senate_lm[party_call %in% c("party call", "noncall"),
+        calc_percentages(table(party_coef, ideal_coef))]
+    ),
+    cbind(
+      c("($-$) Party ", "($+$) Party "),
+      vote_coding_house_lm[party_call == "party call",
+        calc_percentages(table(party_coef, ideal_coef))],
+      vote_coding_senate_lm[party_call == "party call",
+        calc_percentages(table(party_coef, ideal_coef))]
+    ),
+    cbind(
+      c("($-$) Party ", "($+$) Party "),
+      vote_coding_house_lm[party_call == "noncall",
+        calc_percentages(table(party_coef, ideal_coef))],
+      vote_coding_senate_lm[party_call == "noncall",
+        calc_percentages(table(party_coef, ideal_coef))]
+    )
+  ), 1, paste0, collapse = "&"), "\\\\\n"))
+
+
+
+
+#------------------------------------------------------------------------------#
+# Supplemetal Appendix B: Summary Stats
 #------------------------------------------------------------------------------#
 
 summarize <- function(x, fmt) {
@@ -303,25 +339,7 @@ summarize <- function(x, fmt) {
     Min = sprintf(fmt, min(x)),
     Max = sprintf(fmt, max(x))), collapse = "$&$"), "\\\\\n")
 }
-house_stats <- c(
-  house_data[, summarize(responsiveness_to_party_calls, "%2.1f")],
-  house_data[, summarize(party_free_ideal_point, "%2.2f")],
-  house_data[, summarize(ideological_extremism, "%2.2f")],
-  house_data[, summarize(baseline_rate, "%2.1f")],
-  house_data[, summarize(vote_share, "%2.2f")],
-  house_data[, summarize(pres_vote_share, "%2.2f")],
-  house_data[, summarize(leader, "%2.2f")],
-  house_data[, summarize(chair, "%2.2f")],
-  house_data[, summarize(power_committee, "%2.2f")],
-  house_data[, summarize(best_committee, "%2.1f")],
-  house_data[, summarize(female, "%2.2f")],
-  house_data[, summarize(african_american, "%2.2f")],
-  house_data[, summarize(latino, "%2.2f")],
-  house_data[, summarize(south, "%2.2f")],
-  house_data[, summarize(seniority, "%2.2f")],
-  house_data[, summarize(freshman, "%2.2f")]
-)
-
+# tab-senate-summary-stats
 senate_stats <- c(
   senate_data[, summarize(responsiveness_to_party_calls, "%2.1f")],
   senate_data[, summarize(party_free_ideal_point, "%2.2f")],
@@ -342,119 +360,83 @@ senate_stats <- c(
   senate_data[, summarize(freshman, "%2.2f")]
 )
 
-#------------------------------------------------------------------------------#
-# Vote Classification Analysis for House
-#------------------------------------------------------------------------------#
-
-if (!file.exists("results/vote_coding_house_lm.RData")) {
-  vote_coding_house_lm <- rbindlist(lapply(93:112, function(i) {
-    cat("\r working on congress", i)
-    out <- check_signs(house_party_calls[[paste0("hou", i)]])
-    X <- house_party_calls[[paste0("hou", i)]]$voteMargins
-    cbind(out, data.table(
-      congress = i,
-      party_call = house_party_calls[[paste0("hou", i)]]$party_call_coding$coding,
-      close_vote = ifelse(
-        X[, 4] / (X[, 1] + X[, 2]) <= .35,
-        "lop", "close")
-    ))
-  }))
-
-  save(vote_coding_house_lm, file = "results/vote_coding_house_lm.RData")
-} else {
-  load("results/vote_coding_house_lm.RData")
-}
-
-vote_coding_house_lm[, mean(party_call == "gray")] #0.03337523
-
-vote_coding_house_lm[party_call != "gray", table(close_vote, party_call)]
-# party_call
-# close_vote noncall party call
-# close    1091       9305
-# lop      6122       4248
-
-vote_coding_house_lm[party_call != "gray",
-  cor(close_vote == "close", party_call == "party call")]  # .51
-vote_coding_house_lm[party_call == "party call",
-  mean(party_coef == ideal_coef)] -
-  vote_coding_house_lm[party_call == "noncall",
-    mean(party_coef == ideal_coef)] # 0.25834592
-
-vote_coding_house_lm[party_call %in% c("party call", "noncall"),
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     8127     2888
-# positive     3394     6357
-
-vote_coding_house_lm[party_call == "party call",
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     6166     1042
-# positive     1312     5033
-vote_coding_house_lm[party_call == "noncall",
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     1961     1846
-# positive     2082     1324
-
+# tab-house-summary-stats
+house_stats <- c(
+  house_data[, summarize(responsiveness_to_party_calls, "%2.1f")],
+  house_data[, summarize(party_free_ideal_point, "%2.2f")],
+  house_data[, summarize(ideological_extremism, "%2.2f")],
+  house_data[, summarize(baseline_rate, "%2.1f")],
+  house_data[, summarize(vote_share, "%2.2f")],
+  house_data[, summarize(pres_vote_share, "%2.2f")],
+  house_data[, summarize(leader, "%2.2f")],
+  house_data[, summarize(chair, "%2.2f")],
+  house_data[, summarize(power_committee, "%2.2f")],
+  house_data[, summarize(best_committee, "%2.1f")],
+  house_data[, summarize(female, "%2.2f")],
+  house_data[, summarize(african_american, "%2.2f")],
+  house_data[, summarize(latino, "%2.2f")],
+  house_data[, summarize(south, "%2.2f")],
+  house_data[, summarize(seniority, "%2.2f")],
+  house_data[, summarize(freshman, "%2.2f")]
+)
 
 #------------------------------------------------------------------------------#
-# Vote Classification Analysis for Senate
+# Supplemetal Appendix C
 #------------------------------------------------------------------------------#
+# tab-house-models
+models <- list(
+  lm(formula1, house_data),
+  lm(formula1, house_data[dem == 1]),
+  lm(formula1, house_data[dem == 0]),
+  lm(formula1, house_data[majority == 1]),
+  lm(update.formula(formula1, . ~ . - chair), house_data[majority == 0]))
+ses <- list(
+  robust_se(models[[1]],
+    house_data[, congress],
+    house_data[, icpsrLegis]),
+  robust_se(models[[2]],
+    house_data[dem == 1, congress],
+    house_data[dem == 1, icpsrLegis]),
+  robust_se(models[[3]],
+    house_data[dem == 0, congress],
+    house_data[dem == 0, icpsrLegis]),
+  robust_se(models[[4]],
+    house_data[majority == 1, congress],
+    house_data[majority == 1, icpsrLegis]),
+  robust_se(models[[5]],
+    house_data[majority == 0, congress],
+    house_data[majority == 0, icpsrLegis]))
+pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
+  SIMPLIFY = FALSE)
+texreg::texreg(models, override.se = ses, override.pvalues = pvals,
+  custom.coef.names = fix_coef_names(models),
+  reorder.coef = c(2:15, 1))
 
-if (!file.exists("results/vote_coding_senate_lm.RData")) {
-  vote_coding_senate_lm <- rbindlist(lapply(93:112, function(i) {
-    cat("\r working on congress", i)
-    out <- check_signs(senate_party_calls[[paste0("sen", i)]])
-    X <- senate_party_calls[[paste0("sen", i)]]$voteMargins
-    cbind(out, data.table(
-      congress = i,
-      party_call = senate_party_calls[[paste0("sen", i)]]$party_call_coding$coding,
-      close_vote = ifelse(
-        X[, 4] / (X[, 1] + X[, 2]) <= .35,
-        "lop", "close")
-    ))
-  }))
-  save(vote_coding_senate_lm, file = "results/vote_coding_senate_lm.RData")
-} else {
-  load("results/vote_coding_senate_lm.RData")
-}
-
-vote_coding_senate_lm[, mean(party_call == "gray")] #0.004
-
-vote_coding_senate_lm[party_call != "gray", table(close_vote, party_call)]
-# party_call
-# close_vote noncall party call
-# close    1857       5228
-# lop      4870       2068
-
-vote_coding_senate_lm[party_call != "gray",
-  cor(close_vote == "close", party_call == "party call")]  # .44
-vote_coding_senate_lm[party_call == "party call",
-  mean(party_coef == ideal_coef)] -
-  vote_coding_senate_lm[party_call == "noncall",
-    mean(party_coef == ideal_coef)] # 0.25834592
-
-vote_coding_senate_lm[party_call %in% c("party call", "noncall"),
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     4581     2244
-# positive     3188     4010
-
-vote_coding_senate_lm[party_call == "party call",
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     2807      793
-# positive     1129     2567
-
-vote_coding_senate_lm[party_call == "noncall",
-  table(party_coef, ideal_coef)]
-# ideal_coef
-# party_coef negative positive
-# negative     1774     1451
-# positive     2059     1443
+# tab-senate-models
+models <- list(
+  lm(formula2, senate_data),
+  lm(formula2, senate_data[dem == 1]),
+  lm(formula2, senate_data[dem == 0]),
+  lm(formula2, senate_data[majority == 1]),
+  lm(update.formula(formula2, . ~ . - chair), senate_data[majority == 0]))
+ses <- list(
+  robust_se(models[[1]],
+    senate_data[, congress],
+    senate_data[, icpsrLegis]),
+  robust_se(models[[2]],
+    senate_data[dem == 1, congress],
+    senate_data[dem == 1, icpsrLegis]),
+  robust_se(models[[3]],
+    senate_data[dem == 0, congress],
+    senate_data[dem == 0, icpsrLegis]),
+  robust_se(models[[4]],
+    senate_data[majority == 1, congress],
+    senate_data[majority == 1, icpsrLegis]),
+  robust_se(models[[5]],
+    senate_data[majority == 0, congress],
+    senate_data[majority == 0, icpsrLegis]))
+pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
+  SIMPLIFY = FALSE)
+texreg::texreg(models, override.se = ses, override.pvalues = pvals,
+  custom.coef.names = fix_coef_names(models),
+  reorder.coef = c(2:3, 16, 4:15, 1))

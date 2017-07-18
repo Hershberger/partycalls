@@ -386,6 +386,11 @@ if (!file.exists("results/house_data.RData")) {
     "african_american")
   setnames(house_data, old_names, new_names)
 
+  # drop duplicates cause by committee merge
+  house_data <- house_data[!(congress == 111 & icpsrLegis == 20535 & best_committee == 7)]
+  house_data <- house_data[!(congress == 111 & icpsrLegis == 20932 & best_committee == 9)]
+  house_data <- house_data[!(congress == 112 & icpsrLegis == 20932 & best_committee == 13)]
+  house_data <- house_data[!(congress == 112 & icpsrLegis == 20958 & best_committee == 7)]
 
   save(house_data, file = "results/house_data.RData")
 } else {
@@ -427,7 +432,8 @@ if (!file.exists("results/coding_record.RData")) {
   load("results/coding_record.RData")
 }
 
-devtools::use_data(coding_record, house_data, senate_data,
+devtools::use_data(
+  coding_record, house_data, senate_data,
   house_party_calls, senate_party_calls,
   overwrite = TRUE)
 devtools::build()
