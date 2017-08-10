@@ -1,7 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^inst
-^package
-^old
+^dev
 ^draft
+^inst
+^old
+^package
 ^results
