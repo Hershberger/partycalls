@@ -16,8 +16,10 @@ model <- glmer(party_call ~ (date | congress),
 
 library(ggplot2)
 ggplot(date_call, aes(date, party_call)) +
-  geom_smooth(aes(group = congress), se = FALSE, alpha = .2, color = "gray") +
-  geom_smooth(se = FALSE) +
+  geom_smooth(aes(group = congress), se = FALSE, alpha = .2, color = "gray",
+    method = "gam", method.args = list(family = binomial())) +
+  geom_smooth(se = FALSE,
+    method = "gam", method.args = list(family = binomial())) +
   geom_rug(data = date_call[party_call == 1], alpha = .01, sides = "t") +
   geom_rug(data = date_call[party_call == 0], alpha = .01, sides = "b") +
   ylim(c(0, 1))
