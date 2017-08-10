@@ -432,6 +432,29 @@ if (!file.exists("results/coding_record.RData")) {
   load("results/coding_record.RData")
 }
 
+
+
+#----#
+#
+#Add details
+
+details <- read.csv("inst/extdata/HSall_rollcalls.csv")
+setDT(details)
+setorder(details, chamber, congress, rollnumber)
+for (cong in 93:112) {
+  ok <- as.numeric(substr(colnames(
+    house_party_calls[[cong - 92]]$votes), 6, 100))
+  house_party_calls[[cong - 92]]$vote.data <-
+    details[chamber == "House" & congress == cong &
+        rollnumber %in% ok]
+
+  ok <- as.numeric(substr(colnames(
+    senate_party_calls[[cong - 92]]$votes), 6, 100))
+  senate_party_calls[[cong - 92]]$vote.data <-
+    details[chamber == "Senate" & congress == cong &
+        rollnumber %in% ok]
+}
+
 devtools::use_data(
   coding_record, house_data, senate_data,
   house_party_calls, senate_party_calls,
