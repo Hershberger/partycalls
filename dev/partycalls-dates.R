@@ -10,9 +10,9 @@ date_call <- rbindlist(lapply(1:20, function(i) {
 }))
 
 library(arm)
-model <- glmer(party_call ~ (date | congress),
-  family = binomial,
-  data = date_call)
+# model <- glmer(party_call ~ (date | congress),
+#   family = binomial,
+#   data = date_call)
 
 library(ggplot2)
 ggplot(date_call, aes(date, party_call)) +
