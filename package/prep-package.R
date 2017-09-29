@@ -455,6 +455,9 @@ for (cong in 93:112) {
         rollnumber %in% ok]
 }
 
+# fix Darrell Issa's latino value
+house_data[icpsrLegis == "20107", latino := 0]
+
 devtools::use_data(
   coding_record, house_data, senate_data,
   house_party_calls, senate_party_calls,
