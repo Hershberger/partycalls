@@ -60,7 +60,8 @@ if (!file.exists("results/senator_year_data.RData")) {
 if (!file.exists("results/senate_data.RData")) {
   responsiveness_data <- rbindlist(lapply(93:112, function(congress) {
     cat("\r", congress)
-    rc <- make_member_year_data(congress, senate_party_calls, chamber = "senate")
+    rc <- make_member_year_data(congress, senate_party_calls,
+      chamber = "senate")
     DATA <- rc$member_year_data
     DATA[, .(congress,
       icpsrLegis = icpsrLegis,
@@ -79,7 +80,8 @@ if (!file.exists("results/senate_data.RData")) {
   setDT(senate_data)
 
   # correct buckley extremism
-  senate_data[icpsrLegis == 13100, ideological_extremism := abs(party_free_ideal_point)]
+  senate_data[icpsrLegis == 13100,
+    ideological_extremism := abs(party_free_ideal_point)]
 
   # drop those without pirate100 values
   senate_data[is.na(pirate100) == TRUE, drop := 1]
@@ -102,7 +104,8 @@ if (!file.exists("results/senate_data.RData")) {
   senate_data[congress == 107, majority := dem]
 
   # drop Jeffords from 107
-  senate_data <- senate_data[!(congress == 107 & icpsrLegis %in% c(14240, 94240))]
+  senate_data <- senate_data[
+    !(congress == 107 & icpsrLegis %in% c(14240, 94240))]
 
   save(senate_data, file = "results/senate_data.RData")
 } else {
@@ -125,7 +128,8 @@ if (!file.exists("results/house_data.RData")) {
   # load aggregate legislative effectiveness data for some missing variables
   lep_aggregate <- readstata13::read.dta13("inst/extdata/LEP93to113.dta")
   # drop Tim Ryan's first entry (shorter of two)
-  lep_data_93_110 <- subset(lep_data_93_110, !(congress == 108 & icpsr == 20343 &
+  lep_data_93_110 <- subset(lep_data_93_110, !(congress == 108 &
+      icpsr == 20343 &
       thomas_num == 7031))
   lep_aggregate <- subset(lep_aggregate, !(congress == 108 & icpsr == 20343 &
       thomas_num == 7031))
@@ -148,7 +152,8 @@ if (!file.exists("results/house_data.RData")) {
     cd, dem, majority, female, afam, latino, votepct, speaker, chair, subchr,
     power, seniority, maj_leader, min_leader, south, les)]
 
-  lep_data_111_112 <- lep_data_111_112[, .(thomas_name, icpsr, congress, st_name,
+  lep_data_111_112 <- lep_data_111_112[, .(thomas_name, icpsr, congress,
+    st_name,
     cd, dem, majority, female, afam, latino, votepct, speaker, chair, subchr,
     power, seniority, maj_leader, min_leader, south, les)]
 
@@ -214,7 +219,8 @@ if (!file.exists("results/house_data.RData")) {
   member_year_data[is.na(dv) == TRUE, dv := dvp]
 
   # # find missing dpres values
-  # member_year_data[is.na(dpres) == TRUE, .(icpsr, thomas_name, congress, state_cd)]
+  # member_year_data[is.na(dpres) == TRUE,
+  #  .(icpsr, thomas_name, congress, state_cd)]
   # # replace these with previous values
   # member_year_data[state_cd == 3212 & congress == 93, dpres]
   # member_year_data[state_cd == 3213 & congress == 93, dpres]
@@ -275,7 +281,8 @@ if (!file.exists("results/house_data.RData")) {
 
 
   # load replication data for committee data
-  old_committee <- foreign::read.dta("inst/extdata/who-heeds-replication-archive.dta")
+  old_committee <- foreign::read.dta(
+    "inst/extdata/who-heeds-replication-archive.dta")
   setDT(old_committee)
   old_best_committee <- old_committee[, .(congress, icpsr, bestgrosswart)]
   setnames(old_best_committee, "icpsr", "icpsrLegis")
@@ -289,7 +296,8 @@ if (!file.exists("results/house_data.RData")) {
   setnames(new_committee, "State Name", "stabb")
   setnames(new_committee, "CD", "cd")
   setnames(new_committee, "Maj/Min", "maj")
-  new_committee_value <- fread("inst/extdata/committee_values_house_110-112.csv")
+  new_committee_value <- fread(
+    "inst/extdata/committee_values_house_110-112.csv")
   new_committee <- merge(new_committee, new_committee_value, by = "code",
     all.x = TRUE)
   new_committee <- new_committee[is.na(congress) == FALSE,]
@@ -321,7 +329,8 @@ if (!file.exists("results/house_data.RData")) {
     .(bestgrosswart = min(rank, na.rm = TRUE)), .(congress, icpsrLegis, Name)]
   new_best_committee[, best_grosswart := 22 - bestgrosswart]
 
-  new_best_committee <- new_best_committee[, .(congress, icpsrLegis, bestgrosswart)]
+  new_best_committee <- new_best_committee[,
+    .(congress, icpsrLegis, bestgrosswart)]
 
   # merge in bestgrosswart data
   best_committee <- rbind(old_best_committee, new_best_committee)
@@ -387,10 +396,14 @@ if (!file.exists("results/house_data.RData")) {
   setnames(house_data, old_names, new_names)
 
   # drop duplicates cause by committee merge
-  house_data <- house_data[!(congress == 111 & icpsrLegis == 20535 & best_committee == 7)]
-  house_data <- house_data[!(congress == 111 & icpsrLegis == 20932 & best_committee == 9)]
-  house_data <- house_data[!(congress == 112 & icpsrLegis == 20932 & best_committee == 13)]
-  house_data <- house_data[!(congress == 112 & icpsrLegis == 20958 & best_committee == 7)]
+  house_data <- house_data[
+    !(congress == 111 & icpsrLegis == 20535 & best_committee == 7)]
+  house_data <- house_data[
+    !(congress == 111 & icpsrLegis == 20932 & best_committee == 9)]
+  house_data <- house_data[
+    !(congress == 112 & icpsrLegis == 20932 & best_committee == 13)]
+  house_data <- house_data[
+    !(congress == 112 & icpsrLegis == 20958 & best_committee == 7)]
 
   save(house_data, file = "results/house_data.RData")
 } else {
@@ -457,6 +470,8 @@ for (cong in 93:112) {
 
 # fix Darrell Issa's latino value
 house_data[icpsrLegis == "20107", latino := 0]
+
+
 
 devtools::use_data(
   coding_record, house_data, senate_data,

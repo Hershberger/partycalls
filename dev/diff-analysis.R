@@ -96,69 +96,45 @@ ses <- list(
     senate_diff_data[, icpsrLegis]))
 pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
   SIMPLIFY = FALSE)
-texreg::texreg(models, override.se = ses, override.pvalues = pvals,
+texreg::htmlreg(models, file = "tab-responsiveness-diff-regressions.doc",
+  override.se = ses, override.pvalues = pvals,
   custom.coef.names = fix_coef_names(models),
   reorder.coef = c(2, 3, 11, 4:10, 1)
   )
 
 
+
 #------------------------------------------------------------------------------#
-# Figure 2
+# tab-responsiveness-diff-regressions
 #------------------------------------------------------------------------------#
-house_results <- house_diff_data[, as.list(summary(
-  lm(formula1, data = .SD), vcov = sandwich::vcovHC(type = "HC1"))$
-    coef["ideological_extremism_diff", 1:2]),
-  .(Congress = congress, majority)]
-senate_results <- senate_diff_data[, as.list(summary(
-  lm(formula2, data = .SD), vcov = sandwich::vcovHC(type = "HC1"))$
-    coef["ideological_extremism_diff", 1:2]),
-  .(Congress = congress, majority)]
-house_results[, chamber := "House"]
-senate_results[, chamber := "Senate"]
-congress_by_congress_results <- rbind(house_results, senate_results)
 
-setnames(congress_by_congress_results, "Std. Error", "SE")
-congress_by_congress_results[, q025 := Estimate + qnorm(.025) * SE]
-congress_by_congress_results[, q975 := Estimate + qnorm(.975) * SE]
-congress_by_congress_results[, q250 := Estimate + qnorm(.25) * SE]
-congress_by_congress_results[, q750 := Estimate + qnorm(.75) * SE]
-congress_by_congress_results[,
-  maj := ifelse(majority == 1, "Majority", "Minority")]
-congress_by_congress_results[maj == "Majority", party := "Democrat"]
-congress_by_congress_results[maj == "Minority", party := "Republican"]
-congress_by_congress_results[maj == "Majority" & chamber == "House" &
-    Congress %in% coding_record[chamber == "House" & majority == "Republican",
-      congress],
-  party := "Republican"]
-congress_by_congress_results[maj == "Minority" & chamber == "House" &
-    Congress %in% coding_record[chamber == "House" & majority == "Republican",
-      congress],
-  party := "Democrat"]
-congress_by_congress_results[maj == "Majority" & chamber == "Senate" &
-    Congress %in% coding_record[chamber == "Senate" & majority == "Republican",
-      congress],
-  party := "Republican"]
-congress_by_congress_results[maj == "Minority" & chamber == "Senate" &
-    Congress %in% coding_record[chamber == "Senate" & majority == "Republican",
-      congress],
-  party := "Democrat"]
-
-
-ggplot(congress_by_congress_results,
-  aes(Congress, Estimate, color = party, shape = party)) +
-  geom_hline(yintercept = 0, color = "gray", linetype = 3) +
-  geom_errorbar(aes(ymin = q025, ymax = q975), size = .5, width = 0) +
-  geom_errorbar(aes(ymin = q250, ymax = q750), size = 1, width = 0) +
-  geom_point(aes(size = ifelse(party == "Democrat", 2.35, 2.125))) +
-  facet_grid(maj ~ chamber, scales = "free") +
-  theme_minimal() +
-  scale_color_manual(values = c("Democrat" = "blue3", "Republican" = "red3")) +
-  scale_size_continuous(limits = c(2, 4)) +
-  ylab("Coefficient on Ideological Extremism") +
-  ggtitle("Ideological Extremists Are More Responsive to Party Calls") +
-  theme(
-    panel.border = element_rect(fill = NA, color = "gray"),
-    plot.title = element_text(hjust = 0.5),
-    text = element_text(family = "Linux Libertine"),
-    strip.text = element_text(size = 12),
-    legend.position = "none")
+formula1 <- responsiveness_to_party_calls ~ ideological_extremism +
+  baseline_rate + vote_share + pres_vote_share + leader +
+  chair + power_committee + best_committee + freshman |
+  icpsrLegis | 0 | icpsrLegis
+formula2 <- responsiveness_to_party_calls ~ ideological_extremism +
+  baseline_rate + vote_share + pres_vote_share + leader +
+  chair + power_committee + best_committee + freshman  +
+  up_for_reelection |
+  icpsrLegis | 0 | icpsrLegis
+models <- list(
+  lfe::felm(formula1, house_data),
+  lfe::felm(formula1, senate_data),
+  lfe::felm(formula2, senate_data))
+ses <- list(
+  robust_se(models[[1]],
+    house_diff_data[, congress],
+    house_diff_data[, icpsrLegis]),
+  robust_se(models[[2]],
+    senate_diff_data[, congress],
+    senate_diff_data[, icpsrLegis]),
+  robust_se(models[[3]],
+    senate_diff_data[, congress],
+    senate_diff_data[, icpsrLegis]))
+pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
+  SIMPLIFY = FALSE)
+texreg::htmlreg(models, file = "tab-responsiveness-diff-regressions.doc",
+  override.se = ses, override.pvalues = pvals,
+  custom.coef.names = fix_coef_names(models),
+  reorder.coef = c(2, 3, 11, 4:10, 1)
+)

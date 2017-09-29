@@ -440,3 +440,54 @@ pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
 texreg::texreg(models, override.se = ses, override.pvalues = pvals,
   custom.coef.names = fix_coef_names(models),
   reorder.coef = c(2:3, 16, 4:15, 1))
+
+
+
+#------------------------------------------------------------------------------#
+# Supplemetal Appendix XXX
+#------------------------------------------------------------------------------#
+
+# compare responsiveness to party calls with party vote rates
+
+house_party_vote_rate_data <- rbindlist(lapply(1:20, calc_party_vote_rates,
+  house_party_calls))
+senate_party_vote_rate_data <- rbindlist(lapply(1:20, calc_party_vote_rates,
+  senate_party_calls))
+
+merge(house_data, house_party_vote_rate_data,
+  by = c("congress", "icpsrLegis"))[,
+    cor(responsiveness_to_party_calls,
+      party_vote_rate, use = "p", method = "s"), congress][, range(V1)]
+
+merge(senate_data, senate_party_vote_rate_data,
+  by = c("congress", "icpsrLegis"))[,
+    cor(responsiveness_to_party_calls,
+      party_vote_rate, use = "p", method = "s"), congress][, range(V1)]
+
+calc_similarity_party_vote_party_call <- function(congress_index, rollcall_list,
+  chamber)
+{
+  rc <- rollcall_list[[congress_index]]
+  votes <- rc$votes
+  votes <- melt(votes)
+  data.table::setDT(votes)
+  setnames(votes, c("mc", "vote_id", "vote"))
+  party_call_coding <- rc$party_call_coding$coding
+  party_vote_coding <- rep("non-party vote", rc$m)
+  party_vote_coding[identify_party_votes(congress_index, rollcall_list)] <-
+    "party vote"
+  table(party_call_coding, party_vote_coding)
+  data.table(congress = congress_index + 92, chamber,
+  similarity_rate = mean(
+    (party_call_coding == "noncall" & party_vote_coding == "non-party vote") |
+      (party_call_coding == "party call" & party_vote_coding == "party vote")))
+
+}
+
+coding_record <- merge(coding_record,
+  rbind(
+    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
+      house_party_calls, "House")),
+    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
+      senate_party_calls, "Senate"))),
+  by = c("congress", "chamber"))
