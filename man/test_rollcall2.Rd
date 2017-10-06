@@ -17,4 +17,3 @@ DESC
 \description{
 DETAIL
 }
-

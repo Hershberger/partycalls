@@ -5,7 +5,8 @@
 #' @param roll_calls_object_list rc a list of rollcall objects with classified
 #' party calls
 #' @return data.table with party-free ideal points
-#' @import data.table emIRT pscl
+#' @import data.table
+#' @importFrom emIRT binIRT makePriors getStarts
 #' @export
 make_senator_year_data <- function(congress, roll_calls_object_list)
 {
@@ -42,15 +43,15 @@ make_senator_year_data <- function(congress, roll_calls_object_list)
   rc_noncalls <- rc
   rc_noncalls$votes <- rc_noncalls$votes[, noncall_vote_ids]
   rc_noncalls$m <- ncol(rc_noncalls$votes)
-  p <- makePriors(rc_noncalls$n, rc_noncalls$m, 1)
-  s <- getStarts(rc_noncalls$n, rc_noncalls$m, 1)
+  p <- emIRT::makePriors(rc_noncalls$n, rc_noncalls$m, 1)
+  s <- emIRT::getStarts(rc_noncalls$n, rc_noncalls$m, 1)
   sink_target <- if (Sys.info()[["sysname"]] == "Windows") {
     "NUL"
   } else {
     "/dev/null"
   }
   sink(sink_target)
-  fitted_emIRT <- binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
+  fitted_emIRT <- emIRT::binIRT(.rc = rc_noncalls, .starts = s, .priors = p,
     .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
   sink()
   unlink(sink_target)
@@ -67,9 +68,12 @@ make_senator_year_data <- function(congress, roll_calls_object_list)
   }
   senator_year_data[, pf_ideal := pf_ideal / sd(pf_ideal)]
   senator_year_data[, pf_ideal := pf_ideal - mean(pf_ideal)]
-  senator_year_data[, dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
-  senator_year_data[party == "D", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
-  senator_year_data[party == "R", dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
+  senator_year_data[,
+    dist_from_floor_median := abs(pf_ideal - median(pf_ideal))]
+  senator_year_data[party == "D",
+    dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
+  senator_year_data[party == "R",
+    dist_from_party_median := abs(pf_ideal - median(pf_ideal))]
   senator_year_data[, ideological_extremism := pf_ideal]
   senator_year_data[party == "D", ideological_extremism := -pf_ideal]
   list(senator_year_data = senator_year_data, fitted_emIRT = fitted_emIRT)

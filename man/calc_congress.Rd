@@ -15,4 +15,3 @@ integer congress
 \description{
 Simple conversion between year and congress
 }
-

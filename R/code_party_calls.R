@@ -42,7 +42,9 @@
 #' to use all noncalls for ideal point estimation
 #' @return rollcall object with record of classification algorithm and
 #' list of classified party calls
-#' @import data.table emIRT pscl
+#' @import data.table
+#' @importFrom pscl dropRollCall
+#' @importFrom emIRT convertRC
 #' @export
 code_party_calls <- function(rc,
   sim_annealing = FALSE,

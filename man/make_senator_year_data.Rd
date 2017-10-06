@@ -18,4 +18,3 @@ data.table with party-free ideal points
 \description{
 For a single congress, assemble data for analysis
 }
-

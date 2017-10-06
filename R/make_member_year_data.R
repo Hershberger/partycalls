@@ -5,7 +5,8 @@
 #' @param roll_calls_object_list rc a list of rollcall objects with classified
 #' party calls
 #' @return data.table with party-free ideal points
-#' @import data.table emIRT pscl
+#' @import data.table
+#' @importFrom emIRT makePriors getStarts binIRT
 #' @export
 make_member_year_data <- function(congress, roll_calls_object_list,
   chamber = "house")

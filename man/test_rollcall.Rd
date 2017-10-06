@@ -32,4 +32,3 @@ the bias-reduced logit.
 Internal function for code_party_calls, only used if
 use_classification_distance is FALSE.
 }
-

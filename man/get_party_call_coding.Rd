@@ -20,4 +20,3 @@ Examines the last n_iterations of classifier iterations and codes any
 vote that was always a party call as a party call, any vote that was always
 a noncall as a noncall, and the remainder as gray votes.
 }
-
