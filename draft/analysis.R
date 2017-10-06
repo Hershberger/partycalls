@@ -1,4 +1,5 @@
 library(partycalls)
+library(data.table)
 library(ggplot2)
 library(extrafont)
 library(Cairo)
@@ -245,7 +246,8 @@ if (!file.exists("results/vote_coding_house_lm.RData")) {
     X <- house_party_calls[[paste0("hou", i)]]$voteMargins
     cbind(out, data.table(
       congress = i,
-      party_call = house_party_calls[[paste0("hou", i)]]$party_call_coding$coding,
+      party_call =
+        house_party_calls[[paste0("hou", i)]]$party_call_coding$coding,
       close_vote = ifelse(
         X[, 4] / (X[, 1] + X[, 2]) <= .35,
         "lop", "close")
@@ -265,7 +267,8 @@ if (!file.exists("results/vote_coding_senate_lm.RData")) {
     X <- senate_party_calls[[paste0("sen", i)]]$voteMargins
     cbind(out, data.table(
       congress = i,
-      party_call = senate_party_calls[[paste0("sen", i)]]$party_call_coding$coding,
+      party_call =
+        senate_party_calls[[paste0("sen", i)]]$party_call_coding$coding,
       close_vote = ifelse(
         X[, 4] / (X[, 1] + X[, 2]) <= .35,
         "lop", "close")
@@ -449,20 +452,163 @@ texreg::texreg(models, override.se = ses, override.pvalues = pvals,
 
 # compare responsiveness to party calls with party vote rates
 
-house_party_vote_rate_data <- rbindlist(lapply(1:20, calc_party_vote_rates,
-  house_party_calls))
-senate_party_vote_rate_data <- rbindlist(lapply(1:20, calc_party_vote_rates,
-  senate_party_calls))
+house_party_vote_rate_data <- rbindlist(lapply(1:20,
+  calc_party_vote_rates, house_party_calls))
+senate_party_vote_rate_data <- rbindlist(lapply(1:20,
+  calc_party_vote_rates, senate_party_calls))
+house_vote_with_party_rate_data <- rbindlist(lapply(1:20,
+  calc_vote_with_party_rates, house_party_calls))
+senate_vote_with_party_rate_data <- rbindlist(lapply(1:20,
+  calc_vote_with_party_rates, senate_party_calls))
+house_vote_with_nonparty_rate_data <- rbindlist(lapply(1:20,
+  calc_nonparty_vote_rates, house_party_calls))
+senate_vote_with_nonparty_rate_data <- rbindlist(lapply(1:20,
+  calc_nonparty_vote_rates, senate_party_calls))
 
-merge(house_data, house_party_vote_rate_data,
-  by = c("congress", "icpsrLegis"))[,
-    cor(responsiveness_to_party_calls,
-      party_vote_rate, use = "p", method = "s"), congress][, range(V1)]
 
-merge(senate_data, senate_party_vote_rate_data,
-  by = c("congress", "icpsrLegis"))[,
-    cor(responsiveness_to_party_calls,
-      party_vote_rate, use = "p", method = "s"), congress][, range(V1)]
+house_rate_data <- merge(
+  house_data,
+  merge(
+    merge(house_party_vote_rate_data, house_vote_with_party_rate_data,
+      by = c("congress", "icpsrLegis")),
+    house_vote_with_nonparty_rate_data,
+    by = c("congress", "icpsrLegis"))
+  )
+senate_rate_data <- merge(
+  senate_data,
+  merge(
+    merge(senate_party_vote_rate_data, senate_vote_with_party_rate_data,
+      by = c("congress", "icpsrLegis")),
+    senate_vote_with_nonparty_rate_data,
+    by = c("congress", "icpsrLegis"))
+)
+house_rate_data[, cor(cbind(
+  responsiveness_to_party_calls, baseline_rate,
+  party_vote_rate,
+  nonparty_vote_rate,
+  vote_with_party_rate), use = "p", method = "s")]
+house_rate_data[, cor(
+  responsiveness_to_party_calls, vote_with_party_rate, use = "p", method = "s"),
+  .(congress, majority)]
+
+
+
+#------------------------------------------------------------------------------#
+# tab-responsiveness-regressions
+#------------------------------------------------------------------------------#
+
+formula1 <- party_vote_rate ~ ideological_extremism +
+  nonparty_vote_rate + vote_share + pres_vote_share + leader + chair +
+  power_committee + best_committee + female + african_american + latino +
+  south + seniority + freshman
+formula2 <- update.formula(formula1, . ~ . + up_for_reelection)
+models <- list(
+  lm(formula1, house_rate_data),
+  lm(formula1, senate_rate_data),
+  lm(formula2, senate_rate_data))
+ses <- list(
+  robust_se(models[[1]],
+    house_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), congress],
+    house_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), icpsrLegis]),
+  robust_se(models[[2]],
+    senate_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), congress],
+    senate_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), icpsrLegis]),
+  robust_se(models[[3]],
+    senate_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), congress],
+    senate_rate_data[!is.na(party_vote_rate) & !is.na(nonparty_vote_rate), icpsrLegis]))
+pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
+  SIMPLIFY = FALSE)
+texreg::texreg(models, override.se = ses, override.pvalues = pvals,
+  custom.coef.names = fix_coef_names(models),
+  reorder.coef = c(2, 3, 16, 4:15, 1))
+
+
+
+
+reelection_data <- senate_rate_data[!is.na(responsiveness_to_party_calls)]
+setorder(reelection_data, stabb, icpsrLegis, congress)
+
+# subset to cases with two senators, make indicator for mean treatment
+reelection_data <- merge(reelection_data,
+  reelection_data[, .N, .(stabb, congress)],
+  by = c("stabb", "congress"),
+  all.x = TRUE)
+reelection_data <- reelection_data[N == 2]
+reelection_data[, mean_up_for_reelection := mean(up_for_reelection),
+  .(stabb, congress)]
+
+# add lagged ideological extremism
+reelection_data <- merge(
+  reelection_data,
+  reelection_data[, .(congress = congress + 1,
+    lag_congress = congress, icpsrLegis,
+    lag_responsiveness_to_party_calls = responsiveness_to_party_calls,
+    lag_baseline_rate = baseline_rate,
+    lag_ideological_extremism = ideological_extremism)],
+  by = c("congress", "icpsrLegis"),
+  all.x = TRUE)
+
+reelection_data[, more_senior :=
+    ifelse(rep(sd(seniority) == 0, 2), 0,
+      as.numeric(seniority == max(seniority))),
+  .(stabb, congress)]
+reelection_data[, mean_more_senior := mean(more_senior), .(stabb, congress)]
+reelection_data[, stabb_congress := paste(stabb, congress)]
+
+#------------------------------------------------------------------------------#
+# tab-reelection
+#------------------------------------------------------------------------------#
+models <- list(
+  lfe::felm(party_vote_rate ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(nonparty_vote_rate ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(party_vote_rate ~ up_for_reelection +
+      lag_responsiveness_to_party_calls +
+      lag_ideological_extremism +
+      lag_baseline_rate +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(nonparty_vote_rate ~ up_for_reelection +
+      lag_responsiveness_to_party_calls +
+      lag_ideological_extremism +
+      lag_baseline_rate +
+      lag_ideological_extremism +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5])
+)
+texreg::texreg(models,
+  custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
+  custom.coef.names = fix_coef_names(models))
+
+
+
+senate_rate_data <- merge(
+  senate_data[, .(
+    congress, icpsrLegis,
+    responsiveness_to_party_calls, baseline_rate,
+    party_free_ideal_point)],
+  merge(senate_party_vote_rate_data, senate_vote_with_party_rate_data,
+    by = c("congress", "icpsrLegis")),
+  by = c("congress", "icpsrLegis")
+)
+senate_rate_data[, cor(cbind(
+  responsiveness_to_party_calls, baseline_rate,
+  party_vote_rate, vote_with_party_rate), use = "p", method = "s")]
+
+
+
+
 
 calc_similarity_party_vote_party_call <- function(congress_index, rollcall_list,
   chamber)

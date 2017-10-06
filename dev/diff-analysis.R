@@ -121,20 +121,7 @@ models <- list(
   lfe::felm(formula1, house_data),
   lfe::felm(formula1, senate_data),
   lfe::felm(formula2, senate_data))
-ses <- list(
-  robust_se(models[[1]],
-    house_diff_data[, congress],
-    house_diff_data[, icpsrLegis]),
-  robust_se(models[[2]],
-    senate_diff_data[, congress],
-    senate_diff_data[, icpsrLegis]),
-  robust_se(models[[3]],
-    senate_diff_data[, congress],
-    senate_diff_data[, icpsrLegis]))
-pvals <- mapply(function(x, y) 2 * (1 - pnorm(abs(coef(x) / y))), models, ses,
-  SIMPLIFY = FALSE)
-texreg::htmlreg(models, file = "tab-responsiveness-diff-regressions.doc",
-  override.se = ses, override.pvalues = pvals,
+texreg::htmlreg(models, file = "tab-responsiveness-fe-regressions.doc",
   custom.coef.names = fix_coef_names(models),
-  reorder.coef = c(2, 3, 11, 4:10, 1)
+  reorder.coef = c(1, 2, 10, 3:9)
 )
