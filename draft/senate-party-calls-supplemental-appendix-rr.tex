@@ -280,7 +280,7 @@ Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
 \clearpage
 
 %------------------------------------------------------------------------------%
-\subsection*{Supplemental Appendix C: Regression Models of Responsiveness}
+\subsection*{Appendix C: Regression Models of Responsiveness}
 \addcontentsline{toc}{section}{\protect\numberline{}Appendix C: Regression Models of Responsiveness}%
 %------------------------------------------------------------------------------%
 
@@ -411,7 +411,7 @@ $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Supplemental Appendix D: Senate Reelection Fixed Effects Models}
+\subsection*{Appendix D: Senate Reelection Fixed Effects Models}
 \addcontentsline{toc}{section}{\protect\numberline{}Appendix D: Senate Reelection Fixed Effects Models}%
 %------------------------------------------------------------------------------%
 
@@ -481,6 +481,218 @@ Adj. R$^2$ (proj model)           & -0.97       & -1.00    & 0.36        & -0.10
  \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+\clearpage
+
+
+%------------------------------------------------------------------------------%
+\subsection*{Appendix E: Comparing Party Unity Scores Responsiveness to Party Calls}
+\addcontentsline{toc}{section}{\protect\numberline{}Appendix E: Comparing Party Unity Scores Responsiveness to Party Calls}%
+%------------------------------------------------------------------------------%
+
+Responsivness to Party Calls bears some similarity to the more common
+\emph{Party Unity} score.
+For example, \cite{Carson:2010} define Party Unity as the fraction of the time
+legislators vote with their party on the subset of ``party votes,'' on which a
+majority of Democrats voted against a majority of Republicans.
+In this appendix, we first compare party votes with party calls, then compare
+Party Unity scores with Responsiveness to Party Calls, and finally report
+models of Party Unity scores that mirror the models of Responsiveness from the
+main paper.
+Ultimately, we conclude that party calls and Responsiveness scores are
+better measures of party influence than Party Unity scores because the
+algorithm used to identify party calls is purpose-built to separate party
+influence from ideology.
+
+We first identified party votes and calculated rates of voting with the party
+on this subset of roll call votes, as well as all votes.
+There is relatively high similarity between this coding scheme and that for
+party calls: the fraction of votes that were coded either as (1) both non-party
+calls and non-party votes, or (2) both party calls and party votes ranged from
+59\% to 91\%, with an average of 78\%.
+
+Next, we created Party Unity scores, which we defined as the fraction of votes
+cast by a legislator on these party votes.
+These scores are highly correlated with Responsiveness, with
+correlations ranging from 0.65 to 0.98 for the House, and from 0.69 to 0.97 for
+the Senate.
+The correlations tend to increase over time, significantly so in the Senate,
+with a weaker relationship in the House, based on robust linear models).
+There is also a sharp increase in volatility in these correlations, as the
+smallest levels also occur in recent years.
+
+Finally, we estimated models of party unity to parallel the models of
+Responsiveness in the paper.
+To substitute for Baseline Rates of Party Support, we created (for lack of
+a better term) \emph{Non-Party-Vote Unity} scores, which we defined as the rate
+of support for the party on votes for which the majorities of the two parties
+did \textbf{not} disagree.
+We then fit models analogous to those from Table 1 in the main paper,
+substituting in Party Unity scores for Responsiveness as the dependent variable,
+and substituting in Non-Party-Vote Unity scores for Baseline Rate.
+The results appear in Table~\ref{tab-party-unity-regressions}.
+
+\begin{table}[!htbp]
+\centering
+\begin{threeparttable}
+\caption{Models of \textit{Party Unity Scores}, 1973-2012}
+\label{tab-party-unity-regressions}
+\singlespacing
+\begin{tabular}{l c c c }
+\hline
+& House & Senate & Senate \\
+\hline
+Ideological Extremism & $13.11^{***}$ & $20.61^{***}$ & $20.59^{***}$ \\
+                      & $(3.11)$      & $(1.72)$      & $(1.73)$      \\
+Non-Party-Vote Unity  & $0.47^{***}$  & $0.68^{***}$  & $0.68^{***}$  \\
+                      & $(0.12)$      & $(0.07)$      & $(0.07)$      \\
+Up For Reelection     &               &               & $-0.32$       \\
+                      &               &               & $(0.26)$      \\
+Vote Share            & $-0.09^{**}$  & $-0.01$       & $-0.01$       \\
+                      & $(0.03)$      & $(0.03)$      & $(0.03)$      \\
+Pres Vote Share       & $0.18$        & $0.08$        & $0.08$        \\
+                      & $(0.10)$      & $(0.05)$      & $(0.05)$      \\
+Party Leader          & $3.18^{***}$  & $2.26^{**}$   & $2.26^{**}$   \\
+                      & $(0.93)$      & $(0.77)$      & $(0.77)$      \\
+Committee Chair       & $4.96^{***}$  & $3.23^{***}$  & $3.23^{***}$  \\
+                      & $(0.88)$      & $(0.71)$      & $(0.71)$      \\
+Power Committee       & $2.77^{***}$  & $0.66$        & $0.66$        \\
+                      & $(0.63)$      & $(0.77)$      & $(0.77)$      \\
+Best Committee        & $-0.07$       & $-0.10$       & $-0.10$       \\
+                      & $(0.09)$      & $(0.16)$      & $(0.16)$      \\
+Female                & $1.15$        & $0.31$        & $0.30$        \\
+                      & $(0.85)$      & $(1.03)$      & $(1.03)$      \\
+African American      & $0.41$        & $-10.79$      & $-10.83$      \\
+                      & $(1.12)$      & $(5.75)$      & $(5.74)$      \\
+Latino                & $3.17^{*}$    & $2.95$        & $2.96$        \\
+                      & $(1.25)$      & $(2.78)$      & $(2.78)$      \\
+South                 & $-1.64^{*}$   & $-0.83$       & $-0.83$       \\
+                      & $(0.76)$      & $(0.82)$      & $(0.82)$      \\
+Seniority             & $-0.13$       & $-0.10$       & $-0.10$       \\
+                      & $(0.08)$      & $(0.07)$      & $(0.07)$      \\
+Freshman              & $0.20$        & $0.95$        & $0.86$        \\
+                      & $(0.77)$      & $(0.77)$      & $(0.74)$      \\
+Intercept             & $32.66^{**}$  & $9.21$        & $9.32$        \\
+                      & $(10.75)$     & $(6.49)$      & $(6.49)$      \\
+\hline
+R$^2$                 & 0.50          & 0.75          & 0.75          \\
+Adj. R$^2$            & 0.49          & 0.75          & 0.75          \\
+Num. obs.             & 8529          & 1977          & 1977          \\
+RMSE                  & 10.73         & 7.78          & 7.79          \\
+\hline
+
+\end{tabular}
+\begin{tablenotes}
+   \item
+   The table presents linear models of \textit{Party Unity} scores,
+   from the 93$^{\text{rd}}$-112$^{\text{th}}$ Congresses (1973-2012).
+  Standard errors are clustered by Congress and member.\\
+   $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
+ \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Two general findings emerged from  Table~\ref{tab-party-unity-regressions}.
+First, the hypothesis tests presented in the paper for Ideological Extremism
+yield similar inferences in these models of Party Unity scores.
+More importantly, a set of emergent differences between these sets of models
+suggest that responsiveness scores are preferable to Party Unity scores.
+The relationship between Party Unity scores and Ideological Extremism was an
+order of magnitude larger than the relationship between responsiveness and
+ideological extremism.
+For example, the model of Responsiveness for the House (first column of Table 1
+from the paper) has an overall coefficient of 7.75 on Ideological Extremism;
+the corresponding coefficient from the model of Party Unity scores is 13.1.
+These coefficients are even further inflated for the Senate: the coefficient
+from the Senate models in Table 1 are about 6.3, whereas both Party Unity
+analogues of the Senate models in Table~\ref{tab-party-unity-regressions}
+have coefficients above 20.
+
+\begin{table}[!htbp]
+\centering
+\begin{threeparttable}
+\singlespacing
+\small
+\caption{Fixed Effects Models of Party Unity Scores}
+\label{tab-party-unity-reelection}
+\begin{tabular}{l c c c c }
+\hline
+ & Responsiveness & Baseline Rate & Responsiveness & Baseline Rate \\
+\hline
+Up For Reelection                 & $-2.56^{***}$ & $1.19^{*}$ & $-2.30^{***}$ & $1.47^{**}$   \\
+                                  & $(0.69)$      & $(0.54)$   & $(0.69)$      & $(0.45)$      \\
+Lag Responsiveness To Party Calls &               &            & $0.28$        & $-0.07$       \\
+                                  &               &            & $(0.20)$      & $(0.09)$      \\
+Lag Ideological Extremism         &               &            & $11.85^{***}$ & $-6.34^{***}$ \\
+                                  &               &            & $(2.02)$      & $(1.42)$      \\
+Lag Baseline Rate                 &               &            & $0.44^{**}$   & $0.61^{***}$  \\
+                                  &               &            & $(0.16)$      & $(0.09)$      \\
+CaucusRepublican                  &               &            & $0.91$        & $-0.02$       \\
+                                  &               &            & $(1.88)$      & $(1.20)$      \\
+Majority                          &               &            & $4.04$        & $2.05$        \\
+                                  &               &            & $(2.21)$      & $(1.63)$      \\
+Vote Share                        &               &            & $0.00$        & $-0.01$       \\
+                                  &               &            & $(0.06)$      & $(0.03)$      \\
+Pres Vote Share                   &               &            & $-0.03$       & $-0.01$       \\
+                                  &               &            & $(0.10)$      & $(0.06)$      \\
+Party Leader                      &               &            & $1.04$        & $0.82$        \\
+                                  &               &            & $(1.36)$      & $(1.23)$      \\
+Committee Chair                   &               &            & $-0.59$       & $0.74$        \\
+                                  &               &            & $(1.67)$      & $(1.00)$      \\
+Power Committee                   &               &            & $1.21$        & $1.08$        \\
+                                  &               &            & $(1.42)$      & $(1.65)$      \\
+Best Committee                    &               &            & $-0.08$       & $-0.11$       \\
+                                  &               &            & $(0.24)$      & $(0.31)$      \\
+Female                            &               &            & $0.54$        & $0.82$        \\
+                                  &               &            & $(1.77)$      & $(1.71)$      \\
+African American                  &               &            & $-7.21$       & $3.50$        \\
+                                  &               &            & $(9.19)$      & $(4.12)$      \\
+Latino                            &               &            & $-5.47$       & $6.41$        \\
+                                  &               &            & $(7.72)$      & $(7.48)$      \\
+Seniority                         &               &            & $0.07$        & $0.05$        \\
+                                  &               &            & $(0.15)$      & $(0.11)$      \\
+\hline
+Num. obs.                         & 1122          & 1120       & 946           & 944           \\
+R$^2$ (full model)                & 0.67          & 0.69       & 0.94          & 0.86          \\
+R$^2$ (proj model)                & 0.02          & 0.02       & 0.79          & 0.51          \\
+Adj. R$^2$ (full model)           & 0.34          & 0.38       & 0.85          & 0.68          \\
+Adj. R$^2$ (proj model)           & -0.98         & -0.99      & 0.52          & -0.13         \\
+\hline
+\end{tabular}
+\begin{tablenotes}
+   \item
+   The table presents fixed effects regressions of \textit{Party Unity} to party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with fixed effects for Same State-Congress pairs, including 561 fixed effects for the models in the first two columns and 473 for the latter two models.  Standard errors are clustered by legislator and Congress.
+   $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
+ \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Furthermore, analogous models of Party Unity scores that mimic the senate-pair
+design yield a similar finding.
+Table~\ref{tab-party-unity-reelection} mimics the models in
+Table~\ref{tab-reelection}.
+Again, the coefficients on whether a senator is Up for Reelection for
+Party Unity are twice the
+magnitude of those for Responsiveness.
+And the party-unity models also fail our placebo test.
+The coefficients on Up for Reelection are positive and significant
+($p < 0.01$).
+Thus, models of Party Unity scores yield both implausibly large coefficient
+magnitudes and a failed placebo test.
+
+Based on these analyses, we make two main conclusions.
+First, Party Unity scores and Responsiveness to PartyCcalls both capture much of
+the same ``signal.''
+Second, however, Party Unity scores suffer from their underlying blunt
+categorization rule, which was precisely the impetus for the algorithm
+developed in \cite{Minozzi:2013}.
+Despite their high correlation, the inferences suggested by models of Party
+Unity are implausibly large.
+Perhaps more importantly, they lead to a failed placebo test.
+This failed test resonates strongly with the modal scholarly interpretation of
+Party Unity scores as ``contaminated'' by endogeneity and ideology,
+an interpretation which led \cite{Carson:2010}, for example, to rely on an
+instrumental variables strategy to examine the effects of party voting.
 
 \clearpage
 

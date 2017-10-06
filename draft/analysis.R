@@ -447,11 +447,10 @@ texreg::texreg(models, override.se = ses, override.pvalues = pvals,
 
 
 #------------------------------------------------------------------------------#
-# Supplemetal Appendix XXX
+# Supplemetal Appendix E
 #------------------------------------------------------------------------------#
 
-# compare responsiveness to party calls with party vote rates
-
+# compare responsiveness to party calls with party unity scores
 house_party_vote_rate_data <- rbindlist(lapply(1:20,
   calc_party_vote_rates, house_party_calls))
 senate_party_vote_rate_data <- rbindlist(lapply(1:20,
@@ -464,8 +463,6 @@ house_vote_with_nonparty_rate_data <- rbindlist(lapply(1:20,
   calc_nonparty_vote_rates, house_party_calls))
 senate_vote_with_nonparty_rate_data <- rbindlist(lapply(1:20,
   calc_nonparty_vote_rates, senate_party_calls))
-
-
 house_rate_data <- merge(
   house_data,
   merge(
@@ -482,6 +479,38 @@ senate_rate_data <- merge(
     senate_vote_with_nonparty_rate_data,
     by = c("congress", "icpsrLegis"))
 )
+
+# similarity between party vote coding and party call coding
+calc_similarity_party_vote_party_call <- function(congress_index, rollcall_list,
+  chamber)
+{
+  rc <- rollcall_list[[congress_index]]
+  votes <- rc$votes
+  votes <- melt(votes)
+  data.table::setDT(votes)
+  setnames(votes, c("mc", "vote_id", "vote"))
+  party_call_coding <- rc$party_call_coding$coding
+  party_vote_coding <- rep("non-party vote", rc$m)
+  party_vote_coding[identify_party_votes(congress_index, rollcall_list)] <-
+    "party vote"
+  table(party_call_coding, party_vote_coding)
+  data.table(congress = congress_index + 92, chamber,
+    similarity_rate = mean(
+      (party_call_coding == "noncall" & party_vote_coding == "non-party vote") |
+        (party_call_coding == "party call" & party_vote_coding == "party vote")))
+
+}
+
+coding_record <- merge(coding_record,
+  rbind(
+    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
+      house_party_calls, "House")),
+    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
+      senate_party_calls, "Senate"))),
+  by = c("congress", "chamber"))
+
+
+# correlations reported in Supplemental Appendix E
 house_rate_data[, cor(cbind(
   responsiveness_to_party_calls, baseline_rate,
   party_vote_rate,
@@ -489,12 +518,18 @@ house_rate_data[, cor(cbind(
   vote_with_party_rate), use = "p", method = "s")]
 house_rate_data[, cor(
   responsiveness_to_party_calls, vote_with_party_rate, use = "p", method = "s"),
-  .(congress, majority)]
-
-
+  .(congress)]
+senate_rate_data[, cor(cbind(
+  responsiveness_to_party_calls, baseline_rate,
+  party_vote_rate,
+  nonparty_vote_rate,
+  vote_with_party_rate), use = "p", method = "s")]
+senate_rate_data[, cor(
+  responsiveness_to_party_calls, vote_with_party_rate, use = "p", method = "s"),
+  .(congress)]
 
 #------------------------------------------------------------------------------#
-# tab-responsiveness-regressions
+# tab-party-unity-regressions
 #------------------------------------------------------------------------------#
 
 formula1 <- party_vote_rate ~ ideological_extremism +
@@ -523,7 +558,9 @@ texreg::texreg(models, override.se = ses, override.pvalues = pvals,
   reorder.coef = c(2, 3, 16, 4:15, 1))
 
 
-
+#------------------------------------------------------------------------------#
+# tab-party-unity-up-for-reelection
+#------------------------------------------------------------------------------#
 
 reelection_data <- senate_rate_data[!is.na(responsiveness_to_party_calls)]
 setorder(reelection_data, stabb, icpsrLegis, congress)
@@ -555,9 +592,6 @@ reelection_data[, more_senior :=
 reelection_data[, mean_more_senior := mean(more_senior), .(stabb, congress)]
 reelection_data[, stabb_congress := paste(stabb, congress)]
 
-#------------------------------------------------------------------------------#
-# tab-reelection
-#------------------------------------------------------------------------------#
 models <- list(
   lfe::felm(party_vote_rate ~ up_for_reelection |
       stabb_congress | 0 | icpsrLegis + congress,
@@ -591,49 +625,3 @@ texreg::texreg(models,
   custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
   custom.coef.names = fix_coef_names(models))
 
-
-
-senate_rate_data <- merge(
-  senate_data[, .(
-    congress, icpsrLegis,
-    responsiveness_to_party_calls, baseline_rate,
-    party_free_ideal_point)],
-  merge(senate_party_vote_rate_data, senate_vote_with_party_rate_data,
-    by = c("congress", "icpsrLegis")),
-  by = c("congress", "icpsrLegis")
-)
-senate_rate_data[, cor(cbind(
-  responsiveness_to_party_calls, baseline_rate,
-  party_vote_rate, vote_with_party_rate), use = "p", method = "s")]
-
-
-
-
-
-calc_similarity_party_vote_party_call <- function(congress_index, rollcall_list,
-  chamber)
-{
-  rc <- rollcall_list[[congress_index]]
-  votes <- rc$votes
-  votes <- melt(votes)
-  data.table::setDT(votes)
-  setnames(votes, c("mc", "vote_id", "vote"))
-  party_call_coding <- rc$party_call_coding$coding
-  party_vote_coding <- rep("non-party vote", rc$m)
-  party_vote_coding[identify_party_votes(congress_index, rollcall_list)] <-
-    "party vote"
-  table(party_call_coding, party_vote_coding)
-  data.table(congress = congress_index + 92, chamber,
-  similarity_rate = mean(
-    (party_call_coding == "noncall" & party_vote_coding == "non-party vote") |
-      (party_call_coding == "party call" & party_vote_coding == "party vote")))
-
-}
-
-coding_record <- merge(coding_record,
-  rbind(
-    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
-      house_party_calls, "House")),
-    rbindlist(lapply(1:20, calc_similarity_party_vote_party_call,
-      senate_party_calls, "Senate"))),
-  by = c("congress", "chamber"))
