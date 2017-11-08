@@ -68,7 +68,7 @@
 
 As in \cite{Minozzi:2013}, we use an algorithm to classify votes as ``party calls''---that is, whether votes are predicted by party membership even after controlling for ideology.  We classify votes as ``party free'' if, in turn, they are \textit{not} reliably predicted by party membership, and we use those ``party free'' votes to estimate ideal points absent party influence.
 
-The classification algorithm is iterative.  In each iteration of the algorithm, ideal points are estimated based only on the votes which were classified as ``party free'' in the previous iteration.  All votes are then regressed on ideal points and party membership, and votes are re-categorized based on the explanatory power of party in these regressions.  To begin the process we need an initial classification, and so ideal points in the first iteration are estimated using lopsided votes (which have more than 65\% or less than 35\% of members of the chamber voting on the same side).  We then use a 15 iteration ``burn-in'' period for each Congress.
+The classification algorithm is iterative.  In each iteration of the algorithm, ideal points are estimated based only on the votes that were classified as ``party free'' in the previous iteration.  All votes are then regressed on ideal points and party membership, and votes are re-categorized based on the explanatory power of party in these regressions.  To begin the process we need an initial classification, and so ideal points in the first iteration are estimated using lopsided votes (which have more than 65\% or less than 35\% of members of the chamber voting on the same side).  We then use a 15 iteration ``burn-in'' period for each Congress.
 During this early period, many votes switch categories from iteration to iteration.
 The number of switchers declines rapidly in these early iterations.
 After burn-in, the algorithm continues until either (1) the number of votes that switch classifications stops declining, or (2) there are fewer than five votes that switch.  Once either condition is met, the algorithm continues for an additional 15 iterations.  Finally, we use the last five iterations to provide a final classification of votes. During these final iterations, any vote that does not switch is classified in its appropriate category.  Any vote that does switch is dropped from further analysis, on the basis that these votes could not be credibly classified.
@@ -163,8 +163,8 @@ All Votes \\
 \hline
 Party Calls Only\\
 \hline
-($-$) Party $6166$ $(45\%)$& $1042$ $( 8\%)$& $2807$ $(38\%)$& $793$ $(11\%)$\\
-($+$) Party $1312$ $(10\%)$& $5033$ $(37\%)$& $1129$ $(15\%)$& $2567$ $(35\%)$\\
+($-$) Party & $6166$ $(45\%)$& $1042$ $( 8\%)$& $2807$ $(38\%)$& $793$ $(11\%)$\\
+($+$) Party & $1312$ $(10\%)$& $5033$ $(37\%)$& $1129$ $(15\%)$& $2567$ $(35\%)$\\
 \hline
 Party Free Only\\
 \hline
@@ -198,11 +198,11 @@ Committee data from the $93^{\text{rd}}$-$109^{\text{th}}$ House come from the r
 %Senate retiree data were collected from the Congressional Bioguides.
 Gingrich Senators were identified based on \cite{Theriault:2013}.
 
-\textit{Party-Free Ideal Point} is a member's ideal point, estimated with the \textsf{binIRT} function from the \textsf{R} package \textsf{emIRT} using only party-free votes, mean-centered at zero, scaled to have unit standard deviation, and oriented so that Democrats' values are on average lower (i.e., further left) than Republicans'. \textit{Ideological Extremism} is simply the \textit{Party Free Ideal Point} value for Republicans and sign-reversed for Democrats, so that higher numbers represent more extreme members for both parties. \textit{Responsiveness} to party calls is the percentage of party calls on which a member voted with a majority of their party; \textit{Baseline Rate}  of voting with the party is that percentage for party-free votes.
+\textit{Party-Free Ideal Point} is a member's ideal point, estimated with the \textsf{binIRT} function from the \textsf{R} package \textsf{emIRT} using only party-free votes, mean-centered at zero, scaled to have unit standard deviation, and oriented so that Democrats' values are on average lower (i.e., further left) than Republicans'. \textit{Ideological Extremism} is simply the \textit{Party Free Ideal Point} value for Republicans and sign-reversed for Democrats, so that higher numbers represent more extreme members for both parties. \textit{Responsiveness} to party calls is the percentage of party calls on which a member voted with a majority of her party; \textit{Baseline Rate}  of voting with the party is that percentage for party-free votes.
 
 \textit{Up for Reelection} is a Senate-specific variable, representing whether a member's election falls during a Congress.
 %`Retiree' is an indicator variable for members who choose to leave office at or before the end of a Congress.
-\textit{Vote Share} is calculated by the member's share of the vote relative to their nearest opponent.\footnote{\doublespacing\normalsize In the House, we report above or below average centered at zero since unchallenged runs were coded as missing, to avoid selecting values for these. This decision had no impact on results.}  \textit{Presidential Vote Share} in each chamber is an indication of Democrat or Republican (depending on who the member caucused with) presidential candidate 2-party vote share in the previous election based on the previous presidential election.  \textit{Party Leader} is an indicator for if a member is in one of the positions identified as the congressional leadership (other than committee positions) in the \textit{Almanac of American Politics} for a particular Congress. \textit{Committee Chair} is an indicator for whether the member held such a position in that Congress.  \textit{Power Committee} represents a member being on one of the top four ranked committees.  \textit{Best Committee} takes a value based on the highest ranked committee a member was on with ranks reversed so that higher means better, i.e., values range from zero (member not on a committee) to the number of committees in the chamber (member served on the highest ranked committee).  \textit{Female} is an indicator variable for female legislators.  \textit{African American} is an indicator for African American legislators.  \textit{Latino} is an indicator for Hispanic and Latino legislators.  \textit{South} is an indicator for if a member represents a state or district from 13-state South.  \textit{Seniority} is a count of consecutive terms a member has served.  \textit{Freshman} is an indicator variable for the first Congress of a member previously not in Congress.
+\textit{Vote Share} is calculated by the member's share of the vote relative to their nearest opponent.\footnote{\doublespacing\normalsize In the House, we report above or below average centered at zero since unchallenged runs were coded as missing, to avoid selecting values for these. This decision had no impact on results.}  \textit{Presidential Vote Share} in each chamber is an indication of Democrat or Republican (depending on who the member caucused with) presidential candidate 2-party vote share in the previous election based on the previous presidential election.  \textit{Party Leader} is an indicator for if a member is in one of the positions identified as the congressional leadership (other than committee positions) in the \textit{Almanac of American Politics} for a particular Congress. \textit{Committee Chair} is an indicator for whether the member held such a position in that Congress.  \textit{Power Committee} represents a member being on one of the top four ranked committees.  \textit{Best Committee} takes a value based on the highest ranked committee a member was on with ranks reversed so that higher means better, i.e., values range from zero (member not on a committee) to the number of committees in the chamber (member served on the highest ranked committee).  \textit{Female} is an indicator variable for female legislators.  \textit{African American} is an indicator for African American legislators.  \textit{Latino} is an indicator for Hispanic and Latino legislators.  \textit{South} is an indicator for if a member represents a state or district from 13-state South.  \textit{Seniority} is a count of consecutive terms a member has served.  \textit{Freshman} is an indicator variable for the first Congress of a member previously not in that chamber in Congress.
 
 \begin{table}[H]
 \centering
@@ -287,7 +287,7 @@ Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
 In this appendix, we present results from regression models in the House and Senate, which model \textit{Responsiveness} to party calls separately by party and majority status.
 Table~\ref{tab-house-models} presents results for the House, and Table~\ref{tab-senate-models} those for the Senate.
 
-Three sets of results are clear from these models. First, in keeping with the theory and evidence in MV, we expected that members with higher \textit{Ideological Extremism} would also have higher levels of \textit{Responsiveness}.  Indeed, even with the amendments to the classification algorithm described in Supplemental Appendix A, we see similar evidence to this effect across all subgroups in the House (first row of Table~\ref{tab-house-models}).  We see similar evidence from the Senate (first row of Table~\ref{tab-senate-models}), and, moreover, the magnitude of these coefficients is largely consistent across subgroup and chamber.
+Two sets of results are clear from these models. First, in keeping with the theory and evidence in MV, we expected that members with higher \textit{Ideological Extremism} would also have higher levels of \textit{Responsiveness}.  Indeed, even with the amendments to the classification algorithm described in Supplemental Appendix A, we see similar evidence to this effect across all subgroups in the House (first row of Table~\ref{tab-house-models}).  We see similar evidence from the Senate (first row of Table~\ref{tab-senate-models}), and, moreover, the magnitude of these coefficients is largely consistent across subgroup and chamber.
 
 Second, one of the benefits of replicating MV's findings in the Senate is that there is variation in whether members were up for reelection.  We expected that reelection would make members less responsive to the call of the party as they work to pivot to their districts when approaching reelection.  The results appear in the third row of Table~\ref{tab-senate-models}.  We find first that the sign is in the expected direction and similar magnitude (about one percentage point) for all subgroups.  We also find that the coefficient achieves statistical significance for all subgroups.
 
@@ -416,7 +416,7 @@ $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
 %------------------------------------------------------------------------------%
 
 To better test the role of reelection, we use same-state Senators as a natural pairing.
-Table~\ref{tab-reelection} presents the results of fixed effects regression models which were summarized in Figure~2 in the main text.
+Table~\ref{tab-reelection} presents the results of fixed effects regression models that were summarized in Figure~3 in the main text.
 In both the figure and the table, the only observations included are those
 same-state pairs in which (only) one member is up for reelection.
 The first two models include no control variables beyond the fixed effects, while the latter two also adjust for relevant control variables including lagged values of \textit{Responsiveness} to party calls, \textit{Ideological Extremism}, and \textit{Baseline Rate} of voting with the party.
@@ -468,15 +468,17 @@ Seniority                         &             &          & $0.09$      & $0.00
                                   &             &          & $(0.13)$    & $(0.08)$     \\
 \hline
 Num. obs.                         & 1130        & 1130     & 952         & 952          \\
-R$^2$ (full model)                & 0.71        & 0.65     & 0.93        & 0.85         \\
-R$^2$ (proj model)                & 0.02        & 0.00     & 0.72        & 0.52         \\
-Adj. R$^2$ (full model)           & 0.41        & 0.30     & 0.84        & 0.66         \\
-Adj. R$^2$ (proj model)           & -0.97       & -1.00    & 0.36        & -0.10        \\
+R$^2$% (full model)
+                                  & 0.71        & 0.65     & 0.93        & 0.85         \\
+% R$^2$ (proj model)                & 0.02        & 0.00     & 0.72        & 0.52         \\
+Adj. R$^2$% (full model)
+                                  & 0.41        & 0.30     & 0.84        & 0.66         \\
+% Adj. R$^2$ (proj model)           & -0.97       & -1.00    & 0.36        & -0.10        \\
 \hline
 \end{tabular}
 \begin{tablenotes}
    \item
-   The table presents fixed effects regressions of \textit{Responsiveness} to party calls and \textit {Baseline Rate} of voting with party for the Senate, with fixed effects for Same State-Congress pairs, including 565 fixed effects for the models in the first two columns and 476 for the latter two models.  Standard errors are clustered by legislator and Congress.
+   The table presents fixed effects regressions of \textit{Responsiveness} to party calls and \textit {Baseline Rate} of voting with party for the Senate, with fixed effects for Same State-Congress pairs, including 565 fixed effects for the models in the first two columns and 476 for the latter two models.  Standard errors are clustered by legislator and by Congress.
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
@@ -500,24 +502,24 @@ Party Unity scores with Responsiveness to Party Calls, and finally report
 models of Party Unity scores that mirror the models of Responsiveness from the
 main paper.
 Ultimately, we conclude that party calls and Responsiveness scores are
-better measures of party influence than Party Unity scores because the
+better measures of party influence than are Party Unity scores because the
 algorithm used to identify party calls is purpose-built to separate party
 influence from ideology.
 
 We first identified party votes and calculated rates of voting with the party
-on this subset of roll call votes, as well as all votes.
+on this subset of roll call votes, as well as on all votes.
 There is relatively high similarity between this coding scheme and that for
 party calls: the fraction of votes that were coded either as (1) both non-party
 calls and non-party votes, or (2) both party calls and party votes ranged from
 59\% to 91\%, with an average of 78\%.
 
 Next, we created Party Unity scores, which we defined as the fraction of votes
-cast by a legislator on these party votes.
-These scores are highly correlated with Responsiveness, with
+cast by a legislator on these party votes in line with a majority of her party.
+These scores are highly correlated with Responsiveness, with within-Congress
 correlations ranging from 0.65 to 0.98 for the House, and from 0.69 to 0.97 for
 the Senate.
 The correlations tend to increase over time, significantly so in the Senate,
-with a weaker relationship in the House, based on robust linear models).
+with a weaker relationship in the House, based on robust linear models.
 There is also a sharp increase in volatility in these correlations, as the
 smallest levels also occur in recent years.
 
@@ -586,20 +588,19 @@ RMSE                  & 10.73         & 7.78          & 7.79          \\
    \item
    The table presents linear models of \textit{Party Unity} scores,
    from the 93$^{\text{rd}}$-112$^{\text{th}}$ Congresses (1973-2012).
-  Standard errors are clustered by Congress and member.\\
+  Standard errors are clustered by Congress and by member.\\
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
-Two general findings emerged from  Table~\ref{tab-party-unity-regressions}.
+A number of general findings emerged from  Table~\ref{tab-party-unity-regressions}.
 First, the hypothesis tests presented in the paper for Ideological Extremism
 yield similar inferences in these models of Party Unity scores.
 More importantly, a set of emergent differences between these sets of models
 suggest that responsiveness scores are preferable to Party Unity scores.
-The relationship between Party Unity scores and Ideological Extremism was an
-order of magnitude larger than the relationship between responsiveness and
-ideological extremism.
+The relationship between Party Unity scores and Ideological Extremism was about two to three times larger than the relationship between Responsiveness and
+Ideological Extremism.
 For example, the model of Responsiveness for the House (first column of Table 1
 from the paper) has an overall coefficient of 7.75 on Ideological Extremism;
 the corresponding coefficient from the model of Party Unity scores is 13.1.
@@ -617,7 +618,7 @@ have coefficients above 20.
 \label{tab-party-unity-reelection}
 \begin{tabular}{l c c c c }
 \hline
- & Responsiveness & Baseline Rate & Responsiveness & Baseline Rate \\
+ & Party Unity & Non-Party Unity & Party Unity & Non-Party Unity \\
 \hline
 Up For Reelection                 & $-2.56^{***}$ & $1.19^{*}$ & $-2.30^{***}$ & $1.47^{**}$   \\
                                   & $(0.69)$      & $(0.54)$   & $(0.69)$      & $(0.45)$      \\
@@ -627,13 +628,13 @@ Lag Ideological Extremism         &               &            & $11.85^{***}$ &
                                   &               &            & $(2.02)$      & $(1.42)$      \\
 Lag Baseline Rate                 &               &            & $0.44^{**}$   & $0.61^{***}$  \\
                                   &               &            & $(0.16)$      & $(0.09)$      \\
-CaucusRepublican                  &               &            & $0.91$        & $-0.02$       \\
+Republican                  &               &            & $0.91$        & $-0.02$       \\
                                   &               &            & $(1.88)$      & $(1.20)$      \\
 Majority                          &               &            & $4.04$        & $2.05$        \\
                                   &               &            & $(2.21)$      & $(1.63)$      \\
 Vote Share                        &               &            & $0.00$        & $-0.01$       \\
                                   &               &            & $(0.06)$      & $(0.03)$      \\
-Pres Vote Share                   &               &            & $-0.03$       & $-0.01$       \\
+Pres. Vote Share                   &               &            & $-0.03$       & $-0.01$       \\
                                   &               &            & $(0.10)$      & $(0.06)$      \\
 Party Leader                      &               &            & $1.04$        & $0.82$        \\
                                   &               &            & $(1.36)$      & $(1.23)$      \\
@@ -653,21 +654,23 @@ Seniority                         &               &            & $0.07$        &
                                   &               &            & $(0.15)$      & $(0.11)$      \\
 \hline
 Num. obs.                         & 1122          & 1120       & 946           & 944           \\
-R$^2$ (full model)                & 0.67          & 0.69       & 0.94          & 0.86          \\
-R$^2$ (proj model)                & 0.02          & 0.02       & 0.79          & 0.51          \\
-Adj. R$^2$ (full model)           & 0.34          & 0.38       & 0.85          & 0.68          \\
-Adj. R$^2$ (proj model)           & -0.98         & -0.99      & 0.52          & -0.13         \\
+R$^2$% (full model)
+                                  & 0.67          & 0.69       & 0.94          & 0.86          \\
+% R$^2$ (proj model)                & 0.02          & 0.02       & 0.79          & 0.51          \\
+Adj. R$^2$% (full model)
+                                  & 0.34          & 0.38       & 0.85          & 0.68          \\
+% Adj. R$^2$ (proj model)           & -0.98         & -0.99      & 0.52          & -0.13         \\
 \hline
 \end{tabular}
 \begin{tablenotes}
    \item
-   The table presents fixed effects regressions of \textit{Party Unity} to party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with fixed effects for Same State-Congress pairs, including 561 fixed effects for the models in the first two columns and 473 for the latter two models.  Standard errors are clustered by legislator and Congress.
+   The table presents fixed effects regressions of \textit{Party Unity} to party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with fixed effects for Same State-Congress pairs, including 561 fixed effects for the models in the first two columns and 473 for the latter two models.  Standard errors are clustered by legislator and by Congress.
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
-Furthermore, analogous models of Party Unity scores that mimic the senate-pair
+Furthermore, analogous models of Party Unity scores that mimic the Senate-pair
 design yield a similar finding.
 Table~\ref{tab-party-unity-reelection} mimics the models in
 Table~\ref{tab-reelection}.
@@ -680,16 +683,12 @@ The coefficients on Up for Reelection are positive and significant
 Thus, models of Party Unity scores yield both implausibly large coefficient
 magnitudes and a failed placebo test.
 
-Based on these analyses, we make two main conclusions.
-First, Party Unity scores and Responsiveness to PartyCcalls both capture much of
+Based on these analyses, we draw two main conclusions.
+First, Party Unity scores and Responsiveness to Party Calls both capture much of
 the same ``signal.''
 Second, however, Party Unity scores suffer from their underlying blunt
 categorization rule, which was precisely the impetus for the algorithm
-developed in \cite{Minozzi:2013}.
-Despite their high correlation, the inferences suggested by models of Party
-Unity are implausibly large.
-Perhaps more importantly, they lead to a failed placebo test.
-This failed test resonates strongly with the modal scholarly interpretation of
+developed in \cite{Minozzi:2013}. The failed placebo test resonates strongly with the modal scholarly interpretation of
 Party Unity scores as ``contaminated'' by endogeneity and ideology,
 an interpretation which led \cite{Carson:2010}, for example, to rely on an
 instrumental variables strategy to examine the effects of party voting.
@@ -697,6 +696,7 @@ instrumental variables strategy to examine the effects of party voting.
 \clearpage
 
 %------------------------------------------------------------------------------%
+\singlespacing
 \bibliographystyle{apsr_fs}
 \bibliography{senate}
 %------------------------------------------------------------------------------%

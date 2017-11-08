@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  6 OCT 2017 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 NOV 2017 13:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,15 +725,11 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 
 ] [10] [11]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.95pt on input line 479.
+(Font)              scaled to size 10.95pt on input line 481.
  [12] [13] [14
 
-]
-Overfull \hbox (3.68321pt too wide) in paragraph at lines 614--668
- [] 
- []
-
-[15] [16] [17] (./senate-party-calls-supplemental-appendix-rr.bbl)
+] [15] [16] [17]
+(./senate-party-calls-supplemental-appendix-rr.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 704.
  [18
 
@@ -752,7 +748,7 @@ Here is how much of TeX's memory you used:
  14593 multiletter control sequences out of 15000+600000
  96732 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,12n,76p,1868b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,12n,76p,1884b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc
 }{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{
@@ -770,7 +766,7 @@ mr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 .pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
 fb>
 Output written on senate-party-calls-supplemental-appendix-rr.pdf (19 pages, 36
-8296 bytes).
+8085 bytes).
 PDF statistics:
  231 PDF objects out of 1000 (max. 8388607)
  197 compressed objects within 2 object streams
