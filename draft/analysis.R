@@ -625,3 +625,44 @@ texreg::texreg(models,
   custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
   custom.coef.names = fix_coef_names(models))
 
+# add party vote rate and non-party-vote unity
+reelection_data <- merge(
+  reelection_data,
+  reelection_data[, .(congress = congress + 1,
+    lag_congress = congress, icpsrLegis,
+    lag_party_vote_rate = party_vote_rate,
+    lag_nonparty_vote_rate = nonparty_vote_rate)],
+  by = c("congress", "icpsrLegis"),
+  all.x = TRUE)
+models <- list(
+  lfe::felm(party_vote_rate ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(nonparty_vote_rate ~ up_for_reelection |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(party_vote_rate ~ up_for_reelection +
+      lag_party_vote_rate +
+      lag_ideological_extremism +
+      lag_nonparty_vote_rate +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5]),
+  lfe::felm(nonparty_vote_rate ~ up_for_reelection +
+      lag_party_vote_rate +
+      lag_ideological_extremism +
+      lag_nonparty_vote_rate +
+      caucus + majority +
+      vote_share + pres_vote_share + leader +  chair + power_committee +
+      best_committee + female + african_american + latino +
+      seniority |
+      stabb_congress | 0 | icpsrLegis + congress,
+    reelection_data[mean_up_for_reelection == .5])
+)
+texreg::screenreg(models,
+  custom.model.names = rep(c("Party Vote Unity", "Non-Party Vote Unity"), 2),
+  custom.coef.names = fix_coef_names(models))
+

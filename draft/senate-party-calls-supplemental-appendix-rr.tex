@@ -552,7 +552,7 @@ Up For Reelection     &               &               & $-0.32$       \\
                       &               &               & $(0.26)$      \\
 Vote Share            & $-0.09^{**}$  & $-0.01$       & $-0.01$       \\
                       & $(0.03)$      & $(0.03)$      & $(0.03)$      \\
-Pres Vote Share       & $0.18$        & $0.08$        & $0.08$        \\
+Pres. Vote Share       & $0.18$        & $0.08$        & $0.08$        \\
                       & $(0.10)$      & $(0.05)$      & $(0.05)$      \\
 Party Leader          & $3.18^{***}$  & $2.26^{**}$   & $2.26^{**}$   \\
                       & $(0.93)$      & $(0.77)$      & $(0.77)$      \\
@@ -599,7 +599,8 @@ First, the hypothesis tests presented in the paper for Ideological Extremism
 yield similar inferences in these models of Party Unity scores.
 More importantly, a set of emergent differences between these sets of models
 suggest that responsiveness scores are preferable to Party Unity scores.
-The relationship between Party Unity scores and Ideological Extremism was about two to three times larger than the relationship between Responsiveness and
+The relationship between Party Unity scores and Ideological Extremism was
+about two to three times larger than the relationship between Responsiveness and
 Ideological Extremism.
 For example, the model of Responsiveness for the House (first column of Table 1
 from the paper) has an overall coefficient of 7.75 on Ideological Extremism;
@@ -611,6 +612,7 @@ have coefficients above 20.
 
 \begin{table}[!htbp]
 \centering
+\scalebox{.95}{
 \begin{threeparttable}
 \singlespacing
 \small
@@ -618,7 +620,7 @@ have coefficients above 20.
 \label{tab-party-unity-reelection}
 \begin{tabular}{l c c c c }
 \hline
- & Party Unity & Non-Party Unity & Party Unity & Non-Party Unity \\
+ & Party Unity & Non-Party-Vote Unity & Party Unity & Non-Party-Vote Unity \\
 \hline
 Up For Reelection                 & $-2.56^{***}$ & $1.19^{*}$ & $-2.30^{***}$ & $1.47^{**}$   \\
                                   & $(0.69)$      & $(0.54)$   & $(0.69)$      & $(0.45)$      \\
@@ -626,9 +628,9 @@ Lag Responsiveness To Party Calls &               &            & $0.28$        &
                                   &               &            & $(0.20)$      & $(0.09)$      \\
 Lag Ideological Extremism         &               &            & $11.85^{***}$ & $-6.34^{***}$ \\
                                   &               &            & $(2.02)$      & $(1.42)$      \\
-Lag Baseline Rate                 &               &            & $0.44^{**}$   & $0.61^{***}$  \\
+Lag Non-Party-Vote Unity          &               &            & $0.44^{**}$   & $0.61^{***}$  \\
                                   &               &            & $(0.16)$      & $(0.09)$      \\
-Republican                  &               &            & $0.91$        & $-0.02$       \\
+Republican                        &               &            & $0.91$        & $-0.02$       \\
                                   &               &            & $(1.88)$      & $(1.20)$      \\
 Majority                          &               &            & $4.04$        & $2.05$        \\
                                   &               &            & $(2.21)$      & $(1.63)$      \\
@@ -662,12 +664,14 @@ Adj. R$^2$% (full model)
 % Adj. R$^2$ (proj model)           & -0.98         & -0.99      & 0.52          & -0.13         \\
 \hline
 \end{tabular}
+
 \begin{tablenotes}
    \item
    The table presents fixed effects regressions of \textit{Party Unity} to party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with fixed effects for Same State-Congress pairs, including 561 fixed effects for the models in the first two columns and 473 for the latter two models.  Standard errors are clustered by legislator and by Congress.
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
+}
 \end{table}
 
 Furthermore, analogous models of Party Unity scores that mimic the Senate-pair
@@ -688,7 +692,8 @@ First, Party Unity scores and Responsiveness to Party Calls both capture much of
 the same ``signal.''
 Second, however, Party Unity scores suffer from their underlying blunt
 categorization rule, which was precisely the impetus for the algorithm
-developed in \cite{Minozzi:2013}. The failed placebo test resonates strongly with the modal scholarly interpretation of
+developed in \cite{Minozzi:2013}. The failed placebo test resonates strongly
+with the modal scholarly interpretation of
 Party Unity scores as ``contaminated'' by endogeneity and ideology,
 an interpretation which led \cite{Carson:2010}, for example, to rely on an
 instrumental variables strategy to examine the effects of party voting.
