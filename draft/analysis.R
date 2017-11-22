@@ -592,38 +592,6 @@ reelection_data[, more_senior :=
 reelection_data[, mean_more_senior := mean(more_senior), .(stabb, congress)]
 reelection_data[, stabb_congress := paste(stabb, congress)]
 
-models <- list(
-  lfe::felm(party_vote_rate ~ up_for_reelection |
-      stabb_congress | 0 | icpsrLegis + congress,
-    reelection_data[mean_up_for_reelection == .5]),
-  lfe::felm(nonparty_vote_rate ~ up_for_reelection |
-      stabb_congress | 0 | icpsrLegis + congress,
-    reelection_data[mean_up_for_reelection == .5]),
-  lfe::felm(party_vote_rate ~ up_for_reelection +
-      lag_responsiveness_to_party_calls +
-      lag_ideological_extremism +
-      lag_baseline_rate +
-      caucus + majority +
-      vote_share + pres_vote_share + leader +  chair + power_committee +
-      best_committee + female + african_american + latino +
-      seniority |
-      stabb_congress | 0 | icpsrLegis + congress,
-    reelection_data[mean_up_for_reelection == .5]),
-  lfe::felm(nonparty_vote_rate ~ up_for_reelection +
-      lag_responsiveness_to_party_calls +
-      lag_ideological_extremism +
-      lag_baseline_rate +
-      lag_ideological_extremism +
-      caucus + majority +
-      vote_share + pres_vote_share + leader +  chair + power_committee +
-      best_committee + female + african_american + latino +
-      seniority |
-      stabb_congress | 0 | icpsrLegis + congress,
-    reelection_data[mean_up_for_reelection == .5])
-)
-texreg::texreg(models,
-  custom.model.names = rep(c("Responsiveness", "Baseline Rate"), 2),
-  custom.coef.names = fix_coef_names(models))
 
 # add party vote rate and non-party-vote unity
 reelection_data <- merge(
@@ -662,7 +630,7 @@ models <- list(
       stabb_congress | 0 | icpsrLegis + congress,
     reelection_data[mean_up_for_reelection == .5])
 )
-texreg::screenreg(models,
+texreg::texreg(models,
   custom.model.names = rep(c("Party Vote Unity", "Non-Party Vote Unity"), 2),
   custom.coef.names = fix_coef_names(models))
 

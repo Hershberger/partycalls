@@ -116,7 +116,7 @@ increased the fraction of classifiable votes coded as party calls to $52\%$.
 
 We also explored a variety of alternatives to the algorithm used here, but ultimately rejected them in order to maintain as much consistency with MV as possible.  These included using random initial classifications of votes, adding a ``simulated annealing''-style heating and cooling schedule, and alternative stopping rules.  We found that none of these alternatives significantly altered the results presented in the paper, nor did they improve convergent validity, and therefore we elected to use an algorithm that closely matched the early effort.
 
-Finally, with this algorithm in hand, we probed for differences in vote classifications using the criteria described briefly above.  First, we broke down votes by close/lopsideness and classification as party calls/party free.  Table~\ref{tab-close-lop} shows these comparisons for each chamber. In each panel, there is a notable, though far from perfect, correlation between close votes and party calls.  This correlation is higher in the House ($0.51$) than in the Senate ($0.44$), but the two are remarkably close.  We take this as prima facie evidence that the classification algorithm is at work on similar data-generating processes.
+Finally, with this algorithm in hand, we probed for differences in vote classifications using the criteria described briefly above.  First, we broke down votes by close/lopsidedness and classification as party calls/party free.  Table~\ref{tab-close-lop} shows these comparisons for each chamber. In each panel, there is a notable, though far from perfect, correlation between close votes and party calls.  This correlation is higher in the House ($0.51$) than in the Senate ($0.44$), but the two are remarkably close.  We take this as prima facie evidence that the classification algorithm is at work on similar data-generating processes.
 
 \begin{table}[!htbp]
 \centering
@@ -202,7 +202,7 @@ Gingrich Senators were identified based on \cite{Theriault:2013}.
 
 \textit{Up for Reelection} is a Senate-specific variable, representing whether a member's election falls during a Congress.
 %`Retiree' is an indicator variable for members who choose to leave office at or before the end of a Congress.
-\textit{Vote Share} is calculated by the member's share of the vote relative to their nearest opponent.\footnote{\doublespacing\normalsize In the House, we report above or below average centered at zero since unchallenged runs were coded as missing, to avoid selecting values for these. This decision had no impact on results.}  \textit{Presidential Vote Share} in each chamber is an indication of Democrat or Republican (depending on who the member caucused with) presidential candidate 2-party vote share in the previous election based on the previous presidential election.  \textit{Party Leader} is an indicator for if a member is in one of the positions identified as the congressional leadership (other than committee positions) in the \textit{Almanac of American Politics} for a particular Congress. \textit{Committee Chair} is an indicator for whether the member held such a position in that Congress.  \textit{Power Committee} represents a member being on one of the top four ranked committees.  \textit{Best Committee} takes a value based on the highest ranked committee a member was on with ranks reversed so that higher means better, i.e., values range from zero (member not on a committee) to the number of committees in the chamber (member served on the highest ranked committee).  \textit{Female} is an indicator variable for female legislators.  \textit{African American} is an indicator for African American legislators.  \textit{Latino} is an indicator for Hispanic and Latino legislators.  \textit{South} is an indicator for if a member represents a state or district from 13-state South.  \textit{Seniority} is a count of consecutive terms a member has served.  \textit{Freshman} is an indicator variable for the first Congress of a member previously not in that chamber in Congress.
+\textit{Vote Share} is calculated by the member's share of the vote relative to their nearest opponent.\footnote{\doublespacing\normalsize In the House, we report above or below average centered at zero since unchallenged runs were coded as missing, to avoid selecting values for these. This decision had no impact on results.}  \textit{Presidential Vote Share} in each chamber is an indication of Democrat or Republican (depending on which party the member caucused with) presidential candidate two-party vote share based on the previous presidential election.  \textit{Party Leader} is an indicator for if a member is in one of the positions identified as the congressional leadership (other than committee positions) in the \textit{Almanac of American Politics} for a particular Congress. \textit{Committee Chair} is an indicator for whether the member held such a position in that Congress.  \textit{Power Committee} represents a member being on one of the top four ranked committees.  \textit{Best Committee} takes a value based on the highest ranked committee a member was on with ranks reversed so that higher means better, i.e., values range from zero (member not on a committee) to the number of committees in the chamber (member served on the highest ranked committee).  \textit{Female} is an indicator variable for female legislators.  \textit{African American} is an indicator for African American legislators.  \textit{Latino} is an indicator for Hispanic and Latino legislators.  \textit{South} is an indicator for if a member represents a state or district from 13-state South.  \textit{Seniority} is a count of consecutive terms a member has served.  \textit{Freshman} is an indicator variable for the first Congress of a member previously not in that chamber in Congress.
 
 \begin{table}[H]
 \centering
@@ -309,7 +309,7 @@ Baseline Rate         & $0.57^{***}$ & $0.63^{***}$ & $0.41^{*}$   & $0.51^{**}$
                       & $(0.12)$     & $(0.09)$     & $(0.19)$     & $(0.16)$      & $(0.08)$     \\
 Vote Share            & $-0.01$      & $-0.05$      & $0.02$       & $-0.13^{***}$ & $-0.05$      \\
                       & $(0.03)$     & $(0.03)$     & $(0.04)$     & $(0.04)$      & $(0.04)$     \\
-Pres Vote Share       & $0.03$       & $0.10$       & $-0.10$      & $0.21^{*}$    & $0.16^{*}$   \\
+Pres. Vote Share      & $0.03$       & $0.10$       & $-0.10$      & $0.21^{*}$    & $0.16^{*}$   \\
                       & $(0.08)$     & $(0.06)$     & $(0.10)$     & $(0.09)$      & $(0.08)$     \\
 Party Leader          & $1.80^{**}$  & $1.96^{**}$  & $2.75^{**}$  & $2.60^{***}$  & $1.80^{*}$   \\
                       & $(0.56)$     & $(0.73)$     & $(0.99)$     & $(0.56)$      & $(0.81)$     \\
@@ -449,7 +449,7 @@ Majority                          &             &          & $4.49^{*}$  & $1.69
 Vote Share                        &             &          & $-0.00$     & $0.00$       \\
                                   &             &          & $(0.06)$    & $(0.03)$     \\
 Pres. Vote Share                  &             &          & $0.01$      & $-0.04$      \\
-  (oriented by Senator's party)   &             &          & $(0.11)$    & $(0.08)$     \\
+                                  &             &          & $(0.11)$    & $(0.08)$     \\
 Party Leader                      &             &          & $0.86$      & $0.90$       \\
                                   &             &          & $(0.65)$    & $(1.09)$     \\
 Committee Chair                   &             &          & $-0.97$     & $0.68$       \\
@@ -488,7 +488,7 @@ Adj. R$^2$% (full model)
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix E: Comparing Party Unity Scores Responsiveness to Party Calls}
+\subsection*{Appendix E: Comparing Party Unity Scores to Responsiveness to Party Calls}
 \addcontentsline{toc}{section}{\protect\numberline{}Appendix E: Comparing Party Unity Scores Responsiveness to Party Calls}%
 %------------------------------------------------------------------------------%
 
@@ -622,52 +622,57 @@ have coefficients above 20.
 \hline
  & Party Unity & Non-Party-Vote Unity & Party Unity & Non-Party-Vote Unity \\
 \hline
-Up For Reelection                 & $-2.56^{***}$ & $1.19^{*}$ & $-2.30^{***}$ & $1.47^{**}$   \\
-                                  & $(0.69)$      & $(0.54)$   & $(0.69)$      & $(0.45)$      \\
-Lag Responsiveness To Party Calls &               &            & $0.28$        & $-0.07$       \\
-                                  &               &            & $(0.20)$      & $(0.09)$      \\
-Lag Ideological Extremism         &               &            & $11.85^{***}$ & $-6.34^{***}$ \\
-                                  &               &            & $(2.02)$      & $(1.42)$      \\
-Lag Non-Party-Vote Unity          &               &            & $0.44^{**}$   & $0.61^{***}$  \\
-                                  &               &            & $(0.16)$      & $(0.09)$      \\
-Republican                        &               &            & $0.91$        & $-0.02$       \\
-                                  &               &            & $(1.88)$      & $(1.20)$      \\
-Majority                          &               &            & $4.04$        & $2.05$        \\
-                                  &               &            & $(2.21)$      & $(1.63)$      \\
-Vote Share                        &               &            & $0.00$        & $-0.01$       \\
-                                  &               &            & $(0.06)$      & $(0.03)$      \\
-Pres. Vote Share                   &               &            & $-0.03$       & $-0.01$       \\
-                                  &               &            & $(0.10)$      & $(0.06)$      \\
-Party Leader                      &               &            & $1.04$        & $0.82$        \\
-                                  &               &            & $(1.36)$      & $(1.23)$      \\
-Committee Chair                   &               &            & $-0.59$       & $0.74$        \\
-                                  &               &            & $(1.67)$      & $(1.00)$      \\
-Power Committee                   &               &            & $1.21$        & $1.08$        \\
-                                  &               &            & $(1.42)$      & $(1.65)$      \\
-Best Committee                    &               &            & $-0.08$       & $-0.11$       \\
-                                  &               &            & $(0.24)$      & $(0.31)$      \\
-Female                            &               &            & $0.54$        & $0.82$        \\
-                                  &               &            & $(1.77)$      & $(1.71)$      \\
-African American                  &               &            & $-7.21$       & $3.50$        \\
-                                  &               &            & $(9.19)$      & $(4.12)$      \\
-Latino                            &               &            & $-5.47$       & $6.41$        \\
-                                  &               &            & $(7.72)$      & $(7.48)$      \\
-Seniority                         &               &            & $0.07$        & $0.05$        \\
-                                  &               &            & $(0.15)$      & $(0.11)$      \\
+Up For Reelection         & $-2.56^{***}$ & $1.19^{*}$ & $-2.23^{**}$ & $1.24^{*}$   \\
+                          & $(0.69)$      & $(0.54)$   & $(0.68)$     & $(0.52)$     \\
+Lag Party Unity           &               &            & $0.54^{***}$ & $-0.05$      \\
+                          &               &            & $(0.15)$     & $(0.06)$     \\
+Lag Ideological Extremism &               &            & $7.69^{*}$   & $0.60$       \\
+                          &               &            & $(3.15)$     & $(1.46)$     \\
+Lag Non-Party-Vote Unity  &               &            & $0.13$       & $0.75^{***}$ \\
+                          &               &            & $(0.09)$     & $(0.10)$     \\
+Republican                &               &            & $0.29$       & $0.21$       \\
+                          &               &            & $(1.97)$     & $(0.99)$     \\
+Majority                  &               &            & $3.84$       & $1.42$       \\
+                          &               &            & $(2.23)$     & $(1.41)$     \\
+Vote Share                &               &            & $0.00$       & $-0.01$      \\
+                          &               &            & $(0.06)$     & $(0.02)$     \\
+Pres. Vote Share          &               &            & $-0.02$      & $-0.01$      \\
+                          &               &            & $(0.12)$     & $(0.07)$     \\
+Party Leader              &               &            & $0.70$       & $1.09$       \\
+                          &               &            & $(1.18)$     & $(1.01)$     \\
+Committee Chair           &               &            & $-0.80$      & $0.84$       \\
+                          &               &            & $(1.50)$     & $(1.01)$     \\
+Power Committee           &               &            & $0.88$       & $1.12$       \\
+                          &               &            & $(1.44)$     & $(1.20)$     \\
+Best Committee            &               &            & $-0.00$      & $-0.19$      \\
+                          &               &            & $(0.21)$     & $(0.23)$     \\
+Female                    &               &            & $0.24$       & $0.23$       \\
+                          &               &            & $(1.35)$     & $(1.59)$     \\
+African American          &               &            & $-4.95$      & $1.56$       \\
+                          &               &            & $(6.76)$     & $(3.00)$     \\
+Latino                    &               &            & $-6.37$      & $5.29$       \\
+                          &               &            & $(7.62)$     & $(6.55)$     \\
+Seniority                 &               &            & $0.08$       & $0.02$       \\
+                          &               &            & $(0.17)$     & $(0.09)$     \\
 \hline
-Num. obs.                         & 1122          & 1120       & 946           & 944           \\
+Num. obs.                 & 1122          & 1120       & 946          & 944          \\
 R$^2$% (full model)
-                                  & 0.67          & 0.69       & 0.94          & 0.86          \\
-% R$^2$ (proj model)                & 0.02          & 0.02       & 0.79          & 0.51          \\
+& 0.67          & 0.69       & 0.94         & 0.89         \\
+% R$^2$ (proj model)        & 0.02          & 0.02       & 0.81         & 0.61         \\
 Adj. R$^2$% (full model)
-                                  & 0.34          & 0.38       & 0.85          & 0.68          \\
-% Adj. R$^2$ (proj model)           & -0.98         & -0.99      & 0.52          & -0.13         \\
+& 0.34          & 0.38       & 0.87         & 0.74         \\
+% Adj. R$^2$ (proj model)   & -0.98         & -0.99      & 0.55         & 0.10         \\
+
 \hline
 \end{tabular}
 
 \begin{tablenotes}
    \item
-   The table presents fixed effects regressions of \textit{Party Unity} to party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with fixed effects for Same State-Congress pairs, including 561 fixed effects for the models in the first two columns and 473 for the latter two models.  Standard errors are clustered by legislator and by Congress.
+   The table presents fixed effects regressions of \textit{Party Unity} to
+   party calls and \textit {Non-Party-Vote Unity} scores for the Senate, with
+   fixed effects for Same State-Congress pairs, including 561 fixed effects
+   for the models in the first two columns and 473 for the latter two models.
+   Standard errors are clustered by legislator and by Congress.
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
@@ -686,6 +691,11 @@ The coefficients on Up for Reelection are positive and significant
 ($p < 0.01$).
 Thus, models of Party Unity scores yield both implausibly large coefficient
 magnitudes and a failed placebo test.
+Finally, we also estimated models of Party Unity and Non-Party-Vote Unity
+regressed on lagged values of Responsiveness to Party Calls and Baseline Rate,
+substituting for lags of Party Unity and Non-Party-Vote Unity.
+The inferences were very similar for these two models, both in terms of
+signs and statistical significance, including the failed placebo test.
 
 Based on these analyses, we draw two main conclusions.
 First, Party Unity scores and Responsiveness to Party Calls both capture much of
