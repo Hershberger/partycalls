@@ -2,4 +2,4 @@
 \contentsline {section}{\numberline {}Appendix B: Summary Statistics}{A5}{section*.7}
 \contentsline {section}{\numberline {}Appendix C: Regression Models of Responsiveness}{A9}{section*.12}
 \contentsline {section}{\numberline {}Appendix D: Senate Reelection Fixed Effects Models}{A12}{section*.17}
-\contentsline {section}{\numberline {}Appendix E: Comparing Party Unity Scores Responsiveness to Party Calls}{A14}{section*.20}
+\contentsline {section}{\numberline {}Appendix E: Comparing Party Unity Scores to Responsiveness to Party Calls}{A14}{section*.20}

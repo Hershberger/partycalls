@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 NOV 2017 09:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  27 NOV 2017 14:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -744,7 +744,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 719.
 Here is how much of TeX's memory you used:
  11375 strings out of 493089
  179238 string characters out of 6134842
- 295026 words of memory out of 5000000
+ 296026 words of memory out of 5000000
  14593 multiletter control sequences out of 15000+600000
  96732 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -766,7 +766,7 @@ mr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 .pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
 fb>
 Output written on senate-party-calls-supplemental-appendix-rr.pdf (20 pages, 36
-8584 bytes).
+8591 bytes).
 PDF statistics:
  235 PDF objects out of 1000 (max. 8388607)
  200 compressed objects within 2 object streams

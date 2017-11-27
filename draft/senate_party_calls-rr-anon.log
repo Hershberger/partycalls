@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  27 NOV 2017 13:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  27 NOV 2017 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**senate_party_calls-rr.tex
-(./senate_party_calls-rr.tex
+**senate_party_calls-rr-anon.tex
+(./senate_party_calls-rr-anon.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -527,8 +527,8 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \enit@inbox=\box31
 \enitdp@description=\count121
 )
-(./senate_party_calls-rr.aux)
-\openout1 = `senate_party_calls-rr.aux'.
+(./senate_party_calls-rr-anon.aux)
+\openout1 = `senate_party_calls-rr-anon.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
 LaTeX Font Info:    ... okay on input line 37.
@@ -644,116 +644,102 @@ Package caption Info: End \AtBeginDocument code.
 \c@mv@tabular=\count129
 \c@mv@boldtabular=\count130
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 67.
-LaTeX Font Info:    Try loading font information for U+msa on input line 67.
+(Font)              scaled to size 20.74pt on input line 63.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 14.4pt on input line 63.
+LaTeX Font Info:    Try loading font information for U+msa on input line 63.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 67.
+LaTeX Font Info:    Try loading font information for U+msb on input line 63.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 67.
-LaTeX Font Info:    Try loading font information for TS1+LinuxLibertineT-TLF on
- input line 67.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
-fd
-File: TS1LinuxLibertineT-TLF.fd 2012/11/26 (autoinst) Font definitions for TS1/
-LinuxLibertineT-TLF.
-)
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 67.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 67.
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 67.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 67.
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 67.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 67.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.95pt on input line 71.
+(Font)              scaled to size 10.95pt on input line 67.
  [0
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 86.
+(Font)              scaled to size 8.0pt on input line 82.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 90.
-
-[1
+(Font)              scaled to size 10.0pt on input line 82.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 82.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 86.
+ [1
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 14.4pt on input line 94.
- <party-calls-over-time.pdf, id=54, 469.755pt x 289.08pt>
+(Font)              scaled to size 14.4pt on input line 90.
+
+<party-calls-over-time.pdf, id=52, 469.755pt x 289.08pt>
 File: party-calls-over-time.pdf Graphic file (type pdf)
 
 <use party-calls-over-time.pdf>
-Package pdftex.def Info: party-calls-over-time.pdf used on input line 103.
+Package pdftex.def Info: party-calls-over-time.pdf used on input line 99.
 (pdftex.def)             Requested size: 469.75386pt x 289.07928pt.
  [2]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 116.
+(Font)              scaled to size 12.0pt on input line 112.
  [3 <./party-calls-over-time.pdf>]
-<extremism-responsiveness.pdf, id=97, 433.62pt x 289.08pt>
+<extremism-responsiveness.pdf, id=95, 433.62pt x 289.08pt>
 File: extremism-responsiveness.pdf Graphic file (type pdf)
 
 <use extremism-responsiveness.pdf>
-Package pdftex.def Info: extremism-responsiveness.pdf used on input line 186.
+Package pdftex.def Info: extremism-responsiveness.pdf used on input line 182.
 (pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
  [4] [5] [6 <./extremism-responsiveness.pdf>] <senate_difference_estimates.pdf,
- id=143, 361.35pt x 289.08pt>
+ id=142, 361.35pt x 289.08pt>
 File: senate_difference_estimates.pdf Graphic file (type pdf)
 
 <use senate_difference_estimates.pdf>
-Package pdftex.def Info: senate_difference_estimates.pdf used on input line 219
+Package pdftex.def Info: senate_difference_estimates.pdf used on input line 215
 .
 (pdftex.def)             Requested size: 341.43306pt x 273.14674pt.
- [7] [8 <./senate_difference_estimates.pdf>] (./senate_party_calls-rr.bbl
+ [7] [8 <./senate_difference_estimates.pdf>] (./senate_party_calls-rr-anon.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 17.28pt on input line 1.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 17.28pt on input line 1.
  [9])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 243.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 239.
  [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 243.
- (./senate_party_calls-rr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 243.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 243.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 243.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 239.
+
+(./senate_party_calls-rr-anon.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 239.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 239.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 239.
  ) 
 Here is how much of TeX's memory you used:
- 10604 strings out of 493089
- 164553 string characters out of 6134842
+ 10559 strings out of 493089
+ 163402 string characters out of 6134842
  254386 words of memory out of 5000000
- 13840 multiletter control sequences out of 15000+600000
- 91023 words of font info for 107 fonts, out of 8000000 for 9000
+ 13805 multiletter control sequences out of 15000+600000
+ 86038 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,11n,76p,1262b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,11n,76p,1267b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc
 }{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{
-/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pf
-b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibertine
-TB.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibe
-rtineTI.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.p
-fb>
-Output written on senate_party_calls-rr.pdf (11 pages, 335292 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}<
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibertineT.p
+fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLibertin
+eTB.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/libertine/LinLib
+ertineTI.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb>
+Output written on senate_party_calls-rr-anon.pdf (11 pages, 333829 bytes).
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
- 197 compressed objects within 2 object streams
+ 226 PDF objects out of 1000 (max. 8388607)
+ 194 compressed objects within 2 object streams
  49 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
