@@ -5,9 +5,6 @@ library(extrafont)
 library(Cairo)
 loadfonts()
 
-#------------------------------------------------------------------------------#
-# model formulas
-#------------------------------------------------------------------------------#
 formula1 <- responsiveness_to_party_calls ~ ideological_extremism +
   baseline_rate + vote_share + pres_vote_share + leader + chair +
   power_committee + best_committee + female + african_american + latino +
@@ -51,9 +48,9 @@ ggplot(coding_record, aes(congress, percent_party_calls,
   geom_point(aes(shape = as.factor(majority),
     size = ifelse(majority == "Democrat", 2, 1.25))) +
   scale_shape_manual("Majority Party", values = c(16, 17), guide = FALSE) +
-  scale_color_manual("Majority Party", values = c("blue3", "red3"), guide = FALSE) +
+  scale_color_manual("Majority Party", values = c("blue3", "red3"),
+    guide = FALSE) +
   scale_size_continuous(limits = c(1, 3)) +
-  # geom_smooth(method = "lm", se = FALSE) +
   theme_minimal() +
   theme(
     panel.border = element_rect(color = "gray", fill = NA),
@@ -106,8 +103,7 @@ congress_by_congress_results[maj == "Minority" & chamber == "Senate" &
       congress],
   party := "Democrat"]
 
-cairo_pdf(file = "draft/extremism-responsiveness.pdf", ## RENAME
-  width = 6, height = 4)
+cairo_pdf(file = "draft/extremism-responsiveness.pdf", width = 6, height = 4)
 ggplot(congress_by_congress_results,
   aes(Congress, Estimate, color = party, shape = party)) +
   geom_hline(yintercept = 0, color = "gray", linetype = 3) +
