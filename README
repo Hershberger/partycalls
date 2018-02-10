@@ -1,0 +1,18 @@
+This repository contains the replication data for "Party Calls and Reelection in
+the U.S. Senate," by Ethan Hershberger, William Minozzi, and Craig Volden.
+
+To install the package,
+
+1. Download the file named partycalls_0.1.0.tar.gz.
+2. Open R and set your working directory to the location of this file.
+3. Type into the console:
+
+install.packages("partycalls_0.1.0.tar.gz", repos = NULL, type = "source")
+
+The package includes coded party calls for the House and Senate, 1973-2012.
+
+Two R scripts are included with the replication materials.
+
+analysis.R replicates all results, figures, and tables from the paper and supplementary appendix. The other required packages are data.table (1.10.4-3), ggplot2 (2.2.1), extrafont (0.17), and Cairo (1.5-9).
+
+test-senate-93.R demonstrates the party calls coding for the 93rd senate.
