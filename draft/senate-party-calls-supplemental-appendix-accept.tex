@@ -1,67 +1,44 @@
 \documentclass[12pt]{article}
-\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib,
-array, multirow}
-\usepackage{scrextend}
-\usepackage[bookmarks = false, hidelinks]{hyperref}
-\usepackage{amsfonts, bm}
-\usepackage{dcolumn}
-\usepackage{subfigure, float}
-\usepackage[margin=1in]{geometry}
-\usepackage{verbatim}
-\usepackage{url}
-\usepackage{enumerate}
-\usepackage{morefloats}
-\usepackage[skip = 2pt]{caption}
+
+\usepackage{amsfonts, amssymb, amsmath}
+\usepackage{graphicx}
+\usepackage[bookmarks = true, hidelinks]{hyperref}
+\usepackage[margin = 1in]{geometry}
 \usepackage[flushleft]{threeparttable}
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
 \usepackage{setspace}
-\usepackage{fancyhdr}
-\usepackage{enumitem}
 \usepackage{natbib}
+\usepackage{float}
 
-\newcommand\fnote[1]{\captionsetup{font=normalsize}\caption*{#1}}
+\hypersetup{pdfpagemode = UseNone}
 
-\setlist{nolistsep,noitemsep}
-\setlength{\footnotesep}{1.2\baselineskip}
-\newcolumntype{.}{D{.}{.}{-1}}
-\newcolumntype{d}[1]{D{.}{.}{#1}}
-
-\makeatother
-
-\def\citeapos#1{\citeauthor{#1}'s (\citeyear{#1})} % possessive citation
+\setlength{\bibsep}{0pt plus 0.3ex}
+\bibpunct{(}{)}{;}{a}{}{,}
 
 \begin{document}
 
 \doublespacing
 
-\setcounter{table}{0}
-\setcounter{footnote}{0}
-\setcounter{figure}{0}
 \setcounter{page}{0}
-
-\refstepcounter{section}
-\markright{Supplemental Appendices}
-
 
 \title{
 {\Large Supplemental Appendices to\\}
 {\LARGE Party Calls and Reelection in the U.S. Senate}}
 
-
 \author{\large
 Ethan Hershberger\footnote{
-  \small Department of Political Science,
+  \footnotesize Department of Political Science,
   Ohio State University, 2140 Derby Hall, 154 N. Oval Mall, Columbus, OH 43210.
   \href{mailto:ethanbhershberger@gmail.com}{ethanbhershberger@gmail.com}
 }\quad
 William Minozzi\footnote{
-  \small Associate Professor, Department of Political Science,
+  \footnotesize Associate Professor, Department of Political Science,
   Ohio State University, 2140 Derby Hall, 154 N. Oval Mall, Columbus, OH 43210.
   \href{mailto:minozzi.1@osu.edu}{minozzi.1@osu.edu}
 }\quad
 Craig Volden\footnote{
-  \small Professor of Public Policy and Politics, Frank Batten School of
+  \footnotesize Professor of Public Policy and Politics, Frank Batten School of
   Leadership and Public Policy,
   University of Virginia, Garrett Hall, 235 McCormick Road, P.O. Box 400893,
   Charlottesville, VA 22904.
@@ -83,7 +60,7 @@ Craig Volden\footnote{
 \clearpage
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix A: Classifying Party Calls}
+\section*{Appendix A: Classifying Party Calls}
 \addcontentsline{toc}{section}{\protect\numberline{}
 Appendix A: Classifying Party Calls}%
 %------------------------------------------------------------------------------%
@@ -281,7 +258,7 @@ Party Free Only\\
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix B: Summary Statistics}
+\section*{Appendix B: Summary Statistics}
 \addcontentsline{toc}{section}{\protect\numberline{}
 Appendix B: Summary Statistics}%
 %------------------------------------------------------------------------------%
@@ -438,7 +415,7 @@ Freshman                           & $0.16$ & $0.36$ & $0$     & $1$ \\
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix C: Regression Models of Responsiveness}
+\section*{Appendix C: Regression Models of Responsiveness}
 \addcontentsline{toc}{section}{\protect\numberline{}
 Appendix C: Regression Models of Responsiveness}%
 %------------------------------------------------------------------------------%
@@ -599,7 +576,7 @@ $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix D: Senate Reelection Fixed Effects Models}
+\section*{Appendix D: Senate Reelection Fixed Effects Models}
 \addcontentsline{toc}{section}{\protect\numberline{}
 Appendix D: Senate Reelection Fixed Effects Models}%
 %------------------------------------------------------------------------------%
@@ -691,7 +668,7 @@ Adj. R$^2$                        & 0.41        & 0.30     & 0.84        & 0.66 
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Appendix E: Comparing Party Unity Scores to Responsiveness to
+\section*{Appendix E: Comparing Party Unity Scores to Responsiveness to
 Party Calls}
 \addcontentsline{toc}{section}{\protect\numberline{}
 Appendix E: Comparing Party Unity Scores to Responsiveness to Party Calls}%
@@ -742,6 +719,7 @@ The results appear in Table~\ref{tab-party-unity-regressions}.
 
 \begin{table}[!htbp]
 \centering
+\scalebox{.9}{
 \begin{threeparttable}
 \caption{Models of \textit{Party Unity Scores}, 1973-2012}
 \label{tab-party-unity-regressions}
@@ -798,6 +776,7 @@ RMSE                  & 10.73         & 7.78          & 7.79          \\
    $^{***}p<0.001$, $^{**}p<0.01$, $^*p<0.05$
  \end{tablenotes}
 \end{threeparttable}
+}
 \end{table}
 
 A number of general findings emerged from
@@ -915,7 +894,6 @@ instrumental variables strategy to examine the effects of party voting.
 
 
 %------------------------------------------------------------------------------%
-\singlespacing
 \bibliographystyle{apsr_fs}
 \bibliography{senate}
 %------------------------------------------------------------------------------%

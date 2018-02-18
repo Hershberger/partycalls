@@ -1,66 +1,50 @@
 \documentclass[12pt]{article}
-\usepackage{setspace, graphicx, fullpage, amssymb, amsmath, epsfig, natbib,
-  array, multirow}
-\usepackage[bookmarks = false, hidelinks]{hyperref}
-\usepackage{amsfonts, bm}
-\usepackage{dcolumn}
-\usepackage{subfigure, float}
-\usepackage[margin=1in]{geometry}
-\usepackage{verbatim}
-\usepackage{url}
-\usepackage{enumerate}
-\usepackage{morefloats}
-\usepackage[skip = 2pt]{caption}
 
+\usepackage{amsfonts, amssymb, amsmath}
+\usepackage{graphicx}
+\usepackage[bookmarks = true, hidelinks]{hyperref}
+\usepackage[margin = 1in]{geometry}
 \usepackage[flushleft]{threeparttable}
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
 \usepackage{setspace}
-\usepackage{fancyhdr}
-\usepackage{enumitem}
 \usepackage{natbib}
 
-\newcommand\fnote[1]{\captionsetup{font=normalsize}\caption*{#1}}
-
-\setlist{nolistsep,noitemsep}
 \setlength{\footnotesep}{1.2\baselineskip}
-\newcolumntype{.}{D{.}{.}{-1}}
-\newcolumntype{d}[1]{D{.}{.}{#1}}
+\hypersetup{pdfpagemode = UseNone}
 
-\makeatother
-
-\renewcommand{\headrulewidth}{0pt}
 \def\citeapos#1{\citeauthor{#1}'s (\citeyear{#1})}
+\setlength{\bibsep}{0pt plus 0.3ex}
 \bibpunct{(}{)}{;}{a}{}{,}
+
+\newcommand\invisiblesection[1]{
+  \refstepcounter{section}
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+  \sectionmark{#1}}
 
 \begin{document}
 
-
-
 \title{\vspace{4em} \LARGE Party Calls and Reelection in the U.S. Senate}
-
 
 \author{\large
 Ethan Hershberger\footnote{
-  \small Department of Political Science,
+  \normalsize Department of Political Science,
   Ohio State University, 2140 Derby Hall, 154 N. Oval Mall, Columbus, OH 43210.
   \href{mailto:ethanbhershberger@gmail.com}{ethanbhershberger@gmail.com}
 }\quad
 William Minozzi\footnote{
-  \small Associate Professor, Department of Political Science,
+  \normalsize Associate Professor, Department of Political Science,
   Ohio State University, 2140 Derby Hall, 154 N. Oval Mall, Columbus, OH 43210.
   \href{mailto:minozzi.1@osu.edu}{minozzi.1@osu.edu}
 }\quad
 Craig Volden\footnote{
-  \small Professor of Public Policy and Politics, Frank Batten School of
+  \normalsize Professor of Public Policy and Politics, Frank Batten School of
   Leadership and Public Policy,
   University of Virginia, Garrett Hall, 235 McCormick Road, P.O. Box 400893,
   Charlottesville, VA 22904.
   \href{mailto:volden@virginia.edu}{volden@virginia.edu}
 }\\
 }
-
-
 
 \maketitle
 
@@ -71,7 +55,6 @@ Craig Volden\footnote{
 
 \thispagestyle{empty}
 \setcounter{page}{0}
-
 
 \doublespacing
 
@@ -95,12 +78,10 @@ Senators' responsiveness to party calls, depriving party leaders of support for
 their agenda items.
 \end{abstract}
 
-
 \begin{abstract}
 \noindent \textit{Keywords.}
 party calls, reelection, Senate, party voting
 \end{abstract}
-
 
 \begin{abstract}
 \noindent \textit{Acknowledgements.}
@@ -108,7 +89,6 @@ We thank Gary Jacobson, Keith Poole, Charles Stewart,
 and Alan Wiseman for generously sharing data
 and Andrew Podob for helpful comments and conversations.
 \end{abstract}
-
 
 \begin{abstract}
 \noindent \textit{Supplementary and replication materials.}
@@ -118,15 +98,11 @@ Replication files are available in the JOP Data Archive on Dataverse
 (\href{http://thedata.harvard.edu/dvn/dv/jop}{http://thedata.harvard.edu/dvn/dv/jop}).
 \end{abstract}
 
-
 \clearpage
 
-
 %------------------------------------------------------------------------------%
-% Introduction
+\invisiblesection{Introduction}
 %------------------------------------------------------------------------------%
-
-\doublespacing
 
 \noindent When scholars think of partisan influence in legislative voting they
 often conceive of pressure exerted on fence-sitting legislators to win them over
@@ -180,7 +156,9 @@ when it is out of line with voters in their home states.
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Party Calls in the Senate}
+\section*{Party Calls in the Senate}
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}
+Party Calls in the Senate}
 %------------------------------------------------------------------------------%
 
 
@@ -209,9 +187,9 @@ votes is meaningful in capturing broad and consistent underlying behavior.
 
 \begin{figure}[t]
 \centering
-\includegraphics{party-calls-over-time.pdf}
+\includegraphics{party-calls-over-time}
 \caption{
-  Party calls as a percentage of all votes, 1973-2012.
+  Party calls as a percentage of all votes, 1973--2012.
   This figure shows the percentage of votes classified as party calls per
   Congress in each chamber.
   Circles denote Democrat-majority chambers while triangles denote
@@ -351,7 +329,7 @@ while only one negative coefficient is.
 
 \begin{figure}[t]
 \centering
-\includegraphics{extremism-responsiveness.pdf}
+\includegraphics{extremism-responsiveness}
 \caption{
   Extremists are responsive to party calls in both chambers.
   This coefficient plot is produced by the same formula shown in
@@ -400,7 +378,9 @@ In the next section, we explore this result more fully.
 
 
 %------------------------------------------------------------------------------%
-\subsection*{Reelection Limits Responsiveness to Party Calls}
+\section*{Reelection Limits Responsiveness to Party Calls}
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}
+Reelection Limits Responsiveness to Party Calls}
 %------------------------------------------------------------------------------%
 
 
@@ -434,7 +414,7 @@ voting with the party on party-free votes.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width = 12cm]{senate_difference_estimates.pdf}
+\includegraphics[width = 12cm]{senate_difference_estimates}
 \caption{
   Senators up for reelection are less responsive to party calls, yet there is
   no evidence that reelection affects \textit{Baseline Rate} of voting with the
@@ -478,12 +458,17 @@ development.
 But they offer the election-seeking Senator an opportunity to build her support
 and reputation back home.
 
-\subsection*{Conclusion}
+%------------------------------------------------------------------------------%
+\section*{Conclusion}
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}
+Conclusion}
+%------------------------------------------------------------------------------%
 
 In this short paper, we established that legislators respond to party calls in
 the Senate as they do in the House.
 In both chambers, party calls have become more prominent over the past forty
-years.  In line with expectations, when leaders issue party calls, legislators
+years.
+In line with expectations, when leaders issue party calls, legislators
 align with their party, with the greatest effect being among ideological
 extremists.
 
@@ -506,14 +491,13 @@ reelection are less responsive to the party.
 This finding shows one of the limits to leaders' party-building efforts
 inherent in party calls.
 
-
 %------------------------------------------------------------------------------%
 % References
 %------------------------------------------------------------------------------%
 
-
 \bibliographystyle{apsr_fs}
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}
+References}
 \bibliography{senate}
-
 
 \end{document}
