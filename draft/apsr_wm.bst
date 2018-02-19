@@ -1,4 +1,4 @@
-% A variant of BibTeX standard bibliography style `apsr' (one of the harvard family)
+% BibTeX standard bibliography style `apsr' (one of the harvard family)
 	% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
 	% Copyright (C) 1991, all rights reserved.
 	% Copying of this file is authorized only if either
@@ -16,21 +16,6 @@
 % AUTHOR
 %   Peter Williams, Key Centre for Design Quality, Sydney University
 %   e-mail: peterw@archsci.arch.su.oz.au
-
-% Additional changes by Bernd Beber, Columbia University, bhb2102@columbia.edu (August 2008)
-% Includes fixes for some minor formatting inconsistencies between current requirements for
-% the American Political Science Review and the style file apsr.bst distributed with the harvard LaTeX package:
-% * A comma is now placed before the word "and" when it separates author names in the bibliography;
-% * A comma is placed before the word "and" when it separates author names for in-text citations with more than two authors;
-% * A space is added between journal volume and issue, and colon and page numbers;
-% * For BibTeX item incollection, the chapter title is now quoted.
-
-%Additional changes by Michael P. Fix (mpfix1@gmail.com) and Susanne Schorpp (SCHORPP@mailbox.sc.edu), University of South Carolina (November 2009)
-% Includes fixes for minor formatting inconsistencies between the style file apsr.bst and the most recent revision of the APSA Style Manual for Political Science:
-%*Month is now placed in article citations in place of issue number, unless month is empty in which case issue number used
-%* The space between volume and month has been removed for article citations
-%* The ampersand symbol has been replaced with the word "and" to separate lists of two or more authors
-
 
 ENTRY
   { address
@@ -174,39 +159,14 @@ FUNCTION {quote}
   if$
 }
 
-INTEGERS { nameptr namesleft numnames }
-
-
-FUNCTION {format.rem.editor.names}
-{ 's :=
-  'f :=
-  #2 'nameptr :=
-  s num.names$ 'numnames :=
-  numnames #1 - 'namesleft :=
-    { namesleft #0 > }
-    { s nameptr f format.name$ 't :=
-      nameptr #1 >
-	{ namesleft #1 >
-	    { ", " * t * }
-	    { t "others" =
-		{ " et~al." * }
-		{ numnames #2 >
-			{ ", and " * t * }
-			{ " and " * t * }
-			if$
-		}
-	      if$
-	    }
-	  if$
-	}
-	't
-      if$
-      nameptr #1 + 'nameptr :=
-      namesleft #1 - 'namesleft :=
-    }
-  while$
+FUNCTION {write.url}
+{ URL empty$
+    { skip$ }
+    { "\newline\harvardurl{" URL * "}" * write$ newline$ }
+  if$
 }
 
+INTEGERS { nameptr namesleft numnames }
 
 FUNCTION {format.rem.names}
 { 's :=
@@ -221,11 +181,7 @@ FUNCTION {format.rem.names}
 	    { ", " * t * }
 	    { t "others" =
 		{ " et~al." * }
-		{ numnames #2 >
-			{ ", and " * t * }
-			{ ", and " * t * }
-			if$
-		}
+		{ " \harvardand\ " * t * }
 	      if$
 	    }
 	  if$
@@ -263,12 +219,9 @@ FUNCTION {format.editors}
 FUNCTION {format.editors.reverse}
 { editor empty$
     { "" }
-    { editor num.names$ #1 >
-	{ ", eds. " * }
-	{ ", ed. " * }
-      if$
+    { ", ed. "
       editor #1 "{ff }{vv~}{ll}{, jj}" format.name$ *
-      "{ff }{vv~}{ll}{, jj}" editor format.rem.editor.names
+      "{ff }{vv~}{ll}{, jj}" editor format.rem.names
     }
   if$
 }
@@ -394,8 +347,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-	{ " " pages n.dashify * }
-	{ " " pages * }
+	{ "pp.~" pages n.dashify * }
+	{ "p.~" pages * }
       if$
     }
   if$
@@ -409,30 +362,22 @@ FUNCTION {format.address}
   if$
 }
 
-FUNCTION {format.num}
-{ number empty$
-  'skip$
-  { "(" number * ")" * *
-  }
-  if$
-}
-
-FUNCTION {format.vol.mon.num.pages}
+FUNCTION {format.vol.num.pages}
 { volume field.or.null
-  month empty$
-  'format.num
-  { "(" number *  ")" * *
+  number empty$
+    'skip$
+    { "(" number * ")" * *
       volume empty$
 	{ "there's a number but no volume in " cite$ * warning$ }
 	'skip$
-	if$
-	}
+      if$
+    }
   if$
   pages empty$
     'skip$
     { duplicate$ empty$
 	{ pop$ format.pages }
-	{ ": " * pages n.dashify * }
+	{ ":" * pages n.dashify * }
       if$
     }
   if$
@@ -440,7 +385,7 @@ FUNCTION {format.vol.mon.num.pages}
 
 FUNCTION {format.chapter.pages}
 { chapter empty$
-    { ", " * format.pages * }
+    'format.pages
     { type empty$
 	{ "chapter" }
 	{ type "l" change.case$ }
@@ -467,7 +412,7 @@ FUNCTION {format.in.ed.booktitle}
 
 FUNCTION {empty.misc.check}
 { author empty$ title empty$ howpublished empty$
-  month empty$ year empty$
+  month empty$ year empty$ note empty$
   and and and and and
   key empty$ not and
     { "all relevant fields are empty in " cite$ * warning$ }
@@ -607,11 +552,7 @@ FUNCTION {format.lab.names.full}
 	    { ", " * t * }
 	    { t "others" =
 		{ " et~al." * }
-		{ numnames #2 >
-			{ ", and " * t * }
-			{ " and " * t * }
-			if$
-		}
+		{ " \harvardand\ " * t * }
 	      if$
 	    }
 	  if$
@@ -764,7 +705,7 @@ FUNCTION {article}
     { journal emphasize "journal" duplicate$ item.check
       year empty$
         { ". Forthcoming" * output new.block }
-        { " " * format.vol.mon.num.pages * output }
+        { " " * format.vol.num.pages * output }
       if$
      }
     { format.article.crossref output.nonnull
@@ -772,7 +713,9 @@ FUNCTION {article}
     }
   if$
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {book}
@@ -805,7 +748,9 @@ FUNCTION {book}
     }
   if$
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {booklet}
@@ -820,7 +765,9 @@ FUNCTION {booklet}
   format.address output
   howpublished output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {inbook}
@@ -854,8 +801,10 @@ FUNCTION {inbook}
   if$
   format.chapter.pages "chapter and pages" output.check
   new.block
+  note output
   fin.entry
-  }
+  write.url
+}
 
 FUNCTION {incollection}
 { output.bibitem
@@ -881,7 +830,9 @@ FUNCTION {incollection}
   if$
   format.chapter.pages output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {inproceedings}
@@ -914,7 +865,9 @@ FUNCTION {inproceedings}
   if$
   format.pages output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {conference} { inproceedings }
@@ -942,7 +895,9 @@ FUNCTION {manual}
     }
   if$
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {mastersthesis}
@@ -959,7 +914,9 @@ FUNCTION {mastersthesis}
   school "school" output.check
   format.address output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {misc}
@@ -973,7 +930,9 @@ FUNCTION {misc}
   if$
   howpublished output
   new.block
+  note output
   fin.entry
+  write.url
   empty.misc.check
 }
 
@@ -991,7 +950,9 @@ FUNCTION {phdthesis}
   school "school" output.check
   format.address output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {proceedings}
@@ -1023,7 +984,9 @@ FUNCTION {proceedings}
     }
   if$
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {techreport}
@@ -1040,7 +1003,9 @@ FUNCTION {techreport}
   institution "institution" output.check
   format.address output
   new.block
+  note output
   fin.entry
+  write.url
 }
 
 FUNCTION {unpublished}
@@ -1053,7 +1018,9 @@ FUNCTION {unpublished}
     { skip$ }
     { format.title quote "title" output.check }
   if$
+  note "note" output.check
   fin.entry
+  write.url
 }
 
 FUNCTION {default.type} { misc }
