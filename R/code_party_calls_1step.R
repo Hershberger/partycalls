@@ -13,7 +13,7 @@
 #' @export
 #' @importFrom emIRT binIRT makePriors getStarts
 code_party_calls_1step <- function(rc, DT, votes_for_ideal_point_estimation,
-  return_pvals, type = c("brglm", "lm", "glm"))
+  return_pvals, type = c("brglm", "lm", "glm", "lasso"))
 {
   rc1 <- rc
   rc2 <- rc
@@ -33,25 +33,21 @@ code_party_calls_1step <- function(rc, DT, votes_for_ideal_point_estimation,
     .control = list(threads = 1, verbose = FALSE, thresh = 1e-6))
   sink()
   unlink(sink_target)
-
-
   DT$x <- l$means$x
-
-  # DT <- merge(DT,
-  #   data.table(x = l$means$x[, 1], mc = rownames(l$means$x)),
-  #   by = "mc", all = TRUE)
-
   ideal <- l$means$x
   party <- rc1$legis.data$party
-  # orientation_correct <- DT[party == "D", mean(ideal)] < DT[party == "R", mean(x)]
   orientation_correct <- mean(ideal[party == "D"]) < mean(ideal[party == "R"])
   if (!orientation_correct) {
     ideal <- -ideal
   }
   regs <- DT[party %in% c("D", "R"), test_rollcall(.SD, type), .(vt)]
-  pvals <- regs$p
-  pvals[is.na(pvals)] <- 1
-  tvals <- regs$t
-  tvals[is.na(tvals)] <- Inf
-  list(pvals = pvals, tvals = tvals, ideal = ideal)
+  if (type != "lasso") {
+    pvals <- regs$p
+    pvals[is.na(pvals)] <- 1
+    tvals <- regs$t
+    tvals[is.na(tvals)] <- Inf
+    list(pvals = pvals, tvals = tvals, ideal = ideal)
+  } else {
+    list(coefs = regs$V1, ideal = ideal)
+  }
 }

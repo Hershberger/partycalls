@@ -16,13 +16,14 @@
 #' use_classification_distance is FALSE.
 #' @param .SD subset of a data.table of roll call votes, with a column for party
 #' labels
-#' @param type character string, one of brglm, glm, or lm; which function
-#' to use for roll call-by-roll call regression
+#' @param type character string, one of brglm, glm, lm, or lasso;
+#' which function to use for roll call-by-roll call regression
 #' @return list of coefficient, standard error, t value, and p value for the
 #' coefficient on party
 #' @export
 #' @importFrom brglm brglm
-test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
+#' @importFrom glmnet glmnet cv.glmnet
+test_rollcall <- function(.SD, type = c("brglm", "lm", "glm", "lasso"))
 {
   .SD <- .SD[party %in% c("D", "R")]
   n_yea_reps <- .SD[, sum(y == 1 & party == "R", na.rm = TRUE)]
@@ -34,9 +35,17 @@ test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
     (n_yea_reps >  0 & n_nay_reps == 0 & n_yea_dems == 0 & n_nay_dems >  0)
   if (mean(.SD[, y], na.rm = TRUE) %in% c(0:1, NaN) |
       length(unique(.SD[!is.na(y) & party %in% c("D", "R"), party])) == 1L) {
-    list(b = 0, se = 0, t = Inf, p = NA_real_)
+    if (type != "lasso") {
+      list(b = 0, se = 0, t = Inf, p = NA_real_)
+    } else {
+      matrix(c(0, 1, 0), 3, 1)[2, 1]
+    }
   } else if (party_line_vote) {
-    list(b = 1, se = 0, t = Inf, p = 0)
+    if (type != "lasso") {
+      list(b = 1, se = 0, t = Inf, p = 0)
+    } else {
+      matrix(c(0, 1, 0), 3, 1)[2, 1]
+    }
   } else {
     if (type == "brglm") {
       m <- brglm::brglm(y ~ party + x, data = .SD, family = binomial)
@@ -48,11 +57,26 @@ test_rollcall <- function(.SD, type = c("brglm", "lm", "glm"))
       suppressWarnings(summ <- summary(m)$coef["partyR", ])
       list(b = summ["Estimate"], se = summ["Std. Error"],
         t = summ["z value"], p = summ["Pr(>|z|)"])
-    } else {
+    } else if (type == "lm") {
       m <- lm(y ~ party + x, data = .SD)
       suppressWarnings(summ <- summary(m)$coef["partyR", ])
       list(b = summ["Estimate"], se = summ["Std. Error"],
         t = summ["t value"], p = summ["Pr(>|t|)"])
+    } else if (type == "lasso") {
+      y <- .SD[, y]
+      x <- .SD[, as.matrix(cbind(as.numeric(party == "R"), x))]
+      ok <- !is.na(y)
+      lambda.1se <- tryCatch(glmnet::cv.glmnet(x = x[ok, ], y = y[ok],
+        family = "binomial", penalty.factor = c(1, 0))$lambda.1se,
+        warning = function(w) NA, error = function(e) NA, finally = NA)
+      if (!is.na(lambda.1se)) {
+        m <- glmnet::glmnet(x = x[ok, ], y = y[ok],
+          family = "binomial", penalty.factor = c(1, 0),
+          lambda = lambda.1se)
+        as.matrix(coef(m))[2, 1]
+      } else {
+        matrix(c(0, 0, 0), 3, 1)[2, 1]
+      }
     }
   }
 }

@@ -5,7 +5,7 @@
 \title{Run one step of the party calls algorithm}
 \usage{
 code_party_calls_1step(rc, DT, votes_for_ideal_point_estimation, return_pvals,
-  type = c("brglm", "lm", "glm"))
+  type = c("brglm", "lm", "glm", "lasso"))
 }
 \arguments{
 \item{rc}{a rollcall object}

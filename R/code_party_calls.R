@@ -69,7 +69,7 @@ code_party_calls <- function(rc,
   lopside_thresh = 0.65,
   use_noncalls_for_ideal_point_estimation = TRUE)
 {
-  stopifnot(type %in% c("brglm", "lm", "glm"))
+  stopifnot(type %in% c("brglm", "lm", "glm", "lasso"))
   rc <- pscl::dropRollCall(rc, dropList = alist(dropLegis = state == "USA"))
   if (drop_very_lopsided_votes) {
     rc <- pscl::dropRollCall(rc, dropList = alist(lop = 0))
@@ -106,8 +106,12 @@ code_party_calls <- function(rc,
   record_of_coding <- list()
   record_of_ideals <- list()
   match_switch <- FALSE # for old match checking procedure
-  record_of_pvals <- list()
-  record_of_tvals <- list()
+  if (type == "lasso") {
+    record_of_coefs <- list()
+  } else {
+    record_of_pvals <- list()
+    record_of_tvals <- list()
+  }
   countdown_started <- FALSE
   tvals <- rep(0, rc$m)
   flip_flop_votes <- c()
@@ -126,12 +130,17 @@ code_party_calls <- function(rc,
         return_pvals, type)
     }
     record_of_ideals[[counter]] <- record$ideal
-    record_of_pvals[[counter]] <- record$pvals
-    record_of_tvals[[counter]] <- record$tvals
-    if (return_pvals) {
-      noncalls <- which(record$pvals > pval_threshold)
+    if (type == "lasso") {
+      record_of_coefs[[counter]] <- record$coefs
+      noncalls <- which(abs(record$coefs) < .01)
     } else {
-      noncalls <- which(abs(record$tvals) < tval_threshold)
+      record_of_pvals[[counter]] <- record$pvals
+      record_of_tvals[[counter]] <- record$tvals
+      if (return_pvals) {
+        noncalls <- which(record$pvals > pval_threshold)
+      } else {
+        noncalls <- which(abs(record$tvals) < tval_threshold)
+      }
     }
     calls <- setdiff(seq_len(rc$m), noncalls)
     if (sim_annealing == TRUE | hybrid == TRUE) {
@@ -189,8 +198,12 @@ code_party_calls <- function(rc,
   rc$party_calls <- seq_len(rc$m)[-noncalls]
   rc$record_of_coding <- record_of_coding
   rc$record_of_ideals <- record_of_ideals
-  rc$record_of_pvals <- record_of_pvals
-  rc$record_of_tvals <- record_of_tvals
+  if (type == "lasso") {
+    rc$record_of_coefs <- record_of_coefs
+  } else {
+    rc$record_of_pvals <- record_of_pvals
+    rc$record_of_tvals <- record_of_tvals
+  }
   rc$party_call_coding <- get_party_call_coding(rc, n_iterations_for_coding)
   rc
 }
