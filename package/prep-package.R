@@ -39,7 +39,7 @@ if (!file.exists("results/senate_party_calls_brglm.RData")) {
 }
 
 # Code party calls for the House (bias-reduced method)
-if (!file.exists("results/house_party_calls_lm.RData")) {
+if (!file.exists("results/house_party_calls_brglm.RData")) {
   set.seed(1189028224)
   house_party_calls_brglm <- lapply(93:112, code_party_calls_by_congress_number,
     chamber = "house", pval_threshold = 0.01, type = "brglm")
