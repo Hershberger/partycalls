@@ -4,3 +4,4 @@
 .RData
 
 inst/extdata/HSall_rollcalls.csv
+*.RData
