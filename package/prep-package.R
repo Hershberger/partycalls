@@ -1,6 +1,6 @@
 library(partycalls)
 
-# Code party calls for the Senate
+# Code party calls for the Senate ----
 if (!file.exists("results/senate_party_calls_lm.RData")) {
   set.seed(846492672)
   senate_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
@@ -12,7 +12,7 @@ if (!file.exists("results/senate_party_calls_lm.RData")) {
   load("results/senate_party_calls_lm.RData")
 }
 
-# Code party calls for the House
+# Code party calls for the House ----
 if (!file.exists("results/house_party_calls_lm.RData")) {
   set.seed(703851427)
   house_party_calls <- lapply(93:112, code_party_calls_by_congress_number,
@@ -24,7 +24,7 @@ if (!file.exists("results/house_party_calls_lm.RData")) {
   load("results/house_party_calls_lm.RData")
 }
 
-# Code party calls for the Senate (bias-reduced method)
+# Code party calls for the Senate (bias-reduced method) ----
 if (!file.exists("results/senate_party_calls_brglm.RData")) {
   set.seed(2081425373)
   senate_party_calls_brglm <- lapply(93:112,
@@ -38,7 +38,7 @@ if (!file.exists("results/senate_party_calls_brglm.RData")) {
   load("results/senate_party_calls_brglm.RData")
 }
 
-# Code party calls for the House (bias-reduced method)
+# Code party calls for the House (bias-reduced method) ----
 if (!file.exists("results/house_party_calls_brglm.RData")) {
   set.seed(1189028224)
   house_party_calls_brglm <- lapply(93:112, code_party_calls_by_congress_number,
@@ -50,7 +50,7 @@ if (!file.exists("results/house_party_calls_brglm.RData")) {
   load("results/house_party_calls_brglm.RData")
 }
 
-# Build Senate data
+# Build Senate data ----
 if (!file.exists("results/senator_year_data.RData")) {
   source("package/prep-senate-data.R")
 } else {
