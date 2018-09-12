@@ -1,8 +1,9 @@
 # add 113, 114 to party calls ----
-
 library(partycalls)
 library(pscl)
 library(data.table)
+library(readstata13)
+
 votes <- read.csv("~/Downloads/H113_votes.csv")
 legis_data <- read.csv("~/Downloads/H113_members.csv")
 names(legis_data) <- gsub("state_abbrev", "state", names(legis_data))
@@ -42,13 +43,8 @@ hou114 <- code_party_calls_by_congress_number(114, chamber = "house",
   pval_threshold = 0.0005, type = "lm")
 
 devtools::use_data(hou113, hou114, overwrite = TRUE)
-# save(hou113, hou114, file = "data/house_party_calls_113_114.RData")
-
 
 # setup environment ----
-library(partycalls)
-library(readstata13)
-library(data.table)
 
 get_legis_data <- function(rc) {
   ld <- rc$legis.data
@@ -91,79 +87,34 @@ get_legis_data <- function(rc) {
   ideal
 }
 
-load("data/house_party_calls_113_114.RData")
-faction_data <- read.dta13("data/Clarke_Factions.dta")
 lep_data_93_113 <-
-  readstata13::read.dta13("~/partycalls/inst/extdata/LEP93to113.dta")
-# lep_data_111_113 <-
-#   readstata13::read.dta13("~/partycalls/inst/extdata/LEPData111to113Congresses.dta")
+  readstata13::read.dta13("inst/extdata/LEP93to113.dta")
 lep_data_114 <-
-  readstata13::read.dta13("data/LEP114CleanNeedsMoreCovariates.dta")
-setDT(faction_data)
+  readstata13::read.dta13("~/dropbox/factioncalls/data/LEP114CleanNeedsMoreCovariates.dta")
 setDT(lep_data_93_113)
-# setDT(lep_data_111_113)
 setDT(lep_data_114)
-setnames(faction_data, c("cong", "icpsrid"), c("congress", "icpsrLegis"))
-faction_data_113_114 <- faction_data[congress > 112]
-faction_data <- faction_data[congress <= 112]
-faction_data[, faction_data := 1]
 
-# merge house for congress <= 112 ----
+lep_data_113_114 <- rbind(
+  lep_data_93_113[congress==113,
+    intersect(names(lep_data_93_113), names(lep_data_114)), with = FALSE],
+  lep_data_114[,
+    intersect(names(lep_data_93_113), names(lep_data_114)), with = FALSE]
+)
 
-house_data <- copy(partycalls::house_data[congress >= 104])
-house_data[, house_data := 1]
-house_data <- merge(house_data, faction_data,
-  by = c("congress", "icpsrLegis"), all = TRUE, sort = FALSE)
-faction_data_unmatched_to_house <- house_data[
-  faction_data == 1 & is.na(house_data)]
-faction_data_unmatched_to_house[, unmatched_to_house := 1]
+# merge  ----
 
-# senate_data <- copy(senate_data[congress >= 106])
-# senate_data[, senate_data := 1]
-# senate_data <- merge(senate_data, faction_data,
-#   by = c("congress", "icpsrLegis"), all = TRUE, sort = FALSE)
-# faction_data_unmatched_to_senate <- senate_data[
-#   faction_data == 1 & is.na(senate_data)]
-# faction_data_unmatched_to_senate[, unmatched_to_senate := 1]
-
-# faction_data_unmatched <- merge(
-#   faction_data_unmatched_to_house[,
-#     .(congress, icpsrLegis, unmatched_to_house)],
-#   faction_data_unmatched_to_senate[,
-#     .(congress, icpsrLegis, unmatched_to_senate)],
-#   by = c("congress", "icpsrLegis"), all = TRUE)
-# faction_data_unmatched <- faction_data_unmatched[
-#   unmatched_to_house == unmatched_to_senate]
-# faction_data_unmatched[, .N, congress]
-
-house_data <- house_data[house_data == 1]
-# senate_data <- senate_data[senate_data == 1]
-
-house_data <- house_data[, .(congress, icpsrLegis, party_free_ideal_point, dem,
-  bdc, bdc_l, new, new_l, prog, prog_l, pop, pop_l, rmsp, rmsp_l, tea, tea_l,
-  lib, lib_l, hfc, hfc_l, rsc, rsc_l)]
-
-house_data <- merge(house_data,
-  lep_data_93_113[, .(congress, icpsrLegis = icpsr, dwnom1)],
-  by = c("congress", "icpsrLegis"), all.x = TRUE, sort = FALSE)
-
-# merge house for congress > 112 ----
 rc113 <- get_legis_data(hou113)
 rc114 <- get_legis_data(hou114)
 rc113 <- merge(
   rc113[, .(congress = 113, icpsr = icpsrLegis, party_free_ideal_point = d1,
     dem = as.numeric(party == "D"))],
-  lep_data_93_113[congress == 113, c("icpsr", "dwnom1")])
+  lep_data_113_114[congress == 113])
 rc114 <- merge(
   rc114[, .(congress = 114, icpsr = icpsrLegis, party_free_ideal_point = d1,
     dem = as.numeric(party == "D"))],
-  lep_data_114[, c("icpsr", "dwnom1")])
-setnames(rc113, "icpsr", "icpsrLegis")
-setnames(rc114, "icpsr", "icpsrLegis")
-rc113 <- merge(rc113, faction_data_113_114[congress == 113],
-  by = c("congress", "icpsrLegis"), all = TRUE, sort = FALSE)
-rc114 <- merge(rc114, faction_data_113_114[congress == 114],
-  by = c("congress", "icpsrLegis"), all = TRUE, sort = FALSE)
+  lep_data_114)
+
+rc113 <- rc113[, names(house_data), with = FALSE]
 
 setdiff(names(rc113), names(house_data))
 setdiff(names(house_data), names(rc113))
